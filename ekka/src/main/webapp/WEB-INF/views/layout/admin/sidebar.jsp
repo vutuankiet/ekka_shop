@@ -30,58 +30,37 @@
                     </a>
                 </li>
 
-                <!-- Category -->
-                <li class="has-sub">
-                    <a class="sidenav-item-link" href="javascript:void(0)">
-                        <i class="mdi mdi-dns-outline"></i>
-                        <span class="nav-text">Categories</span> <b class="caret"></b>
+                <!-- Brands -->
+                <li>
+                    <a class="sidenav-item-link" href="/ekka/admin/brand/list">
+                        <i class="mdi mdi-tag-faces"></i>
+                        <span class="nav-text">Brands</span>
                     </a>
-                    <div class="collapse">
-                        <ul class="sub-menu" id="categorys" data-parent="#sidebar-menu">
-                            <li class="">
-                                <a class="sidenav-item-link" href="main-category.html">
-                                    <span class="nav-text">Main Category</span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a class="sidenav-item-link" href="sub-category.html">
-                                    <span class="nav-text">Sub Category</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                </li>
+
+                <!-- Gender Categories -->
+                <li>
+                    <a class="sidenav-item-link" href="/ekka/admin/gender-category/list">
+                        <i class="mdi mdi-ticket-account"></i>
+                        <span class="nav-text">Gender Categories</span>
+                    </a>
+                </li>
+
+                <!-- Category -->
+                <li>
+                    <a class="sidenav-item-link" href="/ekka/admin/category/list">
+                        <i class="mdi mdi-dns-outline"></i>
+                        <span class="nav-text">Category</span>
+                    </a>
                 </li>
 
                 <!-- Products -->
-                <li class="has-sub">
-                    <a class="sidenav-item-link" href="javascript:void(0)">
+
+                <li>
+                    <a class="sidenav-item-link" href="/ekka/admin/product/list">
                         <i class="mdi mdi-palette-advanced"></i>
-                        <span class="nav-text">Products</span> <b class="caret"></b>
+                        <span class="nav-text">Products</span>
                     </a>
-                    <div class="collapse">
-                        <ul class="sub-menu" id="products" data-parent="#sidebar-menu">
-                            <li class="">
-                                <a class="sidenav-item-link" href="product-add.html">
-                                    <span class="nav-text">Add Product</span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a class="sidenav-item-link" href="product-list.html">
-                                    <span class="nav-text">List Product</span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a class="sidenav-item-link" href="product-grid.html">
-                                    <span class="nav-text">Grid Product</span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a class="sidenav-item-link" href="product-detail.html">
-                                    <span class="nav-text">Product Detail</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
                 </li>
 
                 <!-- Orders -->
@@ -124,14 +103,10 @@
                     </a>
                 </li>
 
-                <!-- Brands -->
-                <li>
-                    <a class="sidenav-item-link" href="brand-list.html">
-                        <i class="mdi mdi-tag-faces"></i>
-                        <span class="nav-text">Brands</span>
-                    </a>
-                    <hr>
-                </li>
+
+
+
+
             </ul>
         </div>
     </div>

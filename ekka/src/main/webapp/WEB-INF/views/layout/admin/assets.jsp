@@ -8,6 +8,8 @@
 <!-- PLUGINS CSS STYLE -->
 <link href="/admin/assets/plugins/daterangepicker/daterangepicker.css" rel="stylesheet">
 <link href="/admin/assets/plugins/simplebar/simplebar.css" rel="stylesheet" />
+<link href='/admin/assets/plugins/slick/slick.min.css' rel='stylesheet'>
+<link href='/admin/assets/plugins/swiper/swiper-bundle.min.css' rel='stylesheet'>
 
 <!-- Data Tables -->
 <link href='/admin/assets/plugins/data-tables/datatables.bootstrap5.min.css' rel='stylesheet'>

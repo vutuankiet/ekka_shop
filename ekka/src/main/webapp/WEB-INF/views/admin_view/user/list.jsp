@@ -136,13 +136,13 @@
                                             <div class="modal fade modal-add-contact" id="infoUser-${user.id}" tabindex="-1"
                                                  role="dialog"
                                                  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered modal-lg"
+                                                <div class="modal-dialog modal-dialog-centered modal-lg" style="width: 280px; margin: auto;"
                                                      role="document">
                                                     <div class="modal-content">
                                                         <div class="card bg-white profile-content">
                                                             <div class="row">
                                                                 <div class="col-lg-12 col-xl-12">
-                                                                    <div class="profile-content-left profile-left-spacing">
+                                                                    <div class="profile-content-left profile-left-spacing" style="padding: 24px!important;">
                                                                         <div class="text-center widget-profile px-0 border-0"
                                                                              style="height: 307px;">
                                                                             <div class="card-img mx-auto rounded-circle"
@@ -304,7 +304,7 @@
                                     </button>
                                     <button type="submit" class="btn btn-primary btn-pill">Create User</button>
                                 </div>
-                            </f:form>>
+                            </f:form>
                         </div>
                     </div>
                 </div>

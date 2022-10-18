@@ -62,7 +62,7 @@ public class UserController {
             bindingResult.rejectValue("rePassword","error.userDto", "Mật khẩu không trùng khớp");
         }
         if (bindingResult.hasErrors()) {
-            return "auth/register";
+            return "auth/user/list";
         }
         try {
             String[] avatar = {

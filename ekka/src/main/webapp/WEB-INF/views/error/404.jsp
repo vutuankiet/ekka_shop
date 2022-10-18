@@ -1,32 +1,34 @@
+<%@page pageEncoding="UTF-8" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 
     <title>Ekka | 404.</title>
 
     <!-- site Favicon -->
-    <link rel="icon" href="/user/assets/images/favicon/favicon.png" sizes="32x32" />
-    <link rel="apple-touch-icon" href="/user/assets/images/favicon/favicon.png" />
-    <meta name="msapplication-TileImage" content="/user/assets/images/favicon/favicon.png" />
+    <link rel="icon" href="/user/assets/images/favicon/favicon.png" sizes="32x32"/>
+    <link rel="apple-touch-icon" href="/user/assets/images/favicon/favicon.png"/>
+    <meta name="msapplication-TileImage" content="/user/assets/images/favicon/favicon.png"/>
 
     <!-- css Icon Font -->
-    <link rel="stylesheet" href="/user/assets/css/vendor/ecicons.min.css" />
+    <link rel="stylesheet" href="/user/assets/css/vendor/ecicons.min.css"/>
 
     <!-- css All Plugins Files -->
-    <link rel="stylesheet" href="/user/assets/css/plugins/animate.css" />
-    <link rel="stylesheet" href="/user/assets/css/plugins/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="/user/assets/css/plugins/jquery-ui.min.css" />
-    <link rel="stylesheet" href="/user/assets/css/plugins/countdownTimer.css" />
-    <link rel="stylesheet" href="/user/assets/css/plugins/slick.min.css" />
-    <link rel="stylesheet" href="/user/assets/css/plugins/nouislider.css" />
-    <link rel="stylesheet" href="/user/assets/css/plugins/bootstrap.css" />
+    <link rel="stylesheet" href="/user/assets/css/plugins/animate.css"/>
+    <link rel="stylesheet" href="/user/assets/css/plugins/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="/user/assets/css/plugins/jquery-ui.min.css"/>
+    <link rel="stylesheet" href="/user/assets/css/plugins/countdownTimer.css"/>
+    <link rel="stylesheet" href="/user/assets/css/plugins/slick.min.css"/>
+    <link rel="stylesheet" href="/user/assets/css/plugins/nouislider.css"/>
+    <link rel="stylesheet" href="/user/assets/css/plugins/bootstrap.css"/>
 
     <!-- Main Style -->
-    <link rel="stylesheet" href="/user/assets/css/style.css" />
-    <link rel="stylesheet" href="/user/assets/css/responsive.css" />
+    <link rel="stylesheet" href="/user/assets/css/style.css"/>
+    <link rel="stylesheet" href="/user/assets/css/responsive.css"/>
 
 </head>
 
@@ -43,7 +45,12 @@
                     <h4>The page was not found.</h4>
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
                         been the industry's standard dummy.</p>
-                    <a href="/ekka" class="btn btn-lg btn-primary" tabindex="0">Back to Home</a>
+                    <sec:authorize access="hasAnyRole('ROLE_USER')">
+                        <a href="/ekka" class="btn btn-lg btn-primary" tabindex="0">Back to Home</a>
+                    </sec:authorize>
+                    <sec:authorize access="hasAnyRole('ROLE_ADMIN')">
+                        <a href="/ekka/admin" class="btn btn-lg btn-primary" tabindex="0">Back to Home</a>
+                    </sec:authorize>
                 </div>
             </div>
             <div class="col-md-6 disp-768">

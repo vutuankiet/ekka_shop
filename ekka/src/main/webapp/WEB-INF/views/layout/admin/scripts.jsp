@@ -6,6 +6,8 @@
 <script src="/admin/assets/plugins/simplebar/simplebar.min.js"></script>
 <script src="/admin/assets/plugins/jquery-zoom/jquery.zoom.min.js"></script>
 <script src="/admin/assets/plugins/slick/slick.min.js"></script>
+<script src="/admin/assets/plugins/swiper/swiper-bundle.min.js"></script>
+
 
 <!-- Chart -->
 <script src="/admin/assets/plugins/charts/Chart.min.js"></script>

@@ -13,7 +13,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "user", schema = "k34_dl", catalog = "")
+@Table(name = "user", schema = "ekka", catalog = "")
 @Data
 public class UserEntity implements UserDetails {
     @Id

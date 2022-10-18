@@ -8,7 +8,7 @@ import com.example.ekka.dto.UserDto;
 
 @Controller
 @RequestMapping("/backend/brand")
-public class BrandController {
+public class BrandController1 {
     @GetMapping("create")
     public String create(Model model) {
         model.addAttribute("userDto", new UserDto());
