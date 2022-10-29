@@ -1,8 +1,7 @@
 package com.example.ekka.entities;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import com.example.ekka.dto.WishListDto;
+import lombok.*;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -11,6 +10,8 @@ import java.util.Collection;
 @Entity
 @Table(name = "product", schema = "ekka", catalog = "")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ProductEntity {
     @Id
     @Column(name = "ID")
@@ -20,6 +21,10 @@ public class ProductEntity {
     @Basic
     @Column(name = "PRODUCT_NAME")
     private String productName;
+
+    @Basic
+    @Column(name = "PRODUCT_IMAGE")
+    private String productImage;
 
     @Basic
     @Column(name = "DETAILS")
@@ -82,4 +87,28 @@ public class ProductEntity {
     @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
     @ToString.Exclude // Khoonhg sử dụng trong toString()
     private Collection<ProductSizeEntity> productSizeEntityCollection;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL) // Quan hệ 1-n với đối tượng ở dưới (Person) (1 địa điểm có nhiều người ở)
+    // MapopedBy trỏ tới tên biến product ở trong OrderEntity.
+    @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
+    @ToString.Exclude // Khoonhg sử dụng trong toString()
+    private Collection<OrderEntity> orderEntityCollection;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL) // Quan hệ 1-n với đối tượng ở dưới (Person) (1 địa điểm có nhiều người ở)
+    // MapopedBy trỏ tới tên biến product ở trong ReviewEntity.
+    @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
+    @ToString.Exclude // Khoonhg sử dụng trong toString()
+    private Collection<ReviewEntity> reviewEntityCollection;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL) // Quan hệ 1-n với đối tượng ở dưới (Person) (1 địa điểm có nhiều người ở)
+    // MapopedBy trỏ tới tên biến product ở trong WishListEntity.
+    @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
+    @ToString.Exclude // Khoonhg sử dụng trong toString()
+    private Collection<WishListEntity> wishListEntityCollection;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL) // Quan hệ 1-n với đối tượng ở dưới (Person) (1 địa điểm có nhiều người ở)
+    // MapopedBy trỏ tới tên biến product ở trong CartEntity.
+    @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
+    @ToString.Exclude // Khoonhg sử dụng trong toString()
+    private Collection<CartEntity> cartEntityCollection;
 }

@@ -3,7 +3,7 @@
     <div id="sidebar" class="sidebar ec-sidebar-footer">
 
         <div class="ec-brand">
-            <a href="index.html" title="Ekka">
+            <a href="/ekka/admin" title="Ekka">
                 <img class="ec-brand-icon" src="assets/img/logo/ec-site-logo.png" alt="" />
                 <span class="ec-brand-name text-truncate">Ekka</span>
             </a>
@@ -15,7 +15,7 @@
             <ul class="nav sidebar-inner" id="sidebar-menu">
                 <!-- Dashboard -->
                 <li class="active">
-                    <a class="sidenav-item-link" href="index.html">
+                    <a class="sidenav-item-link" href="/ekka/admin">
                         <i class="mdi mdi-view-dashboard-outline"></i>
                         <span class="nav-text">Dashboard</span>
                     </a>
@@ -72,23 +72,13 @@
                     <div class="collapse">
                         <ul class="sub-menu" id="orders" data-parent="#sidebar-menu">
                             <li class="">
-                                <a class="sidenav-item-link" href="new-order.html">
+                                <a class="sidenav-item-link" href="/ekka/admin/order">
                                     <span class="nav-text">New Order</span>
                                 </a>
                             </li>
                             <li class="">
-                                <a class="sidenav-item-link" href="order-history.html">
-                                    <span class="nav-text">Order History</span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a class="sidenav-item-link" href="order-detail.html">
-                                    <span class="nav-text">Order Detail</span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a class="sidenav-item-link" href="invoice.html">
-                                    <span class="nav-text">Invoice</span>
+                                <a class="sidenav-item-link" href="/ekka/admin/order/delivered">
+                                    <span class="nav-text">Orders Delivered</span>
                                 </a>
                             </li>
                         </ul>
@@ -97,7 +87,7 @@
 
                 <!-- Reviews -->
                 <li>
-                    <a class="sidenav-item-link" href="review-list.html">
+                    <a class="sidenav-item-link" href="/ekka/admin/review">
                         <i class="mdi mdi-star-half"></i>
                         <span class="nav-text">Reviews</span>
                     </a>

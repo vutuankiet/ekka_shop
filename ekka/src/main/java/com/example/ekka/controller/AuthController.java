@@ -3,10 +3,13 @@ package com.example.ekka.controller;
 import com.example.ekka.dto.UserDto;
 import com.example.ekka.entities.UserEntity;
 import com.example.ekka.repository.user.UserRepository;
+import com.example.ekka.service.CartService;
+import com.example.ekka.service.WishListService;
 import com.example.ekka.storage.IImageService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.Authentication;
@@ -40,6 +43,12 @@ public class AuthController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    WishListService wishListService;
+
+    @Autowired
+    CartService cartService;
 
 
     @GetMapping("login")
@@ -143,8 +152,16 @@ public class AuthController {
         return "redirect:/ekka/login";
     }
 
+    //quyền USER được vào trang này
+    @PreAuthorize("hasAnyRole('ROLE_USER')")
     @GetMapping(value = "profile")
     public String userProfile(UserDto userDto, Model model) {
+        int countWishList = wishListService.countWishList();
+        int countCart = cartService.countCart();
+
+        model.addAttribute("countWishList", countWishList);
+        model.addAttribute("countCart", countCart);
+
         // Lấy ID của tài khoản  đa đăng nhập
         long id = ((UserEntity)SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal()).getId();
@@ -177,7 +194,7 @@ public class AuthController {
             }
             if(saveFile(userDto.getFileImageBackground()) == null) {
                 String background_profile = ((UserEntity)SecurityContextHolder.getContext()
-                        .getAuthentication().getPrincipal()).getAvatar();
+                        .getAuthentication().getPrincipal()).getBackground_profile();
                 userDto.setBackground_profile(background_profile);
             }else {
                 userDto.setBackground_profile(saveFile(userDto.getFileImageBackground()));

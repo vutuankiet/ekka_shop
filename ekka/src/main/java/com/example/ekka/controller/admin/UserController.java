@@ -46,7 +46,7 @@ public class UserController {
     @GetMapping(value = {"list","","/"})
     public String list(Model model) {
         try {
-            List<UserEntity> listCustomer = userService.listAll();
+            List<UserEntity> listCustomer = userService.listAllUpdatedUser();
             model.addAttribute("list",listCustomer);
             model.addAttribute("userDto", new UserDto());
         } catch (Exception e) {
@@ -139,9 +139,9 @@ public class UserController {
         System.out.println("id:"+id);
         try {
             userService.editUser(userDto);
-            model.addFlashAttribute("message", "Tạo mới tài khoản thành công");
+            model.addFlashAttribute("messageSuccsess", "Tạo mới tài khoản thành công");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Tạo mới tài khoản không thành công");
+            model.addFlashAttribute("messageError", "Tạo mới tài khoản không thành công");
         }
         System.out.println("id:"+id);
 
@@ -172,9 +172,9 @@ public class UserController {
         try {
             userDto.setState(0);
             userService.deleteUser(userDto);
-            model.addFlashAttribute("message", "Xoa tài khoản thành công");
+            model.addFlashAttribute("messageDeleteSuccess", "Xoa tài khoản thành công");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Xoa tài khoản không thành công");
+            model.addFlashAttribute("messageDeleteError", "Xoa tài khoản không thành công");
         }
         System.out.println("id:"+id);
 
@@ -205,9 +205,9 @@ public class UserController {
         try {
             userDto.setState(1);
             userService.restoreUser(userDto);
-            model.addFlashAttribute("message", "Khoi phuc tài khoản thành công");
+            model.addFlashAttribute("messageRestoreSuccess", "Khoi phuc tài khoản thành công");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Khoi phuc tài khoản không thành công");
+            model.addFlashAttribute("messageRestoreError", "Khoi phuc tài khoản không thành công");
         }
         System.out.println("id:"+id);
 
@@ -239,9 +239,9 @@ public class UserController {
         try {
             userDto.setState(0);
             userService.deleteUser(userDto);
-            model.addFlashAttribute("message", "Xoa tài khoản thành công");
+            model.addFlashAttribute("messageDeleteSuccess", "Xoa tài khoản thành công");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Xoa tài khoản không thành công");
+            model.addFlashAttribute("messageDeleteError", "Xoa tài khoản không thành công");
         }
         System.out.println("id:"+id);
 
@@ -273,9 +273,9 @@ public class UserController {
         try {
             userDto.setState(1);
             userService.deleteUser(userDto);
-            model.addFlashAttribute("message", "Khoi phuc tài khoản thành công");
+            model.addFlashAttribute("messageRestoreSuccess", "Khoi phuc tài khoản thành công");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Khoi phuc tài khoản không thành công");
+            model.addFlashAttribute("messageRestoreError", "Khoi phuc tài khoản không thành công");
         }
         System.out.println("id:"+id);
 

@@ -31,6 +31,7 @@ public class ProductColorService {
             Long datetime = System.currentTimeMillis();
             Timestamp timestamp = new Timestamp(datetime);
             productColorEntity.setCreated_at(timestamp);
+            productColorEntity.setUpdated_at(timestamp);
             productColorEntity.setState(1);
             productColorEntity.setProduct(productRepository.findById(productColorDto.getProductId()).orElse(null));
 

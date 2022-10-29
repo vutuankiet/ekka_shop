@@ -30,6 +30,7 @@ public class ProductSizeService {
         Long datetime = System.currentTimeMillis();
         Timestamp timestamp = new Timestamp(datetime);
         productSizeEntity.setCreated_at(timestamp);
+        productSizeEntity.setUpdated_at(timestamp);
         productSizeEntity.setState(1);
         productSizeEntity.setProduct(productRepository.findById(productSizeDto.getProductId()).orElse(null));
 

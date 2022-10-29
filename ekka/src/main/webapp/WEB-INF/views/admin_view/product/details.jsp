@@ -1,6 +1,8 @@
 <%@page pageEncoding="UTF-8" %>
 <%@taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -117,7 +119,8 @@
                                                        style="color: #f64400!important;">Price:
                                                         $${productDto.priceProduct}<span class="badge" style="color: #ffffff; background-color: #76b6be; top: -7px; position: relative ; padding: 0.2em 0.3em;">-${productDto.discount}%</span></p>
                                                     <p class="product-price">Price: <span
-                                                            style="color: #1d8a5b!important">$${productDto.priceProduct * ((100 - productDto.discount)/100)}</span>
+                                                            style="color: #1d8a5b!important">$<fmt:formatNumber maxFractionDigits="2"
+                                                                                                                value="${productDto.priceProduct * ((100 - productDto.discount)/100)}"></fmt:formatNumber></span>
                                                     </p>
                                                 </c:if>
                                                 <p class="product-sku pb-1">Total: ${productDto.totalProduct}</p>

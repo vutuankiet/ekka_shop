@@ -30,6 +30,7 @@ public class ProductImageService {
         Long datetime = System.currentTimeMillis();
         Timestamp timestamp = new Timestamp(datetime);
         productImageEntity.setCreated_at(timestamp);
+        productImageEntity.setUpdated_at(timestamp);
         productImageEntity.setState(1);
         productImageEntity.setProduct(productRepository.findById(productImageDto.getProductId()).orElse(null));
 

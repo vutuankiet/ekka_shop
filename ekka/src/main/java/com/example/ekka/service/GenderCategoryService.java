@@ -25,6 +25,7 @@ public class GenderCategoryService {
             Long datetime = System.currentTimeMillis();
             Timestamp timestamp = new Timestamp(datetime);
             genderCategoryEntity.setCreated_at(timestamp);
+            genderCategoryEntity.setUpdated_at(timestamp);
             genderCategoryEntity.setState(1);
 
             genderCategoryRepository.save(genderCategoryEntity);
@@ -35,6 +36,9 @@ public class GenderCategoryService {
 
     public List<GenderCategoryEntity> listAll() {
         return (List<GenderCategoryEntity>) genderCategoryRepository.findAll();
+    }
+    public List<GenderCategoryEntity> listAllUpdatedDesc() {
+        return (List<GenderCategoryEntity>) genderCategoryRepository.findAllByUpdate_at();
     }
 
     public GenderCategoryEntity get(long id) {

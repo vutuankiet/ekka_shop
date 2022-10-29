@@ -1,6 +1,7 @@
 package com.example.ekka.entities;
 
-import lombok.Data;
+import com.example.ekka.controller.home.CartController;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +16,8 @@ import java.util.Set;
 @Entity
 @Table(name = "user", schema = "ekka", catalog = "")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserEntity implements UserDetails {
     @Id
     @Column(name = "ID")
@@ -55,6 +58,30 @@ public class UserEntity implements UserDetails {
     @Basic
     @Column(name = "BACKGROUND_PROFILE")
     private String background_profile;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL) // Quan hệ 1-n với đối tượng ở dưới (Person) (1 địa điểm có nhiều người ở)
+    // MapopedBy trỏ tới tên biến user ở trong OrderEntity.
+    @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
+    @ToString.Exclude // Khoonhg sử dụng trong toString()
+    private Collection<OrderEntity> orderEntityCollection;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL) // Quan hệ 1-n với đối tượng ở dưới (Person) (1 địa điểm có nhiều người ở)
+    // MapopedBy trỏ tới tên biến user ở trong ReviewEntity.
+    @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
+    @ToString.Exclude // Khoonhg sử dụng trong toString()
+    private Collection<ReviewEntity> reviewEntityCollection;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL) // Quan hệ 1-n với đối tượng ở dưới (Person) (1 địa điểm có nhiều người ở)
+    // MapopedBy trỏ tới tên biến user ở trong WishListEntity.
+    @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
+    @ToString.Exclude // Khoonhg sử dụng trong toString()
+    private Collection<WishListEntity> wishListEntityCollection;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL) // Quan hệ 1-n với đối tượng ở dưới (Person) (1 địa điểm có nhiều người ở)
+    // MapopedBy trỏ tới tên biến user ở trong CartEntity.
+    @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
+    @ToString.Exclude // Khoonhg sử dụng trong toString()
+    private Collection<CartEntity> cartEntityCollection;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

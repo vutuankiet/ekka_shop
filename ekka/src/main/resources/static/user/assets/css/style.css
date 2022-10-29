@@ -19943,7 +19943,7 @@ button.btn-close.qty_close {
 .ec-product-inner .ec-pro-image .ec-pro-actions .wishlist {
   position: absolute;
   right: 15px;
-  bottom: 62px;
+  bottom: 28px;
   border: 1px solid #eeeeee;
 }
 .ec-product-inner .ec-pro-image .ec-pro-actions .wishlist:hover {
@@ -19970,7 +19970,7 @@ button.btn-close.qty_close {
   height: 35px;
   width: 35px;
   right: 15px;
-  bottom: 98px;
+  bottom: 65px;
   margin: 0;
   padding: 0;
   font-size: 0;
@@ -20397,7 +20397,7 @@ i.ecicon.eci-star.fill {
     width: 35px;
     position: absolute;
     right: 15px;
-    bottom: 98px;
+    bottom: 65px;
     margin: 0;
     padding: 0;
     font-size: 0;
@@ -20409,7 +20409,7 @@ i.ecicon.eci-star.fill {
   .ec-product-inner .ec-pro-image .ec-pro-actions .wishlist {
     position: absolute;
     right: 15px;
-    bottom: 62px;
+    bottom: 28px;
   }
   .ec-product-inner .ec-pro-image .ec-pro-actions .compare {
     position: absolute;
@@ -23457,6 +23457,12 @@ h4.ec-faq-title::after, .ec-faq-title.h4::after {
 }
 .single-pro-content .ec-single-qty .ec-btn-group .svg_img.pro_svg {
   fill: #000000;
+}
+.single-pro-content .ec-single-qty .ec-btn-group .active {
+  fill: #ffffff;
+  color: #ffffff;
+  background-color: #3474d4;
+  border-color: #3474d4;
 }
 .single-pro-content .ec-single-qty .ec-btn-group:hover {
   color: #ffffff;
@@ -30266,7 +30272,7 @@ select:-webkit-autofill:focus {
 .subscribe_form .button .btn-icon {
   display: none;
 }
-.subscribe_form button {
+.subscribe_form a {
   margin-top: 15px;
   padding: 0 20px;
   border: none;
@@ -33574,4 +33580,23 @@ input[type=email]:focus::-webkit-input-placeholder {
   font-weight: 600;
   font-size: 18px;
   color: #fff;
+}
+
+@media only screen and (max-width: 1450px) {
+  .ec-cart-pro-name .cart-product-name span{
+    display: none!important;
+  }
+}
+
+@media only screen and (max-width: 766px) {
+  .ec-cart-pro-name .cart-product-name span{
+    display: block!important;
+    font-size: 10px;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+  .ec-cart-pro-name .cart-product-name span{
+    display: none!important;
+  }
 }

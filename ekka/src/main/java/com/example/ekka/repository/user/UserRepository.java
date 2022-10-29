@@ -1,11 +1,14 @@
 package com.example.ekka.repository.user;
 
+import com.example.ekka.entities.OrderEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import com.example.ekka.entities.UserEntity;
 import com.example.ekka.repository.SearchingRepository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,4 +24,12 @@ public interface UserRepository extends SearchingRepository<UserEntity, Long>, U
     Page<UserEntity> findAll(String key, Pageable pageable);
 
     UserEntity findFirstByEmail(String email);
+
+    @Transactional //try to add this annotation
+    @Modifying      // to mark delete or update query
+    @Query(value = "SELECT u FROM UserEntity u ORDER BY u.updated_at DESC")       // it will delete all the record with specific name
+    List<UserEntity> findAllByUpdate_at();
+
+    @Query(value = "SELECT count(u.id) FROM UserEntity u WHERE u.state = 1 ")
+    int countAll();
 }

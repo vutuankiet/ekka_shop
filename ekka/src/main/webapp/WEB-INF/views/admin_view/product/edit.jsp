@@ -54,7 +54,7 @@
 
                             <div class="card-body">
                                 <div class="ec-vendor-uploads">
-                                    <f:form method="post" action="/ekka/admin/product/save"
+                                    <f:form method="post" action="/ekka/admin/product/update"
                                             modelAttribute="productDto"
                                             enctype="multipart/form-data" cssClass="row">
                                         <div class="col-lg-4 row">
@@ -74,25 +74,49 @@
 
                                                         <%--                                                    </c:forEach>--%>
 
-                                                    <f:checkbox path="color" class="checkbox-color1" value="${productDto.colorEdit1 == null ? '#000000' : productDto.colorEdit1}"/>
+                                                            <c:if test="${productDto.colorEdit1 == null}">
+                                                                <f:checkbox path="color" class="checkbox-color1" value="#000000"/>
+                                                            </c:if>
+                                                            <c:if test="${productDto.colorEdit1 != null}">
+                                                                <f:checkbox path="color" class="checkbox-color1" checked="checked"
+                                                                            value="${productDto.colorEdit1}"/>
+                                                            </c:if>
                                                     <input type="color"
                                                            class="color1 form-control form-control-color mr-2"
                                                            id="exampleColorInput1" value="${productDto.colorEdit1 == null ? '#000000' : productDto.colorEdit1}"
                                                            oninput="ChangeValueColor(this,'.checkbox-color1')"
                                                            title="Choose your color">
-                                                    <f:checkbox path="color" class="checkbox-color2" value="${productDto.colorEdit2 == null ? '#000000' : productDto.colorEdit2}"/>
+                                                            <c:if test="${productDto.colorEdit2 == null}">
+                                                                <f:checkbox path="color" class="checkbox-color2" value="#000000"/>
+                                                            </c:if>
+                                                            <c:if test="${productDto.colorEdit2 != null}">
+                                                                <f:checkbox path="color" class="checkbox-color2" checked="checked"
+                                                                            value="${productDto.colorEdit2}"/>
+                                                            </c:if>
                                                     <input type="color"
                                                            class="color2 form-control form-control-color mx-2"
                                                            id="exampleColorInput1" value="${productDto.colorEdit2 == null ? '#000000' : productDto.colorEdit2}"
                                                            oninput="ChangeValueColor(this,'.checkbox-color2')"
                                                            title="Choose your color">
-                                                    <f:checkbox path="color" class="checkbox-color3" value="${productDto.colorEdit3 == null ? '#000000' : productDto.colorEdit3}"/>
+                                                            <c:if test="${productDto.colorEdit3 == null}">
+                                                                <f:checkbox path="color" class="checkbox-color3" value="#000000"/>
+                                                            </c:if>
+                                                            <c:if test="${productDto.colorEdit3 != null}">
+                                                                <f:checkbox path="color" class="checkbox-color3" checked="checked"
+                                                                            value="${productDto.colorEdit3}"/>
+                                                            </c:if>
                                                     <input type="color"
                                                            class="color3 form-control form-control-color mx-2"
                                                            id="exampleColorInput3" value="${productDto.colorEdit3 == null ? '#000000' : productDto.colorEdit3}"
                                                            oninput="ChangeValueColor(this,'.checkbox-color3')"
                                                            title="Choose your color">
-                                                    <f:checkbox path="color" class="checkbox-color4" value="${productDto.colorEdit4 == null ? '#000000' : productDto.colorEdit4}"/>
+                                                            <c:if test="${productDto.colorEdit4 == null}">
+                                                                <f:checkbox path="color" class="checkbox-color2" value="#000000"/>
+                                                            </c:if>
+                                                            <c:if test="${productDto.colorEdit4 != null}">
+                                                                <f:checkbox path="color" class="checkbox-color4" checked="checked"
+                                                                            value="${productDto.colorEdit4}"/>
+                                                            </c:if>
                                                     <input type="color"
                                                            class="color4 form-control form-control-color ml-2"
                                                            id="exampleColorInput1" value="${productDto.colorEdit4 == null ? '#000000' : productDto.colorEdit4}"
@@ -104,23 +128,48 @@
                                                 <label class="form-label">Size</label>
                                                 <div class="form-checkbox-box">
                                                     <div class="form-check form-check-inline pl-0">
-                                                        <f:checkbox path="size" value="S"/>
+                                                        <c:if test="${productDto.size1 == null}">
+                                                            <f:checkbox path="size" value="S"/>
+                                                        </c:if>
+                                                        <c:if test="${productDto.size1 != null}">
+                                                            <f:checkbox path="size" checked="checked" value="S"/>
+                                                        </c:if>
                                                         <label>S</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <f:checkbox path="size" value="M"/>
+                                                        <c:if test="${productDto.size2 == null}">
+                                                            <f:checkbox path="size" value="M"/>
+                                                        </c:if>
+                                                        <c:if test="${productDto.size2 != null}">
+                                                            <f:checkbox path="size" checked="checked" value="M"/>
+                                                        </c:if>
                                                         <label>M</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <f:checkbox path="size" value="L"/>
+                                                        <c:if test="${productDto.size3 == null}">
+                                                            <f:checkbox path="size" value="L"/>
+                                                        </c:if>
+                                                        <c:if test="${productDto.size3 != null}">
+                                                            <f:checkbox path="size" checked="checked" value="L"/>
+                                                        </c:if>
                                                         <label>L</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <f:checkbox path="size" value="XL"/>
+                                                        <c:if test="${productDto.size4 == null}">
+                                                            <f:checkbox path="size" value="XL"/>
+                                                        </c:if>
+                                                        <c:if test="${productDto.size4 != null}">
+                                                            <f:checkbox path="size" checked="checked" value="XL"/>
+                                                        </c:if>
                                                         <label>XL</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <f:checkbox path="size" value="XXL"/>
+                                                        <c:if test="${productDto.size5 == null}">
+                                                            <f:checkbox path="size" value="XXL"/>
+                                                        </c:if>
+                                                        <c:if test="${productDto.size5 != null}">
+                                                            <f:checkbox path="size" checked="checked" value="XXL"/>
+                                                        </c:if>
                                                         <label>XXL</label>
                                                     </div>
                                                 </div>
@@ -130,9 +179,9 @@
                                                     <div class="avatar-upload">
                                                         <div class="avatar-edit">
                                                             <f:input type="file" id="imageUpload"
-                                                                     cssClass="ec-image-upload" path="fileImage"
+                                                                     cssClass="ec-image-upload" path="fileImageEdit1"
                                                                      placeholder="Chọn file"
-                                                                     aria-label="Ảnh đại diện" required="required"/>
+                                                                     aria-label="Ảnh đại diện"/>
                                                             <label for="imageUpload"><img
                                                                     src="/admin/assets/img/icons/edit.svg"
                                                                     class="svg_img header_svg" alt="edit"/></label>
@@ -146,13 +195,12 @@
                                                         </div>
                                                     </div>
                                                     <div class="thumb-upload-set colo-md-12">
-                                                        <c:forEach items="${listImageEdit}" var="images">
                                                         <div class="thumb-upload">
                                                             <div class="thumb-edit">
                                                                 <f:input type="file" id="thumbUpload01"
-                                                                         cssClass="ec-image-upload" path="fileImage"
+                                                                         cssClass="ec-image-upload" path="fileImageEdit2"
                                                                          placeholder="Chọn file"
-                                                                         aria-label="Ảnh đại diện" required="required"/>
+                                                                         aria-label="Ảnh đại diện"/>
                                                                 <label for="imageUpload"><img
                                                                         src="/admin/assets/img/icons/edit.svg"
                                                                         class="svg_img header_svg" alt="edit"/></label>
@@ -160,12 +208,102 @@
                                                             <div class="thumb-preview ec-preview">
                                                                 <div class="image-thumb-preview">
                                                                     <img class="image-thumb-preview ec-image-preview"
-                                                                         src="${images}"
+                                                                         src="${productDto.imageEdit2}"
                                                                          alt="edit"/>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        </c:forEach>
+                                                        <div class="thumb-upload">
+                                                            <div class="thumb-edit">
+                                                                <f:input type="file" id="thumbUpload01"
+                                                                         cssClass="ec-image-upload" path="fileImageEdit3"
+                                                                         placeholder="Chọn file"
+                                                                         aria-label="Ảnh đại diện"/>
+                                                                <label for="imageUpload"><img
+                                                                        src="/admin/assets/img/icons/edit.svg"
+                                                                        class="svg_img header_svg" alt="edit"/></label>
+                                                            </div>
+                                                            <div class="thumb-preview ec-preview">
+                                                                <div class="image-thumb-preview">
+                                                                    <img class="image-thumb-preview ec-image-preview"
+                                                                         src="${productDto.imageEdit3}"
+                                                                         alt="edit"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="thumb-upload">
+                                                            <div class="thumb-edit">
+                                                                <f:input type="file" id="thumbUpload01"
+                                                                         cssClass="ec-image-upload" path="fileImageEdit4"
+                                                                         placeholder="Chọn file"
+                                                                         aria-label="Ảnh đại diện"/>
+                                                                <label for="imageUpload"><img
+                                                                        src="/admin/assets/img/icons/edit.svg"
+                                                                        class="svg_img header_svg" alt="edit"/></label>
+                                                            </div>
+                                                            <div class="thumb-preview ec-preview">
+                                                                <div class="image-thumb-preview">
+                                                                    <img class="image-thumb-preview ec-image-preview"
+                                                                         src="${productDto.imageEdit4}"
+                                                                         alt="edit"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="thumb-upload">
+                                                            <div class="thumb-edit">
+                                                                <f:input type="file" id="thumbUpload01"
+                                                                         cssClass="ec-image-upload" path="fileImageEdit5"
+                                                                         placeholder="Chọn file"
+                                                                         aria-label="Ảnh đại diện"/>
+                                                                <label for="imageUpload"><img
+                                                                        src="/admin/assets/img/icons/edit.svg"
+                                                                        class="svg_img header_svg" alt="edit"/></label>
+                                                            </div>
+                                                            <div class="thumb-preview ec-preview">
+                                                                <div class="image-thumb-preview">
+                                                                    <img class="image-thumb-preview ec-image-preview"
+                                                                         src="${productDto.imageEdit5}"
+                                                                         alt="edit"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="thumb-upload">
+                                                            <div class="thumb-edit">
+                                                                <f:input type="file" id="thumbUpload01"
+                                                                         cssClass="ec-image-upload" path="fileImageEdit6"
+                                                                         placeholder="Chọn file"
+                                                                         aria-label="Ảnh đại diện"/>
+                                                                <label for="imageUpload"><img
+                                                                        src="/admin/assets/img/icons/edit.svg"
+                                                                        class="svg_img header_svg" alt="edit"/></label>
+                                                            </div>
+                                                            <div class="thumb-preview ec-preview">
+                                                                <div class="image-thumb-preview">
+                                                                    <img class="image-thumb-preview ec-image-preview"
+                                                                         src="${productDto.imageEdit6}"
+                                                                         alt="edit"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="thumb-upload">
+                                                            <div class="thumb-edit">
+                                                                <f:input type="file" id="thumbUpload01"
+                                                                         cssClass="ec-image-upload" path="fileImageEdit7"
+                                                                         placeholder="Chọn file"
+                                                                         aria-label="Ảnh đại diện"/>
+                                                                <label for="imageUpload"><img
+                                                                        src="/admin/assets/img/icons/edit.svg"
+                                                                        class="svg_img header_svg" alt="edit"/></label>
+                                                            </div>
+                                                            <div class="thumb-preview ec-preview">
+                                                                <div class="image-thumb-preview">
+                                                                    <img class="image-thumb-preview ec-image-preview"
+                                                                         src="${productDto.imageEdit7}"
+                                                                         alt="edit"/>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -173,6 +311,15 @@
                                         <div class="col-lg-8">
                                             <div class="ec-vendor-upload-detail">
                                                 <div class="row g-3">
+                                                    <div class="col-md-6 d-none">
+                                                        <label for="inputEmail4" class="form-label">Product
+                                                            Id*</label>
+                                                        <f:input type="text" id="inputEmail4" path="id"
+                                                                 class="form-control slug-title"
+                                                                 placeholder="Enter your product name"
+                                                                 aria-label="Enter your product name"
+                                                                 required="required"/>
+                                                    </div>
                                                     <div class="col-md-6">
                                                         <label for="inputEmail4" class="form-label">Product
                                                             name*</label>

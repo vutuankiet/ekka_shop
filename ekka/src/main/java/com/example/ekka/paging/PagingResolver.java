@@ -26,9 +26,11 @@ public class PagingResolver implements HandlerMethodArgumentResolver {
         Integer page = StringUtils.isEmpty(pageStr) ? 1 : Integer.valueOf(pageStr);
         page = page <= 0 ? 1 : page;
         String perpageStr = webRequest.getParameter("perpage");
-        Integer perpage = StringUtils.isEmpty(perpageStr) ? 5 : Integer.valueOf(perpageStr);
-        perpage = perpage < 0 ? 5 : perpage;
+        Integer perpage = StringUtils.isEmpty(perpageStr) ? 12 : Integer.valueOf(perpageStr);
+        perpage = perpage <= 0 ? 12 : perpage;
         String key = webRequest.getParameter("key");
+        String genderCategory = webRequest.getParameter("genderCategory");
+        String category = webRequest.getParameter("category");
         return new ResponseDataTableDto(path, page, perpage, key, mavContainer);
     }
 }

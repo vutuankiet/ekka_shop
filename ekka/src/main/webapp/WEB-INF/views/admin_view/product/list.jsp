@@ -55,8 +55,8 @@
                                         <tr>
                                             <th>Product</th>
                                             <th>Name</th>
-                                            <th>Price</th>
-                                            <th>Discount</th>
+                                            <th>Price ($)</th>
+                                            <th>Discount (%)</th>
                                             <th>Brand</th>
                                             <th>Category</th>
                                             <th>Status</th>
@@ -69,15 +69,9 @@
                                         <c:forEach items="${listProduct}" var="product">
                                             <tr>
                                                 <td>
-
-                                                    <c:forEach items="${listProductImage}" var="productImage">
-                                                        <c:if test="${product.id == productImage.product.id}">
                                                             <img style="object-fit: cover;" class="tbl-thumb"
-                                                                 src="${productImage.image}"
+                                                                 src="${product.productImage}"
                                                                  alt="user profile"/>
-                                                        </c:if>
-
-                                                    </c:forEach>
 
 
                                                 </td>
@@ -99,7 +93,7 @@
                                                     </td>
                                                 </c:if>
 
-                                                <td>${product.created_at}</td>
+                                                <td>${product.updated_at}</td>
                                                 <td>
                                                     <div class="btn-group mb-1">
                                                             <%--                                                        <button type="button"--%>

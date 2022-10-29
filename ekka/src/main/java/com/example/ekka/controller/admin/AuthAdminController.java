@@ -66,7 +66,7 @@ public class AuthAdminController {
             }
             if(saveFile(userDto.getFileImageBackground()) == null) {
                 String background_profile = ((UserEntity)SecurityContextHolder.getContext()
-                        .getAuthentication().getPrincipal()).getAvatar();
+                        .getAuthentication().getPrincipal()).getBackground_profile();
                 userDto.setBackground_profile(background_profile);
             }else {
                 userDto.setBackground_profile(saveFile(userDto.getFileImageBackground()));

@@ -139,7 +139,7 @@
                                                     </td>
                                                 </c:if>
 
-                                                <td>${category.created_at}</td>
+                                                <td>${category.updated_at}</td>
                                                 <td>
                                                     <div class="btn-group mb-1">
                                                         <button type="button"

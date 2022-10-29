@@ -40,8 +40,8 @@ public class CategoryAdminController {
     @GetMapping(value = {"list","","/"})
     public String list(Model model) {
         try {
-            List<CategoryEntity> listCategory = categoryService.listAll();
-            List<GenderCategoryEntity> listGenderCategory = genderCategoryService.listAll();
+            List<CategoryEntity> listCategory = categoryService.listAllUpdatedDesc();
+            List<GenderCategoryEntity> listGenderCategory = genderCategoryService.listAllUpdatedDesc();
             model.addAttribute("listGender",listGenderCategory);
             model.addAttribute("list",listCategory);
             model.addAttribute("categoryDto", new CategoryDto());

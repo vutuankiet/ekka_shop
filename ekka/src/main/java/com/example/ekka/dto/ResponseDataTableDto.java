@@ -4,7 +4,6 @@ import lombok.Data;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import com.example.ekka.dao.PagingDAO;
 import com.example.ekka.repository.SearchingRepository;
@@ -18,6 +17,8 @@ public class ResponseDataTableDto {
     Integer perpage;
     Integer numberPage;
     Integer total;
+    String category;
+    String genderCategory;
     List<?> data;
     String key;
     ModelAndViewContainer model;
@@ -38,9 +39,13 @@ public class ResponseDataTableDto {
         model.addAttribute("list", this);
     }
 
-//    public void ListAll(JpaRepository repository) throws Exception {
+//    public void list1(JpaRepository repository) throws Exception {
 //        Pageable pageable = PageRequest.of(page-1, perpage);
 //        Page<?> pages = repository.findAll(pageable);
+//        this.setData(pages.getContent());
+//        long total = pages.getTotalElements();
+//        this.setTotal((int)total);
+//        this.setNumberPage((int) Math.ceil((double) total / perpage));
 //        model.addAttribute("list", this);
 //    }
 

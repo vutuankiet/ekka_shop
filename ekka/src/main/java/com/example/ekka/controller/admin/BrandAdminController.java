@@ -35,7 +35,7 @@ public class BrandAdminController {
     @GetMapping(value = {"list","","/"})
     public String list(Model model) {
         try {
-            List<BrandEntity> listBrand = brandService.listAll();
+            List<BrandEntity> listBrand = brandService.listAllUpdatedDesc();
             model.addAttribute("list",listBrand);
             model.addAttribute("brandDto", new BrandDto());
         } catch (Exception e) {

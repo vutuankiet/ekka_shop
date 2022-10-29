@@ -29,6 +29,7 @@ public class BrandService {
             Long datetime = System.currentTimeMillis();
             Timestamp timestamp = new Timestamp(datetime);
             brandEntity.setCreated_at(timestamp);
+            brandEntity.setUpdated_at(timestamp);
             brandEntity.setState(1);
 
             brandRepository.save(brandEntity);
@@ -39,6 +40,10 @@ public class BrandService {
 
     public List<BrandEntity> listAll() {
         return (List<BrandEntity>) brandRepository.findAll();
+    }
+
+    public List<BrandEntity> listAllUpdatedDesc() {
+        return (List<BrandEntity>) brandRepository.findAllByUpdate_at();
     }
 
     public BrandEntity get(long id) {

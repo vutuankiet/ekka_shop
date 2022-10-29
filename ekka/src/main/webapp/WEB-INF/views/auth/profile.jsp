@@ -2,8 +2,23 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
-<%@include file="/WEB-INF/views/layout/user/head.jsp" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>Ekka | Home.</title>
 
+    <%@include file="/WEB-INF/views/layout/user/assets.jsp" %>
+
+</head>
+<body>
+<div id="ec-overlay"><span class="loader_img"></span></div>
+
+<!-- Header start  -->
+<%@include file="/WEB-INF/views/layout/user/header.jsp" %>
+<!-- Header End  -->
 <!-- ekka Cart Start -->
 <div class="ec-side-cart-overlay"></div>
 <div id="ec-side-cart" class="ec-side-cart">
@@ -121,11 +136,10 @@
                             </div> -->
                             <div class="ec-vendor-block-items">
                                 <ul>
-                                    <li><a href="user-profile.html">User Profile</a></li>
+                                    <li><a href="/ekka/profile">User Profile</a></li>
                                     <li><a href="user-history.html">History</a></li>
-                                    <li><a href="wishlist.html">Wishlist</a></li>
-                                    <li><a href="cart.html">Cart</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
+                                    <li><a href="/ekka/wish-list">Wishlist</a></li>
+                                    <li><a href="/ekka/cart">Cart</a></li>
                                     <li><a href="track-order.html">Track Order</a></li>
                                     <li><a href="user-invoice.html">Invoice</a></li>
                                 </ul>
@@ -506,15 +520,7 @@
 <!-- Footer navigation panel for responsive display end -->
 
 <!-- Recent Purchase Popup -->
-<div class="recent-purchase">
-    <img src="/user/assets/images/product-image/1.jpg" alt="payment image">
-    <div class="detail">
-        <p>Someone in new just bought</p>
-        <h6>stylish baby shoes</h6>
-        <p>10 Minutes ago</p>
-    </div>
-    <a href="javascript:void(0)" class="icon-btn recent-close">×</a>
-</div>
+
 <!-- Recent Purchase Popup end -->
 
 <!-- Cart Floating Button -->

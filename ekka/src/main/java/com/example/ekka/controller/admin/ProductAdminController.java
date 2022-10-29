@@ -62,12 +62,13 @@ public class ProductAdminController {
     @GetMapping(value = {"list", "", "/"})
     public String list(Model model) {
         try {
-            List<ProductEntity> listProduct = productService.listAll();
+            List<ProductEntity> listProduct = productService.listAllUpdatedDesc();
             List<CategoryEntity> listCategory = categoryService.listAll();
             List<BrandEntity> listBrand = brandService.listAll();
             List<GenderCategoryEntity> listGenderCategory = genderCategoryService.listAll();
             List<ProductImageEntity> listProductImage = productImageService.listAll();
 //            ProductImageEntity image = productImageRepository.findFirstByProduct(listProduct);
+
 
             model.addAttribute("listProduct", listProduct);
             model.addAttribute("listCategory", listCategory);
@@ -141,8 +142,10 @@ public class ProductAdminController {
             productImageDto.setImage(saveMultipleFile(productDto.getFileImage()));
             System.out.println("Images:" + productDto.getImage());
             productDto.setImage(productImageDto.getImage());
+            productDto.setProductImage(productImageDto.getImage().get(0));
             System.out.println("Images:" + productDto.getImage());
             System.out.println("Images:" + productImageDto.getImage());
+            System.out.println("Images:" + productDto.getProductImage());
 
             productService.save(productDto);
             model.addFlashAttribute("message", "Tạo mới product thành công");
@@ -275,10 +278,46 @@ public class ProductAdminController {
             System.out.println("color: " + testList);
 
             productDto.setImageEdit1(String.valueOf(testList.get(0)));
-            System.out.println("color: " + testList.remove(0));
-            System.out.println("color: " + testList);
-            model.addAttribute("listImageEdit", testList);
+            productDto.setImageEdit2(String.valueOf(testList.get(1)));
+            productDto.setImageEdit3(String.valueOf(testList.get(2)));
+            productDto.setImageEdit4(String.valueOf(testList.get(3)));
+            productDto.setImageEdit5(String.valueOf(testList.get(4)));
+            productDto.setImageEdit6(String.valueOf(testList.get(5)));
+            productDto.setImageEdit7(String.valueOf(testList.get(6)));
 
+
+        } catch (Exception ex) {
+            throw ex;
+        }
+
+        try {
+            String[] arr = {};
+            List testList = new ArrayList<>(Arrays.asList(arr));
+            for (ProductSizeEntity sizes : listProductSize) {
+                if (sizes.getProduct().getId() == productDto.getId()) {
+                    System.out.println("images: " + sizes.getSizeName());
+                    testList.add(sizes.getSizeName());
+                    System.out.println("images: " + testList);
+
+                }
+            }
+            System.out.println("color: " + testList);
+            if(testList.contains("S")){
+                productDto.setSize1("S");
+            }
+            if(testList.contains("M")){
+                productDto.setSize2("M");
+            }
+            if(testList.contains("L")){
+                productDto.setSize3("L");
+            }
+            if(testList.contains("XL")){
+                productDto.setSize4("XL");
+            }
+            if(testList.contains("XXL")){
+                productDto.setSize5("XXL");
+            }
+System.out.println("size1: "+ productDto.getSize1());
 
         } catch (Exception ex) {
             throw ex;
@@ -295,25 +334,98 @@ public class ProductAdminController {
     }
 
     @PostMapping(value = "update", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String updateCategory(@ModelAttribute("productDto") ProductDto productDto, ProductImageDto productImageDto, ProductColorDto productColorDto, ProductSizeDto productSizeDto, RedirectAttributes model, Model m) {
+    public String updateProduct(@ModelAttribute("productDto") ProductDto productDto, ProductImageDto productImageDto, ProductColorDto productColorDto, ProductSizeDto productSizeDto, RedirectAttributes model, Model m) {
         ProductEntity name = productRepository.findAllById(productDto.getId());
 //            System.out.println("gender_id: "+ productDto.getGenderCategoryId());
         System.out.println("productImage: " + productDto.getFileImage());
         try {
             productColorDto.setColor((productDto.getColor()));
             productSizeDto.setSize((productDto.getSize()));
-            productImageDto.setImage(saveMultipleFile(productDto.getFileImage()));
-            System.out.println("Images:" + productDto.getImage());
-            productDto.setImage(productImageDto.getImage());
-            System.out.println("Images:" + productDto.getImage());
-            System.out.println("Images:" + productImageDto.getImage());
         } catch (Exception ex) {
             model.addFlashAttribute("message", "Luu file that bai!");
         }
 
+        try {
+            List<ProductImageEntity> listProductImage = productImageService.listAll();
 
-        ProductEntity idProduct = productRepository.findAllById(productDto.getId());
-        long id = idProduct.getId();
+            String[] arr = {};
+            List testList = new ArrayList<>(Arrays.asList(arr));
+            for (ProductImageEntity images : listProductImage) {
+                if (images.getProduct().getId() == productDto.getId()) {
+                    System.out.println("images: " + images.getImage());
+                    testList.add(images.getImage());
+                    System.out.println("images: " + testList);
+
+                }
+            }
+            if(saveFile(productDto.getFileImageEdit1()) == null){
+                productDto.setImageEdit1(String.valueOf(testList.get(0)));
+            }
+            if(saveFile(productDto.getFileImageEdit1()) != null){
+                productDto.setImageEdit1(saveFile(productDto.getFileImageEdit1()));
+            }
+            if(saveFile(productDto.getFileImageEdit2()) == null){
+                productDto.setImageEdit2(String.valueOf(testList.get(1)));
+            }
+            if(saveFile(productDto.getFileImageEdit2()) != null){
+                productDto.setImageEdit2(saveFile(productDto.getFileImageEdit2()));
+            }
+            if(saveFile(productDto.getFileImageEdit3()) == null){
+                productDto.setImageEdit3(String.valueOf(testList.get(2)));
+            }
+            if(saveFile(productDto.getFileImageEdit3()) != null){
+                productDto.setImageEdit3(saveFile(productDto.getFileImageEdit3()));
+            }
+            if(saveFile(productDto.getFileImageEdit4()) == null){
+                productDto.setImageEdit4(String.valueOf(testList.get(3)));
+            }
+            if(saveFile(productDto.getFileImageEdit4()) != null){
+                productDto.setImageEdit4(saveFile(productDto.getFileImageEdit4()));
+            }
+            if(saveFile(productDto.getFileImageEdit5()) == null){
+                productDto.setImageEdit5(String.valueOf(testList.get(4)));
+            }
+            if(saveFile(productDto.getFileImageEdit5()) != null){
+                productDto.setImageEdit5(saveFile(productDto.getFileImageEdit5()));
+            }
+            if(saveFile(productDto.getFileImageEdit6()) == null){
+                productDto.setImageEdit6(String.valueOf(testList.get(5)));
+            }
+            if(saveFile(productDto.getFileImageEdit6()) != null){
+                productDto.setImageEdit6(saveFile(productDto.getFileImageEdit6()));
+            }
+            if(saveFile(productDto.getFileImageEdit7()) == null){
+                productDto.setImageEdit7(String.valueOf(testList.get(6)));
+            }
+            if(saveFile(productDto.getFileImageEdit7()) != null){
+                productDto.setImageEdit7(saveFile(productDto.getFileImageEdit7()));
+            }
+
+            String[] arrImage = {};
+            List listImage = new ArrayList<>(Arrays.asList(arrImage));
+            listImage.add(productDto.getImageEdit1());
+            listImage.add(productDto.getImageEdit2());
+            listImage.add(productDto.getImageEdit3());
+            listImage.add(productDto.getImageEdit4());
+            listImage.add(productDto.getImageEdit5());
+            listImage.add(productDto.getImageEdit6());
+            listImage.add(productDto.getImageEdit7());
+
+            productImageDto.setImage(listImage);
+            System.out.println("Images:" + productDto.getImage());
+            productDto.setImage(productImageDto.getImage());
+            productDto.setProductImage(productImageDto.getImage().get(0));
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//        System.out.println("Images:" + productImageDto.getImage());
+//        productDto.setImage(productImageDto.getImage());
+
+
+//        ProductEntity idProduct = productRepository.findAllById(productDto.getId());
+        long id = name.getId();
         System.out.println("id:" + id);
         try {
             productService.editProduct(productDto);
@@ -323,7 +435,7 @@ public class ProductAdminController {
         }
 
 
-        return "redirect:/ekka/admin/product/edit/" + id;
+        return "redirect:/ekka/admin/product/edit/"+id;
     }
 
     public static String FOLDER_IMAGE = "D:\\usr\\img\\k34dl\\";
@@ -344,15 +456,20 @@ public class ProductAdminController {
     }
 
     public List<String> saveMultipleFile(List<MultipartFile> files) throws IOException {
-        List<String> fileNames = files.stream().map(f -> {
-            try {
-                return imageService.save(f);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }).collect(Collectors.toList());
-        List<String> imageUrls = fileNames.stream().map(fn -> imageService.getImageUrl(fn)).collect(Collectors.toList());
+        System.out.println(files.get(0));
+        if (files.get(0) == null || files.get(0).isEmpty()) {
+            return null;
+        } else {
+            List<String> fileNames = files.stream().map(f -> {
+                try {
+                    return imageService.save(f);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }).collect(Collectors.toList());
+            List<String> imageUrls = fileNames.stream().map(fn -> imageService.getImageUrl(fn)).collect(Collectors.toList());
 
-        return imageUrls;
+            return imageUrls;
+        }
     }
 }

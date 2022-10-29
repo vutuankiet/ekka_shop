@@ -126,7 +126,7 @@
                                                     </td>
                                                 </c:if>
 
-                                                <td>${brand.created_at}</td>
+                                                <td>${brand.updated_at}</td>
                                                 <td>
                                                     <div class="btn-group mb-1">
                                                         <button type="button"

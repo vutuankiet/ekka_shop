@@ -319,6 +319,45 @@
 </div> <!-- End Wrapper -->
 
 <%@include file="/WEB-INF/views/layout/admin/scripts.jsp" %>
+<script>
+    $(document).ready(function () {
+        toastr.options = {
+            'closeButton': true,
+            'debug': false,
+            'newestOnTop': false,
+            'progressBar': false,
+            'positionClass': 'toast-bottom-right',
+            'preventDuplicates': false,
+            'showDuration': '1000',
+            'hideDuration': '1000',
+            'timeOut': '3000',
+            'extendedTimeOut': '1000',
+            'showEasing': 'swing',
+            'hideEasing': 'linear',
+            'showMethod': 'fadeIn',
+            'hideMethod': 'fadeOut',
+        }
+    });
 
+    const add = setTimeout(Add, 1000);
+    const update = setTimeout(Update, 1000);
+    const remove = setTimeout(Remove, 1000);
+
+    function Add() {
+        toastr.success('${messageSuccsess}');
+        toastr.success('${messageDeleteSuccess}');
+        toastr.success('${messageRestoreSuccess}');
+    }
+
+    function Update() {
+        toastr.info('');
+    }
+
+    function Remove() {
+        toastr.error('${messageError}');
+        toastr.error('${messageDeleteError}');
+        toastr.error('${messageRestoreError}');
+    }
+</script>
 </body>
 </html>

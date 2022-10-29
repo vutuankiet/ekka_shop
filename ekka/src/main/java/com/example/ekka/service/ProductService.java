@@ -2,18 +2,24 @@ package com.example.ekka.service;
 
 import com.example.ekka.dto.ProductDto;
 import com.example.ekka.dto.ProductDto;
+import com.example.ekka.dto.ResponseDataTableDto;
 import com.example.ekka.entities.*;
 import com.example.ekka.entities.ProductEntity;
+import com.example.ekka.repository.SearchingRepository;
 import com.example.ekka.repository.brand.BrandRepository;
 import com.example.ekka.repository.category.CategoryRepository;
 import com.example.ekka.repository.genderCategory.GenderCategoryRepository;
 import com.example.ekka.repository.product.ProductRepository;
+import com.example.ekka.repository.productColor.ProductColorRepository;
+import com.example.ekka.repository.productImage.ProductImageRepository;
+import com.example.ekka.repository.productSize.ProductSizeRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,6 +29,15 @@ public class ProductService {
 
     @Autowired
     CategoryRepository categoryRepository;
+
+    @Autowired
+    ProductImageRepository productImageRepository;
+
+    @Autowired
+    ProductSizeRepository productSizeRepository;
+
+    @Autowired
+    ProductColorRepository productColorRepository;
     
     @Autowired
     BrandRepository brandRepository;
@@ -37,6 +52,7 @@ public class ProductService {
             Long datetime = System.currentTimeMillis();
             Timestamp timestamp = new Timestamp(datetime);
             productEntity.setCreated_at(timestamp);
+            productEntity.setUpdated_at(timestamp);
             productEntity.setState(1);
             productEntity.setCategory(categoryRepository.findById(productDto.getCategoryId()).orElse(null));
             productEntity.setBrand(brandRepository.findById(productDto.getBrandId()).orElse(null));
@@ -58,7 +74,22 @@ public class ProductService {
     public List<ProductEntity> listAll() {
         return (List<ProductEntity>) productRepository.findAll();
     }
+    public int countProduct() {
+        return productRepository.countAll();
+    }
+    public List<ProductEntity> listAllUpdatedDesc() {
+        return (List<ProductEntity>) productRepository.findAllByUpdate_at();
+    }
+    public List<ProductEntity> listAllCategory(long id) {
+        return (List<ProductEntity>) productRepository.findAllByCategoryId(id);
+    }
 
+    public List<ProductEntity> listAllProductId(long id) {
+        return (List<ProductEntity>) productRepository.findAllProductById(id);
+    }
+    public void list(ResponseDataTableDto dataTableDto) throws Exception {
+        dataTableDto.list(productRepository);
+    }
     public ProductEntity get(long id) {
         return productRepository.findById(id).get();
     }
@@ -68,11 +99,11 @@ public class ProductService {
         BeanUtils.copyProperties(productDto, productEntity);
         ProductEntity name = productRepository.findFirstByProductName(productDto.getProductName());
 
-        // Lấy ID của tài khoản  đa đăng nhập
         System.out.println("Name" + name);
         Long datetime = System.currentTimeMillis();
         Timestamp timestamp = new Timestamp(datetime);
         productEntity.setProductName(name.getProductName());
+        productEntity.setProductImage(name.getProductImage());
         productEntity.setDetails(name.getDetails());
         productEntity.setMoreInformation(name.getMoreInformation());
         productEntity.setTotalProduct(name.getTotalProduct());
@@ -97,6 +128,7 @@ public class ProductService {
         Long datetime = System.currentTimeMillis();
         Timestamp timestamp = new Timestamp(datetime);
         productEntity.setProductName(name.getProductName());
+        productEntity.setProductImage(name.getProductImage());
         productEntity.setDetails(name.getDetails());
         productEntity.setMoreInformation(name.getMoreInformation());
         productEntity.setTotalProduct(name.getTotalProduct());
@@ -112,29 +144,44 @@ public class ProductService {
     }
 
     public void editProduct(ProductDto productDto) throws Exception {
+
+
         ProductEntity productEntity = new ProductEntity();
         BeanUtils.copyProperties(productDto, productEntity);
         ProductEntity name = productRepository.findFirstByProductName(productEntity.getProductName());
         ProductEntity id = productRepository.findAllById(productEntity.getId());
-        // Lấy ID của tài khoản  đa đăng nhập
-        System.out.println("name" + name);
-        if (name == null || id.getCategory().getId() == productDto.getCategoryId()) {
-            if (id.getCategory().getId() == productDto.getCategoryId() && !id.getProductName().equals(productDto.getProductName())) {
-                Long datetime = System.currentTimeMillis();
-                Timestamp timestamp = new Timestamp(datetime);
-                productEntity.setCreated_at(id.getCreated_at());
-                productEntity.setUpdated_at(timestamp);
-                productEntity.setState(id.getState());
-                productEntity.setCategory(categoryRepository.findById(productDto.getCategoryId()).orElse(null));
+        System.out.println("Name: " + name);
+        if (name == null || Objects.equals(id.getProductName(), productDto.getProductName())) {
+            productSizeRepository.deleteByProduct_Id(productDto.getId());
+            System.out.println("ID: "+productDto.getId());
 
-//        userDAO.save(userDto);
+            productColorRepository.deleteByProduct_Id(productDto.getId());
+            System.out.println("ID: "+productDto.getId());
 
-                productRepository.save(productEntity);
-            }else {
-                throw new Exception("Product da ton tai!");
-            }
+            productImageRepository.deleteByProduct_Id(productDto.getId());
+            System.out.println("ok roi day!");
+            Long datetime = System.currentTimeMillis();
+            Timestamp timestamp = new Timestamp(datetime);
+            productEntity.setCreated_at(id.getCreated_at());
+            productEntity.setUpdated_at(timestamp);
+            productEntity.setDiscount(productDto.getDiscount());
+            productEntity.setState(id.getState());
+            productEntity.setCategory(categoryRepository.findById(productDto.getCategoryId()).orElse(null));
+            productEntity.setBrand(brandRepository.findById(productDto.getBrandId()).orElse(null));
+            productEntity.setProductColorEntityCollection(productDto.getColor().stream().map(c -> new ProductColorEntity(null,c,productEntity,timestamp,null,1)).collect(Collectors.toList()));
+            productEntity.setProductSizeEntityCollection(productDto.getSize().stream().map(s -> new ProductSizeEntity(null,s,productEntity,timestamp,null,1)).collect(Collectors.toList()));
+
+            System.out.println("Size: "+productDto.getSize());
+            System.out.println("Color: "+productDto.getColor());
+            System.out.println("Image: "+productDto.getImage());
+            productEntity.setProductImageEntityCollection(productDto.getImage().stream().map(i -> new ProductImageEntity(null,i,productEntity,timestamp,null,1)).collect(Collectors.toList()));
+            System.out.println("Image: "+productDto.getImage());
+            System.out.println("ID: "+productDto.getId());
+
+
+            productRepository.save(productEntity);
         } else {
-            throw new Exception("Category da ton tai!");
+            throw new Exception("Product da ton tai!");
         }
 
     }

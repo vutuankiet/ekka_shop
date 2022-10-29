@@ -55,6 +55,7 @@ public class UserService {
             userEntity.setState(1);
             userEntity.setRole("USER");
             userEntity.setCreated_at(timestamp);
+            userEntity.setUpdated_at(timestamp);
             userEntity.setPassword(passwordEncoder.encode(userDto.getPassword()));
 //        userDAO.save(userDto);
 
@@ -83,6 +84,13 @@ public class UserService {
 
     public List<UserEntity> listAll() {
         return (List<UserEntity>) userRepository.findAll();
+    }
+
+    public List<UserEntity> listAllUpdatedUser() {
+        return (List<UserEntity>) userRepository.findAllByUpdate_at();
+    }
+    public int countAll() {
+        return userRepository.countAll();
     }
 
     public ResponseDto forgotPassword(String email) {

@@ -38,6 +38,7 @@ public class CategoryService {
             Long datetime = System.currentTimeMillis();
             Timestamp timestamp = new Timestamp(datetime);
             categoryEntity.setCreated_at(timestamp);
+            categoryEntity.setUpdated_at(timestamp);
             categoryEntity.setState(1);
             categoryEntity.setGenderCategory(genderCategoryRepository.findById(categoryDto.getGenderCategoryId()).orElse(null));
 
@@ -49,6 +50,9 @@ public class CategoryService {
 
     public List<CategoryEntity> listAll() {
         return (List<CategoryEntity>) categoryRepository.findAll();
+    }
+    public List<CategoryEntity> listAllUpdatedDesc() {
+        return (List<CategoryEntity>) categoryRepository.findAllByUpdate_at();
     }
 
     public CategoryEntity get(long id) {
