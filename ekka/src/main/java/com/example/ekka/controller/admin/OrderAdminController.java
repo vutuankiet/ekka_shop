@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -74,12 +76,29 @@ public class OrderAdminController {
 
     @PostMapping(value = "changeState0/{code}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String changeState0(@PathVariable(name = "code") String code, OrderDto orderDto, RedirectAttributes model, Model m) {
+        List<OrderEntity> listOrder = orderService.findByUser(code);
+        System.out.println("listOrder: "+listOrder);
+
+        try {
+            String[] arr = {};
+            List testList = new ArrayList<>(Arrays.asList(arr));
+            for (OrderEntity order : listOrder) {
+                    System.out.println("order: " + order.getUser().getEmail());
+                    testList.add(order.getUser().getEmail());
+
+            }
+            System.out.println("email: " + testList.get(0));
+            orderDto.setEmail((String) testList.get(0));
+        } catch (Exception ex) {
+            throw ex;
+        }
+
         try {
             orderDto.setOrder_code(code);
             orderService.changeState0(orderDto);
-            model.addFlashAttribute("message", "Xoa product thành công");
+            model.addFlashAttribute("message", "Doi trang thai thành công");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Xoa product không thành công");
+            model.addFlashAttribute("message", "Doi trang thai không thành công");
         }
 
         return "redirect:/ekka/admin/order/list/";
@@ -87,12 +106,29 @@ public class OrderAdminController {
 
     @PostMapping(value = "changeState1/{code}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String changeState1(@PathVariable(name = "code") String code, OrderDto orderDto, RedirectAttributes model, Model m) {
+        List<OrderEntity> listOrder = orderService.findByUser(code);
+        System.out.println("listOrder: "+listOrder);
+
+        try {
+            String[] arr = {};
+            List testList = new ArrayList<>(Arrays.asList(arr));
+            for (OrderEntity order : listOrder) {
+                System.out.println("order: " + order.getUser().getEmail());
+                testList.add(order.getUser().getEmail());
+
+            }
+            System.out.println("email: " + testList.get(0));
+            orderDto.setEmail((String) testList.get(0));
+        } catch (Exception ex) {
+            throw ex;
+        }
+
         try {
             orderDto.setOrder_code(code);
             orderService.changeState1(orderDto);
-            model.addFlashAttribute("message", "Xoa product thành công");
+            model.addFlashAttribute("message", "Doi trang thai thành công");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Xoa product không thành công");
+            model.addFlashAttribute("message", "Doi trang thai không thành công");
         }
 
         return "redirect:/ekka/admin/order/list/";
@@ -100,12 +136,29 @@ public class OrderAdminController {
 
     @PostMapping(value = "changeState2/{code}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String changeState2(@PathVariable(name = "code") String code, OrderDto orderDto, RedirectAttributes model, Model m) {
+        List<OrderEntity> listOrder = orderService.findByUser(code);
+        System.out.println("listOrder: "+listOrder);
+
+        try {
+            String[] arr = {};
+            List testList = new ArrayList<>(Arrays.asList(arr));
+            for (OrderEntity order : listOrder) {
+                System.out.println("order: " + order.getUser().getEmail());
+                testList.add(order.getUser().getEmail());
+
+            }
+            System.out.println("email: " + testList.get(0));
+            orderDto.setEmail((String) testList.get(0));
+        } catch (Exception ex) {
+            throw ex;
+        }
+
         try {
             orderDto.setOrder_code(code);
             orderService.changeState2(orderDto);
-            model.addFlashAttribute("message", "Xoa product thành công");
+            model.addFlashAttribute("message", "Doi trang thai thành công");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Xoa product không thành công");
+            model.addFlashAttribute("message", "Doi trang thai không thành công");
         }
 
         return "redirect:/ekka/admin/order/list/";
@@ -113,12 +166,35 @@ public class OrderAdminController {
 
     @PostMapping(value = "changeState3/{code}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String changeState3(@PathVariable(name = "code") String code, OrderDto orderDto, RedirectAttributes model, Model m) {
+        List<OrderEntity> listOrder = orderService.findByUser(code);
+        System.out.println("listOrder: "+listOrder);
+
+        try {
+            String[] arr = {};
+            String[] userId = {};
+            List testList = new ArrayList<>(Arrays.asList(arr));
+            List listUser = new ArrayList<>(Arrays.asList(userId));
+            for (OrderEntity order : listOrder) {
+                System.out.println("UserId: " + order.getUser().getId());
+                testList.add(order.getUser().getEmail());
+                listUser.add(order.getUser().getId());
+
+            }
+            System.out.println("email: " + testList.get(0));
+            orderDto.setEmail((String) testList.get(0));
+            System.out.println("ID: "+listUser.get(0));
+            long id = (long) listUser.get(0);
+            orderDto.setIdUser(id);
+        } catch (Exception ex) {
+            throw ex;
+        }
+
         try {
             orderDto.setOrder_code(code);
             orderService.changeState3(orderDto);
-            model.addFlashAttribute("message", "Xoa product thành công");
+            model.addFlashAttribute("message", "Doi trang thai thành công");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Xoa product không thành công");
+            model.addFlashAttribute("message", "Doi trang thai không thành công");
         }
 
         return "redirect:/ekka/admin/order/list/";
@@ -126,12 +202,29 @@ public class OrderAdminController {
 
     @PostMapping(value = "changeState4/{code}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String changeState4(@PathVariable(name = "code") String code, OrderDto orderDto, RedirectAttributes model, Model m) {
+        List<OrderEntity> listOrder = orderService.findByUser(code);
+        System.out.println("listOrder: "+listOrder);
+
+        try {
+            String[] arr = {};
+            List testList = new ArrayList<>(Arrays.asList(arr));
+            for (OrderEntity order : listOrder) {
+                System.out.println("order: " + order.getUser().getEmail());
+                testList.add(order.getUser().getEmail());
+
+            }
+            System.out.println("email: " + testList.get(0));
+            orderDto.setEmail((String) testList.get(0));
+        } catch (Exception ex) {
+            throw ex;
+        }
+
         try {
             orderDto.setOrder_code(code);
             orderService.changeState4(orderDto);
-            model.addFlashAttribute("message", "Xoa product thành công");
+            model.addFlashAttribute("message", "Doi trang thai thành công");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Xoa product không thành công");
+            model.addFlashAttribute("message", "Doi trang thai không thành công");
         }
 
         return "redirect:/ekka/admin/order/list/";
@@ -145,6 +238,48 @@ public class OrderAdminController {
             List<OrderEntity> listOrder = orderService.get(code);
             System.out.println("order: " + listOrder);
             model.addAttribute("listOrder",listOrder);
+
+            try {
+                String[] arr = {};
+                String[] address = {};
+                String[] name = {};
+                String[] phone = {};
+                String[] payment = {};
+                String[] create = {};
+                String[] update = {};
+                String[] state = {};
+                List testList = new ArrayList<>(Arrays.asList(arr));
+                List listDeliveryAddress = new ArrayList<>(Arrays.asList(address));
+                List listNameConsignee = new ArrayList<>(Arrays.asList(name));
+                List listDeliveryPhone = new ArrayList<>(Arrays.asList(phone));
+                List listPayment = new ArrayList<>(Arrays.asList(payment));
+                List listCreate = new ArrayList<>(Arrays.asList(create));
+                List listUpdate = new ArrayList<>(Arrays.asList(update));
+                List listState = new ArrayList<>(Arrays.asList(state));
+                for (OrderEntity order : listOrder) {
+                    System.out.println("order: " + order.getOrder_code());
+                    testList.add(order.getOrder_code());
+                    listDeliveryAddress.add(order.getDelivery_address());
+                    listNameConsignee.add(order.getName_consignee());
+                    listDeliveryPhone.add(order.getDelivery_phone());
+                    listPayment.add(order.getPayment());
+                    listCreate.add(order.getCreated_at());
+                    listUpdate.add(order.getUpdated_at());
+                    listState.add(order.getState());
+
+                }
+                System.out.println("order: " + testList.get(0));
+                model.addAttribute("order_code", testList.get(0));
+                model.addAttribute("delivery_address", listDeliveryAddress.get(0));
+                model.addAttribute("name_consignee", listNameConsignee.get(0));
+                model.addAttribute("delivery_phone", listDeliveryPhone.get(0));
+                model.addAttribute("payment", listPayment.get(0));
+                model.addAttribute("created_at", listCreate.get(0));
+                model.addAttribute("updated_at", listUpdate.get(0));
+                model.addAttribute("state", listState.get(0));
+            } catch (Exception ex) {
+                throw ex;
+            }
 
             double total = 0;
             for (OrderEntity order : listOrder) {

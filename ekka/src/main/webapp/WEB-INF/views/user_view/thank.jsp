@@ -5,7 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
 
-    <title>Ekka | Comming Soon.</title>
+    <title>Ekka | Thank.</title>
 
     <!-- site Favicon -->
     <link rel="icon" href="/user/assets/images/favicon/favicon.png" sizes="32x32" />
@@ -54,7 +54,7 @@
                                     <div class="subscribe_form">
                                         <div class="input-group">
                                             <a href="/ekka" class="btn btn-default button"><span class="btn-text">Go Home</span></a>
-                                            <a href="" class="btn btn-default button"><span class="btn-text">Go History Order</span></a>
+                                            <a href="/ekka/history/${order_code}" class="btn btn-default button"><span class="btn-text">Go History Order</span></a>
                                         </div>
                                     </div>
                                     <!-- End Newsletter -->

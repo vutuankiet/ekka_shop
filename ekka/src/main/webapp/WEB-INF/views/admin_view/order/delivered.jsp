@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="description" content="Ekka - Admin Dashboard eCommerce HTML Template.">
 
-    <title>Ekka - Admin Dashboard eCommerce HTML Template.</title>
+    <title>Ekka - Admin | Order Delivered.</title>
 
     <%@include file="/WEB-INF/views/layout/admin/assets.jsp" %>
 
@@ -82,7 +82,7 @@
 
                                                 <c:if test="${order.state == 0}">
                                                     <td><span class="mb-2 mr-2 badge badge-danger">
-                                                        Order Cancellation
+                                                        ORDER CANCELLATION
                                                     </span>
                                                     </td>
                                                 </c:if>
@@ -145,7 +145,7 @@
                                                                         modelAttribute="orderDto"
                                                                         enctype="multipart/form-data">
                                                                     <button class="dropdown-item pl-3"
-                                                                            style="color: #13cae1!important" type="submit">READY TO SHIP
+                                                                            style="color: #13cae1!important" type="submit">ON THE WAY
                                                                     </button>
                                                                 </f:form>
                                                                 <f:form method="post"
@@ -163,7 +163,7 @@
                                                                         modelAttribute="orderDto"
                                                                         enctype="multipart/form-data">
                                                                     <button class="dropdown-item pl-3"
-                                                                            style="color: #fe5461!important" type="submit">Order Cancellation
+                                                                            style="color: #fe5461!important" type="submit">ORDER CANCELLATION
                                                                     </button>
                                                                 </f:form>
                                                                 <f:form method="post"
@@ -179,7 +179,7 @@
                                                                         modelAttribute="orderDto"
                                                                         enctype="multipart/form-data">
                                                                     <button class="dropdown-item pl-3"
-                                                                            style="color: #13cae1!important" type="submit">READY TO SHIP
+                                                                            style="color: #13cae1!important" type="submit">ON THE WAY
                                                                     </button>
                                                                 </f:form>
                                                                 <f:form method="post"
@@ -197,7 +197,7 @@
                                                                         modelAttribute="orderDto"
                                                                         enctype="multipart/form-data">
                                                                     <button class="dropdown-item pl-3"
-                                                                            style="color: #fe5461!important" type="submit">Order Cancellation
+                                                                            style="color: #fe5461!important" type="submit">ORDER CANCELLATION
                                                                     </button>
                                                                 </f:form>
                                                                 <f:form method="post"
@@ -213,7 +213,7 @@
                                                                         modelAttribute="orderDto"
                                                                         enctype="multipart/form-data">
                                                                     <button class="dropdown-item pl-3"
-                                                                            style="color: #13cae1!important" type="submit">READY TO SHIP
+                                                                            style="color: #13cae1!important" type="submit">ON THE WAY
                                                                     </button>
                                                                 </f:form>
                                                                 <f:form method="post"
@@ -231,7 +231,7 @@
                                                                         modelAttribute="orderDto"
                                                                         enctype="multipart/form-data">
                                                                     <button class="dropdown-item pl-3"
-                                                                            style="color: #fe5461!important" type="submit">Order Cancellation
+                                                                            style="color: #fe5461!important" type="submit">ORDER CANCELLATION
                                                                     </button>
                                                                 </f:form>
                                                                 <f:form method="post"
@@ -265,7 +265,7 @@
                                                                         modelAttribute="orderDto"
                                                                         enctype="multipart/form-data">
                                                                     <button class="dropdown-item pl-3"
-                                                                            style="color: #fe5461!important" type="submit">Order Cancellation
+                                                                            style="color: #fe5461!important" type="submit">ORDER CANCELLATION
                                                                     </button>
                                                                 </f:form>
                                                                 <f:form method="post"
@@ -289,7 +289,7 @@
                                                                         modelAttribute="orderDto"
                                                                         enctype="multipart/form-data">
                                                                     <button class="dropdown-item pl-3"
-                                                                            style="color: #13cae1!important" type="submit">READY TO SHIP
+                                                                            style="color: #13cae1!important" type="submit">ON THE WAY
                                                                     </button>
                                                                 </f:form>
                                                             </c:if>

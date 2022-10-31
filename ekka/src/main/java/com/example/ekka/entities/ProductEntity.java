@@ -46,6 +46,10 @@ public class ProductEntity {
     @Column(name = "DISCOUNT")
     private String discount;
 
+    @Basic
+    @Column(name = "RATING")
+    private Float rating;
+
     @ManyToOne
     @JoinColumn(name = "CATEGORY_ID") // thông qua khóa ngoại category_id
     @EqualsAndHashCode.Exclude

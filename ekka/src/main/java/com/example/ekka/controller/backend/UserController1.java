@@ -50,7 +50,7 @@ public class UserController1 {
     @GetMapping("list")
     public String list(@PagingParam(path = "user") ResponseDataTableDto responseDataTableDto) {
         try {
-            userService.list(responseDataTableDto);
+//            userService.list(responseDataTableDto);
         } catch (Exception e) {
             e.printStackTrace();
         }

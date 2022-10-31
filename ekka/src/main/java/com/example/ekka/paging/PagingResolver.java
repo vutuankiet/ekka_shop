@@ -1,5 +1,6 @@
 package com.example.ekka.paging;
 
+import com.example.ekka.dto.ResponseDataTableProductDto;
 import org.springframework.core.MethodParameter;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,8 +30,8 @@ public class PagingResolver implements HandlerMethodArgumentResolver {
         Integer perpage = StringUtils.isEmpty(perpageStr) ? 12 : Integer.valueOf(perpageStr);
         perpage = perpage <= 0 ? 12 : perpage;
         String key = webRequest.getParameter("key");
-        String genderCategory = webRequest.getParameter("genderCategory");
-        String category = webRequest.getParameter("category");
+
         return new ResponseDataTableDto(path, page, perpage, key, mavContainer);
+
     }
 }

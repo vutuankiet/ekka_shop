@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>Ekka | Home.</title>
+    <title>Ekka | Cart.</title>
 
     <%@include file="/WEB-INF/views/layout/user/assets.jsp" %>
 
@@ -69,14 +69,12 @@
             <f:form cssClass="row" method="post" action="/ekka/order/save"
                     modelAttribute="orderDto">
 
-                <div class="ec-cart-leftside col-lg-8 col-md-12 ">
+                <div class="ec-cart-leftside col-md-12 col-lg-12 col-xl-8">
                     <!-- cart content Start -->
                     <div class="ec-cart-content">
                         <div class="ec-cart-inner">
                             <div class="row">
-
-
-                                    <div class="table-content cart-table-content" style="overflow: auto!important;">
+                                    <div class="table-content cart-table-content">
                                         <table>
                                             <thead>
                                             <tr>
@@ -206,7 +204,7 @@
                     <!--cart content End -->
                 </div>
                 <!-- Sidebar Area Start -->
-                <div class="ec-cart-rightside col-lg-4 col-md-12">
+                <div class="ec-cart-rightside col-md-12 col-lg-12 col-xl-4">
                     <div class="ec-sidebar-wrap">
                         <!-- Sidebar Summary Block -->
                         <div class="ec-sidebar-block">
@@ -218,23 +216,26 @@
                                 <div class="ec-cart-form">
                                     <p>Enter your destination to get a shipping estimate</p>
                                     <span class="ec-cart-wrap">
-                                            <label>Delivery address *</label>
-                                        <f:input type="text" path="delivery_address"
+                                        <label>Delivery address (<span class="text-danger">*</span>)</label>
+                                        <f:input type="text" cssClass="DeliveryAddress mb-0" path="delivery_address"
                                                  placeholder="Delivery address"
                                                  aria-label="Delivery address"/>
+                                        <p class="show-delivery-address text-danger">Can't be left blank!</p>
                                         </span>
                                     <span class="ec-cart-wrap">
-                                            <label>Name of consignee *</label>
-                                        <f:input type="text" path="name_consignee"
+                                            <label>Name of consignee (<span class="text-danger">*</span>)</label>
+                                        <f:input cssClass="NameConsignee mb-0" type="text" path="name_consignee"
                                                  placeholder="Name of consignee"
                                                  aria-label="Name of consignee"/>
+                                        <p class="show-name-consignee text-danger">Can't be left blank!</p>
 
                                         </span>
                                     <span class="ec-cart-wrap">
-                                            <label>Delivery phone number *</label>
-                                        <f:input type="tel" path="delivery_phone"
+                                            <label>Delivery phone number (<span class="text-danger">*</span>)</label>
+                                        <f:input cssClass="DeliveryPhone mb-0" type="tel" path="delivery_phone"
                                                  placeholder="Delivery phone number"
                                                  aria-label="Delivery phone number"/>
+                                        <p class="show-delivery-phone text-danger">Can't be left blank!</p>
                                         </span>
                                 </div>
                             </div>
@@ -242,13 +243,13 @@
                             <div class="ec-sb-block-content">
                                 <div class="ec-cart-summary-bottom">
                                     <div class="ec-cart-summary">
-                                        <div>
+                                        <div class="show-sub-total">
                                             <span class="text-left">Sub-Total</span>
-                                            <span class="text-right">$80.00</span>
+                                            <span class="text-right sub-total">$${totaltotal}</span>
                                         </div>
                                         <div class="ec-cart-summary-total">
                                             <span class="text-left">Total Amount</span>
-                                            <span class="text-right">$80.00</span>
+                                            <span class="text-right all-total">$${totaltotal}</span>
                                         </div>
                                     </div>
 
@@ -456,26 +457,8 @@
 
 
 <!-- Vendor JS -->
-<script src="/user/assets/js/vendor/jquery-3.5.1.min.js"></script>
-<script src="/user/assets/js/vendor/jquery.notify.min.js"></script>
-<script src="/user/assets/js/vendor/jquery.bundle.notify.min.js"></script>
-<script src="/user/assets/js/vendor/popper.min.js"></script>
-<script src="/user/assets/js/vendor/bootstrap.min.js"></script>
-<script src="/user/assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
-<script src="/user/assets/js/vendor/modernizr-3.11.2.min.js"></script>
+<%@include file="/WEB-INF/views/layout/user/scripts.jsp" %>
 
-<!--Plugins JS-->
-<script src="/user/assets/js/plugins/swiper-bundle.min.js"></script>
-<script src="/user/assets/js/plugins/nouislider.js"></script>
-<script src="/user/assets/js/plugins/countdownTimer.min.js"></script>
-<script src="/user/assets/js/plugins/scrollup.js"></script>
-<script src="/user/assets/js/plugins/jquery.zoom.min.js"></script>
-<script src="/user/assets/js/plugins/slick.min.js"></script>
-<script src="/user/assets/js/plugins/infiniteslidev2.js"></script>
-<script src="/user/assets/js/vendor/jquery.magnific-popup.min.js"></script>
-<script src="/user/assets/js/plugins/jquery.sticky-sidebar.js"></script>
-<!-- Main Js -->
-<script src="/user/assets/js/main.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
         crossorigin="anonymous"></script>
@@ -496,6 +479,7 @@
         $(this).parent().parent().children('input.size').val(el);
     });
 
+    var allTotal = 0;
     $("input.item").change(function (element) {
         var el = $(this).val();
         console.log(el);
@@ -508,7 +492,76 @@
         $(this).parent().parent().parent().children('td.total').text('$' + (+total.toFixed(2)));
         $(this).parent().parent().children('input.totalPrice').val((+total.toFixed(2)))
 
+
+        allTotal = allTotal + total;
+        console.log(+allTotal.toFixed(2))
+        $('.ec-cart-summary-total .all-total').text('$'+(+allTotal.toFixed(2)));
+        $('.show-sub-total .sub-total').text('$'+(+allTotal.toFixed(2)));
+
     });
+
+    $("input.DeliveryAddress").change(function (element) {
+        var el = $(this).val();
+        if (el == ""){
+            $('p.show-delivery-address').text(`Can't be left blank!`);
+        }else {
+            $('p.show-delivery-address').text('');
+        }
+    });
+
+    $("input.NameConsignee").change(function (element) {
+        var el = $(this).val();
+        if (el == ""){
+            $('p.show-name-consignee').text(`Can't be left blank!`);
+        }else {
+            $('p.show-name-consignee').text('');
+        }
+    });
+
+    $("input.DeliveryPhone").change(function (element) {
+        var el = $(this).val();
+        if (el == ""){
+            $('p.show-delivery-phone').text(`Can't be left blank!`);
+        }else {
+            $('p.show-delivery-phone').text('');
+        }
+    });
+
+</script>
+<script>
+    $(document).ready(function () {
+        toastr.options = {
+            'closeButton': true,
+            'debug': false,
+            'newestOnTop': false,
+            'progressBar': false,
+            'positionClass': 'toast-bottom-right',
+            'preventDuplicates': false,
+            'showDuration': '1000',
+            'hideDuration': '1000',
+            'timeOut': '5000',
+            'extendedTimeOut': '1000',
+            'showEasing': 'swing',
+            'hideEasing': 'linear',
+            'showMethod': 'fadeIn',
+            'hideMethod': 'fadeOut',
+        }
+    });
+
+    const success = setTimeout(Success, 1000);
+    const error = setTimeout(Err, 1000);
+
+    function Success() {
+        <c:if test="${message_success != null}">
+        toastr.success('${message_success}');
+        </c:if>
+    }
+
+    function Err() {
+        <c:if test="${message_err != null}">
+        toastr.error('${message_err}');
+        </c:if>
+    }
 </script>
 </body>
 </html>

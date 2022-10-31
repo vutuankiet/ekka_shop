@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -68,14 +70,13 @@ public class ProductController {
             List<WishListEntity> listWishListUserId = wishListService.listAllUserId(id);
             List<CartEntity> listCartUserId = cartService.listAllUserId(id);
 
-
             List<GenderCategoryEntity> listGenderCategory = genderCategoryService.listAll();
             List<ProductColorEntity> listProductColor = productColorService.listAll();
             List<ProductSizeEntity> listProductSize = productSizeService.listAll();
             List<CategoryEntity> listCategory = categoryService.listAll();
 
-            int countWishList = wishListService.countWishList();
-            int countCart = cartService.countCart();
+            int countWishList = wishListService.countWishListUser(id);
+            int countCart = cartService.countCartUser(id);
 
             model.addAttribute("countWishList", countWishList);
             model.addAttribute("countCart", countCart);
@@ -91,6 +92,7 @@ public class ProductController {
             UrlDto urlDto = new UrlDto();
             urlDto.setUrl(request.getRequestURL().toString());
             model.addAttribute("urlDto", urlDto);
+
             productService.list(responseDataTableDto);
         } catch (Exception e) {
             e.printStackTrace();
@@ -110,6 +112,8 @@ public class ProductController {
         List<CartEntity> listCartUserId = cartService.listAllUserId(UserId);
         List<CartEntity> listCartProductId = cartService.listAllProductId(id);
         List<ReviewEntity> listReview = reviewService.listAllProductId(id);
+        List<WishListEntity> listWishListProductIdAndUserId = wishListService.listAllProductIdAndUserId(id, UserId);
+        List<CartEntity> listCartProductIdAndUserId = cartService.listAllProductIdAndUserId(id, UserId);
         List<ReviewEntity> listReviewProductAndUser = reviewService.listAllProductIdAndUserId(id, UserId);
         int countReviewProduct = reviewService.countAll(id);
 
@@ -127,8 +131,8 @@ public class ProductController {
         productDto.setCategoryId(productEntity.getCategory().getId());
         productDto.setBrandId(productEntity.getBrand().getId());
 
-        int countWishList = wishListService.countWishList();
-        int countCart = cartService.countCart();
+        int countWishList = wishListService.countWishListUser(UserId);
+        int countCart = cartService.countCartUser(UserId);
 
         model.addAttribute("countWishList", countWishList);
         model.addAttribute("countCart", countCart);
@@ -137,6 +141,8 @@ public class ProductController {
         model.addAttribute("listWishListProductId", listWishListProductId);
         model.addAttribute("listCartUserId", listCartUserId);
         model.addAttribute("listCartProductId", listCartProductId);
+        model.addAttribute("listCartProductIdAndUserId", listCartProductIdAndUserId);
+        model.addAttribute("listWishListProductIdAndUserId", listWishListProductIdAndUserId);
         model.addAttribute("listCategory", listCategory);
         System.out.println("listCategory " + listCategory);
         System.out.println("listWishListProductId " + listWishListProductId);
@@ -154,6 +160,21 @@ public class ProductController {
         model.addAttribute("listProductCategory", listProductCategory);
         model.addAttribute("UserId", UserId);
         model.addAttribute("countReviewProduct", countReviewProduct);
+
+        try {
+            String[] arr = {};
+            double total_rating = 0;
+            List testList = new ArrayList<>(Arrays.asList(arr));
+            for (ReviewEntity review : listReview) {
+                total_rating += review.getRating();
+            }
+            double abs_rating = (total_rating/countReviewProduct);
+
+            System.out.println("review: " + (double) Math.round(abs_rating*10)/10);
+            model.addAttribute("review_rating", (double) Math.round(abs_rating*10)/10);
+        } catch (Exception ex) {
+            throw ex;
+        }
 
         UrlDto urlDto = new UrlDto();
         urlDto.setUrl(request.getRequestURL().toString());

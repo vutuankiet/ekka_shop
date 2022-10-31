@@ -25,6 +25,7 @@ public class ProductDto {
     String totalProduct;
     String priceProduct;
     String discount;
+    Float rating;
     Timestamp created_at;
     Timestamp updated_at;
     int state;

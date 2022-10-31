@@ -35,8 +35,16 @@ public class CartService {
         return (List<CartEntity>) cartRepository.findAllByProductId(id);
     }
 
+    public List<CartEntity> listAllProductIdAndUserId(long id, long UserId) {
+        return (List<CartEntity>) cartRepository.findAllByProductIdAndUserId(id, UserId);
+    }
+
     public int countCart() {
         return cartRepository.countAll();
+    }
+
+    public int countCartUser(long id) {
+        return cartRepository.countAllByUser(id);
     }
 
     public void createCart(CartDto cartDto) throws Exception {

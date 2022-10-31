@@ -20,6 +20,7 @@ import com.example.ekka.utils.Constant;
 import com.example.ekka.utils.UserTypeEnum;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -78,9 +79,9 @@ public class UserService {
         return new ResponseDto(Constant.CODE_SUCCESS, "Đổi mật khẩu thành công");
     }
 
-    public void list(ResponseDataTableDto dataTableDto) throws Exception {
-        dataTableDto.list(userRepository);
-    }
+//    public void list(ResponseDataTableDto dataTableDto) throws Exception {
+//        dataTableDto.list(userRepository);
+//    }
 
     public List<UserEntity> listAll() {
         return (List<UserEntity>) userRepository.findAll();
@@ -108,14 +109,181 @@ public class UserService {
         userTokenEntity.setToken(token);
         userTokenEntity.setType(UserTypeEnum.FORGET_PASSWORD.ordinal());
         userTokenEntity.setCreatedTime(new Timestamp(System.currentTimeMillis()));
+
+        Timestamp currentTime = userTokenEntity.getCreatedTime();
+        long maxTimeToken = currentTime.getTime() + 300_000L;
+        Timestamp maxTime = new Timestamp(maxTimeToken);
+        String outTime = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss").format(maxTime);
         userTokenRepository.save(userTokenEntity);
 
         EmailDetails emailDetails = new EmailDetails();
         emailDetails.setRecipient(email);
         emailDetails.setSubject("[Bảo mật]XÁC NHẬN THAY ĐỔI MẬT KHẨU");
-        emailDetails.setMsgBody(String.format("Token sử dụng để xác nhận mật khẩu là: %s\n" +
-                "Vào đường link http://localhost:8080/ekka/user-verify để xác nhận mật khẩu\n Token có hiệu lực 5 phút", token));
-        emailService.sendSimpleMail(emailDetails);
+//        emailDetails.setMsgBody(String.format("Token sử dụng để xác nhận mật khẩu là: %s\n" +
+//                "Vào đường link http://localhost:8080/ekka/user-verify để xác nhận mật khẩu\n Token có hiệu lực 5 phút", token));
+        emailDetails.setMsgBody("<table style=\"table-layout: fixed; vertical-align: top; min-width: 320px; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f8f8f9; width: 100%;user-select: none;\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" bgcolor=\"#f8f8f9\">\n" +
+                "\t<tbody>\n" +
+                "\t\t<tr style=\"vertical-align: top;\" valign=\"top\">\n" +
+                "\t\t\t<td style=\"word-break: break-word; vertical-align: top;\" valign=\"top\"> <table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr><td style=\"background-color:#f8f8f9\" align=\"center\">\n" +
+                "\t\t\t\t<div style=\"background-color: #f8f8f9;\">\n" +
+                "\t\t\t\t\t<div style=\"min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; margin: 0 auto; background-color: #f8f8f9;\">\n" +
+                "\t\t\t\t\t\t<div style=\"border-collapse: collapse; display: table; width: 100%; background-color: #f8f8f9;\"> <table style=\"background-color:#f8f8f9;\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr><td align=\"center\"><table style=\"width:640px\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr style=\"background-color:#f8f8f9;\">  <td style=\"background-color:#f8f8f9;width:640px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;\" width=\"640\" valign=\"top\" align=\"center\"><table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr><td style=\"padding-right: 0px; padding-left: 0px; padding-top:0px; padding-bottom:0px;\">\n" +
+                "\t\t\t\t\t\t\t<div style=\"min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;\">\n" +
+                "\t\t\t\t\t\t\t\t<div style=\"width: 100% !important;\">\n" +
+                "\t\t\t\t\t\t\t\t\t<div style=\"border: 0px solid transparent; padding: 0px;\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t<table style=\"table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t<tbody>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t<tr style=\"vertical-align: top;\" valign=\"top\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding: 0px;\" valign=\"top\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t<table style=\"table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 4px solid #F8F8F9; width: 100%;\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" align=\"center\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tbody>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr style=\"vertical-align: top;\" valign=\"top\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"word-break: break-word; vertical-align: top; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;\" valign=\"top\">&nbsp;</td>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tbody>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t</table>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t</tbody>\n" +
+                "\t\t\t\t\t\t\t\t\t\t</table>\n" +
+                "\t\t\t\t\t\t\t\t\t</div>\n" +
+                "\t\t\t\t\t\t\t\t</div>\n" +
+                "\t\t\t\t\t\t\t</div>\n" +
+                "\t\t\t\t\t\t</td></tr></tbody></table>  </td></tr></tbody></table></td></tr></tbody></table></div>\n" +
+                "\t\t\t\t\t</div>\n" +
+                "\t\t\t\t</div>\n" +
+                "\t\t\t\t<div style=\"background-color: transparent;\">\n" +
+                "\t\t\t\t\t<div style=\"min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; margin: 0 auto; background-color: transparent;\">\n" +
+                "\t\t\t\t\t\t<div style=\"border-collapse: collapse; display: table; width: 100%; background-color: transparent;\"> <table style=\"background-color:transparent;\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr><td align=\"center\"><table style=\"width:640px\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr style=\"background-color:transparent\">  <td style=\"background-color:transparent;width:640px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;\" width=\"640\" valign=\"top\" align=\"center\"><table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr><td style=\"padding-right: 0px; padding-left: 0px; padding-top:5px; padding-bottom:5px;\">\n" +
+                "\t\t\t\t\t\t\t<div style=\"min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;\">\n" +
+                "\t\t\t\t\t\t\t\t<div style=\"width: 100% !important;\">\n" +
+                "\t\t\t\t\t\t\t\t\t<div style=\"border: 0px solid transparent; padding: 20px 0px 20px 0px;\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t<div style=\"padding-right: 0px; padding-left: 0px;\" align=\"center\"><table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr style=\"line-height:0px\"><td style=\"padding-right: 0px;padding-left: 0px;\" align=\"center\"><a style=\"outline: none;\" tabindex=\"-1\" href=\"http://localhost:8080/ekka/\" target=\"_blank\"><img style=\"text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 100%; max-width: 160px; display: block;\" title=\"Your logo.\" alt=\"Your logo.\" src=\"https://firebasestorage.googleapis.com/v0/b/k34dl-8e937.appspot.com/o/logo.png?alt=media&token=b76f2c04-3a30-47a8-9eb0-8327ba1321bf\" width=\"160\" border=\"0\" align=\"middle\"></a> </td></tr></tbody></table></div>\n" +
+                "\t\t\t\t\t\t\t\t\t</div>\n" +
+                "\t\t\t\t\t\t\t\t</div>\n" +
+                "\t\t\t\t\t\t\t</div>\n" +
+                "\t\t\t\t\t\t</td></tr></tbody></table>  </td></tr></tbody></table></td></tr></tbody></table></div>\n" +
+                "\t\t\t\t\t</div>\n" +
+                "\t\t\t\t</div>\n" +
+                "\t\t\t\t<div style=\"background-color: transparent;\">\n" +
+                "\t\t\t\t\t<div style=\"min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; margin: 0 auto; background-color: #fff;\">\n" +
+                "\t\t\t\t\t\t<div style=\"border-collapse: collapse; display: table; width: 100%; background-color: #fff;\"> <table style=\"background-color:transparent;\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr><td align=\"center\"><table style=\"width:640px\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr style=\"background-color:#fff\">  <td style=\"background-color:#fff;width:640px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;\" width=\"640\" valign=\"top\" align=\"center\"><table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr><td style=\"padding-right: 0px; padding-left: 0px; padding-top:0px; padding-bottom:0px;\">\n" +
+                "\t\t\t\t\t\t\t<div style=\"min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;\">\n" +
+                "\t\t\t\t\t\t\t\t<div style=\"width: 100% !important;\">\n" +
+                "\t\t\t\t\t\t\t\t\t<div style=\"border: 0px solid transparent; padding: 0px;\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t<div style=\"padding-right: 0px; padding-left: 0px;\" align=\"center\"><table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr style=\"line-height:0px\"><td style=\"padding-right: 0px;padding-left: 0px;\" align=\"center\"><a style=\"outline: none;\" tabindex=\"-1\" href=\"http://localhost:8080/ekka/\" target=\"_blank\"><img style=\"text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; width: 80%; max-width: 640px; display: block;\" title=\"Image of lock &amp; key.\" alt=\"Image of lock &amp; key.\" src=\"https://firebasestorage.googleapis.com/v0/b/k34dl-8e937.appspot.com/o/forgot-email-1.jpg?alt=media&token=191b6586-5e47-4a02-b19b-b8594bc99931\" width=\"640\" border=\"0\" align=\"middle\"></a> </td></tr></tbody></table></div>\n" +
+                "\t\t\t\t\t\t\t\t\t\t<table style=\"table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t<tbody>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t<tr style=\"vertical-align: top;\" valign=\"top\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding: 30px 0px 0px 0px;\" valign=\"top\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t<table style=\"table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 0px solid #BBBBBB; width: 100%;\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" align=\"center\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tbody>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr style=\"vertical-align: top;\" valign=\"top\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"word-break: break-word; vertical-align: top; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;\" valign=\"top\">&nbsp;</td>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tbody>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t</table>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t</tbody>\n" +
+                "\t\t\t\t\t\t\t\t\t\t</table>\n" +
+                "\t\t\t\t\t\t\t\t\t\t<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr><td style=\"padding-right: 40px; padding-left: 40px; padding-top: 10px; padding-bottom: 10px; font-family: Arial, sans-serif\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t<div style=\"color: #555555; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 1.2; padding: 10px 40px 10px 40px;\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t<div style=\"line-height: 1.2; font-size: 12px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #555555; mso-line-height-alt: 14px;\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t<p style=\"margin: 0; font-size: 30px; line-height: 1.2; text-align: center; word-break: break-word; mso-line-height-alt: 36px; margin-top: 0; margin-bottom: 0;\"><span style=\"font-size: 30px; color: #2b303a;\"><strong>Forgot Your Password?</strong></span></p>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t</div>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t</div>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t</td></tr></tbody></table> <table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr><td style=\"padding-right: 40px; padding-left: 40px; padding-top: 10px; padding-bottom: 10px; font-family: Tahoma, sans-serif\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t<div style=\"color: #555555; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; line-height: 1.5; padding: 10px 40px 10px 40px;\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t<div style=\"line-height: 1.5; font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #555555; mso-line-height-alt: 18px;\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t<p style=\"margin: 0; font-size: 15px; line-height: 1.5; text-align: center; word-break: break-word; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 23px; margin-top: 0; margin-bottom: 0;\"><span\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tstyle=\"color: #808389; font-size: 15px;\">Token: "+token+"</span><br>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<span\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tstyle=\"color: #009688; font-size: 15px;\">Token có hiệu lực 5 phút.</span><br><span style=\"color: #009688; font-size: 15px;\">Token hết hạn lúc: <span style=\"color:#808389;\">"+outTime+"</span></span></p>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t</div>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t</div>\n" +
+                "\t\t\t\t\t\t\t\t\t\t</td></tr></tbody></table>\n" +
+                "\t\t\t\t\t\t\t\t\t\t<div style=\"padding: 15px 10px 0px 10px;\" align=\"center\"><table style=\"border-spacing: 0; border-collapse: collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr><td style=\"padding-top: 15px; padding-right: 10px; padding-bottom: 0px; padding-left: 10px\" align=\"center\"><v:roundrect xmlns:v=\"urn:schemas-microsoft-com:vml\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" href=\"http://localhost:8080/ekka/\" style=\"height:46.5pt;width:201.75pt;v-text-anchor:middle;\" arcsize=\"57%\" stroke=\"false\" fillcolor=\"#f7a50c\"><w:anchorlock><v:textbox inset=\"0,0,0,0\"><center style=\"color:#ffffff; font-family:Arial, sans-serif; font-size:16px\"><a style=\"-webkit-text-size-adjust: none; text-decoration: none; display: inline-block; color: #ffffff; background-color: #00dfc0;    width: auto; padding-top: 15px; padding-bottom: 15px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; text-align: center;  word-break: keep-all; \" href=\"http://localhost:8080/ekka/user-verify\" target=\"_blank\"><span style=\"padding-left: 30px; padding-right: 30px; font-size: 16px; display: inline-block; letter-spacing: undefined;\"><span style=\"font-size: 16px; margin: 0; line-height: 2; word-break: break-word; mso-line-height-alt: 32px;\"><strong>RESET PASSWORD</strong></span></span></a> </center></v:textbox></w:anchorlock></v:roundrect></td></tr></tbody></table></div>\n" +
+                "\t\t\t\t\t\t\t\t\t\t<table style=\"table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t<tbody>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t<tr style=\"vertical-align: top;\" valign=\"top\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding: 60px 0px 12px 0px;\" valign=\"top\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t<table style=\"table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 0px solid #BBBBBB; width: 100%;\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" align=\"center\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tbody>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr style=\"vertical-align: top;\" valign=\"top\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"word-break: break-word; vertical-align: top; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;\" valign=\"top\">&nbsp;</td>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tbody>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t</table>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t</tbody>\n" +
+                "\t\t\t\t\t\t\t\t\t\t</table>\n" +
+                "\t\t\t\t\t\t\t\t\t</div>\n" +
+                "\t\t\t\t\t\t\t\t</div>\n" +
+                "\t\t\t\t\t\t\t</div>\n" +
+                "\t\t\t\t\t\t</td></tr></tbody></table>  </td></tr></tbody></table></td></tr></tbody></table></div>\n" +
+                "\t\t\t\t\t</div>\n" +
+                "\t\t\t\t</div>\n" +
+                "\t\t\t\t<div style=\"background-color: transparent;\">\n" +
+                "\t\t\t\t\t<div style=\"min-width: 320px; max-width: 640px; overflow-wrap: break-word; word-wrap: break-word; word-break: break-word; margin: 0 auto; background-color: #410125;\">\n" +
+                "\t\t\t\t\t\t<div style=\"border-collapse: collapse; display: table; width: 100%; background-color: #410125;\"> <table style=\"background-color:transparent;\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr><td align=\"center\"><table style=\"width:640px\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr style=\"background-color:#410125\">  <td style=\"background-color:#00bea4;width:640px; border-top: 0px solid transparent; border-left: 0px solid transparent; border-bottom: 0px solid transparent; border-right: 0px solid transparent;\" width=\"640\" valign=\"top\" align=\"center\"><table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr><td style=\"padding-right: 0px; padding-left: 0px; padding-top:0px; padding-bottom:0px;\">\n" +
+                "\t\t\t\t\t\t\t<div style=\"min-width: 320px; max-width: 640px; display: table-cell; vertical-align: top; width: 640px;\">\n" +
+                "\t\t\t\t\t\t\t\t<div style=\"width: 100% !important;\">\n" +
+                "\t\t\t\t\t\t\t\t\t<div style=\"border: 0px solid transparent; padding: 0px;\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\n" +
+                "\t\t\t\t\t\t\t\t\t\t<table style=\"table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt;\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t<tbody>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t<tr style=\"vertical-align: top;\" valign=\"top\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"word-break: break-word; vertical-align: top; padding: 30px 10px 0;\" valign=\"top\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t<table style=\"table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-tspace: 0; mso-table-rspace: 0; mso-table-bspace: 0; mso-table-lspace: 0;\" cellspacing=\"0\" cellpadding=\"0\" align=\"center\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tbody>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr style=\"vertical-align: top; display: inline-block; text-align: center;\" valign=\"top\" align=\"center\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 10px; padding-left: 10px;\" valign=\"top\"><a href=\"https://www.facebook.com/\" target=\"_blank\"><img style=\"text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; display: block;\" title=\"Facebook\" src=\"https://firebasestorage.googleapis.com/v0/b/k34dl-8e937.appspot.com/o/facebook_2.png?alt=media&token=b4482bf0-ca5f-4c33-8d53-622f698fc42b\" alt=\"Facebook\" width=\"32\" height=\"32\"></a></td>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 10px; padding-left: 10px;\" valign=\"top\"><a href=\"https://twitter.com/\" target=\"_blank\"><img style=\"text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; display: block;\" title=\"Twitter\" src=\"https://firebasestorage.googleapis.com/v0/b/k34dl-8e937.appspot.com/o/twitter_2.png?alt=media&token=8d48929b-b927-4315-9f3c-80064ebe3a59\" alt=\"Twitter\" width=\"32\" height=\"32\"></a></td>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 10px; padding-left: 10px;\" valign=\"top\"><a href=\"https://instagram.com/\" target=\"_blank\"><img style=\"text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; display: block;\" title=\"Instagram\" src=\"https://firebasestorage.googleapis.com/v0/b/k34dl-8e937.appspot.com/o/instagram_2.png?alt=media&token=a06ddb2a-9ae1-4164-a6eb-aba5c75895e9\" alt=\"Instagram\" width=\"32\" height=\"32\"></a></td>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"word-break: break-word; vertical-align: top; padding-bottom: 0; padding-right: 10px; padding-left: 10px;\" valign=\"top\"><a href=\"https://www.linkedin.com/\" target=\"_blank\"><img style=\"text-decoration: none; -ms-interpolation-mode: bicubic; height: auto; border: 0; display: block;\" title=\"LinkedIn\" src=\"https://firebasestorage.googleapis.com/v0/b/k34dl-8e937.appspot.com/o/linkedin_2.png?alt=media&token=f2035e7c-6a86-47eb-bec4-1d9672772e61\" alt=\"LinkedIn\" width=\"32\" height=\"32\"></a></td>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tbody>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t</table>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t</tbody>\n" +
+                "\t\t\t\t\t\t\t\t\t\t</table>\n" +
+                "\t\t\t\t\t\t\t\t\t\t<table style=\"table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t<tbody>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t<tr style=\"vertical-align: top;\" valign=\"top\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"word-break: break-word; vertical-align: top; min-width: 100%; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%; padding: 25px 40px 10px 40px;\" valign=\"top\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t<table style=\"table-layout: fixed; vertical-align: top; border-spacing: 0; border-collapse: collapse; mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-top: 2px solid #fff3; width: 100%;\" width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" align=\"center\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tbody>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<tr style=\"vertical-align: top;\" valign=\"top\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t<td style=\"word-break: break-word; vertical-align: top; -ms-text-size-adjust: 100%; -webkit-text-size-adjust: 100%;\" valign=\"top\">&nbsp;</td>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t</tbody>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t\t</table>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t</td>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t</tr>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t</tbody>\n" +
+                "\t\t\t\t\t\t\t\t\t\t</table>\n" +
+                "\t\t\t\t\t\t\t\t\t\t<table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\"><tbody><tr><td style=\"padding-right: 40px; padding-left: 40px; padding-top: 0; padding-bottom: 30px; font-family: Tahoma, sans-serif\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t<div style=\"color: #555555; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; line-height: 1.2; padding: 10px;\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t<div style=\"line-height: 1.2; font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; color: #fff; mso-line-height-alt: 14px;\">\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t<p style=\"margin: 0; font-size: 12px; line-height: 1.2; word-break: break-word; text-align: center; mso-line-height-alt: 14px; margin-top: 0; margin-bottom: 0;\"><span style=\"color: #fff; font-size: 14px;\">Your Logo Copyright &copy; 2021-2022</span></p>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t<p style=\"margin: 0; font-size: 12px; line-height: 1.2; word-break: break-word; text-align: center; mso-line-height-alt: 14px; margin-top: 0; margin-bottom: 0;\"><span style=\"color: #fff; font-size: 14px;\">Want to stop receiving these emails?</span></p>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t\t<p style=\"margin: 0; font-size: 12px; line-height: 1.2; word-break: break-word; text-align: center; mso-line-height-alt: 14px; margin-top: 0; margin-bottom: 0;\"><span style=\"color: #95979c; font-size: 12px;\"> <a style=\"text-decoration: underline; color: #ffffff;font-weight: 600;line-height: 25px;\" href=\"http://localhost:8080/ekka/\" target=\"_blank\" rel=\"noopener\">Unsubscribe </a></span></p>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t\t</div>\n" +
+                "\t\t\t\t\t\t\t\t\t\t\t</div>\n" +
+                "\t\t\t\t\t\t\t\t\t\t</td></tr></tbody></table> </div>\n" +
+                "\t\t\t\t\t\t\t\t</div>\n" +
+                "\t\t\t\t\t\t\t</div>\n" +
+                "\t\t\t\t\t\t</td></tr></tbody></table>  </td></tr></tbody></table></td></tr></tbody></table></div>\n" +
+                "\t\t\t\t\t</div>\n" +
+                "\t\t\t\t</div>\n" +
+                "\t\t\t</td></tr></tbody></table></td>\n" +
+                "\t\t</tr>\n" +
+                "\t</tbody>\n" +
+                "</table>");
+        emailService.sendMailWithAttachment(emailDetails);
         return new ResponseDto(Constant.CODE_SUCCESS, "Gưi xác nhận thành công");
     }
 

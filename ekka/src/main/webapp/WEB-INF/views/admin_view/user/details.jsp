@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="description" content="Ekka - Admin Dashboard eCommerce HTML Template.">
 
-    <title>Ekka - Admin Dashboard eCommerce HTML Template.</title>
+    <title>Ekka - Admin | User Details.</title>
 
     <%@include file="/WEB-INF/views/layout/admin/assets.jsp" %>
 
@@ -53,16 +53,16 @@
                             <div class="profile-content-left profile-left-spacing">
                                 <div class="text-center widget-profile px-0 border-0" style="height: 307px;">
                                     <div class="card-img mx-auto rounded-circle" style="width: 100%!important;">
-                                        <img src="${userDto.background_profile}"
+                                        <img id="fileImageBackGround" src="${userDto.background_profile}"
                                              alt="user image">
                                     </div>
-                                    <img style="height: 120px;width: 120px;border-radius: 50%;object-fit: cover;position: relative;top: -62px;"
+                                    <img id="fileImageAvatar" style="height: 120px;width: 120px;border-radius: 50%;object-fit: cover;position: relative;top: -62px;border: 5px solid white;"
                                          src="${userDto.avatar}"
                                          alt="user image">
 
                                     <div class="card-body" style="position: relative;top: -58px;">
                                         <p>( ${userDto.role} )</p>
-                                        <h4 class="py-2 text-dark">${userDto.fullName}</h4>
+                                        <h4 class="py-2 text-dark showUserName">${userDto.fullName}</h4>
                                         <p>${userDto.email}</p>
                                         ${userDto.state == 1 ? '<a class="btn btn-success my-3" href="#">ACTIVE</a>' : '<a class="btn btn-danger my-3" href="#">BLOCK</a>'}
                                     </div>
@@ -75,9 +75,9 @@
                                     <p class="text-dark font-weight-medium pt-24px mb-2">Email address</p>
                                     <p>${userDto.email == null ? "( null )" : userDto.email}</p>
                                     <p class="text-dark font-weight-medium pt-24px mb-2">Phone Number</p>
-                                    <p>${userDto.phone == null ? "( null )" : userDto.phone}</p>
+                                    <p class="showUserPhone">${userDto.phone == null ? "( null )" : userDto.phone}</p>
                                     <p class="text-dark font-weight-medium pt-24px mb-2">Address</p>
-                                    <p>${userDto.address == null ? "( null )" : userDto.address}</p>
+                                    <p class="showUserAddress">${userDto.address == null ? "( null )" : userDto.address}</p>
                                     <p class="text-dark font-weight-medium pt-24px mb-2">Social Profile</p>
                                     <p class="social-button">
                                         <a href="#" class="mb-1 btn btn-outline btn-twitter rounded-circle">
@@ -326,8 +326,8 @@
                                                     <div class="ec-vendor-block-bg cover-upload">
                                                         <div class="thumb-upload">
                                                             <div class="thumb-edit">
-                                                                <f:input type="file" id="thumbUpload01"
-                                                                         cssClass="ec-image-upload"
+                                                                <f:input onchange="readURLBackGround(this);" type="file" id="thumbUpload01"
+                                                                         cssClass="ec-image-upload" accept="image/*"
                                                                          path="fileImageBackground"
                                                                          placeholder="Chọn file"
                                                                          aria-label="Ảnh đại diện"/>
@@ -348,8 +348,8 @@
                                                     <div class="ec-vendor-block-detail">
                                                         <div class="thumb-upload">
                                                             <div class="thumb-edit">
-                                                                <f:input type="file" id="thumbUpload02"
-                                                                         cssClass="ec-image-upload" path="fileImage"
+                                                                <f:input onchange="readURL(this);" type="file" id="thumbUpload02"
+                                                                         cssClass="ec-image-upload" path="fileImage" accept="image/*"
                                                                          placeholder="Chọn file"
                                                                          aria-label="Ảnh đại diện"/>
                                                                 <label><img src="/user/assets/images/icons/edit.svg"
@@ -369,8 +369,8 @@
                                                     <div class="ec-vendor-upload-detail">
                                                         <div class="col-md-12 space-t-15 form-group">
                                                             <label class="form-label">User Name*</label>
-                                                            <f:input type="text" path="fullName" class="form-control"
-                                                                     placeholder="Enter your full name"
+                                                            <f:input type="text" path="fullName" class="form-control userName"
+                                                                     placeholder="Enter your full name" maxlength="30"
                                                                      aria-label="Enter your full name"
                                                                      required="required"/>
                                                         </div>
@@ -383,15 +383,15 @@
                                                         </div>
                                                         <div class="col-md-12 space-t-15 form-group">
                                                             <label class="form-label">Phone</label>
-                                                            <f:input type="text" path="phone" class="form-control"
-                                                                     placeholder="Enter your phone"
+                                                            <f:input type="text" path="phone" class="form-control userPhone"
+                                                                     placeholder="Enter your phone" maxlength="15"
                                                                      aria-label="Enter your phone"
                                                                      required="required"/>
                                                         </div>
                                                         <div class="col-md-12 space-t-15 form-group">
                                                             <label class="form-label">Address*</label>
-                                                            <f:input type="text" path="address" class="form-control"
-                                                                     placeholder="Enter your address"
+                                                            <f:input type="text" path="address" class="form-control userAddress"
+                                                                     placeholder="Enter your address" maxlength="50"
                                                                      aria-label="Enter your address"
                                                                      required="required"/>
                                                         </div>
@@ -466,6 +466,50 @@
 </div> <!-- End Wrapper -->
 
 <%@include file="/WEB-INF/views/layout/admin/scripts.jsp" %>
+<script>
+    function readURL(input) {
+        // for (let i = 0; i < input.files.length; i++) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
 
+            reader.onload = function (e) {
+                document.getElementById("fileImageAvatar").src = e.target.result;
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function readURLBackGround(input) {
+        // for (let i = 0; i < input.files.length; i++) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                document.getElementById("fileImageBackGround").src = e.target.result;
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("input.userName").keyup(function (element) {
+        var el = $(this).val();
+        console.log(el)
+        $('h4.showUserName').text(el);
+    });
+
+    $("input.userPhone").keyup(function (element) {
+        var el = $(this).val();
+        console.log(el)
+        $('p.showUserPhone').text(el);
+    });
+
+    $("input.userAddress").keyup(function (element) {
+        var el = $(this).val();
+        console.log(el)
+        $('p.showUserAddress').text(el);
+    });
+</script>
 </body>
 </html>

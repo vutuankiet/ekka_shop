@@ -25,9 +25,17 @@ public interface CartRepository extends JpaRepository<CartEntity, Long> {
 
     @Transactional //try to add this annotation
     @Modifying      // to mark delete or update query
+    @Query(value = "SELECT c FROM CartEntity c WHERE c.product.id = :id and c.user.id = :UserId  ORDER BY c.updated_at DESC")       // it will delete all the record with specific name
+    List<CartEntity> findAllByProductIdAndUserId(long id, long UserId);
+
+    @Transactional //try to add this annotation
+    @Modifying      // to mark delete or update query
     @Query(value = "DELETE FROM CartEntity c WHERE c.id = :id")       // it will delete all the record with specific name
     int deleteById(@Param("id") long id);
 
     @Query(value = "SELECT count(c.id) FROM CartEntity c WHERE c.state = 1")
     int countAll();
+
+    @Query(value = "SELECT count(c.id) FROM CartEntity c WHERE c.user.id = :id and c.state = 1")
+    int countAllByUser(@Param("id") long id);
 }

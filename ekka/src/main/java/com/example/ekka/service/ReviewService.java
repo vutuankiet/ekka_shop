@@ -2,6 +2,7 @@ package com.example.ekka.service;
 
 import com.example.ekka.dto.OrderDto;
 import com.example.ekka.dto.ReviewDto;
+import com.example.ekka.entities.BrandEntity;
 import com.example.ekka.entities.OrderEntity;
 import com.example.ekka.entities.ProductEntity;
 import com.example.ekka.entities.ReviewEntity;
@@ -26,6 +27,9 @@ public class ReviewService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    ProductService productService;
+
     public List<ReviewEntity> listAll() {
         return (List<ReviewEntity>) reviewRepository.findAll();
     }
@@ -49,6 +53,26 @@ public class ReviewService {
         ReviewEntity reviewEntity = new ReviewEntity();
         BeanUtils.copyProperties(reviewDto, reviewEntity);
 
+        ProductEntity product = productService.get(reviewDto.getProductId());
+        try{
+            double product_rating = product.getRating();
+            if(product_rating == 0){
+                double abs_rating = (product_rating  + reviewDto.getRating());
+                double rating = (double) Math.round(abs_rating*10)/10;
+                Float ratingStr = Float.valueOf(String.valueOf(rating));
+
+                productRepository.updateRating(ratingStr,reviewDto.getProductId());
+            }else {
+                double abs_rating = ((product_rating  + reviewDto.getRating())/2);
+                double rating = (double) Math.round(abs_rating*10)/10;
+                Float ratingStr = Float.valueOf(String.valueOf(rating));
+
+                productRepository.updateRating(ratingStr,reviewDto.getProductId());
+            }
+
+        }catch (Exception ex){
+            throw ex;
+        }
         Long datetime = System.currentTimeMillis();
         Timestamp timestamp = new Timestamp(datetime);
         reviewEntity.setCreated_at(timestamp);

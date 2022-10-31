@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="description" content="Ekka - Admin Dashboard eCommerce HTML Template.">
 
-    <title>Ekka - Admin Dashboard eCommerce HTML Template.</title>
+    <title>Ekka - Admin | Product.</title>
 
     <%@include file="/WEB-INF/views/layout/admin/assets.jsp" %>
 

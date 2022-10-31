@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="description" content="Ekka - Admin Dashboard eCommerce HTML Template.">
 
-    <title>Ekka - Admin Dashboard eCommerce HTML Template.</title>
+    <title>Ekka - Admin | User.</title>
 
     <%@include file="/WEB-INF/views/layout/admin/assets.jsp" %>
 
@@ -136,7 +136,7 @@
                                             <div class="modal fade modal-add-contact" id="infoUser-${user.id}" tabindex="-1"
                                                  role="dialog"
                                                  aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered modal-lg" style="width: 280px; margin: auto;"
+                                                <div class="modal-dialog modal-dialog-centered modal-lg" style="width: 400px; margin: auto;"
                                                      role="document">
                                                     <div class="modal-content">
                                                         <div class="card bg-white profile-content">

@@ -39,7 +39,6 @@
                                     class="ecicon eci-caret-down" aria-hidden="true"></i></button>
                             <ul class="dropdown-menu">
                                 <li class="active"><a class="dropdown-item" href="#">USD $</a></li>
-                                <li><a class="dropdown-item" href="#">EUR €</a></li>
                             </ul>
                         </div>
                         <!-- Currency End -->
@@ -49,7 +48,6 @@
                                     class="ecicon eci-caret-down" aria-hidden="true"></i></button>
                             <ul class="dropdown-menu">
                                 <li class="active"><a class="dropdown-item" href="#">English</a></li>
-                                <li><a class="dropdown-item" href="#">Italiano</a></li>
                             </ul>
                         </div>
                         <!-- Language End -->
@@ -127,7 +125,7 @@
                     <!-- Ec Header Logo Start -->
                     <div class="align-self-center">
                         <div class="header-logo">
-                            <a href="index.html"><img src="/user/assets/images/logo/logo.png" alt="Site Logo"/><img
+                            <a href="/ekka"><img src="/user/assets/images/logo/logo.png" alt="Site Logo"/><img
                                     class="dark-logo" src="/user/assets/images/logo/dark-logo.png" alt="Site Logo"
                                     style="display: none;"/></a>
                         </div>
@@ -208,7 +206,7 @@
                 <!-- Ec Header Logo Start -->
                 <div class="col">
                     <div class="header-logo">
-                        <a href="index.html"><img src="/user/assets/images/logo/logo.png" alt="Site Logo"/><img
+                        <a href="/ekka"><img src="/user/assets/images/logo/logo.png" alt="Site Logo"/><img
                                 class="dark-logo" src="/user/assets/images/logo/dark-logo.png" alt="Site Logo"
                                 style="display: none;"/></a>
                     </div>
@@ -279,13 +277,11 @@
         <div class="ec-menu-inner">
             <div class="ec-menu-content">
                 <ul>
-                    <li><a href="./index.html">Home</a></li>
-                    <li><a href="product.html">Product</a></li>
-                    <li><a href="./offer.html">Hot Offers</a></li>
-                    <li><a href="./about-us.html">About Us</a></li>
-                    <li><a href="./contact-us.html">Contact Us</a></li>
-                    <li><a href="./faq.html">FAQ</a></li>
-                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="/ekka">Home</a></li>
+                    <li><a href="/ekka/product">Product</a></li>
+                    <li><a href="/ekka/about-us">About Us</a></li>
+                    <li><a href="/ekka/contact-us">Contact Us</a></li>
+                    <li><a href="/ekka/faq">FAQ</a></li>
                 </ul>
             </div>
             <div class="header-res-lan-curr">
@@ -296,7 +292,6 @@
                                 class="ecicon eci-caret-down" aria-hidden="true"></i></button>
                         <ul class="dropdown-menu">
                             <li class="active"><a class="dropdown-item" href="#">English</a></li>
-                            <li><a class="dropdown-item" href="#">Italiano</a></li>
                         </ul>
                     </div>
                     <!-- Language End -->
@@ -306,7 +301,6 @@
                                 class="ecicon eci-caret-down" aria-hidden="true"></i></button>
                         <ul class="dropdown-menu">
                             <li class="active"><a class="dropdown-item" href="#">USD $</a></li>
-                            <li><a class="dropdown-item" href="#">EUR €</a></li>
                         </ul>
                     </div>
                     <!-- Currency End -->

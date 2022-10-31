@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>Ekka | Home.</title>
+    <title>Ekka | Product.</title>
 
     <%@include file="/WEB-INF/views/layout/user/assets.jsp" %>
 
@@ -187,11 +187,86 @@
                                                     href="/ekka/product-details/${product.id}">${product.productName}</a>
                                             </h5>
                                             <div class="ec-pro-rating">
-                                                <i class="ecicon eci-star fill"></i>
-                                                <i class="ecicon eci-star fill"></i>
-                                                <i class="ecicon eci-star fill"></i>
-                                                <i class="ecicon eci-star fill"></i>
-                                                <i class="ecicon eci-star"></i>
+                                                <c:if test="${product.rating <= 0}">
+                                                    <i class="ecicon eci-star"></i>
+                                                    <i class="ecicon eci-star"></i>
+                                                    <i class="ecicon eci-star"></i>
+                                                    <i class="ecicon eci-star"></i>
+                                                    <i class="ecicon eci-star"></i>
+                                                </c:if>
+                                                <c:if test="${product.rating > 0 && product.rating < 1}">
+                                                    <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                </c:if>
+                                                <c:if test="${product.rating > 1 && product.rating < 2}">
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                </c:if>
+                                                <c:if test="${product.rating > 2 && product.rating < 3}">
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                </c:if>
+                                                <c:if test="${product.rating > 3 && product.rating < 4}">
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                </c:if>
+                                                <c:if test="${product.rating > 4 && product.rating < 5}">
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                </c:if>
+
+                                                <c:if test="${product.rating == 1}">
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                </c:if>
+
+                                                <c:if test="${product.rating == 2}">
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                </c:if>
+
+                                                <c:if test="${product.rating == 3}">
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                </c:if>
+                                                <c:if test="${product.rating == 4}">
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                </c:if>
+                                                <c:if test="${product.rating == 5}">
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                </c:if>
                                             </div>
                                             <div class="ec-pro-list-desc"
                                                  style="margin-left: 0!important;">${product.details}</div>
@@ -600,26 +675,42 @@
 <!-- Footer navigation panel for responsive display end -->
 
 <!-- Vendor JS -->
-<script src="/user/assets/js/vendor/jquery-3.5.1.min.js"></script>
-<script src="/user/assets/js/vendor/jquery.notify.min.js"></script>
-<script src="/user/assets/js/vendor/jquery.bundle.notify.min.js"></script>
-<script src="/user/assets/js/vendor/popper.min.js"></script>
-<script src="/user/assets/js/vendor/bootstrap.min.js"></script>
-<script src="/user/assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
-<script src="/user/assets/js/vendor/modernizr-3.11.2.min.js"></script>
+<%@include file="/WEB-INF/views/layout/user/scripts.jsp" %>
 
-<!--Plugins JS-->
-<script src="/user/assets/js/plugins/swiper-bundle.min.js"></script>
-<script src="/user/assets/js/plugins/nouislider.js"></script>
-<script src="/user/assets/js/plugins/countdownTimer.min.js"></script>
-<script src="/user/assets/js/plugins/scrollup.js"></script>
-<script src="/user/assets/js/plugins/jquery.zoom.min.js"></script>
-<script src="/user/assets/js/plugins/slick.min.js"></script>
-<script src="/user/assets/js/plugins/infiniteslidev2.js"></script>
-<script src="/user/assets/js/vendor/jquery.magnific-popup.min.js"></script>
-<script src="/user/assets/js/plugins/jquery.sticky-sidebar.js"></script>
-<!-- Main Js -->
-<script src="/user/assets/js/main.js"></script>
+<script>
+    $(document).ready(function () {
+        toastr.options = {
+            'closeButton': true,
+            'debug': false,
+            'newestOnTop': false,
+            'progressBar': false,
+            'positionClass': 'toast-bottom-right',
+            'preventDuplicates': false,
+            'showDuration': '1000',
+            'hideDuration': '1000',
+            'timeOut': '5000',
+            'extendedTimeOut': '1000',
+            'showEasing': 'swing',
+            'hideEasing': 'linear',
+            'showMethod': 'fadeIn',
+            'hideMethod': 'fadeOut',
+        }
+    });
 
+    const success = setTimeout(Success, 1000);
+    const error = setTimeout(Err, 1000);
+
+    function Success() {
+        <c:if test="${message_success != null}">
+        toastr.success('${message_success}');
+        </c:if>
+    }
+
+    function Err() {
+        <c:if test="${message_err != null}">
+        toastr.error('${message_err}');
+        </c:if>
+    }
+</script>
 </body>
 </html>

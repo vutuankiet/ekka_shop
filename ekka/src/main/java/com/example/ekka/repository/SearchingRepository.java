@@ -7,5 +7,5 @@ import org.springframework.data.repository.NoRepositoryBean;
 
 @NoRepositoryBean
 public interface SearchingRepository<T, ID> extends JpaRepository<T, ID> {
-    Page<T> findAll(String key, Pageable pageable);
+    Page<T> findAllProduct(String key, Pageable pageable);
 }

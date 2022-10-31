@@ -83,6 +83,12 @@ public class UserEntity implements UserDetails {
     @ToString.Exclude // Khoonhg sử dụng trong toString()
     private Collection<CartEntity> cartEntityCollection;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL) // Quan hệ 1-n với đối tượng ở dưới (Person) (1 địa điểm có nhiều người ở)
+    // MapopedBy trỏ tới tên biến user ở trong ContactEntity.
+    @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode
+    @ToString.Exclude // Khoonhg sử dụng trong toString()
+    private Collection<ContactEntity> contactEntityCollection;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorities = new HashSet<>();

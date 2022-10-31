@@ -48,8 +48,8 @@ public class CartController {
 
             List<ProductColorEntity> listProductColor = productColorService.listAll();
             List<ProductSizeEntity> listProductSize = productSizeService.listAll();
-            int countWishList = wishListService.countWishList();
-            int countCart = cartService.countCart();
+            int countWishList = wishListService.countWishListUser(id);
+            int countCart = cartService.countCartUser(id);
 
             model.addAttribute("countWishList", countWishList);
             model.addAttribute("countCart", countCart);
@@ -57,6 +57,16 @@ public class CartController {
             model.addAttribute("listCartUserId", listCartUserId);
             model.addAttribute("listProductColor", listProductColor);
             model.addAttribute("listProductSize", listProductSize);
+
+            double total = 0;
+            for (CartEntity cart : listCartUserId) {
+                double priceDiscount = Double.parseDouble(cart.getProduct().getDiscount());
+                double price = Double.parseDouble(cart.getProduct().getPriceProduct());
+                total = total + (price * ((100 - priceDiscount)/100)) * cart.getItem();
+            }
+
+            model.addAttribute("totaltotal", (double) Math.round(total*100)/100);
+
             UrlDto urlDto = new UrlDto();
             urlDto.setUrl(request.getRequestURL().toString());
             model.addAttribute("urlDto", urlDto);
@@ -72,7 +82,7 @@ public class CartController {
     //quyền USER được vào trang này
     @PreAuthorize("hasAnyRole('ROLE_USER')")
     @PostMapping(value = "cart/create/{id}")
-    public String createWishList(@PathVariable(name = "id") int id, CartDto cartDto, @ModelAttribute("urlDto") UrlDto urlDto, RedirectAttributes model, Model m, HttpServletRequest request) {
+    public String createCart(@PathVariable(name = "id") int id, CartDto cartDto, @ModelAttribute("urlDto") UrlDto urlDto, RedirectAttributes model, Model m, HttpServletRequest request) {
         List<ProductColorEntity> listProductColor = productColorService.listAll();
         List<ProductSizeEntity> listProductSize = productSizeService.listAll();
         List<ProductEntity> listProduct = productService.listAllProductId(id);
@@ -127,9 +137,9 @@ public class CartController {
                 throw ex;
             }
             cartService.createCart(cartDto);
-            model.addFlashAttribute("message", "Them cart thành công");
+            model.addFlashAttribute("message_success", "Them cart thành công");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Them cart không thành công");
+            model.addFlashAttribute("message_err", "Them cart không thành công");
         }
         System.out.println("id:"+id);
 
@@ -205,9 +215,9 @@ public class CartController {
                 throw ex;
             }
             cartService.createCart(cartDto);
-            model.addFlashAttribute("message", "Them cart thành công");
+            model.addFlashAttribute("message_success", "Them cart thành công");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Them cart không thành công");
+            model.addFlashAttribute("message_err", "Them cart không thành công");
         }
         System.out.println("id:"+id);
 
@@ -222,9 +232,9 @@ public class CartController {
         try {
             cartDto.setId(id);
             cartService.deleteCart(cartDto);
-            model.addFlashAttribute("message", "Xoa cart thành công");
+            model.addFlashAttribute("message_success", "Xoa cart thành công");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Xoa cart không thành công");
+            model.addFlashAttribute("message_err", "Xoa cart không thành công");
         }
         System.out.println("id:"+id);
 

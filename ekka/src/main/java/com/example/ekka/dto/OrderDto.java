@@ -18,6 +18,12 @@ public class OrderDto {
     long id;
     int productId;
     int userId;
+
+//  dung cho changeState3
+    long idUser;
+//  dung cho changeState3
+
+    String email;
     String order_code;
     String color_product;
     String size_product;

@@ -32,3 +32,4 @@
 
 <!-- Ekka Custom -->
 <script src="/admin/assets/js/ekka.js"></script>
+<script src="/admin/assets/js/toastr.js"></script>

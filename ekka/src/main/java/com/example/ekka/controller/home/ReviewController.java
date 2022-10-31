@@ -3,10 +3,7 @@ package com.example.ekka.controller.home;
 import com.example.ekka.dto.CartDto;
 import com.example.ekka.dto.ReviewDto;
 import com.example.ekka.dto.UrlDto;
-import com.example.ekka.entities.ProductColorEntity;
-import com.example.ekka.entities.ProductEntity;
-import com.example.ekka.entities.ProductSizeEntity;
-import com.example.ekka.entities.UserEntity;
+import com.example.ekka.entities.*;
 import com.example.ekka.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -52,14 +49,16 @@ public class ReviewController {
         // Lấy ID của tài khoản  đa đăng nhập
         long UserId = ((UserEntity) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal()).getId();
+
         try {
             reviewDto.setUserId((int) UserId);
             reviewDto.setProductId(id);
             reviewDto.setState(1);
+            System.out.println(reviewDto.getRating());
             reviewService.save(reviewDto);
-            model.addFlashAttribute("message", "Tao review thành công");
+            model.addFlashAttribute("message_success", "Tao review thành công");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Tao review không thành công");
+            model.addFlashAttribute("message_err", "Tao review không thành công");
         }
         System.out.println("id:"+id);
 

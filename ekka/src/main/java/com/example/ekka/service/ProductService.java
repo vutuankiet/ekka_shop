@@ -1,8 +1,7 @@
 package com.example.ekka.service;
 
+import com.example.ekka.dto.*;
 import com.example.ekka.dto.ProductDto;
-import com.example.ekka.dto.ProductDto;
-import com.example.ekka.dto.ResponseDataTableDto;
 import com.example.ekka.entities.*;
 import com.example.ekka.entities.ProductEntity;
 import com.example.ekka.repository.SearchingRepository;
@@ -13,6 +12,7 @@ import com.example.ekka.repository.product.ProductRepository;
 import com.example.ekka.repository.productColor.ProductColorRepository;
 import com.example.ekka.repository.productImage.ProductImageRepository;
 import com.example.ekka.repository.productSize.ProductSizeRepository;
+import com.example.ekka.service.email.EmailDetails;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,6 +54,7 @@ public class ProductService {
             productEntity.setCreated_at(timestamp);
             productEntity.setUpdated_at(timestamp);
             productEntity.setState(1);
+            productEntity.setRating((float) 0);
             productEntity.setCategory(categoryRepository.findById(productDto.getCategoryId()).orElse(null));
             productEntity.setBrand(brandRepository.findById(productDto.getBrandId()).orElse(null));
             productEntity.setProductColorEntityCollection(productDto.getColor().stream().map(c -> new ProductColorEntity(null,c,productEntity,timestamp,null,1)).collect(Collectors.toList()));
@@ -87,8 +88,8 @@ public class ProductService {
     public List<ProductEntity> listAllProductId(long id) {
         return (List<ProductEntity>) productRepository.findAllProductById(id);
     }
-    public void list(ResponseDataTableDto dataTableDto) throws Exception {
-        dataTableDto.list(productRepository);
+    public void list(ResponseDataTableDto responseDataTableDto) throws Exception {
+        responseDataTableDto.list(productRepository);
     }
     public ProductEntity get(long id) {
         return productRepository.findById(id).get();
@@ -109,6 +110,7 @@ public class ProductService {
         productEntity.setTotalProduct(name.getTotalProduct());
         productEntity.setPriceProduct(name.getPriceProduct());
         productEntity.setDiscount(name.getDiscount());
+        productEntity.setRating(name.getRating());
         productEntity.setCreated_at(name.getCreated_at());
         productEntity.setUpdated_at(timestamp);
         productEntity.setCategory(categoryRepository.findById(productDto.getCategoryId()).orElse(null));
@@ -134,6 +136,7 @@ public class ProductService {
         productEntity.setTotalProduct(name.getTotalProduct());
         productEntity.setPriceProduct(name.getPriceProduct());
         productEntity.setDiscount(name.getDiscount());
+        productEntity.setRating(name.getRating());
         productEntity.setCreated_at(name.getCreated_at());
         productEntity.setUpdated_at(timestamp);
         productEntity.setCategory(categoryRepository.findById(productDto.getCategoryId()).orElse(null));
@@ -141,6 +144,14 @@ public class ProductService {
 
         productRepository.save(productEntity);
 
+    }
+
+    public void changeTotalProduct(String total, long id) throws Exception{
+        try {
+            productRepository.changeTotal(total,id);
+        }catch (Exception ex){
+            throw  ex;
+        }
     }
 
     public void editProduct(ProductDto productDto) throws Exception {
@@ -163,6 +174,7 @@ public class ProductService {
             Long datetime = System.currentTimeMillis();
             Timestamp timestamp = new Timestamp(datetime);
             productEntity.setCreated_at(id.getCreated_at());
+            productEntity.setRating(id.getRating());
             productEntity.setUpdated_at(timestamp);
             productEntity.setDiscount(productDto.getDiscount());
             productEntity.setState(id.getState());

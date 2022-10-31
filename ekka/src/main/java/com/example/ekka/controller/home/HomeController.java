@@ -18,6 +18,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.example.ekka.config.language.MessageConfig;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -50,6 +52,9 @@ public class HomeController {
     @Autowired
     CartService cartService;
 
+    @Autowired
+    ReviewService reviewService;
+
     //quyền USER được vào trang này
     @PreAuthorize("hasAnyRole('ROLE_USER')")
     @GetMapping(value = {"home", "", "/"})
@@ -65,8 +70,8 @@ public class HomeController {
             List<ProductColorEntity> listProductColor = productColorService.listAll();
             List<ProductSizeEntity> listProductSize = productSizeService.listAll();
             List<CategoryEntity> listCategory = categoryService.listAll();
-            int countWishList = wishListService.countWishList();
-            int countCart = cartService.countCart();
+            int countWishList = wishListService.countWishListUser(id);
+            int countCart = cartService.countCartUser(id);
 
             model.addAttribute("countWishList", countWishList);
             model.addAttribute("countCart", countCart);

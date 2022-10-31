@@ -50,8 +50,9 @@ public class ResponseDataTableDto {
 //    }
 
     public void list(SearchingRepository searchingRepository) throws Exception {
-        Pageable pageable = PageRequest.of(page - 1, perpage);
-        Page<?> pages = searchingRepository.findAll(key == null?"":key, pageable);
+        Pageable pageable = PageRequest.of(page-1, perpage);
+        Page<?> pages = searchingRepository.findAllProduct(key == null?"":key, pageable);
+        System.out.println("pages: "+ pages);
         this.setData(pages.getContent());
         long total = pages.getTotalElements();
         this.setTotal((int)total);

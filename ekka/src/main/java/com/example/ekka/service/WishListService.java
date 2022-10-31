@@ -35,8 +35,16 @@ public class WishListService {
         return (List<WishListEntity>) wishListRepository.findAllByProductId(id);
     }
 
+    public List<WishListEntity> listAllProductIdAndUserId(long id, long UserId) {
+        return (List<WishListEntity>) wishListRepository.findAllByProductIdAndUserId(id, UserId);
+    }
+
     public int countWishList() {
         return wishListRepository.countAll();
+    }
+
+    public int countWishListUser(long id) {
+        return wishListRepository.countAllByUser(id);
     }
 
     public void createWishList(WishListDto wishListDto) throws Exception {

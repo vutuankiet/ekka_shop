@@ -10,7 +10,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>Ekka | Home.</title>
+    <title>Ekka | Product Details.</title>
 
     <%@include file="/WEB-INF/views/layout/user/assets.jsp" %>
 
@@ -94,13 +94,88 @@
                                     <h5 class="ec-single-title">${productDto.productName}</h5>
                                     <div class="ec-single-rating-wrap">
                                         <div class="ec-single-rating">
-                                            <i class="ecicon eci-star fill"></i>
-                                            <i class="ecicon eci-star fill"></i>
-                                            <i class="ecicon eci-star fill"></i>
-                                            <i class="ecicon eci-star fill"></i>
-                                            <i class="ecicon eci-star-o"></i>
+                                            <c:if test="${review_rating <= 0}">
+                                                <i class="ecicon eci-star"></i>
+                                                <i class="ecicon eci-star"></i>
+                                                <i class="ecicon eci-star"></i>
+                                                <i class="ecicon eci-star"></i>
+                                                <i class="ecicon eci-star"></i>
+                                            </c:if>
+                                            <c:if test="${review_rating > 0 && review_rating < 1}">
+                                                <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                            </c:if>
+                                            <c:if test="${review_rating > 1 && review_rating < 2}">
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                            </c:if>
+                                            <c:if test="${review_rating > 2 && review_rating < 3}">
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                            </c:if>
+                                            <c:if test="${review_rating > 3 && review_rating < 4}">
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                            </c:if>
+                                            <c:if test="${review_rating > 4 && review_rating < 5}">
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                            </c:if>
+
+                                            <c:if test="${review_rating == 1}">
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                            </c:if>
+
+                                            <c:if test="${review_rating == 2}">
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                            </c:if>
+
+                                            <c:if test="${review_rating == 3}">
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                            </c:if>
+                                            <c:if test="${review_rating == 4}">
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star-o"></i>
+                                            </c:if>
+                                            <c:if test="${review_rating == 5}">
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star fill"></i>
+                                                <i class="ecicon eci-star fill"></i>
+                                            </c:if>
                                         </div>
-                                        (${countReviewProduct} review)
+                                        (${review_rating} <i class="ecicon eci-star fill"></i>) (${countReviewProduct} review)
                                     </div>
                                     <div class="ec-single-desc">${productDto.details}</div>
                                     <div class="ec-single-price-stoke">
@@ -169,7 +244,9 @@
                                         </c:if>
                                         <c:if test="${productDto.totalProduct > 0}">
                                             <div class="ec-single-cart ">
+                                                <c:if test="${listCartProductIdAndUserId != []}">
                                                 <c:forEach items="${listCartUserId}" var="cartUser">
+
                                                     <c:if test="${productDto.id == cartUser.product.id && UserId == cartUser.user.id}">
                                                         <f:form method="post"
                                                                 action="/ekka/cart/delete/${cartUser.id}"
@@ -182,9 +259,11 @@
 
                                                         </f:form>
                                                     </c:if>
-
                                                 </c:forEach>
-                                                <c:if test="${listCartProductId == []}">
+                                                    </c:if>
+
+
+                                                <c:if test="${listCartProductIdAndUserId == []}">
                                                     <f:form method="post"
                                                             action="/ekka/cart/create-cart-detail/${productDto.id}"
                                                             modelAttribute="addCartDto">
@@ -201,7 +280,7 @@
                                             </div>
                                         </c:if>
                                         <div class="ec-single-wishlist">
-
+<c:if test="${listWishListProductIdAndUserId != []}">
                                             <c:forEach items="${listWishListUserId}" var="wishListUser">
                                                     <c:if test="${productDto.id == wishListUser.product.id && UserId == wishListUser.user.id}">
                                                         <f:form method="post"
@@ -222,7 +301,8 @@
                                                     </c:if>
 
                                             </c:forEach>
-                                            <c:if test="${listWishListProductId == []}">
+</c:if>
+                                            <c:if test="${listWishListProductIdAndUserId == []}">
                                                 <f:form method="post"
                                                         action="/ekka/wish-list/create/${productDto.id}"
                                                         modelAttribute="urlDto">
@@ -884,26 +964,8 @@
 
 
 <!-- Vendor JS -->
-<script src="/user/assets/js/vendor/jquery-3.5.1.min.js"></script>
-<script src="/user/assets/js/vendor/jquery.notify.min.js"></script>
-<script src="/user/assets/js/vendor/jquery.bundle.notify.min.js"></script>
-<script src="/user/assets/js/vendor/popper.min.js"></script>
-<script src="/user/assets/js/vendor/bootstrap.min.js"></script>
-<script src="/user/assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
-<script src="/user/assets/js/vendor/modernizr-3.11.2.min.js"></script>
+<%@include file="/WEB-INF/views/layout/user/scripts.jsp" %>
 
-<!--Plugins JS-->
-<script src="/user/assets/js/plugins/swiper-bundle.min.js"></script>
-<script src="/user/assets/js/plugins/nouislider.js"></script>
-<script src="/user/assets/js/plugins/countdownTimer.min.js"></script>
-<script src="/user/assets/js/plugins/scrollup.js"></script>
-<script src="/user/assets/js/plugins/jquery.zoom.min.js"></script>
-<script src="/user/assets/js/plugins/slick.min.js"></script>
-<script src="/user/assets/js/plugins/infiniteslidev2.js"></script>
-<script src="/user/assets/js/vendor/jquery.magnific-popup.min.js"></script>
-<script src="/user/assets/js/plugins/jquery.sticky-sidebar.js"></script>
-<!-- Main Js -->
-<script src="/user/assets/js/main.js"></script>
 <script>
     $("#color ul li span").click(function(element) {
         var el = element.currentTarget.style.backgroundColor;
@@ -950,6 +1012,41 @@
             $("#ratingInput").val(5);
         });
     });
+</script>
+<script>
+    $(document).ready(function () {
+        toastr.options = {
+            'closeButton': true,
+            'debug': false,
+            'newestOnTop': false,
+            'progressBar': false,
+            'positionClass': 'toast-bottom-right',
+            'preventDuplicates': false,
+            'showDuration': '1000',
+            'hideDuration': '1000',
+            'timeOut': '5000',
+            'extendedTimeOut': '1000',
+            'showEasing': 'swing',
+            'hideEasing': 'linear',
+            'showMethod': 'fadeIn',
+            'hideMethod': 'fadeOut',
+        }
+    });
+
+    const success = setTimeout(Success, 1000);
+    const error = setTimeout(Err, 1000);
+
+    function Success() {
+        <c:if test="${message_success != null}">
+        toastr.success('${message_success}');
+        </c:if>
+    }
+
+    function Err() {
+        <c:if test="${message_err != null}">
+        toastr.error('${message_err}');
+        </c:if>
+    }
 </script>
 </body>
 </html>

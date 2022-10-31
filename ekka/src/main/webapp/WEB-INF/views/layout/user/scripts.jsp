@@ -17,6 +17,14 @@
 <script src="/user/assets/js/plugins/infiniteslidev2.js"></script>
 <script src="/user/assets/js/vendor/jquery.magnific-popup.min.js"></script>
 <script src="/user/assets/js/plugins/jquery.sticky-sidebar.js"></script>
+
+<!-- Data Tables -->
+<script src='/user/assets/js/plugins/data-tables/jquery.datatables.min.js'></script>
+<script src='/user/assets/js/plugins/data-tables/datatables.bootstrap5.min.js'></script>
+<script src='/user/assets/js/plugins/data-tables/datatables.responsive.min.js'></script>
+
+<script src='/user/assets/js/plugins/toastr.js'></script>
+
 <!-- Main Js -->
 <script src="/user/assets/js/vendor/index.js"></script>
 <script src="/user/assets/js/main.js"></script>

@@ -26,6 +26,16 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
 
     @Transactional //try to add this annotation
     @Modifying      // to mark delete or update query
+    @Query(value = "SELECT o FROM OrderEntity o WHERE o.order_code = :code and o.user.id = :UserId order by o.updated_at desc")       // it will delete all the record with specific name
+    List<OrderEntity> findAllByUserId(@Param("code") String code, @Param("UserId") long UserId);
+
+    @Transactional //try to add this annotation
+    @Modifying      // to mark delete or update query
+    @Query(value = "SELECT o FROM OrderEntity o WHERE o.user.id = :id order by o.created_at desc")       // it will delete all the record with specific name
+    List<OrderEntity> findAllByUserId(@Param("id") long id);
+
+    @Transactional //try to add this annotation
+    @Modifying      // to mark delete or update query
     @Query(value = "SELECT o FROM OrderEntity o WHERE o.state = 4 order by o.updated_at desc")       // it will delete all the record with specific name
     List<OrderEntity> findAllByDelivered();
 

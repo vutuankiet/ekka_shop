@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="description" content="Ekka - Admin Dashboard eCommerce HTML Template.">
 
-    <title>Ekka - Admin Dashboard eCommerce HTML Template.</title>
+    <title>Ekka - Admin | Order Details.</title>
 
     <%@include file="/WEB-INF/views/layout/admin/assets.jsp" %>
 
@@ -46,20 +46,19 @@
                         <div class="ec-odr-dtl card card-default">
                             <div class="card-header card-header-border-bottom d-flex justify-content-between">
                                 <h2 class="ec-odr">Order Detail<br>
-                                    <span class="small">Order ID: #1082</span>
+                                    <span class="small">Order ID: #${order_code}</span>
                                 </h2>
                             </div>
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-xl-3 col-lg-6">
                                         <address class="info-grid">
-                                            <div class="info-title"><strong>Customer:</strong></div>
+                                            <div class="info-title"><strong>Shop:</strong></div>
                                             <br>
                                             <div class="info-content">
-                                                Twitter, Inc.<br>
-                                                795 Folsom Ave, Suite 600<br>
-                                                San Francisco, CA 94107<br>
-                                                <abbr title="Phone">P:</abbr> (123) 456-7890
+                                                Ekka, Inc.<br>
+                                                Dai Dong, Thach That, Ha Noi<br>
+                                                <abbr title="Phone">Phone:</abbr> 0336704581
                                             </div>
                                         </address>
                                     </div>
@@ -68,10 +67,9 @@
                                             <div class="info-title"><strong>Shipped To:</strong></div>
                                             <br>
                                             <div class="info-content">
-                                                Elaine Hernandez<br>
-                                                P. Sherman 42,<br>
-                                                Wallaby Way, Sidney<br>
-                                                <abbr title="Phone">P:</abbr> (123) 345-6789
+                                                ${name_consignee}<br>
+                                                ${delivery_address}<br>
+                                                <abbr title="Phone">Phone:</abbr> ${delivery_phone}
                                             </div>
                                         </address>
                                     </div>
@@ -80,10 +78,7 @@
                                             <div class="info-title"><strong>Payment Method:</strong></div>
                                             <br>
                                             <div class="info-content">
-                                                Visa ending **** 1234<br>
-                                                <a href="https://loopinfosol.in/cdn-cgi/l/email-protection"
-                                                   class="__cf_email__"
-                                                   data-cfemail="c1a9efa4ada0a8afa481a6aca0a8adefa2aeac">[email&#160;protected]</a><br>
+                                                ${payment == 0 ? "Payment on delivery" : "Payment via online banking"}<br>
                                             </div>
                                         </address>
                                     </div>
@@ -92,8 +87,8 @@
                                             <div class="info-title"><strong>Order Date:</strong></div>
                                             <br>
                                             <div class="info-content">
-                                                4:34PM,<br>
-                                                Wed, Aug 13, 2020
+                                                <fmt:formatDate pattern = "dd/MM/yyyy kk:mm:ss"
+                                                                             value = "${created_at}"/><br>
                                             </div>
                                         </address>
                                     </div>
@@ -162,53 +157,187 @@
                         <div class="card mt-4 trk-order">
                             <div class="p-4 text-center text-white text-lg bg-dark rounded-top">
                                 <span class="text-uppercase">Tracking Order No - </span>
-                                <span class="text-medium">34VB5540K83</span>
+                                <span class="text-medium">${order_code}</span>
                             </div>
                             <div
                                     class="d-flex flex-wrap flex-sm-nowrap justify-content-between py-3 px-2 bg-secondary">
                                 <div class="w-100 text-center py-1 px-2"><span class="text-medium">Shipped
-											Via:</span> UPS Ground
+											Via:</span> Ekka Shop
                                 </div>
                                 <div class="w-100 text-center py-1 px-2"><span class="text-medium">Status:</span>
-                                    Checking Quality
+                                    <c:if test="${state == 0}"><span style="color: #fe5461!important">ORDER CANCELLATION</span></c:if>
+                                    <c:if test="${state == 1}"><span style="color: #8a909d!important">PENDING</span></c:if>
+                                    <c:if test="${state == 2}"><span style="color: #fec400!important">READY TO SHIP</span></c:if>
+                                    <c:if test="${state == 3}"><span style="color: #13cae1!important">ON THE WAY</span></c:if>
+                                    <c:if test="${state == 4}"><span style="color: #29cc97!important">DELIVERED</span></c:if>
                                 </div>
                                 <div class="w-100 text-center py-1 px-2"><span class="text-medium">Expected
-											Date:</span> DEC 09, 2021
+											Date:</span> ${updated_at}
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div
                                         class="steps d-flex flex-wrap flex-sm-nowrap justify-content-between padding-top-2x padding-bottom-1x">
-                                    <div class="step completed">
-                                        <div class="step-icon-wrap">
-                                            <div class="step-icon"><i class="mdi mdi-cart"></i></div>
+                                    <c:if test="${state == 0}">
+                                        <div class="step">
+                                            <div class="step-icon-wrap">
+                                                <div class="step-icon"><i class="mdi mdi-cart"></i></div>
+                                            </div>
+                                            <h4 class="step-title">Confirmed Order</h4>
                                         </div>
-                                        <h4 class="step-title">Confirmed Order</h4>
-                                    </div>
-                                    <div class="step completed">
-                                        <div class="step-icon-wrap">
-                                            <div class="step-icon"><i class="mdi mdi-tumblr-reblog"></i></div>
+                                        <div class="step">
+                                            <div class="step-icon-wrap">
+                                                <div class="step-icon"><i class="mdi mdi-tumblr-reblog"></i></div>
+                                            </div>
+                                            <h4 class="step-title">Processing Order</h4>
                                         </div>
-                                        <h4 class="step-title">Processing Order</h4>
-                                    </div>
-                                    <div class="step completed">
-                                        <div class="step-icon-wrap">
-                                            <div class="step-icon"><i class="mdi mdi-gift"></i></div>
+                                        <div class="step">
+                                            <div class="step-icon-wrap">
+                                                <div class="step-icon"><i class="mdi mdi-gift"></i></div>
+                                            </div>
+                                            <h4 class="step-title">Product Dispatched</h4>
                                         </div>
-                                        <h4 class="step-title">Product Dispatched</h4>
-                                    </div>
-                                    <div class="step">
-                                        <div class="step-icon-wrap">
-                                            <div class="step-icon"><i class="mdi mdi-truck-delivery"></i></div>
+                                        <div class="step">
+                                            <div class="step-icon-wrap">
+                                                <div class="step-icon"><i class="mdi mdi-truck-delivery"></i></div>
+                                            </div>
+                                            <h4 class="step-title">On Delivery</h4>
                                         </div>
-                                        <h4 class="step-title">On Delivery</h4>
-                                    </div>
-                                    <div class="step">
-                                        <div class="step-icon-wrap">
-                                            <div class="step-icon"><i class="mdi mdi-hail"></i></div>
+                                        <div class="step">
+                                            <div class="step-icon-wrap">
+                                                <div class="step-icon"><i class="mdi mdi-hail"></i></div>
+                                            </div>
+                                            <h4 class="step-title">Product Delivered</h4>
                                         </div>
-                                        <h4 class="step-title">Product Delivered</h4>
-                                    </div>
+                                    </c:if>
+                                    <c:if test="${state == 1}">
+                                        <div class="step completed">
+                                            <div class="step-icon-wrap">
+                                                <div class="step-icon"><i class="mdi mdi-cart"></i></div>
+                                            </div>
+                                            <h4 class="step-title">Confirmed Order</h4>
+                                        </div>
+                                        <div class="step completed">
+                                            <div class="step-icon-wrap">
+                                                <div class="step-icon"><i class="mdi mdi-tumblr-reblog"></i></div>
+                                            </div>
+                                            <h4 class="step-title">Processing Order</h4>
+                                        </div>
+                                        <div class="step">
+                                            <div class="step-icon-wrap">
+                                                <div class="step-icon"><i class="mdi mdi-gift"></i></div>
+                                            </div>
+                                            <h4 class="step-title">Product Dispatched</h4>
+                                        </div>
+                                        <div class="step">
+                                            <div class="step-icon-wrap">
+                                                <div class="step-icon"><i class="mdi mdi-truck-delivery"></i></div>
+                                            </div>
+                                            <h4 class="step-title">On Delivery</h4>
+                                        </div>
+                                        <div class="step">
+                                            <div class="step-icon-wrap">
+                                                <div class="step-icon"><i class="mdi mdi-hail"></i></div>
+                                            </div>
+                                            <h4 class="step-title">Product Delivered</h4>
+                                        </div>
+                                    </c:if>
+                                    <c:if test="${state == 2}">
+                                        <div class="step completed">
+                                            <div class="step-icon-wrap">
+                                                <div class="step-icon"><i class="mdi mdi-cart"></i></div>
+                                            </div>
+                                            <h4 class="step-title">Confirmed Order</h4>
+                                        </div>
+                                        <div class="step completed">
+                                            <div class="step-icon-wrap">
+                                                <div class="step-icon"><i class="mdi mdi-tumblr-reblog"></i></div>
+                                            </div>
+                                            <h4 class="step-title">Processing Order</h4>
+                                        </div>
+                                        <div class="step completed">
+                                            <div class="step-icon-wrap">
+                                                <div class="step-icon"><i class="mdi mdi-gift"></i></div>
+                                            </div>
+                                            <h4 class="step-title">Product Dispatched</h4>
+                                        </div>
+                                        <div class="step">
+                                            <div class="step-icon-wrap">
+                                                <div class="step-icon"><i class="mdi mdi-truck-delivery"></i></div>
+                                            </div>
+                                            <h4 class="step-title">On Delivery</h4>
+                                        </div>
+                                        <div class="step">
+                                            <div class="step-icon-wrap">
+                                                <div class="step-icon"><i class="mdi mdi-hail"></i></div>
+                                            </div>
+                                            <h4 class="step-title">Product Delivered</h4>
+                                        </div>
+                                    </c:if>
+                                    <c:if test="${state == 3}">
+                                        <div class="step completed">
+                                            <div class="step-icon-wrap">
+                                                <div class="step-icon"><i class="mdi mdi-cart"></i></div>
+                                            </div>
+                                            <h4 class="step-title">Confirmed Order</h4>
+                                        </div>
+                                        <div class="step completed">
+                                            <div class="step-icon-wrap">
+                                                <div class="step-icon"><i class="mdi mdi-tumblr-reblog"></i></div>
+                                            </div>
+                                            <h4 class="step-title">Processing Order</h4>
+                                        </div>
+                                        <div class="step completed">
+                                            <div class="step-icon-wrap">
+                                                <div class="step-icon"><i class="mdi mdi-gift"></i></div>
+                                            </div>
+                                            <h4 class="step-title">Product Dispatched</h4>
+                                        </div>
+                                        <div class="step completed">
+                                            <div class="step-icon-wrap">
+                                                <div class="step-icon"><i class="mdi mdi-truck-delivery"></i></div>
+                                            </div>
+                                            <h4 class="step-title">On Delivery</h4>
+                                        </div>
+                                        <div class="step">
+                                            <div class="step-icon-wrap">
+                                                <div class="step-icon"><i class="mdi mdi-hail"></i></div>
+                                            </div>
+                                            <h4 class="step-title">Product Delivered</h4>
+                                        </div>
+                                    </c:if>
+                                    <c:if test="${state == 4}">
+                                        <div class="step completed">
+                                            <div class="step-icon-wrap">
+                                                <div class="step-icon"><i class="mdi mdi-cart"></i></div>
+                                            </div>
+                                            <h4 class="step-title">Confirmed Order</h4>
+                                        </div>
+                                        <div class="step completed">
+                                            <div class="step-icon-wrap">
+                                                <div class="step-icon"><i class="mdi mdi-tumblr-reblog"></i></div>
+                                            </div>
+                                            <h4 class="step-title">Processing Order</h4>
+                                        </div>
+                                        <div class="step completed">
+                                            <div class="step-icon-wrap">
+                                                <div class="step-icon"><i class="mdi mdi-gift"></i></div>
+                                            </div>
+                                            <h4 class="step-title">Product Dispatched</h4>
+                                        </div>
+                                        <div class="step completed">
+                                            <div class="step-icon-wrap">
+                                                <div class="step-icon"><i class="mdi mdi-truck-delivery"></i></div>
+                                            </div>
+                                            <h4 class="step-title">On Delivery</h4>
+                                        </div>
+                                        <div class="step completed">
+                                            <div class="step-icon-wrap">
+                                                <div class="step-icon"><i class="mdi mdi-hail"></i></div>
+                                            </div>
+                                            <h4 class="step-title">Product Delivered</h4>
+                                        </div>
+                                    </c:if>
                                 </div>
                             </div>
                         </div>

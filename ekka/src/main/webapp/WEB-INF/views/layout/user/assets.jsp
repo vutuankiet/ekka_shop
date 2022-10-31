@@ -24,3 +24,8 @@
 
 <!-- Background css -->
 <link rel="stylesheet" id="bg-switcher-css" href="/user/assets/css/backgrounds/bg-4.css">
+
+<!-- Data Tables -->
+<link href='/user/assets/js/plugins/data-tables/datatables.bootstrap5.min.css' rel='stylesheet'>
+<link href='/user/assets/js/plugins/data-tables/responsive.datatables.min.css' rel='stylesheet'>
+<link href='/user/assets/css/plugins/toastr.css' rel='stylesheet'>

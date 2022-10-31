@@ -148,9 +148,9 @@ public class ProductAdminController {
             System.out.println("Images:" + productDto.getProductImage());
 
             productService.save(productDto);
-            model.addFlashAttribute("message", "Tạo mới product thành công");
+            model.addFlashAttribute("message_success", "Tạo mới product thành công");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Tạo mới product không thành công");
+            model.addFlashAttribute("message_err", "Tạo mới product không thành công");
             return "redirect:/ekka/admin/product/create";
         }
 
@@ -169,9 +169,9 @@ public class ProductAdminController {
         try {
             productDto.setState(0);
             productService.deleteProduct(productDto);
-            model.addFlashAttribute("message", "Xoa product thành công");
+            model.addFlashAttribute("message_success", "Xoa product thành công");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Xoa product không thành công");
+            model.addFlashAttribute("message_err", "Xoa product không thành công");
         }
         System.out.println("id:" + id);
 
@@ -191,9 +191,9 @@ public class ProductAdminController {
         try {
             productDto.setState(1);
             productService.restoreProduct(productDto);
-            model.addFlashAttribute("message", "Xoa product thành công");
+            model.addFlashAttribute("message_success", "Xoa product thành công");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Xoa product không thành công");
+            model.addFlashAttribute("message_err", "Xoa product không thành công");
         }
         System.out.println("id:" + id);
 
@@ -342,7 +342,7 @@ System.out.println("size1: "+ productDto.getSize1());
             productColorDto.setColor((productDto.getColor()));
             productSizeDto.setSize((productDto.getSize()));
         } catch (Exception ex) {
-            model.addFlashAttribute("message", "Luu file that bai!");
+            model.addFlashAttribute("message_err", "Luu file that bai!");
         }
 
         try {
@@ -429,9 +429,9 @@ System.out.println("size1: "+ productDto.getSize1());
         System.out.println("id:" + id);
         try {
             productService.editProduct(productDto);
-            model.addFlashAttribute("message", "Update product thành công");
+            model.addFlashAttribute("message_success", "Update product thành công");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Update product không thành công");
+            model.addFlashAttribute("message_err", "Update product không thành công");
         }
 
 

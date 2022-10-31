@@ -28,391 +28,6 @@
 
 <!-- Category Sidebar start -->
 <div class="ec-side-cat-overlay"></div>
-<div class="col-lg-3 category-sidebar" data-animation="fadeIn">
-    <div class="cat-sidebar">
-        <div class="cat-sidebar-box">
-            <div class="ec-sidebar-wrap">
-                <!-- Sidebar Category Block -->
-                <div class="ec-sidebar-block">
-                    <div class="ec-sb-title">
-                        <h3 class="ec-sidebar-title">Category
-                            <button class="ec-close">×</button>
-                        </h3>
-                    </div>
-                    <div class="ec-sb-block-content">
-                        <ul>
-                            <li>
-                                <div class="ec-sidebar-block-item"><img src="/user/assets/images/icons/dress-8.svg"
-                                                                        class="svg_img" alt="drink"/>Cothes
-                                </div>
-                                <ul style="display: block;">
-                                    <li>
-                                        <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Shirt
-                                            <span title="Available Stock">- 25</span></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">shorts &
-                                            jeans <span title="Available Stock">- 52</span></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-sub-item"><a
-                                                href="shop-left-sidebar-col-3.html">jacket<span title="Available Stock">- 500</span></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">dress &
-                                            frock <span title="Available Stock">- 35</span></a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="ec-sb-block-content">
-                        <ul>
-                            <li>
-                                <div class="ec-sidebar-block-item"><img src="/user/assets/images/icons/shoes-8.svg"
-                                                                        class="svg_img" alt="drink"/>Footwear
-                                </div>
-                                <ul>
-                                    <li>
-                                        <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Sports
-                                            <span title="Available Stock">- 25</span></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Formal
-                                            <span title="Available Stock">- 52</span></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Casual
-                                            <span title="Available Stock">- 40</span></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">safety
-                                            shoes <span title="Available Stock">- 35</span></a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="ec-sb-block-content">
-                        <ul>
-                            <li>
-                                <div class="ec-sidebar-block-item"><img src="/user/assets/images/icons/jewelry-8.svg"
-                                                                        class="svg_img" alt="drink"/>jewelry
-                                </div>
-                                <ul>
-                                    <li>
-                                        <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Earrings
-                                            <span title="Available Stock">- 50</span></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Couple
-                                            Rings <span title="Available Stock">- 35</span></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Necklace
-                                            <span title="Available Stock">- 40</span></a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="ec-sb-block-content">
-                        <ul>
-                            <li>
-                                <div class="ec-sidebar-block-item"><img src="/user/assets/images/icons/perfume-8.svg"
-                                                                        class="svg_img" alt="drink"/>perfume
-                                </div>
-                                <ul>
-                                    <li>
-                                        <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Clothes
-                                            perfume<span title="Available Stock">- 4 pcs</span></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">deodorant
-                                            <span title="Available Stock">- 52 pcs</span></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Flower
-                                            fragrance <span title="Available Stock">- 10 pack</span></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Air
-                                            Freshener<span title="Available Stock">- 35 pack</span></a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="ec-sb-block-content">
-                        <ul>
-                            <li>
-                                <div class="ec-sidebar-block-item"><img src="/user/assets/images/icons/cosmetics-8.svg"
-                                                                        class="svg_img" alt="drink"/>cosmetics
-                                </div>
-                                <ul>
-                                    <li>
-                                        <div class="ec-sidebar-sub-item"><a
-                                                href="shop-left-sidebar-col-3.html">shampoo<span
-                                                title="Available Stock"></span></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Sunscreen<span
-                                                title="Available Stock"></span></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">body
-                                            wash<span title="Available Stock"></span></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">makeup
-                                            kit<span title="Available Stock"></span></a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="ec-sb-block-content">
-                        <ul>
-                            <li>
-                                <div class="ec-sidebar-block-item"><img src="/user/assets/images/icons/glasses-8.svg"
-                                                                        class="svg_img" alt="drink"/>glasses
-                                </div>
-                                <ul>
-                                    <li>
-                                        <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Sunglasses
-                                            <span title="Available Stock">- 20</span></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Lenses
-                                            <span title="Available Stock">- 52</span></a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="ec-sb-block-content">
-                        <ul>
-                            <li>
-                                <div class="ec-sidebar-block-item"><img src="/user/assets/images/icons/bag-8.svg"
-                                                                        class="svg_img" alt="drink"/>bags
-                                </div>
-                                <ul>
-                                    <li>
-                                        <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">shopping
-                                            bag <span title="Available Stock">- 25</span></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">Gym
-                                            backpack <span title="Available Stock">- 52</span></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">purse
-                                            <span title="Available Stock">- 40</span></a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="ec-sidebar-sub-item"><a href="shop-left-sidebar-col-3.html">wallet
-                                            <span title="Available Stock">- 35</span></a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <!-- Sidebar Category Block -->
-            </div>
-        </div>
-        <div class="ec-sidebar-slider-cat">
-            <div class="ec-sb-slider-title">Best Sellers</div>
-            <div class="ec-sb-pro-sl">
-                <div>
-                    <div class="ec-sb-pro-sl-item">
-                        <a href="product-detail.html" class="sidekka_pro_img"><img
-                                src="/user/assets/images/product-image/1.jpg" alt="product"/></a>
-                        <div class="ec-pro-content">
-                            <h5 class="ec-pro-title"><a href="product-detail.html">baby fabric shoes</a></h5>
-                            <div class="ec-pro-rating">
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star fill"></i>
-                            </div>
-                            <span class="ec-price">
-                                        <span class="old-price">$5.00</span>
-                                        <span class="new-price">$4.00</span>
-                                    </span>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="ec-sb-pro-sl-item">
-                        <a href="product-detail.html" class="sidekka_pro_img"><img
-                                src="/user/assets/images/product-image/2.jpg" alt="product"/></a>
-                        <div class="ec-pro-content">
-                            <h5 class="ec-pro-title"><a href="product-detail.html">Men's hoodies t-shirt</a></h5>
-                            <div class="ec-pro-rating">
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star"></i>
-                            </div>
-                            <span class="ec-price">
-                                        <span class="old-price">$10.00</span>
-                                        <span class="new-price">$7.00</span>
-                                    </span>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="ec-sb-pro-sl-item">
-                        <a href="product-detail.html" class="sidekka_pro_img"><img
-                                src="/user/assets/images/product-image/3.jpg" alt="product"/></a>
-                        <div class="ec-pro-content">
-                            <h5 class="ec-pro-title"><a href="product-detail.html">Girls t-shirt</a></h5>
-                            <div class="ec-pro-rating">
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star"></i>
-                                <i class="ecicon eci-star"></i>
-                            </div>
-                            <span class="ec-price">
-                                        <span class="old-price">$5.00</span>
-                                        <span class="new-price">$3.00</span>
-                                    </span>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="ec-sb-pro-sl-item">
-                        <a href="product-detail.html" class="sidekka_pro_img"><img
-                                src="/user/assets/images/product-image/4.jpg" alt="product"/></a>
-                        <div class="ec-pro-content">
-                            <h5 class="ec-pro-title"><a href="product-detail.html">woolen hat for men</a></h5>
-                            <div class="ec-pro-rating">
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star fill"></i>
-                            </div>
-                            <span class="ec-price">
-                                        <span class="old-price">$15.00</span>
-                                        <span class="new-price">$12.00</span>
-                                    </span>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="ec-sb-pro-sl-item">
-                        <a href="product-detail.html" class="sidekka_pro_img"><img
-                                src="/user/assets/images/product-image/5.jpg" alt="product"/></a>
-                        <div class="ec-pro-content">
-                            <h5 class="ec-pro-title"><a href="product-detail.html">Womens purse</a></h5>
-                            <div class="ec-pro-rating">
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star"></i>
-                            </div>
-                            <span class="ec-price">
-                                        <span class="old-price">$15.00</span>
-                                        <span class="new-price">$12.00</span>
-                                    </span>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="ec-sb-pro-sl-item">
-                        <a href="product-detail.html" class="sidekka_pro_img"><img
-                                src="/user/assets/images/product-image/6.jpg" alt="product"/></a>
-                        <div class="ec-pro-content">
-                            <h5 class="ec-pro-title"><a href="product-detail.html">Baby toy doctor kit</a></h5>
-                            <div class="ec-pro-rating">
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star"></i>
-                                <i class="ecicon eci-star"></i>
-                                <i class="ecicon eci-star"></i>
-                            </div>
-                            <span class="ec-price">
-                                        <span class="old-price">$50.00</span>
-                                        <span class="new-price">$45.00</span>
-                                    </span>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="ec-sb-pro-sl-item">
-                        <a href="product-detail.html" class="sidekka_pro_img"><img
-                                src="/user/assets/images/product-image/7.jpg" alt="product"/></a>
-                        <div class="ec-pro-content">
-                            <h5 class="ec-pro-title"><a href="product-detail.html">teddy bear baby toy</a></h5>
-                            <div class="ec-pro-rating">
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star fill"></i>
-                            </div>
-                            <span class="ec-price">
-                                        <span class="old-price">$35.00</span>
-                                        <span class="new-price">$25.00</span>
-                                    </span>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div class="ec-sb-pro-sl-item">
-                        <a href="product-detail.html" class="sidekka_pro_img"><img
-                                src="/user/assets/images/product-image/2.jpg" alt="product"/></a>
-                        <div class="ec-pro-content">
-                            <h5 class="ec-pro-title"><a href="product-detail.html">Mens hoodies blue</a></h5>
-                            <div class="ec-pro-rating">
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star"></i>
-                                <i class="ecicon eci-star"></i>
-                            </div>
-                            <span class="ec-price">
-                                        <span class="old-price">$15.00</span>
-                                        <span class="new-price">$13.00</span>
-                                    </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <!-- ekka Cart Start -->
 <div class="ec-side-cart-overlay"></div>
 <!-- ekka Cart End -->
@@ -980,11 +595,86 @@
                                                     href="/ekka/product-details/${product.id}">${product.productName}</a>
                                             </h5>
                                             <div class="ec-pro-rating">
-                                                <i class="ecicon eci-star fill"></i>
-                                                <i class="ecicon eci-star fill"></i>
-                                                <i class="ecicon eci-star fill"></i>
-                                                <i class="ecicon eci-star fill"></i>
-                                                <i class="ecicon eci-star"></i>
+                                                <c:if test="${product.rating <= 0}">
+                                                    <i class="ecicon eci-star"></i>
+                                                    <i class="ecicon eci-star"></i>
+                                                    <i class="ecicon eci-star"></i>
+                                                    <i class="ecicon eci-star"></i>
+                                                    <i class="ecicon eci-star"></i>
+                                                </c:if>
+                                                <c:if test="${product.rating > 0 && product.rating < 1}">
+                                                    <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                </c:if>
+                                                <c:if test="${product.rating > 1 && product.rating < 2}">
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                </c:if>
+                                                <c:if test="${product.rating > 2 && product.rating < 3}">
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                </c:if>
+                                                <c:if test="${product.rating > 3 && product.rating < 4}">
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                </c:if>
+                                                <c:if test="${product.rating > 4 && product.rating < 5}">
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                </c:if>
+
+                                                <c:if test="${product.rating == 1}">
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                </c:if>
+
+                                                <c:if test="${product.rating == 2}">
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                </c:if>
+
+                                                <c:if test="${product.rating == 3}">
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                </c:if>
+                                                <c:if test="${product.rating == 4}">
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star-o"></i>
+                                                </c:if>
+                                                <c:if test="${product.rating == 5}">
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                    <i class="ecicon eci-star fill"></i>
+                                                </c:if>
                                             </div>
                                             <span class="ec-price">
                                                 <c:if test="${product.discount > 0}">
@@ -1158,11 +848,86 @@
                                                             href="product-detail.html">${product.productName}</a>
                                                     </h5>
                                                     <div class="ec-pro-rating">
-                                                        <i class="ecicon eci-star fill"></i>
-                                                        <i class="ecicon eci-star fill"></i>
-                                                        <i class="ecicon eci-star fill"></i>
-                                                        <i class="ecicon eci-star fill"></i>
-                                                        <i class="ecicon eci-star"></i>
+                                                        <c:if test="${product.rating <= 0}">
+                                                            <i class="ecicon eci-star"></i>
+                                                            <i class="ecicon eci-star"></i>
+                                                            <i class="ecicon eci-star"></i>
+                                                            <i class="ecicon eci-star"></i>
+                                                            <i class="ecicon eci-star"></i>
+                                                        </c:if>
+                                                        <c:if test="${product.rating > 0 && product.rating < 1}">
+                                                            <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                            <i class="ecicon eci-star-o"></i>
+                                                            <i class="ecicon eci-star-o"></i>
+                                                            <i class="ecicon eci-star-o"></i>
+                                                            <i class="ecicon eci-star-o"></i>
+                                                        </c:if>
+                                                        <c:if test="${product.rating > 1 && product.rating < 2}">
+                                                            <i class="ecicon eci-star fill"></i>
+                                                            <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                            <i class="ecicon eci-star-o"></i>
+                                                            <i class="ecicon eci-star-o"></i>
+                                                            <i class="ecicon eci-star-o"></i>
+                                                        </c:if>
+                                                        <c:if test="${product.rating > 2 && product.rating < 3}">
+                                                            <i class="ecicon eci-star fill"></i>
+                                                            <i class="ecicon eci-star fill"></i>
+                                                            <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                            <i class="ecicon eci-star-o"></i>
+                                                            <i class="ecicon eci-star-o"></i>
+                                                        </c:if>
+                                                        <c:if test="${product.rating > 3 && product.rating < 4}">
+                                                            <i class="ecicon eci-star fill"></i>
+                                                            <i class="ecicon eci-star fill"></i>
+                                                            <i class="ecicon eci-star fill"></i>
+                                                            <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                            <i class="ecicon eci-star-o"></i>
+                                                        </c:if>
+                                                        <c:if test="${product.rating > 4 && product.rating < 5}">
+                                                            <i class="ecicon eci-star fill"></i>
+                                                            <i class="ecicon eci-star fill"></i>
+                                                            <i class="ecicon eci-star fill"></i>
+                                                            <i class="ecicon eci-star fill"></i>
+                                                            <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                        </c:if>
+
+                                                        <c:if test="${product.rating == 1}">
+                                                            <i class="ecicon eci-star fill"></i>
+                                                            <i class="ecicon eci-star-o"></i>
+                                                            <i class="ecicon eci-star-o"></i>
+                                                            <i class="ecicon eci-star-o"></i>
+                                                            <i class="ecicon eci-star-o"></i>
+                                                        </c:if>
+
+                                                        <c:if test="${product.rating == 2}">
+                                                            <i class="ecicon eci-star fill"></i>
+                                                            <i class="ecicon eci-star fill"></i>
+                                                            <i class="ecicon eci-star-o"></i>
+                                                            <i class="ecicon eci-star-o"></i>
+                                                            <i class="ecicon eci-star-o"></i>
+                                                        </c:if>
+
+                                                        <c:if test="${product.rating == 3}">
+                                                            <i class="ecicon eci-star fill"></i>
+                                                            <i class="ecicon eci-star fill"></i>
+                                                            <i class="ecicon eci-star fill"></i>
+                                                            <i class="ecicon eci-star-o"></i>
+                                                            <i class="ecicon eci-star-o"></i>
+                                                        </c:if>
+                                                        <c:if test="${product.rating == 4}">
+                                                            <i class="ecicon eci-star fill"></i>
+                                                            <i class="ecicon eci-star fill"></i>
+                                                            <i class="ecicon eci-star fill"></i>
+                                                            <i class="ecicon eci-star fill"></i>
+                                                            <i class="ecicon eci-star-o"></i>
+                                                        </c:if>
+                                                        <c:if test="${product.rating == 5}">
+                                                            <i class="ecicon eci-star fill"></i>
+                                                            <i class="ecicon eci-star fill"></i>
+                                                            <i class="ecicon eci-star fill"></i>
+                                                            <i class="ecicon eci-star fill"></i>
+                                                            <i class="ecicon eci-star fill"></i>
+                                                        </c:if>
                                                     </div>
                                                     <span class="ec-price">
                                                 <span class="old-price">$${product.priceProduct}</span>
@@ -1216,149 +981,6 @@
     </div>
 </section>
 <!-- ec Product tab Area End -->
-
-<!-- ec Banner Section Start -->
-<section class="ec-banner section section-space-p">
-    <h2 class="d-none">Banner</h2>
-    <div class="container">
-        <!-- ec Banners Start -->
-        <div class="ec-banner-inner">
-            <!--ec Banner Start -->
-            <div class="ec-banner-block ec-banner-block-2">
-                <div class="row">
-                    <div class="banner-block col-lg-6 col-md-12 margin-b-30" data-animation="slideInRight">
-                        <div class="bnr-overlay">
-                            <img src="/user/assets/images/banner/2.jpg" alt=""/>
-                            <div class="banner-text">
-                                <span class="ec-banner-stitle">New Arrivals</span>
-                                <span class="ec-banner-title">mens<br> Sport shoes</span>
-                                <span class="ec-banner-discount">30% Discount</span>
-                            </div>
-                            <div class="banner-content">
-                                <span class="ec-banner-btn"><a href="#">Order Now</a></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="banner-block col-lg-6 col-md-12" data-animation="slideInLeft">
-                        <div class="bnr-overlay">
-                            <img src="/user/assets/images/banner/3.jpg" alt=""/>
-                            <div class="banner-text">
-                                <span class="ec-banner-stitle">New Trending</span>
-                                <span class="ec-banner-title">Smart<br> watches</span>
-                                <span class="ec-banner-discount">Buy any 3 Items & get <br>20% Discount</span>
-                            </div>
-                            <div class="banner-content">
-                                <span class="ec-banner-btn"><a href="#">Order Now</a></span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- ec Banner End -->
-            </div>
-            <!-- ec Banners End -->
-        </div>
-    </div>
-</section>
-<!-- ec Banner Section End -->
-
-<!--  Category Section Start -->
-<section class="section ec-category-section section-space-p" id="categories">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <div class="section-title">
-                    <h2 class="ec-bg-title">Our Top Collection</h2>
-                    <h2 class="ec-title">Top Categories</h2>
-                    <p class="sub-title">Browse The Collection of Top Categories</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <!--Category Nav Start -->
-            <div class="col-lg-3">
-                <ul class="ec-cat-tab-nav nav">
-                    <li class="cat-item"><a class="cat-link active" data-bs-toggle="tab" href="#tab-cat-1">
-                        <div class="cat-icons"><img class="cat-icon" src="/user/assets/images/icons/cat_1.png"
-                                                    alt="cat-icon"><img class="cat-icon-hover"
-                                                                        src="/user/assets/images/icons/cat_1_1.png"
-                                                                        alt="cat-icon"></div>
-                        <div class="cat-desc"><span>Clothes</span><span>440 Products</span></div>
-                    </a></li>
-                    <li class="cat-item"><a class="cat-link" data-bs-toggle="tab" href="#tab-cat-2">
-                        <div class="cat-icons"><img class="cat-icon" src="/user/assets/images/icons/cat_2.png"
-                                                    alt="cat-icon"><img class="cat-icon-hover"
-                                                                        src="/user/assets/images/icons/cat_2_1.png"
-                                                                        alt="cat-icon"></div>
-                        <div class="cat-desc"><span>Watches</span><span>510 Products</span></div>
-                    </a></li>
-                    <li class="cat-item"><a class="cat-link" data-bs-toggle="tab" href="#tab-cat-3">
-                        <div class="cat-icons"><img class="cat-icon" src="/user/assets/images/icons/cat_3.png"
-                                                    alt="cat-icon"><img class="cat-icon-hover"
-                                                                        src="/user/assets/images/icons/cat_3_1.png"
-                                                                        alt="cat-icon"></div>
-                        <div class="cat-desc"><span>Bags</span><span>620 Products</span></div>
-                    </a></li>
-                    <li class="cat-item"><a class="cat-link" data-bs-toggle="tab" href="#tab-cat-4">
-                        <div class="cat-icons"><img class="cat-icon" src="/user/assets/images/icons/cat_4.png"
-                                                    alt="cat-icon"><img class="cat-icon-hover"
-                                                                        src="/user/assets/images/icons/cat_4_1.png"
-                                                                        alt="cat-icon"></div>
-                        <div class="cat-desc"><span>Shoes</span><span>320 Products</span></div>
-                    </a></li>
-                </ul>
-
-            </div>
-            <!-- Category Nav End -->
-            <!--Category Tab Start -->
-            <div class="col-lg-9">
-                <div class="tab-content">
-                    <!-- 1st Category tab end -->
-                    <div class="tab-pane fade show active" id="tab-cat-1">
-                        <div class="row">
-                            <img src="/user/assets/images/cat-banner/1.jpg" alt=""/>
-                        </div>
-                        <span class="panel-overlay">
-                                <a href="shop-left-sidebar-col-3.html" class="btn btn-primary">View All</a>
-                            </span>
-                    </div>
-                    <!-- 1st Category tab end -->
-                    <div class="tab-pane fade" id="tab-cat-2">
-                        <div class="row">
-                            <img src="/user/assets/images/cat-banner/2.jpg" alt=""/>
-                        </div>
-                        <span class="panel-overlay">
-                                <a href="shop-left-sidebar-col-3.html" class="btn btn-primary">View All</a>
-                            </span>
-                    </div>
-                    <!-- 2nd Category tab end -->
-                    <!-- 3rd Category tab start -->
-                    <div class="tab-pane fade" id="tab-cat-3">
-                        <div class="row">
-                            <img src="/user/assets/images/cat-banner/3.jpg" alt=""/>
-                        </div>
-                        <span class="panel-overlay">
-                                <a href="shop-left-sidebar-col-3.html" class="btn btn-primary">View All</a>
-                            </span>
-                    </div>
-                    <!-- 3rd Category tab end -->
-                    <!-- 4th Category tab start -->
-                    <div class="tab-pane fade" id="tab-cat-4">
-                        <div class="row">
-                            <img src="/user/assets/images/cat-banner/4.jpg" alt=""/>
-                        </div>
-                        <span class="panel-overlay">
-                                <a href="shop-left-sidebar-col-3.html" class="btn btn-primary">View All</a>
-                            </span>
-                    </div>
-                    <!-- 4th Category tab end -->
-                </div>
-                <!-- Category Tab End -->
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Category Section End -->
 
 <!--  services Section Start -->
 <section class="section ec-services-section section-space-p" id="services">
@@ -1815,7 +1437,41 @@
 
 
 <%@include file="/WEB-INF/views/layout/user/scripts.jsp" %>
+<script>
+    $(document).ready(function () {
+        toastr.options = {
+            'closeButton': true,
+            'debug': false,
+            'newestOnTop': false,
+            'progressBar': false,
+            'positionClass': 'toast-bottom-right',
+            'preventDuplicates': false,
+            'showDuration': '1000',
+            'hideDuration': '1000',
+            'timeOut': '5000',
+            'extendedTimeOut': '1000',
+            'showEasing': 'swing',
+            'hideEasing': 'linear',
+            'showMethod': 'fadeIn',
+            'hideMethod': 'fadeOut',
+        }
+    });
 
+    const success = setTimeout(Success, 1000);
+    const error = setTimeout(Err, 1000);
+
+    function Success() {
+        <c:if test="${message_success != null}">
+        toastr.success('${message_success}');
+        </c:if>
+    }
+
+    function Err() {
+        <c:if test="${message_err != null}">
+        toastr.error('${message_err}');
+        </c:if>
+    }
+</script>
 </body>
 
 </html>

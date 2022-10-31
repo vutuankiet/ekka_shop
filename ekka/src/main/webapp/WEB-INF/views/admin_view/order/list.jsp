@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="description" content="Ekka - Admin Dashboard eCommerce HTML Template.">
 
-    <title>Ekka - Admin Dashboard eCommerce HTML Template.</title>
+    <title>Ekka - Admin | Order.</title>
 
     <%@include file="/WEB-INF/views/layout/admin/assets.jsp" %>
 
@@ -152,7 +152,7 @@
                                                                             enctype="multipart/form-data">
                                                                         <button class="dropdown-item pl-3"
                                                                                 style="color: #13cae1!important"
-                                                                                type="submit">READY TO SHIP
+                                                                                type="submit">ON THE WAY
                                                                         </button>
                                                                     </f:form>
                                                                     <f:form method="post"
@@ -190,7 +190,7 @@
                                                                             enctype="multipart/form-data">
                                                                         <button class="dropdown-item pl-3"
                                                                                 style="color: #13cae1!important"
-                                                                                type="submit">READY TO SHIP
+                                                                                type="submit">ON THE WAY
                                                                         </button>
                                                                     </f:form>
                                                                     <f:form method="post"
@@ -228,7 +228,7 @@
                                                                             enctype="multipart/form-data">
                                                                         <button class="dropdown-item pl-3"
                                                                                 style="color: #13cae1!important"
-                                                                                type="submit">READY TO SHIP
+                                                                                type="submit">ON THE WAY
                                                                         </button>
                                                                     </f:form>
                                                                     <f:form method="post"
@@ -313,7 +313,7 @@
                                                                             enctype="multipart/form-data">
                                                                         <button class="dropdown-item pl-3"
                                                                                 style="color: #13cae1!important"
-                                                                                type="submit">READY TO SHIP
+                                                                                type="submit">ON THE WAY
                                                                         </button>
                                                                     </f:form>
                                                                 </c:if>

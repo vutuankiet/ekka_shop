@@ -156,15 +156,18 @@ public class AuthController {
     @PreAuthorize("hasAnyRole('ROLE_USER')")
     @GetMapping(value = "profile")
     public String userProfile(UserDto userDto, Model model) {
-        int countWishList = wishListService.countWishList();
-        int countCart = cartService.countCart();
 
-        model.addAttribute("countWishList", countWishList);
-        model.addAttribute("countCart", countCart);
 
         // Lấy ID của tài khoản  đa đăng nhập
         long id = ((UserEntity)SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal()).getId();
+
+        int countWishList = wishListService.countWishListUser(id);
+        int countCart = cartService.countCartUser(id);
+
+        model.addAttribute("countWishList", countWishList);
+        model.addAttribute("countCart", countCart);
+
         UserEntity user = userService.get(id);
         BeanUtils.copyProperties(user, userDto);
         ((UserEntity)SecurityContextHolder.getContext()

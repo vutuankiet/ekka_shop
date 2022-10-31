@@ -24,9 +24,17 @@ public interface WishListRepository extends JpaRepository<WishListEntity, Long> 
 
     @Transactional //try to add this annotation
     @Modifying      // to mark delete or update query
+    @Query(value = "SELECT w FROM WishListEntity w WHERE w.product.id = :id and w.user.id = :UserId ORDER BY w.updated_at DESC")       // it will delete all the record with specific name
+    List<WishListEntity> findAllByProductIdAndUserId(long id, long UserId);
+
+    @Transactional //try to add this annotation
+    @Modifying      // to mark delete or update query
     @Query(value = "DELETE FROM WishListEntity w WHERE w.id = :id")       // it will delete all the record with specific name
     int deleteById(@Param("id") long id);
 
     @Query(value = "SELECT count(w.id) FROM WishListEntity w WHERE w.state = 1")
     int countAll();
+
+    @Query(value = "SELECT count(w.id) FROM WishListEntity w WHERE w.user.id = :id and w.state = 1")
+    int countAllByUser(@Param("id") long id);
 }

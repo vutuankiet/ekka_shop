@@ -17,6 +17,7 @@
 
 <!-- Ekka CSS -->
 <link id="ekka-css" href="/admin/assets/css/ekka.css" rel="stylesheet" />
+<link href="/admin/assets/css/toastr.css" rel="stylesheet" />
 
 <!-- FAVICON -->
 <link href="/admin/assets/img/favicon.png" rel="shortcut icon" />
