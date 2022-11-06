@@ -4,6 +4,7 @@ import com.example.ekka.dto.OrderDto;
 import com.example.ekka.dto.ProductDto;
 import com.example.ekka.entities.*;
 import com.example.ekka.helper.GenKey;
+import com.example.ekka.repository.bill.BillRepository;
 import com.example.ekka.repository.cart.CartRepository;
 import com.example.ekka.repository.order.OrderRepository;
 import com.example.ekka.repository.product.ProductRepository;
@@ -42,6 +43,9 @@ public class OrderService {
     @Autowired
     CartRepository cartRepository;
 
+    @Autowired
+    BillRepository billRepository;
+
     public List<OrderEntity> listAll() {
         return (List<OrderEntity>) orderRepository.findAll();
     }
@@ -71,6 +75,7 @@ public class OrderService {
     public void changeState0(OrderDto orderDto) throws Exception{
         try {
             orderRepository.changeState0(orderDto.getOrder_code());
+            billRepository.changeState0(orderDto.getOrder_code());
         }catch (Exception ex){
             throw  ex;
         }
@@ -86,6 +91,7 @@ public class OrderService {
     public void changeState1(OrderDto orderDto) throws Exception{
         try {
             orderRepository.changeState1(orderDto.getOrder_code());
+            billRepository.changeState1(orderDto.getOrder_code());
         }catch (Exception ex){
             throw  ex;
         }
@@ -94,13 +100,14 @@ public class OrderService {
         emailDetails.setRecipient(orderDto.getEmail());
         emailDetails.setSubject("[THÔNG BÁO - EKKA SHOP]ĐƠN HÀNG MÃ SỐ #" + orderDto.getOrder_code() + " ĐÃ VÀO TRẠNG THÁI CHỜ");
         emailDetails.setMsgBody(String.format("Thư thông báo trạng thái đơn hàng:\n" +
-                "Vào đường link http://localhost:8080/ekka/history để xem lịch sử đơn hàng đã đặt!"));
+                "Vào đường link http://localhost:8080/ekka/history/"+orderDto.getOrder_code()+" để xem lịch sử đơn hàng đã đặt!"));
         emailService.sendSimpleMail(emailDetails);
     }
 
     public void changeState2(OrderDto orderDto) throws Exception{
         try {
             orderRepository.changeState2(orderDto.getOrder_code());
+            billRepository.changeState2(orderDto.getOrder_code());
         }catch (Exception ex){
             throw  ex;
         }
@@ -109,13 +116,14 @@ public class OrderService {
         emailDetails.setRecipient(orderDto.getEmail());
         emailDetails.setSubject("[THÔNG BÁO - EKKA SHOP]ĐƠN HÀNG MÃ SỐ #" + orderDto.getOrder_code() + " ĐÃ VÀO TRẠNG THÁI SẴN SÀNG");
         emailDetails.setMsgBody(String.format("Thư thông báo trạng thái đơn hàng:\n" +
-                "Vào đường link http://localhost:8080/ekka/history để xem lịch sử đơn hàng đã đặt!"));
+                "Vào đường link http://localhost:8080/ekka/history"+orderDto.getOrder_code()+" để xem lịch sử đơn hàng đã đặt!"));
         emailService.sendSimpleMail(emailDetails);
     }
 
     public void changeState3(OrderDto orderDto) throws Exception{
         try {
             orderRepository.changeState3(orderDto.getOrder_code());
+            billRepository.changeState3(orderDto.getOrder_code());
         }catch (Exception ex){
             throw  ex;
         }
@@ -972,6 +980,7 @@ public class OrderService {
     public void changeState4(OrderDto orderDto) throws Exception{
         try {
             orderRepository.changeState4(orderDto.getOrder_code());
+            billRepository.changeState4(orderDto.getOrder_code());
         }catch (Exception ex){
             throw  ex;
         }
@@ -979,7 +988,7 @@ public class OrderService {
         EmailDetails emailDetails = new EmailDetails();
         emailDetails.setRecipient(orderDto.getEmail());
         emailDetails.setSubject("[THÔNG BÁO - EKKA SHOP]ĐƠN HÀNG MÃ SỐ #" + orderDto.getOrder_code() + " ĐÃ ĐƯỢC GIAO THÀNH CÔNG");
-        emailDetails.setMsgBody(String.format("Thư thông báo trạng thái đơn hàng:\n"+"Vào đường link http://localhost:8080/ekka/history để xem lịch sử đơn hàng đã đặt!\n" + "Cảm ơn bạn đã mua hàng tại EKKA shop"));
+        emailDetails.setMsgBody(String.format("Thư thông báo trạng thái đơn hàng:\n"+"Vào đường link http://localhost:8080/ekka/history"+orderDto.getOrder_code()+" để xem lịch sử đơn hàng đã đặt!\n" + "Cảm ơn bạn đã mua hàng tại EKKA shop"));
         emailService.sendSimpleMail(emailDetails);
     }
 
@@ -994,13 +1003,16 @@ public class OrderService {
 
     public void save(OrderDto orderDto) throws Exception {
         OrderEntity orderEntity = new OrderEntity();
+        BillEntity billEntity = new BillEntity();
         BeanUtils.copyProperties(orderDto, orderEntity);
+        BeanUtils.copyProperties(orderDto, billEntity);
 
         if(orderDto.getDelivery_address().isEmpty() || orderDto.getName_consignee().isEmpty() || orderDto.getDelivery_phone().isEmpty()){
             throw new Exception();
         }
 
         try {
+            double totalPrice = 0;
             System.out.println(orderDto.getColor());
             for (int c = 0; c < orderDto.getCart().size(); c++){
             for (int i = 0; i < orderDto.getProduct().size(); i++){
@@ -1035,6 +1047,9 @@ public class OrderService {
                                         throw new Exception();
                                     }
 
+                                    double price = Double.parseDouble(orderDto.getTotalPrice().get(g));
+                                    totalPrice = totalPrice + price;
+
                                     long productId = Long.parseLong(orderDto.getProduct().get(i));
                                     System.out.println("ProductId: " + productId);
                                     orderEntity.setProduct(productRepository.findById(productId).orElse(null));
@@ -1049,6 +1064,21 @@ public class OrderService {
                 }
                 }
             }
+            Long datetime = System.currentTimeMillis();
+            Timestamp timestampBill = new Timestamp(datetime);
+            billEntity.setCreated_at(timestampBill);
+            billEntity.setUpdated_at(timestampBill);
+            billEntity.setOrder_code(orderDto.getOrder_code());
+            billEntity.setDelivery_address(orderDto.getDelivery_address());
+            billEntity.setName_consignee(orderDto.getName_consignee());
+            billEntity.setDelivery_phone(orderDto.getDelivery_phone());
+            billEntity.setPayment(0);
+            billEntity.setState(1);
+            double newTotalPrice = (double) Math.round(totalPrice * 100)/100;
+            billEntity.setPrice(String.valueOf(newTotalPrice));
+            billEntity.setUser(userRepository.findById((long) orderDto.getUserId()).orElse(null));
+            billRepository.save(billEntity);
+
 
             Timestamp timestamp = new Timestamp(orderEntity.getCreated_at().getTime()+(86400000*5));
 

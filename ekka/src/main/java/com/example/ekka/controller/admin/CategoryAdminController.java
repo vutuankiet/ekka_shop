@@ -57,9 +57,9 @@ public class CategoryAdminController {
             System.out.println("gender_id: "+ categoryDto.getGenderCategoryId());
             categoryDto.setCategoryLogo(saveFile(categoryDto.getFileCategory()));
             categoryService.save(categoryDto);
-            model.addFlashAttribute("message", "Tạo mới category thành công");
+            model.addFlashAttribute("message_success", "Create new category successfully");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Tạo mới category không thành công");
+            model.addFlashAttribute("message_err", "New category creation failed");
             return "redirect:/ekka/admin/category/list";
         }
 
@@ -86,9 +86,9 @@ public class CategoryAdminController {
         try {
             categoryDto.setState(0);
             categoryService.deleteCategory(categoryDto);
-            model.addFlashAttribute("message", "Xoa category thành công");
+            model.addFlashAttribute("message_success", "Delete category successfully");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Xoa category không thành công");
+            model.addFlashAttribute("message_err", "Delete category failed");
         }
         System.out.println("id:"+id);
 
@@ -116,9 +116,9 @@ public class CategoryAdminController {
         try {
             categoryDto.setState(1);
             categoryService.restoreCategory(categoryDto);
-            model.addFlashAttribute("message", "Khoi phuc category thành công");
+            model.addFlashAttribute("message_success", "Category recovery successful");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Khoi phuc category không thành công");
+            model.addFlashAttribute("message_err", "Category restore failed");
         }
         System.out.println("id:"+id);
 
@@ -170,9 +170,9 @@ public class CategoryAdminController {
         System.out.println("id:"+id);
         try {
             categoryService.editCategory(categoryDto);
-            model.addFlashAttribute("message", "Update category thành công");
+            model.addFlashAttribute("message_success", "Update category successfully");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Update category không thành công");
+            model.addFlashAttribute("message_err", "Category update failed");
         }
 
 

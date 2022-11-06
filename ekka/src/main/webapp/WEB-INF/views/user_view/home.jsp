@@ -495,314 +495,65 @@
                     <!-- 1st Product tab start -->
                     <div class="tab-pane fade show active" id="tab-pro-for-all">
                         <div class="row">
-                            <!-- Product Content -->
-                            <c:forEach items="${list.data}" var="product">
-                                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-6  ec-product-content"
-                                     data-animation="fadeIn">
-                                    <div class="ec-product-inner">
-                                        <div class="ec-pro-image-outer">
-                                            <div class="ec-pro-image">
-                                                <a href="product-detail.html" class="image">
-                                                    <img class="main-image"
-                                                         src="${product.productImage}" style="height: 355px;"
-                                                         alt="Product"/>
-                                                    <img class="hover-image"
-                                                         src="${product.productImage}" style="height: 355px;"
-                                                         alt="Product"/>
-                                                </a>
-                                                <c:if test="${product.discount > 0}">
-                                                    <span class="percentage">${product.discount}%</span>
-                                                </c:if>
-                                                <a href="/ekka/product-details/${product.id}" class="quickview"
-                                                   data-link-action="quickview"
-                                                   title="Quick view"><img
-                                                        src="/user/assets/images/icons/quickview.svg"
-                                                        class="svg_img pro_svg"
-                                                        alt=""/></a>
-                                                <div class="ec-pro-actions">
-                                                    <c:if test="${product.totalProduct <= 0}">
-                                                        <button style="background-color: #555555;" type="button" title="Add To Cart" class="add-to-cart">
-                                                            <img style="fill: #FFFFFF;"
-                                                                    src="/user/assets/images/icons/cart.svg"
-                                                                    class="svg_img pro_svg"
-                                                                    alt=""/> Add To Cart
-                                                        </button>
-                                                    </c:if>
-                                                    <c:if test="${product.totalProduct > 0}">
-                                                    <f:form method="post"
-                                                            action="/ekka/cart/create/${product.id}"
-                                                            modelAttribute="urlDto">
-                                                        <f:input type="text" path="url" value="${urlDto.url}"
-                                                                 cssClass="d-none"/>
-                                                        <button type="submit" title="Add To Cart" class="add-to-cart">
-                                                            <img
-                                                                    src="/user/assets/images/icons/cart.svg"
-                                                                    class="svg_img pro_svg"
-                                                                    alt=""/> Add To Cart
-                                                        </button>
-                                                    </f:form>
-                                                    <c:forEach items="${listCartUserId}" var="cartUser">
-                                                        <c:if test="${product.id == cartUser.product.id}">
-                                                            <f:form method="post"
-                                                                    action="/ekka/cart/delete/${cartUser.id}"
-                                                                    modelAttribute="urlDto">
-                                                                <f:input type="text" path="url" value="${urlDto.url}"
-                                                                         cssClass="d-none"/>
-
-                                                                <button type="submit" style="background-color: #3575d4;"
-                                                                        class="add-to-cart active"
-                                                                        title="Cart"><img style="fill: white;"
-                                                                                          src="/user/assets/images/icons/cart.svg"
-                                                                                          class="svg_img pro_svg"
-                                                                                          alt=""/></button>
-                                                            </f:form>
-                                                        </c:if>
-                                                    </c:forEach>
-                                                    </c:if>
-                                                    <f:form method="post" action="/ekka/wish-list/create/${product.id}"
-                                                            modelAttribute="urlDto">
-                                                        <f:input type="text" path="url" value="${urlDto.url}"
-                                                                 cssClass="d-none"/>
-                                                        <button type="submit"
-                                                                class="ec-btn-group wishlist"
-                                                                title="Wishlist"><img
-                                                                src="/user/assets/images/icons/wishlist.svg"
-                                                                class="svg_img pro_svg" alt=""/></button>
-                                                    </f:form>
-                                                    <c:forEach items="${listWishListUserId}" var="wishListUser">
-                                                        <c:if test="${product.id == wishListUser.product.id}">
-                                                            <f:form method="post"
-                                                                    action="/ekka/wish-list/delete/${wishListUser.id}"
-                                                                    modelAttribute="urlDto">
-                                                                <f:input type="text" path="url" value="${urlDto.url}"
-                                                                         cssClass="d-none"/>
-
-                                                                <button type="submit"
-                                                                        class="ec-btn-group wishlist active"
-                                                                        title="Wishlist"><img
-                                                                        src="/user/assets/images/icons/wishlist.svg"
-                                                                        class="svg_img pro_svg" alt=""/></button>
-                                                            </f:form>
-                                                        </c:if>
-                                                    </c:forEach>
-
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="ec-pro-content">
-                                            <h5 class="ec-pro-title"><a
-                                                    href="/ekka/product-details/${product.id}">${product.productName}</a>
-                                            </h5>
-                                            <div class="ec-pro-rating">
-                                                <c:if test="${product.rating <= 0}">
-                                                    <i class="ecicon eci-star"></i>
-                                                    <i class="ecicon eci-star"></i>
-                                                    <i class="ecicon eci-star"></i>
-                                                    <i class="ecicon eci-star"></i>
-                                                    <i class="ecicon eci-star"></i>
-                                                </c:if>
-                                                <c:if test="${product.rating > 0 && product.rating < 1}">
-                                                    <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
-                                                    <i class="ecicon eci-star-o"></i>
-                                                    <i class="ecicon eci-star-o"></i>
-                                                    <i class="ecicon eci-star-o"></i>
-                                                    <i class="ecicon eci-star-o"></i>
-                                                </c:if>
-                                                <c:if test="${product.rating > 1 && product.rating < 2}">
-                                                    <i class="ecicon eci-star fill"></i>
-                                                    <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
-                                                    <i class="ecicon eci-star-o"></i>
-                                                    <i class="ecicon eci-star-o"></i>
-                                                    <i class="ecicon eci-star-o"></i>
-                                                </c:if>
-                                                <c:if test="${product.rating > 2 && product.rating < 3}">
-                                                    <i class="ecicon eci-star fill"></i>
-                                                    <i class="ecicon eci-star fill"></i>
-                                                    <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
-                                                    <i class="ecicon eci-star-o"></i>
-                                                    <i class="ecicon eci-star-o"></i>
-                                                </c:if>
-                                                <c:if test="${product.rating > 3 && product.rating < 4}">
-                                                    <i class="ecicon eci-star fill"></i>
-                                                    <i class="ecicon eci-star fill"></i>
-                                                    <i class="ecicon eci-star fill"></i>
-                                                    <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
-                                                    <i class="ecicon eci-star-o"></i>
-                                                </c:if>
-                                                <c:if test="${product.rating > 4 && product.rating < 5}">
-                                                    <i class="ecicon eci-star fill"></i>
-                                                    <i class="ecicon eci-star fill"></i>
-                                                    <i class="ecicon eci-star fill"></i>
-                                                    <i class="ecicon eci-star fill"></i>
-                                                    <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
-                                                </c:if>
-
-                                                <c:if test="${product.rating == 1}">
-                                                    <i class="ecicon eci-star fill"></i>
-                                                    <i class="ecicon eci-star-o"></i>
-                                                    <i class="ecicon eci-star-o"></i>
-                                                    <i class="ecicon eci-star-o"></i>
-                                                    <i class="ecicon eci-star-o"></i>
-                                                </c:if>
-
-                                                <c:if test="${product.rating == 2}">
-                                                    <i class="ecicon eci-star fill"></i>
-                                                    <i class="ecicon eci-star fill"></i>
-                                                    <i class="ecicon eci-star-o"></i>
-                                                    <i class="ecicon eci-star-o"></i>
-                                                    <i class="ecicon eci-star-o"></i>
-                                                </c:if>
-
-                                                <c:if test="${product.rating == 3}">
-                                                    <i class="ecicon eci-star fill"></i>
-                                                    <i class="ecicon eci-star fill"></i>
-                                                    <i class="ecicon eci-star fill"></i>
-                                                    <i class="ecicon eci-star-o"></i>
-                                                    <i class="ecicon eci-star-o"></i>
-                                                </c:if>
-                                                <c:if test="${product.rating == 4}">
-                                                    <i class="ecicon eci-star fill"></i>
-                                                    <i class="ecicon eci-star fill"></i>
-                                                    <i class="ecicon eci-star fill"></i>
-                                                    <i class="ecicon eci-star fill"></i>
-                                                    <i class="ecicon eci-star-o"></i>
-                                                </c:if>
-                                                <c:if test="${product.rating == 5}">
-                                                    <i class="ecicon eci-star fill"></i>
-                                                    <i class="ecicon eci-star fill"></i>
-                                                    <i class="ecicon eci-star fill"></i>
-                                                    <i class="ecicon eci-star fill"></i>
-                                                    <i class="ecicon eci-star fill"></i>
-                                                </c:if>
-                                            </div>
-                                            <span class="ec-price">
-                                                <c:if test="${product.discount > 0}">
-                                                    <span class="old-price">$${product.priceProduct}</span>
-                                                </c:if>
-                                                <span class="new-price">$<fmt:formatNumber maxFractionDigits="2"
-                                                                                           value="${product.priceProduct * ((100 - product.discount)/100)}"></fmt:formatNumber></span>
-                                            </span>
-                                            <div class="ec-pro-option">
-                                                <div class="ec-pro-color">
-                                                    <span class="ec-pro-opt-label">Color</span>
-                                                    <ul class="ec-opt-swatch ec-change-img">
-                                                        <c:forEach items="${listProductColor}" var="productColor">
-                                                            <c:if test="${productColor.product.id == product.id}">
-                                                                <li style="border: 1px solid darkgray;"><a href="#" class="ec-opt-clr-img"
-                                                                       data-src="${product.productImage}"
-                                                                       data-src-hover="${product.productImage}"
-                                                                       data-tooltip="Gray"><span
-                                                                        style="background-color:${productColor.colorName};"></span></a>
-                                                                </li>
-                                                            </c:if>
-                                                        </c:forEach>
-                                                    </ul>
-                                                </div>
-                                                <div class="ec-pro-size">
-                                                    <span class="ec-pro-opt-label">Size</span>
-                                                    <ul class="ec-opt-size">
-                                                        <c:forEach items="${listProductSize}" var="productSize">
-                                                            <c:if test="${productSize.product.id == product.id}">
-                                                                <li><a href="#" class="ec-opt-sz"
-                                                                       data-tooltip="Small">${productSize.sizeName}</a>
-                                                                </li>
-                                                            </c:if>
-                                                        </c:forEach>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </c:forEach>
-                            <%@include file="/WEB-INF/views/layout/user/paging.jsp" %>
-                            <div class="col-sm-12 shop-all-btn"><a href="shop-left-sidebar-col-3.html">Shop All
-                                Collection</a></div>
-                        </div>
-                    </div>
-                    <!-- ec 1st Product tab end -->
-                    <!-- ec 2nd Product tab start -->
-                    <c:forEach items="${listGenderCategory}" var="genderCategory">
-                        <div class="tab-pane fade" id="tab-pro-for-${genderCategory.id}">
-                            <div class="row">
+                            <c:if test="${list.data == []}">
+                                <div class="ec-wish-rightside col-lg-12 col-md-12"><p class="emp-wishlist-msg">Your product is empty!</p></div>
+                            </c:if>
+                            <c:if test="${list.data != []}">
                                 <!-- Product Content -->
                                 <c:forEach items="${list.data}" var="product">
-                                    <c:if test="${genderCategory.id == product.category.genderCategory.id}">
-                                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-6 ec-product-content"
-                                             data-animation="fadeIn">
-                                            <div class="ec-product-inner">
-                                                <div class="ec-pro-image-outer">
-                                                    <div class="ec-pro-image">
-                                                        <a href="product-detail.html" class="image">
-                                                            <img class="main-image"
-                                                                 src="${product.productImage}" style="height: 355px;"
-                                                                 alt="Product"/>
-                                                            <img class="hover-image"
-                                                                 src="${product.productImage}" style="height: 355px;"
-                                                                 alt="Product"/>
-                                                        </a>
-                                                        <c:if test="${product.discount > 0}">
-                                                            <span class="percentage">${product.discount}%</span>
+                                    <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-6  ec-product-content"
+                                         data-animation="fadeIn">
+                                        <div class="ec-product-inner">
+                                            <div class="ec-pro-image-outer">
+                                                <div class="ec-pro-image">
+                                                    <a href="product-detail.html" class="image">
+                                                        <img class="main-image"
+                                                             src="${product.productImage}" style="height: 355px;width: -webkit-fill-available;"
+                                                             alt="Product"/>
+                                                        <img class="hover-image"
+                                                             src="${product.productImage}" style="height: 355px;width: -webkit-fill-available;"
+                                                             alt="Product"/>
+                                                    </a>
+                                                    <c:if test="${product.discount > 0}">
+                                                        <span class="percentage">${product.discount}%</span>
+                                                    </c:if>
+                                                    <a href="/ekka/product-details/${product.id}" class="quickview"
+                                                       data-link-action="quickview"
+                                                       title="Quick view"><img
+                                                            src="/user/assets/images/icons/quickview.svg"
+                                                            class="svg_img pro_svg"
+                                                            alt=""/></a>
+                                                    <div class="ec-pro-actions">
+                                                        <c:if test="${product.totalProduct <= 0}">
+                                                            <button style="background-color: #555555;" type="button" title="Add To Cart" class="add-to-cart">
+                                                                <img style="fill: #FFFFFF;"
+                                                                     src="/user/assets/images/icons/cart.svg"
+                                                                     class="svg_img pro_svg"
+                                                                     alt=""/> Add To Cart
+                                                            </button>
                                                         </c:if>
-                                                        <a href="/ekka/product-details/${product.id}" class="quickview"
-                                                           data-link-action="quickview"
-                                                           title="Quick view" data-bs-toggle="modal"
-                                                           data-bs-target="#ec_quickview_modal"><img
-                                                                src="/user/assets/images/icons/quickview.svg"
-                                                                class="svg_img pro_svg"
-                                                                alt=""/></a>
-                                                        <div class="ec-pro-actions">
-                                                            <c:if test="${product.totalProduct <= 0}">
-                                                                <button style="background-color: #555555;" type="button" title="Add To Cart" class="add-to-cart">
-                                                                    <img style="fill: #FFFFFF;"
-                                                                         src="/user/assets/images/icons/cart.svg"
-                                                                         class="svg_img pro_svg"
-                                                                         alt=""/> Add To Cart
+                                                        <c:if test="${product.totalProduct > 0}">
+                                                            <f:form method="post"
+                                                                    action="/ekka/cart/create/${product.id}"
+                                                                    modelAttribute="urlDto">
+                                                                <f:input type="text" path="url" value="${urlDto.url}"
+                                                                         cssClass="d-none"/>
+                                                                <button type="submit" title="Add To Cart" class="add-to-cart">
+                                                                    <img
+                                                                            src="/user/assets/images/icons/cart.svg"
+                                                                            class="svg_img pro_svg"
+                                                                            alt=""/> Add To Cart
                                                                 </button>
-                                                            </c:if>
-                                                            <c:if test="${product.totalProduct > 0}">
-                                                                <f:form method="post"
-                                                                        action="/ekka/cart/create/${product.id}"
-                                                                        modelAttribute="urlDto">
-                                                                    <f:input type="text" path="url" value="${urlDto.url}"
-                                                                             cssClass="d-none"/>
-                                                                    <button type="submit" title="Add To Cart" class="add-to-cart">
-                                                                        <img
-                                                                                src="/user/assets/images/icons/cart.svg"
-                                                                                class="svg_img pro_svg"
-                                                                                alt=""/> Add To Cart
-                                                                    </button>
-                                                                </f:form>
-                                                                <c:forEach items="${listCartUserId}" var="cartUser">
-                                                                    <c:if test="${product.id == cartUser.product.id}">
-                                                                        <f:form method="post"
-                                                                                action="/ekka/cart/delete/${cartUser.id}"
-                                                                                modelAttribute="urlDto">
-                                                                            <f:input type="text" path="url" value="${urlDto.url}"
-                                                                                     cssClass="d-none"/>
-
-                                                                            <button type="submit" style="background-color: #3575d4;"
-                                                                                    class="add-to-cart active"
-                                                                                    title="Cart"><img style="fill: white;"
-                                                                                                      src="/user/assets/images/icons/cart.svg"
-                                                                                                      class="svg_img pro_svg"
-                                                                                                      alt=""/></button>
-                                                                        </f:form>
-                                                                    </c:if>
-                                                                </c:forEach>
-                                                            </c:if>
+                                                            </f:form>
                                                             <c:forEach items="${listCartUserId}" var="cartUser">
                                                                 <c:if test="${product.id == cartUser.product.id}">
                                                                     <f:form method="post"
                                                                             action="/ekka/cart/delete/${cartUser.id}"
                                                                             modelAttribute="urlDto">
-                                                                        <f:input type="text" path="url"
-                                                                                 value="${urlDto.url}"
+                                                                        <f:input type="text" path="url" value="${urlDto.url}"
                                                                                  cssClass="d-none"/>
 
-                                                                        <button type="submit"
-                                                                                style="background-color: #3575d4;"
+                                                                        <button type="submit" style="background-color: #3575d4;"
                                                                                 class="add-to-cart active"
                                                                                 title="Cart"><img style="fill: white;"
                                                                                                   src="/user/assets/images/icons/cart.svg"
@@ -811,167 +562,428 @@
                                                                     </f:form>
                                                                 </c:if>
                                                             </c:forEach>
-                                                            <f:form method="post"
-                                                                    action="/ekka/wish-list/create/${product.id}"
-                                                                    modelAttribute="urlDto">
-                                                                <f:input type="text" path="url" value="${urlDto.url}"
-                                                                         cssClass="d-none"/>
-                                                                <button type="submit"
-                                                                        class="ec-btn-group wishlist"
-                                                                        title="Wishlist"><img
-                                                                        src="/user/assets/images/icons/wishlist.svg"
-                                                                        class="svg_img pro_svg" alt=""/></button>
-                                                            </f:form>
-                                                            <c:forEach items="${listWishListUserId}" var="wishListUser">
-                                                                <c:if test="${product.id == wishListUser.product.id}">
-                                                                    <f:form method="post"
-                                                                            action="/ekka/wish-list/delete/${wishListUser.id}"
-                                                                            modelAttribute="urlDto">
-                                                                        <f:input type="text" path="url"
-                                                                                 value="${urlDto.url}"
-                                                                                 cssClass="d-none"/>
+                                                        </c:if>
+                                                        <f:form method="post" action="/ekka/wish-list/create/${product.id}"
+                                                                modelAttribute="urlDto">
+                                                            <f:input type="text" path="url" value="${urlDto.url}"
+                                                                     cssClass="d-none"/>
+                                                            <button type="submit"
+                                                                    class="ec-btn-group wishlist"
+                                                                    title="Wishlist"><img
+                                                                    src="/user/assets/images/icons/wishlist.svg"
+                                                                    class="svg_img pro_svg" alt=""/></button>
+                                                        </f:form>
+                                                        <c:forEach items="${listWishListUserId}" var="wishListUser">
+                                                            <c:if test="${product.id == wishListUser.product.id}">
+                                                                <f:form method="post"
+                                                                        action="/ekka/wish-list/delete/${wishListUser.id}"
+                                                                        modelAttribute="urlDto">
+                                                                    <f:input type="text" path="url" value="${urlDto.url}"
+                                                                             cssClass="d-none"/>
 
-                                                                        <button type="submit"
-                                                                                class="ec-btn-group wishlist active"
-                                                                                title="Wishlist"><img
-                                                                                src="/user/assets/images/icons/wishlist.svg"
-                                                                                class="svg_img pro_svg" alt=""/>
-                                                                        </button>
-                                                                    </f:form>
-                                                                </c:if>
-                                                            </c:forEach>
-                                                        </div>
+                                                                    <button type="submit"
+                                                                            class="ec-btn-group wishlist active"
+                                                                            title="Wishlist"><img
+                                                                            src="/user/assets/images/icons/wishlist.svg"
+                                                                            class="svg_img pro_svg" alt=""/></button>
+                                                                </f:form>
+                                                            </c:if>
+                                                        </c:forEach>
+
+
                                                     </div>
                                                 </div>
-                                                <div class="ec-pro-content">
-                                                    <h5 class="ec-pro-title"><a
-                                                            href="product-detail.html">${product.productName}</a>
-                                                    </h5>
-                                                    <div class="ec-pro-rating">
-                                                        <c:if test="${product.rating <= 0}">
-                                                            <i class="ecicon eci-star"></i>
-                                                            <i class="ecicon eci-star"></i>
-                                                            <i class="ecicon eci-star"></i>
-                                                            <i class="ecicon eci-star"></i>
-                                                            <i class="ecicon eci-star"></i>
-                                                        </c:if>
-                                                        <c:if test="${product.rating > 0 && product.rating < 1}">
-                                                            <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
-                                                            <i class="ecicon eci-star-o"></i>
-                                                            <i class="ecicon eci-star-o"></i>
-                                                            <i class="ecicon eci-star-o"></i>
-                                                            <i class="ecicon eci-star-o"></i>
-                                                        </c:if>
-                                                        <c:if test="${product.rating > 1 && product.rating < 2}">
-                                                            <i class="ecicon eci-star fill"></i>
-                                                            <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
-                                                            <i class="ecicon eci-star-o"></i>
-                                                            <i class="ecicon eci-star-o"></i>
-                                                            <i class="ecicon eci-star-o"></i>
-                                                        </c:if>
-                                                        <c:if test="${product.rating > 2 && product.rating < 3}">
-                                                            <i class="ecicon eci-star fill"></i>
-                                                            <i class="ecicon eci-star fill"></i>
-                                                            <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
-                                                            <i class="ecicon eci-star-o"></i>
-                                                            <i class="ecicon eci-star-o"></i>
-                                                        </c:if>
-                                                        <c:if test="${product.rating > 3 && product.rating < 4}">
-                                                            <i class="ecicon eci-star fill"></i>
-                                                            <i class="ecicon eci-star fill"></i>
-                                                            <i class="ecicon eci-star fill"></i>
-                                                            <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
-                                                            <i class="ecicon eci-star-o"></i>
-                                                        </c:if>
-                                                        <c:if test="${product.rating > 4 && product.rating < 5}">
-                                                            <i class="ecicon eci-star fill"></i>
-                                                            <i class="ecicon eci-star fill"></i>
-                                                            <i class="ecicon eci-star fill"></i>
-                                                            <i class="ecicon eci-star fill"></i>
-                                                            <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
-                                                        </c:if>
+                                            </div>
+                                            <div class="ec-pro-content">
+                                                <h5 class="ec-pro-title"><a
+                                                        href="/ekka/product-details/${product.id}">${product.productName}</a>
+                                                </h5>
+                                                <div class="ec-pro-rating">
+                                                    <c:if test="${product.rating <= 0}">
+                                                        <i class="ecicon eci-star"></i>
+                                                        <i class="ecicon eci-star"></i>
+                                                        <i class="ecicon eci-star"></i>
+                                                        <i class="ecicon eci-star"></i>
+                                                        <i class="ecicon eci-star"></i>
+                                                    </c:if>
+                                                    <c:if test="${product.rating > 0 && product.rating < 1}">
+                                                        <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                        <i class="ecicon eci-star-o"></i>
+                                                        <i class="ecicon eci-star-o"></i>
+                                                        <i class="ecicon eci-star-o"></i>
+                                                        <i class="ecicon eci-star-o"></i>
+                                                    </c:if>
+                                                    <c:if test="${product.rating > 1 && product.rating < 2}">
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                        <i class="ecicon eci-star-o"></i>
+                                                        <i class="ecicon eci-star-o"></i>
+                                                        <i class="ecicon eci-star-o"></i>
+                                                    </c:if>
+                                                    <c:if test="${product.rating > 2 && product.rating < 3}">
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                        <i class="ecicon eci-star-o"></i>
+                                                        <i class="ecicon eci-star-o"></i>
+                                                    </c:if>
+                                                    <c:if test="${product.rating > 3 && product.rating < 4}">
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                        <i class="ecicon eci-star-o"></i>
+                                                    </c:if>
+                                                    <c:if test="${product.rating > 4 && product.rating < 5}">
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                    </c:if>
 
-                                                        <c:if test="${product.rating == 1}">
-                                                            <i class="ecicon eci-star fill"></i>
-                                                            <i class="ecicon eci-star-o"></i>
-                                                            <i class="ecicon eci-star-o"></i>
-                                                            <i class="ecicon eci-star-o"></i>
-                                                            <i class="ecicon eci-star-o"></i>
-                                                        </c:if>
+                                                    <c:if test="${product.rating == 1}">
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star-o"></i>
+                                                        <i class="ecicon eci-star-o"></i>
+                                                        <i class="ecicon eci-star-o"></i>
+                                                        <i class="ecicon eci-star-o"></i>
+                                                    </c:if>
 
-                                                        <c:if test="${product.rating == 2}">
-                                                            <i class="ecicon eci-star fill"></i>
-                                                            <i class="ecicon eci-star fill"></i>
-                                                            <i class="ecicon eci-star-o"></i>
-                                                            <i class="ecicon eci-star-o"></i>
-                                                            <i class="ecicon eci-star-o"></i>
-                                                        </c:if>
+                                                    <c:if test="${product.rating == 2}">
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star-o"></i>
+                                                        <i class="ecicon eci-star-o"></i>
+                                                        <i class="ecicon eci-star-o"></i>
+                                                    </c:if>
 
-                                                        <c:if test="${product.rating == 3}">
-                                                            <i class="ecicon eci-star fill"></i>
-                                                            <i class="ecicon eci-star fill"></i>
-                                                            <i class="ecicon eci-star fill"></i>
-                                                            <i class="ecicon eci-star-o"></i>
-                                                            <i class="ecicon eci-star-o"></i>
-                                                        </c:if>
-                                                        <c:if test="${product.rating == 4}">
-                                                            <i class="ecicon eci-star fill"></i>
-                                                            <i class="ecicon eci-star fill"></i>
-                                                            <i class="ecicon eci-star fill"></i>
-                                                            <i class="ecicon eci-star fill"></i>
-                                                            <i class="ecicon eci-star-o"></i>
-                                                        </c:if>
-                                                        <c:if test="${product.rating == 5}">
-                                                            <i class="ecicon eci-star fill"></i>
-                                                            <i class="ecicon eci-star fill"></i>
-                                                            <i class="ecicon eci-star fill"></i>
-                                                            <i class="ecicon eci-star fill"></i>
-                                                            <i class="ecicon eci-star fill"></i>
-                                                        </c:if>
-                                                    </div>
-                                                    <span class="ec-price">
-                                                <span class="old-price">$${product.priceProduct}</span>
+                                                    <c:if test="${product.rating == 3}">
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star-o"></i>
+                                                        <i class="ecicon eci-star-o"></i>
+                                                    </c:if>
+                                                    <c:if test="${product.rating == 4}">
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star-o"></i>
+                                                    </c:if>
+                                                    <c:if test="${product.rating == 5}">
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star fill"></i>
+                                                        <i class="ecicon eci-star fill"></i>
+                                                    </c:if>
+                                                </div>
+                                                <span class="ec-price">
+                                                <c:if test="${product.discount > 0}">
+                                                    <span class="old-price">$${product.priceProduct}</span>
+                                                </c:if>
                                                 <span class="new-price">$<fmt:formatNumber maxFractionDigits="2"
                                                                                            value="${product.priceProduct * ((100 - product.discount)/100)}"></fmt:formatNumber></span>
                                             </span>
-                                                    <div class="ec-pro-option">
-                                                        <div class="ec-pro-color">
-                                                            <span class="ec-pro-opt-label">Color</span>
-                                                            <ul class="ec-opt-swatch ec-change-img">
-                                                                <c:forEach items="${listProductColor}"
-                                                                           var="productColor">
-                                                                    <c:if test="${productColor.product.id == product.id}">
-                                                                        <li style="border: 1px solid darkgray;"><a href="#" class="ec-opt-clr-img"
-                                                                               data-src="${product.productImage}"
-                                                                               data-src-hover="${product.productImage}"
-                                                                               data-tooltip="Gray"><span
-                                                                                style="background-color:${productColor.colorName};"></span></a>
-                                                                        </li>
-                                                                    </c:if>
-                                                                </c:forEach>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="ec-pro-size">
-                                                            <span class="ec-pro-opt-label">Size</span>
-                                                            <ul class="ec-opt-size">
-                                                                <c:forEach items="${listProductSize}" var="productSize">
-                                                                    <c:if test="${productSize.product.id == product.id}">
-                                                                        <li><a href="#" class="ec-opt-sz"
-                                                                               data-tooltip="Small">${productSize.sizeName}</a>
-                                                                        </li>
-                                                                    </c:if>
-                                                                </c:forEach>
-                                                            </ul>
-                                                        </div>
+                                                <div class="ec-pro-option">
+                                                    <div class="ec-pro-color">
+                                                        <span class="ec-pro-opt-label">Color</span>
+                                                        <ul class="ec-opt-swatch ec-change-img">
+                                                            <c:forEach items="${listProductColor}" var="productColor">
+                                                                <c:if test="${productColor.product.id == product.id}">
+                                                                    <li style="border: 1px solid darkgray;"><a href="#" class="ec-opt-clr-img"
+                                                                                                               data-src="${product.productImage}"
+                                                                                                               data-src-hover="${product.productImage}"
+                                                                                                               data-tooltip="Gray"><span
+                                                                            style="background-color:${productColor.colorName};"></span></a>
+                                                                    </li>
+                                                                </c:if>
+                                                            </c:forEach>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="ec-pro-size">
+                                                        <span class="ec-pro-opt-label">Size</span>
+                                                        <ul class="ec-opt-size">
+                                                            <c:forEach items="${listProductSize}" var="productSize">
+                                                                <c:if test="${productSize.product.id == product.id}">
+                                                                    <li><a href="#" class="ec-opt-sz"
+                                                                           data-tooltip="Small">${productSize.sizeName}</a>
+                                                                    </li>
+                                                                </c:if>
+                                                            </c:forEach>
+                                                        </ul>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </c:if>
+                                    </div>
                                 </c:forEach>
                                 <%@include file="/WEB-INF/views/layout/user/paging.jsp" %>
                                 <div class="col-sm-12 shop-all-btn"><a href="shop-left-sidebar-col-3.html">Shop All
                                     Collection</a></div>
+                            </c:if>
+
+                        </div>
+                    </div>
+                    <!-- ec 1st Product tab end -->
+                    <!-- ec 2nd Product tab start -->
+                    <c:forEach items="${listGenderCategory}" var="genderCategory">
+                        <div class="tab-pane fade" id="tab-pro-for-${genderCategory.id}">
+                            <div class="row">
+                                <c:if test="${list.data == []}">
+                                    <div class="ec-wish-rightside col-lg-12 col-md-12"><p class="emp-wishlist-msg">Your product is empty!</p></div>
+                                </c:if>
+                                <c:if test="${list.data != []}">
+                                    <!-- Product Content -->
+                                    <c:forEach items="${list.data}" var="product">
+                                        <c:if test="${genderCategory.id == product.category.genderCategory.id}">
+                                            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-6 ec-product-content"
+                                                 data-animation="fadeIn">
+                                                <div class="ec-product-inner">
+                                                    <div class="ec-pro-image-outer">
+                                                        <div class="ec-pro-image">
+                                                            <a href="product-detail.html" class="image">
+                                                                <img class="main-image"
+                                                                     src="${product.productImage}" style="height: 355px;"
+                                                                     alt="Product"/>
+                                                                <img class="hover-image"
+                                                                     src="${product.productImage}" style="height: 355px;"
+                                                                     alt="Product"/>
+                                                            </a>
+                                                            <c:if test="${product.discount > 0}">
+                                                                <span class="percentage">${product.discount}%</span>
+                                                            </c:if>
+                                                            <a href="/ekka/product-details/${product.id}" class="quickview"
+                                                               data-link-action="quickview"
+                                                               title="Quick view" data-bs-toggle="modal"
+                                                               data-bs-target="#ec_quickview_modal"><img
+                                                                    src="/user/assets/images/icons/quickview.svg"
+                                                                    class="svg_img pro_svg"
+                                                                    alt=""/></a>
+                                                            <div class="ec-pro-actions">
+                                                                <c:if test="${product.totalProduct <= 0}">
+                                                                    <button style="background-color: #555555;" type="button" title="Add To Cart" class="add-to-cart">
+                                                                        <img style="fill: #FFFFFF;"
+                                                                             src="/user/assets/images/icons/cart.svg"
+                                                                             class="svg_img pro_svg"
+                                                                             alt=""/> Add To Cart
+                                                                    </button>
+                                                                </c:if>
+                                                                <c:if test="${product.totalProduct > 0}">
+                                                                    <f:form method="post"
+                                                                            action="/ekka/cart/create/${product.id}"
+                                                                            modelAttribute="urlDto">
+                                                                        <f:input type="text" path="url" value="${urlDto.url}"
+                                                                                 cssClass="d-none"/>
+                                                                        <button type="submit" title="Add To Cart" class="add-to-cart">
+                                                                            <img
+                                                                                    src="/user/assets/images/icons/cart.svg"
+                                                                                    class="svg_img pro_svg"
+                                                                                    alt=""/> Add To Cart
+                                                                        </button>
+                                                                    </f:form>
+                                                                    <c:forEach items="${listCartUserId}" var="cartUser">
+                                                                        <c:if test="${product.id == cartUser.product.id}">
+                                                                            <f:form method="post"
+                                                                                    action="/ekka/cart/delete/${cartUser.id}"
+                                                                                    modelAttribute="urlDto">
+                                                                                <f:input type="text" path="url" value="${urlDto.url}"
+                                                                                         cssClass="d-none"/>
+
+                                                                                <button type="submit" style="background-color: #3575d4;"
+                                                                                        class="add-to-cart active"
+                                                                                        title="Cart"><img style="fill: white;"
+                                                                                                          src="/user/assets/images/icons/cart.svg"
+                                                                                                          class="svg_img pro_svg"
+                                                                                                          alt=""/></button>
+                                                                            </f:form>
+                                                                        </c:if>
+                                                                    </c:forEach>
+                                                                </c:if>
+                                                                <c:forEach items="${listCartUserId}" var="cartUser">
+                                                                    <c:if test="${product.id == cartUser.product.id}">
+                                                                        <f:form method="post"
+                                                                                action="/ekka/cart/delete/${cartUser.id}"
+                                                                                modelAttribute="urlDto">
+                                                                            <f:input type="text" path="url"
+                                                                                     value="${urlDto.url}"
+                                                                                     cssClass="d-none"/>
+
+                                                                            <button type="submit"
+                                                                                    style="background-color: #3575d4;"
+                                                                                    class="add-to-cart active"
+                                                                                    title="Cart"><img style="fill: white;"
+                                                                                                      src="/user/assets/images/icons/cart.svg"
+                                                                                                      class="svg_img pro_svg"
+                                                                                                      alt=""/></button>
+                                                                        </f:form>
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                                <f:form method="post"
+                                                                        action="/ekka/wish-list/create/${product.id}"
+                                                                        modelAttribute="urlDto">
+                                                                    <f:input type="text" path="url" value="${urlDto.url}"
+                                                                             cssClass="d-none"/>
+                                                                    <button type="submit"
+                                                                            class="ec-btn-group wishlist"
+                                                                            title="Wishlist"><img
+                                                                            src="/user/assets/images/icons/wishlist.svg"
+                                                                            class="svg_img pro_svg" alt=""/></button>
+                                                                </f:form>
+                                                                <c:forEach items="${listWishListUserId}" var="wishListUser">
+                                                                    <c:if test="${product.id == wishListUser.product.id}">
+                                                                        <f:form method="post"
+                                                                                action="/ekka/wish-list/delete/${wishListUser.id}"
+                                                                                modelAttribute="urlDto">
+                                                                            <f:input type="text" path="url"
+                                                                                     value="${urlDto.url}"
+                                                                                     cssClass="d-none"/>
+
+                                                                            <button type="submit"
+                                                                                    class="ec-btn-group wishlist active"
+                                                                                    title="Wishlist"><img
+                                                                                    src="/user/assets/images/icons/wishlist.svg"
+                                                                                    class="svg_img pro_svg" alt=""/>
+                                                                            </button>
+                                                                        </f:form>
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ec-pro-content">
+                                                        <h5 class="ec-pro-title"><a
+                                                                href="product-detail.html">${product.productName}</a>
+                                                        </h5>
+                                                        <div class="ec-pro-rating">
+                                                            <c:if test="${product.rating <= 0}">
+                                                                <i class="ecicon eci-star"></i>
+                                                                <i class="ecicon eci-star"></i>
+                                                                <i class="ecicon eci-star"></i>
+                                                                <i class="ecicon eci-star"></i>
+                                                                <i class="ecicon eci-star"></i>
+                                                            </c:if>
+                                                            <c:if test="${product.rating > 0 && product.rating < 1}">
+                                                                <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                                <i class="ecicon eci-star-o"></i>
+                                                                <i class="ecicon eci-star-o"></i>
+                                                                <i class="ecicon eci-star-o"></i>
+                                                                <i class="ecicon eci-star-o"></i>
+                                                            </c:if>
+                                                            <c:if test="${product.rating > 1 && product.rating < 2}">
+                                                                <i class="ecicon eci-star fill"></i>
+                                                                <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                                <i class="ecicon eci-star-o"></i>
+                                                                <i class="ecicon eci-star-o"></i>
+                                                                <i class="ecicon eci-star-o"></i>
+                                                            </c:if>
+                                                            <c:if test="${product.rating > 2 && product.rating < 3}">
+                                                                <i class="ecicon eci-star fill"></i>
+                                                                <i class="ecicon eci-star fill"></i>
+                                                                <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                                <i class="ecicon eci-star-o"></i>
+                                                                <i class="ecicon eci-star-o"></i>
+                                                            </c:if>
+                                                            <c:if test="${product.rating > 3 && product.rating < 4}">
+                                                                <i class="ecicon eci-star fill"></i>
+                                                                <i class="ecicon eci-star fill"></i>
+                                                                <i class="ecicon eci-star fill"></i>
+                                                                <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                                <i class="ecicon eci-star-o"></i>
+                                                            </c:if>
+                                                            <c:if test="${product.rating > 4 && product.rating < 5}">
+                                                                <i class="ecicon eci-star fill"></i>
+                                                                <i class="ecicon eci-star fill"></i>
+                                                                <i class="ecicon eci-star fill"></i>
+                                                                <i class="ecicon eci-star fill"></i>
+                                                                <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                            </c:if>
+
+                                                            <c:if test="${product.rating == 1}">
+                                                                <i class="ecicon eci-star fill"></i>
+                                                                <i class="ecicon eci-star-o"></i>
+                                                                <i class="ecicon eci-star-o"></i>
+                                                                <i class="ecicon eci-star-o"></i>
+                                                                <i class="ecicon eci-star-o"></i>
+                                                            </c:if>
+
+                                                            <c:if test="${product.rating == 2}">
+                                                                <i class="ecicon eci-star fill"></i>
+                                                                <i class="ecicon eci-star fill"></i>
+                                                                <i class="ecicon eci-star-o"></i>
+                                                                <i class="ecicon eci-star-o"></i>
+                                                                <i class="ecicon eci-star-o"></i>
+                                                            </c:if>
+
+                                                            <c:if test="${product.rating == 3}">
+                                                                <i class="ecicon eci-star fill"></i>
+                                                                <i class="ecicon eci-star fill"></i>
+                                                                <i class="ecicon eci-star fill"></i>
+                                                                <i class="ecicon eci-star-o"></i>
+                                                                <i class="ecicon eci-star-o"></i>
+                                                            </c:if>
+                                                            <c:if test="${product.rating == 4}">
+                                                                <i class="ecicon eci-star fill"></i>
+                                                                <i class="ecicon eci-star fill"></i>
+                                                                <i class="ecicon eci-star fill"></i>
+                                                                <i class="ecicon eci-star fill"></i>
+                                                                <i class="ecicon eci-star-o"></i>
+                                                            </c:if>
+                                                            <c:if test="${product.rating == 5}">
+                                                                <i class="ecicon eci-star fill"></i>
+                                                                <i class="ecicon eci-star fill"></i>
+                                                                <i class="ecicon eci-star fill"></i>
+                                                                <i class="ecicon eci-star fill"></i>
+                                                                <i class="ecicon eci-star fill"></i>
+                                                            </c:if>
+                                                        </div>
+                                                        <span class="ec-price">
+                                                <span class="old-price">$${product.priceProduct}</span>
+                                                <span class="new-price">$<fmt:formatNumber maxFractionDigits="2"
+                                                                                           value="${product.priceProduct * ((100 - product.discount)/100)}"></fmt:formatNumber></span>
+                                            </span>
+                                                        <div class="ec-pro-option">
+                                                            <div class="ec-pro-color">
+                                                                <span class="ec-pro-opt-label">Color</span>
+                                                                <ul class="ec-opt-swatch ec-change-img">
+                                                                    <c:forEach items="${listProductColor}"
+                                                                               var="productColor">
+                                                                        <c:if test="${productColor.product.id == product.id}">
+                                                                            <li style="border: 1px solid darkgray;"><a href="#" class="ec-opt-clr-img"
+                                                                                                                       data-src="${product.productImage}"
+                                                                                                                       data-src-hover="${product.productImage}"
+                                                                                                                       data-tooltip="Gray"><span
+                                                                                    style="background-color:${productColor.colorName};"></span></a>
+                                                                            </li>
+                                                                        </c:if>
+                                                                    </c:forEach>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="ec-pro-size">
+                                                                <span class="ec-pro-opt-label">Size</span>
+                                                                <ul class="ec-opt-size">
+                                                                    <c:forEach items="${listProductSize}" var="productSize">
+                                                                        <c:if test="${productSize.product.id == product.id}">
+                                                                            <li><a href="#" class="ec-opt-sz"
+                                                                                   data-tooltip="Small">${productSize.sizeName}</a>
+                                                                            </li>
+                                                                        </c:if>
+                                                                    </c:forEach>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </c:if>
+                                    </c:forEach>
+                                    <%@include file="/WEB-INF/views/layout/user/paging.jsp" %>
+                                    <div class="col-sm-12 shop-all-btn"><a href="shop-left-sidebar-col-3.html">Shop All
+                                        Collection</a></div>
+                                </c:if>
+
                             </div>
                         </div>
                     </c:forEach>
@@ -1367,8 +1379,8 @@
                                     </li>
                                 </ul>
                                 <div class="ec-subscribe-form">
-                                    <form id="ec-newsletter-form" name="ec-newsletter-form" method="post"
-                                          action="#">
+                                    <form id="ec-newsletter-form" name="ec-newsletter-form" method="get"
+                                          action="/ekka/contact-us">
                                         <div id="ec_news_signup" class="ec-form">
                                             <input class="ec-email" type="email" required=""
                                                    placeholder="Enter your email here..." name="ec-email" value=""/>

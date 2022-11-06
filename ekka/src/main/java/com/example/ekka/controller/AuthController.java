@@ -50,7 +50,7 @@ public class AuthController {
     @Autowired
     CartService cartService;
 
-
+    @PreAuthorize("hasAnyRole('ROLE_ANONYMOUS')")
     @GetMapping("login")
     public String login(Model model, @RequestParam(required = false) String error) {
 //// Lấy ID của tài khoản  đa đăng nhập
@@ -60,11 +60,19 @@ public class AuthController {
 //        if (id != null) {
 //            return "redirect:/ekka";
 //        } else {
-            if (error != null) model.addAttribute("message", messageConfig.getMessage(error));
+            if (error != null) model.addAttribute("message_err", messageConfig.getMessage(error));
             return "auth/login";
 //        }
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ANONYMOUS')")
+    @GetMapping("user/active")
+    public String active(Model model) {
+        return "auth/active";
+//        }
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ANONYMOUS')")
     @GetMapping("register")
     public String register(Model model) {
         model.addAttribute("userDto", new UserDto());
@@ -110,16 +118,20 @@ public class AuthController {
             String random_bg = (background_profile[index_bg]);
             userDto.setBackground_profile(random_bg);
             userService.save(userDto);
-            model.addFlashAttribute("message", "Tạo mới tài khoản thành công");
+            userService.activeUser(userDto.getEmail());
+            model.addFlashAttribute("message_success", "New account created successfully");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Tạo mới tài khoản không thành công");
+            model.addFlashAttribute("message_err", "New account creation failed");
             model.addFlashAttribute("messageEmail", e.getMessage());
             return "redirect:/ekka/register";
         }
 
-        return "redirect:/ekka/login";
+        return "redirect:/ekka/user/active";
     }
 
+
+
+    @PreAuthorize("hasAnyRole('ROLE_ANONYMOUS')")
     @GetMapping("forgot-password")
     public String forgotPassword(Model model) {
         return "auth/forgot-password";
@@ -128,27 +140,41 @@ public class AuthController {
     @PostMapping(value = "forgot-password")
     public String forgotPasswordForm(Model model, @RequestParam String email) {
         ResponseDto responseDto = userService.forgotPassword(email);
-        model.addAttribute("message", responseDto.getMessage());
+        model.addAttribute("message_success", responseDto.getMessage());
         return "auth/forgot-password";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ANONYMOUS')")
     @GetMapping(value = "user-verify")
     public String userVerify(Model model) {
         model.addAttribute("user", new ChangePasswordDto());
         return "auth/user-verify";
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_ANONYMOUS')")
+    @GetMapping(value = "user-active/{email}")
+    public String userActive(@PathVariable(name = "email") String email,Model model,RedirectAttributes m) {
+        try {
+            userService.active(email);
+            m.addFlashAttribute("message_success", "Successful account activation");
+        } catch (Exception e) {
+            m.addFlashAttribute("message_err", "Account activation failed");
+            throw new RuntimeException(e);
+        }
+        return "redirect:/ekka/login";
+    }
+
     @PostMapping(value = "user-verify", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String createform(@ModelAttribute("user") ChangePasswordDto userDto, BindingResult bindingResult,
                              RedirectAttributes model, Model m) throws Exception {
         if (!Objects.equals(userDto.getPassword(), userDto.getRePassword())) {
-            bindingResult.rejectValue("rePassword","error.userDto", "Mật khẩu không trùng khớp");
+            bindingResult.rejectValue("rePassword","error.userDto", "Password does not match");
         }
         if (bindingResult.hasErrors()) {
             return "auth/user-verify";
         }
         ResponseDto result = userService.verifyForgotPassword(userDto);
-        model.addFlashAttribute("message", result.getMessage());
+        model.addFlashAttribute("message_success", result.getMessage());
         return "redirect:/ekka/login";
     }
 
@@ -207,9 +233,9 @@ public class AuthController {
         }
         try {
             userService.update(userDto);
-            model.addFlashAttribute("message", "Tạo mới tài khoản thành công");
+            model.addFlashAttribute("message_success", "Account update successful");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Tạo mới tài khoản không thành công");
+            model.addFlashAttribute("message_err", "Account update failed");
         }
 
 

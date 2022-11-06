@@ -30,7 +30,7 @@ public class GenderCategoryService {
 
             genderCategoryRepository.save(genderCategoryEntity);
         }else {
-            throw new Exception("Gender Category da ton tai!");
+            throw new Exception("Gender Category already exist!!");
         }
     }
 
@@ -95,7 +95,7 @@ public class GenderCategoryService {
             System.out.println("gender category: " + genderCategoryEntity);
             genderCategoryRepository.save(genderCategoryEntity);
         }else {
-            throw new Exception("Gender Category da ton tai!");
+            throw new Exception("Gender Category already exist!!");
         }
 
     }

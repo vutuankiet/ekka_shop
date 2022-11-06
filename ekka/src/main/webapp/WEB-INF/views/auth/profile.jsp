@@ -336,7 +336,7 @@
                             <div class="ec-vendor-block-bg cover-upload">
                                 <div class="thumb-upload">
                                     <div class="thumb-edit">
-                                        <f:input type="file" id="thumbUpload01" cssClass="ec-image-upload" path="fileImageBackground" placeholder="Chọn file" aria-label="Ảnh đại diện"/>
+                                        <f:input type="file" accept="image/*" id="thumbUpload01" cssClass="ec-image-upload" path="fileImageBackground" placeholder="Chọn file" aria-label="Ảnh đại diện"/>
 
                                     <%--                                        <input type='file' id="thumbUpload01" class="ec-image-upload"--%>
 <%--                                               accept=".png, .jpg, .jpeg"/>--%>
@@ -354,7 +354,7 @@
                             <div class="ec-vendor-block-detail">
                                 <div class="thumb-upload">
                                     <div class="thumb-edit">
-                                        <f:input type="file" id="thumbUpload02" cssClass="ec-image-upload" path="fileImage" placeholder="Chọn file" aria-label="Ảnh đại diện"/>
+                                        <f:input type="file" accept="image/*" id="thumbUpload02" cssClass="ec-image-upload" path="fileImage" placeholder="Chọn file" aria-label="Ảnh đại diện"/>
 <%--                                        <input type='file' id="thumbUpload02" class="ec-image-upload"--%>
 <%--                                               accept=".png, .jpg, .jpeg"/>--%>
                                         <label><img src="/user/assets/images/icons/edit.svg"
@@ -388,7 +388,7 @@
                                 <div class="col-md-12 space-t-15">
                                     <label class="form-label">Phone</label>
                                     <f:input type="text" path="phone" class="form-control"
-                                             placeholder="Enter your phone" aria-label="Enter your phone"
+                                             placeholder="Enter your phone" aria-label="Enter your phone" maxlength="15" pattern="(84|0[3|5|7|8|9])+([0-9]{8})\b"
                                              required="required"/>
                                 </div>
                                 <div class="col-md-12 space-t-15">
@@ -448,27 +448,43 @@
 <%--script start--%>
 
 <!-- Vendor JS -->
-<script src="/user/assets/js/vendor/jquery-3.5.1.min.js"></script>
-<script src="/user/assets/js/vendor/jquery.notify.min.js"></script>
-<script src="/user/assets/js/vendor/jquery.bundle.notify.min.js"></script>
-<script src="/user/assets/js/vendor/popper.min.js"></script>
-<script src="/user/assets/js/vendor/bootstrap.min.js"></script>
-<script src="/user/assets/js/vendor/bootstrap-tagsinput.js"></script>
-<script src="/user/assets/js/vendor/jquery-migrate-3.3.0.min.js"></script>
-<script src="/user/assets/js/vendor/modernizr-3.11.2.min.js"></script>
-<script src="/user/assets/js/vendor/jquery.magnific-popup.min.js"></script>
+<%@include file="/WEB-INF/views/layout/user/scripts.jsp" %>
 
-<!--Plugins JS-->
-<script src="/user/assets/js/plugins/swiper-bundle.min.js"></script>
-<script src="/user/assets/js/plugins/nouislider.js"></script>
-<script src="/user/assets/js/plugins/countdownTimer.min.js"></script>
-<script src="/user/assets/js/plugins/scrollup.js"></script>
-<script src="/user/assets/js/plugins/jquery.zoom.min.js"></script>
-<script src="/user/assets/js/plugins/slick.min.js"></script>
-<script src="/user/assets/js/plugins/infiniteslidev2.js"></script>
-<script src="/user/assets/js/plugins/jquery.sticky-sidebar.js"></script>
-<!-- Main Js -->
-<script src="/user/assets/js/main.js"></script>
+<script>
+    $(document).ready(function () {
+        toastr.options = {
+            'closeButton': true,
+            'debug': false,
+            'newestOnTop': false,
+            'progressBar': false,
+            'positionClass': 'toast-bottom-right',
+            'preventDuplicates': false,
+            'showDuration': '1000',
+            'hideDuration': '1000',
+            'timeOut': '5000',
+            'extendedTimeOut': '1000',
+            'showEasing': 'swing',
+            'hideEasing': 'linear',
+            'showMethod': 'fadeIn',
+            'hideMethod': 'fadeOut',
+        }
+    });
+
+    const success = setTimeout(Success, 1000);
+    const error = setTimeout(Err, 1000);
+
+    function Success() {
+        <c:if test="${message_success != null}">
+        toastr.success('${message_success}');
+        </c:if>
+    }
+
+    function Err() {
+        <c:if test="${message_err != null}">
+        toastr.error('${message_err}');
+        </c:if>
+    }
+</script>
 
 <%--script end--%>
 

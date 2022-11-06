@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -52,6 +53,9 @@ public class ProductAdminController {
     CategoryService categoryService;
 
     @Autowired
+    ReviewService reviewService;
+
+    @Autowired
     GenderCategoryService genderCategoryService;
 
     @Autowired
@@ -60,7 +64,7 @@ public class ProductAdminController {
     //quyền ADMIN được vào trang này
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping(value = {"list", "", "/"})
-    public String list(Model model) {
+    public String list(Model model, HttpServletRequest request) {
         try {
             List<ProductEntity> listProduct = productService.listAllUpdatedDesc();
             List<CategoryEntity> listCategory = categoryService.listAll();
@@ -76,6 +80,10 @@ public class ProductAdminController {
             model.addAttribute("listGenderCategory", listGenderCategory);
             model.addAttribute("listProductImage", listProductImage);
             model.addAttribute("productDto", new ProductDto());
+
+            UrlDto urlDto = new UrlDto();
+            urlDto.setUrl(request.getRequestURL().toString());
+            model.addAttribute("urlDto", urlDto);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -95,9 +103,11 @@ public class ProductAdminController {
         List<ProductSizeEntity> listProductSize = productSizeService.listAll();
         List<ProductColorEntity> listProductColor = productColorService.listAll();
 
-
         productDto.setCategoryId(productEntity.getCategory().getId());
         productDto.setBrandId(productEntity.getBrand().getId());
+
+        List<ReviewEntity> listReview = reviewService.listAllProductId(id);
+        int countReviewProduct = reviewService.countAll(id);
 
         model.addAttribute("listCategory", listCategory);
         System.out.println("listCategory " + listCategory);
@@ -108,6 +118,23 @@ public class ProductAdminController {
         model.addAttribute("listProductColor", listProductColor);
         model.addAttribute("productDto", productDto);
         model.addAttribute("productEntity", productEntity);
+        model.addAttribute("listReview", listReview);
+        model.addAttribute("countReviewProduct", countReviewProduct);
+
+        try {
+            String[] arr = {};
+            double total_rating = 0;
+            List testList = new ArrayList<>(Arrays.asList(arr));
+            for (ReviewEntity review : listReview) {
+                total_rating += review.getRating();
+            }
+            double abs_rating = (total_rating/countReviewProduct);
+
+            System.out.println("review: " + (double) Math.round(abs_rating*10)/10);
+            model.addAttribute("review_rating", (double) Math.round(abs_rating*10)/10);
+        } catch (Exception ex) {
+            throw ex;
+        }
 
         return "admin_view/product/details";
     }
@@ -148,9 +175,9 @@ public class ProductAdminController {
             System.out.println("Images:" + productDto.getProductImage());
 
             productService.save(productDto);
-            model.addFlashAttribute("message_success", "Tạo mới product thành công");
+            model.addFlashAttribute("message_success", "Create new product successfully");
         } catch (Exception e) {
-            model.addFlashAttribute("message_err", "Tạo mới product không thành công");
+            model.addFlashAttribute("message_err", "New product creation failed");
             return "redirect:/ekka/admin/product/create";
         }
 
@@ -158,7 +185,7 @@ public class ProductAdminController {
     }
 
     @PostMapping(value = "delete/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String deleteProduct(@PathVariable(name = "id") int id, ProductDto productDto, RedirectAttributes model, Model m) {
+    public String deleteProduct(@PathVariable(name = "id") int id, ProductDto productDto, @ModelAttribute("urlDto") UrlDto urlDto, RedirectAttributes model, Model m) {
         ProductEntity product = productService.get(id);
         BeanUtils.copyProperties(product, productDto);
 
@@ -169,9 +196,9 @@ public class ProductAdminController {
         try {
             productDto.setState(0);
             productService.deleteProduct(productDto);
-            model.addFlashAttribute("message_success", "Xoa product thành công");
+            model.addFlashAttribute("message_success", "Delete product successfully");
         } catch (Exception e) {
-            model.addFlashAttribute("message_err", "Xoa product không thành công");
+            model.addFlashAttribute("message_err", "Deleting product failed");
         }
         System.out.println("id:" + id);
 
@@ -180,7 +207,7 @@ public class ProductAdminController {
     }
 
     @PostMapping(value = "restore/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String restoreProduct(@PathVariable(name = "id") int id, ProductDto productDto, RedirectAttributes model, Model m) {
+    public String restoreProduct(@PathVariable(name = "id") int id, ProductDto productDto, @ModelAttribute("urlDto") UrlDto urlDto, RedirectAttributes model, Model m) {
         ProductEntity product = productService.get(id);
         BeanUtils.copyProperties(product, productDto);
 
@@ -191,9 +218,9 @@ public class ProductAdminController {
         try {
             productDto.setState(1);
             productService.restoreProduct(productDto);
-            model.addFlashAttribute("message_success", "Xoa product thành công");
+            model.addFlashAttribute("message_success", "Product recovery was successful");
         } catch (Exception e) {
-            model.addFlashAttribute("message_err", "Xoa product không thành công");
+            model.addFlashAttribute("message_err", "Product restore failed");
         }
         System.out.println("id:" + id);
 
@@ -342,7 +369,7 @@ System.out.println("size1: "+ productDto.getSize1());
             productColorDto.setColor((productDto.getColor()));
             productSizeDto.setSize((productDto.getSize()));
         } catch (Exception ex) {
-            model.addFlashAttribute("message_err", "Luu file that bai!");
+            model.addFlashAttribute("message_err", "File save failed!");
         }
 
         try {
@@ -429,9 +456,9 @@ System.out.println("size1: "+ productDto.getSize1());
         System.out.println("id:" + id);
         try {
             productService.editProduct(productDto);
-            model.addFlashAttribute("message_success", "Update product thành công");
+            model.addFlashAttribute("message_success", "Product update successful");
         } catch (Exception e) {
-            model.addFlashAttribute("message_err", "Update product không thành công");
+            model.addFlashAttribute("message_err", "Product update failed");
         }
 
 

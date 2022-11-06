@@ -50,7 +50,9 @@ public class CartController {
             List<ProductSizeEntity> listProductSize = productSizeService.listAll();
             int countWishList = wishListService.countWishListUser(id);
             int countCart = cartService.countCartUser(id);
+            List<ProductEntity> listProductByState = productService.listAllProductByState();
 
+            model.addAttribute("listProductByState", listProductByState);
             model.addAttribute("countWishList", countWishList);
             model.addAttribute("countCart", countCart);
 
@@ -61,7 +63,7 @@ public class CartController {
             double total = 0;
             for (CartEntity cart : listCartUserId) {
                 double priceDiscount = Double.parseDouble(cart.getProduct().getDiscount());
-                double price = Double.parseDouble(cart.getProduct().getPriceProduct());
+                double price = cart.getProduct().getPriceProduct();
                 total = total + (price * ((100 - priceDiscount)/100)) * cart.getItem();
             }
 
@@ -98,11 +100,12 @@ public class CartController {
             double total = 0;
             for (ProductEntity product : listProduct) {
                 double priceDiscount = Double.parseDouble(product.getDiscount());
-                double price = Double.parseDouble(product.getPriceProduct());
+                double price = product.getPriceProduct();
                 total = total + (price * ((100 - priceDiscount)/100)) * cartDto.getItem();
             }
             System.out.println("Total_price: "+ total);
-            cartDto.setPrice(String.valueOf(total));
+            double totalPrice = (double) Math.round(total * 100)/100;
+            cartDto.setPrice(String.valueOf(totalPrice));
             try {
                 String[] arr = {};
                 List testList = new ArrayList<>(Arrays.asList(arr));
@@ -137,9 +140,9 @@ public class CartController {
                 throw ex;
             }
             cartService.createCart(cartDto);
-            model.addFlashAttribute("message_success", "Them cart thành công");
+            model.addFlashAttribute("message_success", "Create new cart successfully");
         } catch (Exception e) {
-            model.addFlashAttribute("message_err", "Them cart không thành công");
+            model.addFlashAttribute("message_err", "New cart creation failed");
         }
         System.out.println("id:"+id);
 
@@ -156,7 +159,6 @@ public class CartController {
         List<ProductSizeEntity> listProductSize = productSizeService.listAll();
         List<ProductEntity> listProduct = productService.listAllProductId(id);
 
-
         // Lấy ID của tài khoản  đa đăng nhập
         long UserId = ((UserEntity) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal()).getId();
@@ -168,11 +170,12 @@ public class CartController {
             double total = 0;
             for (ProductEntity product : listProduct) {
                 double priceDiscount = Double.parseDouble(product.getDiscount());
-                double price = Double.parseDouble(product.getPriceProduct());
+                double price = product.getPriceProduct();
                 total = total + (price * ((100 - priceDiscount)/100)) * addCartDto.getItem();
             }
             System.out.println("Total_price: "+ total);
-            cartDto.setPrice(String.valueOf(total));
+            double totalPrice = (double) Math.round(total * 100)/100;
+            cartDto.setPrice(String.valueOf(totalPrice));
             try {
                 String[] arr = {};
                 List testList = new ArrayList<>(Arrays.asList(arr));
@@ -215,9 +218,9 @@ public class CartController {
                 throw ex;
             }
             cartService.createCart(cartDto);
-            model.addFlashAttribute("message_success", "Them cart thành công");
+            model.addFlashAttribute("message_success", "Create new cart successfully");
         } catch (Exception e) {
-            model.addFlashAttribute("message_err", "Them cart không thành công");
+            model.addFlashAttribute("message_err", "New cart creation failed");
         }
         System.out.println("id:"+id);
 
@@ -232,9 +235,9 @@ public class CartController {
         try {
             cartDto.setId(id);
             cartService.deleteCart(cartDto);
-            model.addFlashAttribute("message_success", "Xoa cart thành công");
+            model.addFlashAttribute("message_success", "Delete the cart successfully");
         } catch (Exception e) {
-            model.addFlashAttribute("message_err", "Xoa cart không thành công");
+            model.addFlashAttribute("message_err", "Deleting cart failed");
         }
         System.out.println("id:"+id);
 

@@ -69,25 +69,54 @@
                         </div>
                     </div>
                     <div class="col-md-6 ec-sort-select">
-                        <span class="sort-by">Sort by</span>
-                        <div class="ec-select-inner">
-                            <select name="ec-select" id="ec-select">
-                                <option selected disabled>Position</option>
-                                <option value="1">Relevance</option>
-                                <option value="2">Name, A to Z</option>
-                                <option value="3">Name, Z to A</option>
-                                <option value="4">Price, low to high</option>
-                                <option value="5">Price, high to low</option>
-                            </select>
+                        <span class="sort-by"></span>
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown"
+                                aria-expanded="false">
+                            Sort by
+                        </button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item"
+                               href="/ekka/product?page=1&perpage=12&key=${list.key}&category=${list.category}&genderCategory=${list.genderCategory}&firstPrice=${list.firstPrice}&lastPrice=${list.lastPrice}&sort=AtoZ">Name,
+                                A To Z</a>
+                            <a class="dropdown-item"
+                               href="/ekka/product?page=1&perpage=12&key=${list.key}&category=${list.category}&genderCategory=${list.genderCategory}&firstPrice=${list.firstPrice}&lastPrice=${list.lastPrice}&sort=ZtoA">Name
+                                Z To A</a>
+                            <a class="dropdown-item"
+                               href="/ekka/product?page=1&perpage=12&key=${list.key}&category=${list.category}&genderCategory=${list.genderCategory}&firstPrice=${list.firstPrice}&lastPrice=${list.lastPrice}&sort=LowToHigh">Price,
+                                Low To High</a>
+                            <a class="dropdown-item"
+                               href="/ekka/product?page=1&perpage=12&key=${list.key}&category=${list.category}&genderCategory=${list.genderCategory}&firstPrice=${list.firstPrice}&lastPrice=${list.lastPrice}&sort=HighToLow">Price,
+                                High To Low</a>
                         </div>
                     </div>
+                    <%--                        <div class="ec-select-inner">--%>
+                    <%--                            <select name="ec-select" id="ec-select">--%>
+                    <%--                                <option selected disabled>Position</option>--%>
+                    <%--                                <option value="1">Name, A to Z</option>--%>
+                    <%--                                <option value="2"><a href="/ekka/product?page=0&perpage=12&key=${list.key}&category=${list.category}&genderCategory=${list.genderCategory}&firstPrice=${list.firstPrice}&lastPrice=${list.lastPrice}&sort=${ZtoA}">Name, Z to A</a></option>--%>
+                    <%--                                <option value="3"><a href="/ekka/product?page=0&perpage=12&key=${list.key}&category=${list.category}&genderCategory=${list.genderCategory}&firstPrice=${list.firstPrice}&lastPrice=${list.lastPrice}&sort=${LowToHigh}">Price, low to high</a></option>--%>
+                    <%--                                <option value="4"><a href="/ekka/product?page=0&perpage=12&key=${list.key}&category=${list.category}&genderCategory=${list.genderCategory}&firstPrice=${list.firstPrice}&lastPrice=${list.lastPrice}&sort=${HighToLow}">Price, high to low</a></option>--%>
+                    <%--                            </select>--%>
+                    <%--                        </div>--%>
                 </div>
-                <!-- Shop Top End -->
+            </div>
+            <!-- Shop Top End -->
 
-                <!-- Shop content Start -->
-                <div class="shop-pro-content">
+            <!-- Shop content Start -->
+            <div class="shop-pro-content">
+                <c:if test="${list.data == []}">
                     <div class="shop-pro-inner">
                         <div class="row">
+                            <div class="ec-wish-rightside col-lg-12 col-md-12"><p class="emp-wishlist-msg">Your product
+                                is empty!</p></div>
+                        </div>
+                    </div>
+                </c:if>
+                <c:if test="${list.data != []}">
+                    <div class="shop-pro-inner">
+                        <div class="row">
+
+
                             <c:forEach items="${list.data}" var="product">
                                 <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content">
                                     <div class="ec-product-inner">
@@ -195,7 +224,8 @@
                                                     <i class="ecicon eci-star"></i>
                                                 </c:if>
                                                 <c:if test="${product.rating > 0 && product.rating < 1}">
-                                                    <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                    <i style="color: #ff6262;opacity: 0.7;"
+                                                       class="ecicon eci-star-half-o"></i>
                                                     <i class="ecicon eci-star-o"></i>
                                                     <i class="ecicon eci-star-o"></i>
                                                     <i class="ecicon eci-star-o"></i>
@@ -203,7 +233,8 @@
                                                 </c:if>
                                                 <c:if test="${product.rating > 1 && product.rating < 2}">
                                                     <i class="ecicon eci-star fill"></i>
-                                                    <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                    <i style="color: #ff6262;opacity: 0.7;"
+                                                       class="ecicon eci-star-half-o"></i>
                                                     <i class="ecicon eci-star-o"></i>
                                                     <i class="ecicon eci-star-o"></i>
                                                     <i class="ecicon eci-star-o"></i>
@@ -211,7 +242,8 @@
                                                 <c:if test="${product.rating > 2 && product.rating < 3}">
                                                     <i class="ecicon eci-star fill"></i>
                                                     <i class="ecicon eci-star fill"></i>
-                                                    <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                    <i style="color: #ff6262;opacity: 0.7;"
+                                                       class="ecicon eci-star-half-o"></i>
                                                     <i class="ecicon eci-star-o"></i>
                                                     <i class="ecicon eci-star-o"></i>
                                                 </c:if>
@@ -219,7 +251,8 @@
                                                     <i class="ecicon eci-star fill"></i>
                                                     <i class="ecicon eci-star fill"></i>
                                                     <i class="ecicon eci-star fill"></i>
-                                                    <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                    <i style="color: #ff6262;opacity: 0.7;"
+                                                       class="ecicon eci-star-half-o"></i>
                                                     <i class="ecicon eci-star-o"></i>
                                                 </c:if>
                                                 <c:if test="${product.rating > 4 && product.rating < 5}">
@@ -227,7 +260,8 @@
                                                     <i class="ecicon eci-star fill"></i>
                                                     <i class="ecicon eci-star fill"></i>
                                                     <i class="ecicon eci-star fill"></i>
-                                                    <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                    <i style="color: #ff6262;opacity: 0.7;"
+                                                       class="ecicon eci-star-half-o"></i>
                                                 </c:if>
 
                                                 <c:if test="${product.rating == 1}">
@@ -283,10 +317,11 @@
                                                     <ul class="ec-opt-swatch ec-change-img">
                                                         <c:forEach items="${listProductColor}" var="productColor">
                                                             <c:if test="${productColor.product.id == product.id}">
-                                                                <li style="border: 1px solid darkgray;"><a href="#" class="ec-opt-clr-img"
-                                                                       data-src="${product.productImage}"
-                                                                       data-src-hover="${product.productImage}"
-                                                                       data-tooltip="Gray"><span
+                                                                <li style="border: 1px solid darkgray;"><a href="#"
+                                                                                                           class="ec-opt-clr-img"
+                                                                                                           data-src="${product.productImage}"
+                                                                                                           data-src-hover="${product.productImage}"
+                                                                                                           data-tooltip="Gray"><span
                                                                         style="background-color:${productColor.colorName};"></span></a>
                                                                 </li>
                                                             </c:if>
@@ -310,76 +345,103 @@
                                     </div>
                                 </div>
                             </c:forEach>
+
                         </div>
                     </div>
                     <!-- Ec Pagination Start -->
                     <%@include file="/WEB-INF/views/layout/user/pagingProduct.jsp" %>
                     <!-- Ec Pagination End -->
-                </div>
-                <!--Shop content End -->
+                </c:if>
             </div>
-            <!-- Sidebar Area Start -->
-            <div class="filter-sidebar-overlay"></div>
-            <div class="ec-shop-leftside filter-sidebar">
-                <div class="ec-sidebar-heading">
-                    <h1>Filter Products By</h1>
-                    <a class="filter-cls-btn" href="javascript:void(0)">×</a>
-                </div>
-                <div class="ec-sidebar-wrap">
-                    <!-- Sidebar Category Block -->
-                    <div class="ec-sidebar-block">
-                        <div class="ec-sb-title">
-                            <h3 class="ec-sidebar-title">Category</h3>
-                        </div>
-                        <div class="ec-sidebar-block">
-                            <c:forEach items="${listGenderCategory}" var="genderCategory">
-                                <div class="ec-sb-block-content">
-                                    <ul>
-                                        <li>
-                                            <div class="ec-sidebar-block-item"><img
-                                                    src="${genderCategory.genderCategoryLogo}" class="svg_img"
-                                                    style="width: 25px; border: 1px solid white; padding: 1px;"
-                                                    alt="drink">${genderCategory.genderCategoryName}</div>
-                                            <ul style="display: none;" class="ec-cat-sub-dropdown">
-                                                <c:forEach items="${listCategory}" var="category">
-                                                    <c:if test="${category.genderCategory.id == genderCategory.id}">
-                                                        <li class="py-2">
-                                                            <div class="ec-sidebar-sub-item"><a
-                                                                    href="#">${category.categoryName}
-                                                                <span
-                                                                        title="Available Stock"></span></a>
-                                                            </div>
-                                                        </li>
-                                                    </c:if>
-                                                </c:forEach>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </c:forEach>
-                        </div>
+            <!--Shop content End -->
+        </div>
+        <!-- Sidebar Area Start -->
+        <div class="filter-sidebar-overlay"></div>
+        <div class="ec-shop-leftside filter-sidebar">
+            <div class="ec-sidebar-heading">
+                <h1>Filter Products By</h1>
+                <a class="filter-cls-btn" href="javascript:void(0)">×</a>
+            </div>
+            <div class="ec-sidebar-wrap">
+                <!-- Sidebar Category Block -->
+                <div class="ec-sidebar-block">
+                    <div class="ec-sb-title">
+                        <h3 class="ec-sidebar-title">Category</h3>
                     </div>
-                    <!-- Sidebar Price Block -->
                     <div class="ec-sidebar-block">
-                        <div class="ec-sb-title">
-                            <h3 class="ec-sidebar-title">Price</h3>
+                        <div class="ec-sb-block-content">
+                            <ul>
+                                <li>
+                                    <div class="ec-sidebar-block-item d-flex"><a class="m-0" href="/ekka/product"><img
+                                            src="https://firebasestorage.googleapis.com/v0/b/k34dl-8e937.appspot.com/o/1-all.png?alt=media&token=60e0d390-ad16-4500-879c-9b66ec7c331c"
+                                            class="svg_img"
+                                            style="width: 25px; border: 1px solid white; padding: 1px;"
+                                            alt="drink"/>ALL</a></div>
+                                </li>
+                            </ul>
                         </div>
+                        <c:forEach items="${listGenderCategory}" var="genderCategory">
+                            <div class="ec-sb-block-content">
+                                <ul>
+                                    <li>
+                                        <div class="ec-sidebar-block-item"><img
+                                                src="${genderCategory.genderCategoryLogo}" class="svg_img"
+                                                style="width: 25px; border: 1px solid white; padding: 1px;"
+                                                alt="drink">${genderCategory.genderCategoryName}</div>
+                                        <ul style="display: none;" class="ec-cat-sub-dropdown">
+                                            <c:forEach items="${listCategory}" var="category">
+                                                <c:if test="${category.genderCategory.id == genderCategory.id}">
+                                                    <li class="py-2">
+                                                        <div class="ec-sidebar-sub-item"><a
+                                                                href="/ekka/product?page=0&perpage=12&key=&category=${category.categoryName}&genderCategory=${genderCategory.genderCategoryName}&firstPrice=${list.firstPrice}&lastPrice=${list.lastPrice}">${category.categoryName}
+                                                            <span
+                                                                    title="Available Stock"></span></a>
+                                                        </div>
+                                                    </li>
+                                                </c:if>
+                                            </c:forEach>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>
+                <!-- Sidebar Price Block -->
+                <div class="ec-sidebar-block">
+                    <div class="ec-sb-title">
+                        <h3 class="ec-sidebar-title">Price</h3>
+                    </div>
+                    <form action="/ekka/product" method="get">
                         <div class="ec-sb-block-content es-price-slider">
                             <div class="ec-price-filter">
-                                <div id="ec-sliderPrice" class="filter__slider-price" data-min="0" data-max="250"
-                                     data-step="10"></div>
-                                <div class="ec-price-input">
-                                    <label class="filter__label"><input type="text" class="filter__input"></label>
+                                <div class="ec-price-input mb-2">
+                                    <input class="d-none" name="page" value="${list.page}">
+                                    <input class="d-none" name="perpage" value="${list.perpage}">
+                                    <input class="d-none" name="key" value="${list.key}">
+                                    <input class="d-none" name="category" value="${list.category}">
+                                    <input class="d-none" name="genderCategory" value="${list.genderCategory}">
+                                    <label class="filter__label">$<input type="number" value="<fmt:formatNumber
+                                                            maxFractionDigits="0"
+                                                            value="${list.firstPrice}"></fmt:formatNumber>"
+                                                                         name="firstPrice" id="minVal" min="0"
+                                                                         class="filter__input firstPrice"></label>
                                     <span class="ec-price-divider"></span>
-                                    <label class="filter__label"><input type="text" class="filter__input"></label>
+                                    <label class="filter__label">$<input type="number" value="<fmt:formatNumber
+                                                            maxFractionDigits="0"
+                                                            value="${list.lastPrice}"></fmt:formatNumber>"
+                                                                         name="lastPrice" id="maxVal" max="250"
+                                                                         class="filter__input lastPrice"></label>
                                 </div>
+                                <button class="btn btn-info py-0 font-weight-bold text-white">Filter</button>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
             </div>
-
         </div>
+
+    </div>
     </div>
 </section>
 <!-- End Shop page -->
@@ -468,8 +530,8 @@
                                     </li>
                                 </ul>
                                 <div class="ec-subscribe-form">
-                                    <form id="ec-newsletter-form" name="ec-newsletter-form" method="post"
-                                          action="#">
+                                    <form id="ec-newsletter-form" name="ec-newsletter-form" method="get"
+                                          action="/ekka/contact-us">
                                         <div id="ec_news_signup" class="ec-form">
                                             <input class="ec-email" type="email" required=""
                                                    placeholder="Enter your email here..." name="ec-email" value=""/>
@@ -676,6 +738,9 @@
 
 <!-- Vendor JS -->
 <%@include file="/WEB-INF/views/layout/user/scripts.jsp" %>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+        crossorigin="anonymous"></script>
 
 <script>
     $(document).ready(function () {
@@ -712,5 +777,17 @@
         </c:if>
     }
 </script>
+<%--<script>--%>
+<%--    $("input.firstPrice").change(function (element) {--%>
+<%--        var el = $(this).val();--%>
+<%--            console.log(el);--%>
+<%--        window.location = "/ekka/${list.path}?page=1&perpage=${list.perpage}&key=${list.key}&category=${list.category}&genderCategory=${list.genderCategory}&firstPrice="+el+"&lastPrice=${list.lastPrice}";--%>
+<%--    });--%>
+<%--    $("input.lastPrice").change(function (element) {--%>
+<%--        var el = $(this).val();--%>
+<%--            console.log(el);--%>
+<%--        window.location = "/ekka/${list.path}?page=1&perpage=${list.perpage}&key=${list.key}&category=${list.category}&genderCategory=${list.genderCategory}&firstPrice=${list.firstPrice}&lastPrice="+el+"";--%>
+<%--    });--%>
+<%--</script>--%>
 </body>
 </html>

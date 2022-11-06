@@ -20,7 +20,7 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity, Long> {
 
     @Transactional //try to add this annotation
     @Modifying      // to mark delete or update query
-    @Query(value = "SELECT r FROM ReviewEntity r where r.product.id = :id ORDER BY r.updated_at DESC")       // it will delete all the record with specific name
+    @Query(value = "SELECT r FROM ReviewEntity r where r.product.id = :id and r.state = 1 ORDER BY r.updated_at DESC")       // it will delete all the record with specific name
     List<ReviewEntity> findAllByProductId(@Param("id") long id);
 
     @Transactional //try to add this annotation
@@ -30,4 +30,14 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity, Long> {
 
     @Query(value = "SELECT count(r.id) FROM ReviewEntity r WHERE r.product.id = :id")
     int countAll(@Param("id") long id);
+
+    @Transactional //try to add this annotation
+    @Modifying      // to mark delete or update query
+    @Query(value = "UPDATE ReviewEntity r SET r.state = 0, r.updated_at = current_timestamp WHERE r.id = :id")       // it will delete all the record with specific name
+    int deleteById(@Param("id") long id);
+
+    @Transactional //try to add this annotation
+    @Modifying      // to mark delete or update query
+    @Query(value = "UPDATE ReviewEntity r SET r.state = 1, r.updated_at = current_timestamp WHERE r.id = :id")       // it will delete all the record with specific name
+    int restoreById(@Param("id") long id);
 }

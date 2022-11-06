@@ -46,9 +46,9 @@ public class GenderCategoryAdminController {
         try {
             genderCategoryDto.setGenderCategoryLogo(saveFile(genderCategoryDto.getFileGenderCategory()));
             genderCategoryService.save(genderCategoryDto);
-            model.addFlashAttribute("message", "Tạo mới tài khoản thành công");
+            model.addFlashAttribute("message_success", "Create new gender category successfully");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Tạo mới tài khoản không thành công");
+            model.addFlashAttribute("message_err", "Creating new gender category failed");
             return "redirect:/ekka/admin/gender-category/list";
         }
 
@@ -74,9 +74,9 @@ public class GenderCategoryAdminController {
         try {
             genderCategoryDto.setState(0);
             genderCategoryService.deleteGenderCategory(genderCategoryDto);
-            model.addFlashAttribute("message", "Xoa tài khoản thành công");
+            model.addFlashAttribute("message_success", "Delete gender category successfully");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Xoa tài khoản không thành công");
+            model.addFlashAttribute("message_err", "Deleting gender category failed");
         }
         System.out.println("id:"+id);
 
@@ -103,9 +103,9 @@ public class GenderCategoryAdminController {
         try {
             genderCategoryDto.setState(1);
             genderCategoryService.restoreGenderCategory(genderCategoryDto);
-            model.addFlashAttribute("message", "Khoi phuc gender category thành công");
+            model.addFlashAttribute("message_success", "Restore gender category successfully");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Khoi phuc gender category không thành công");
+            model.addFlashAttribute("message_err", "Gender category restore failed");
         }
         System.out.println("id:"+id);
 
@@ -143,9 +143,9 @@ public class GenderCategoryAdminController {
         System.out.println("id:"+id);
         try {
             genderCategoryService.editGenderCategory(genderCategoryDto);
-            model.addFlashAttribute("message", "Update gender category thành công");
+            model.addFlashAttribute("message_success", "Update gender category successfully");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Update gender category không thành công");
+            model.addFlashAttribute("message_err", "Gender category update failed");
         }
 
 

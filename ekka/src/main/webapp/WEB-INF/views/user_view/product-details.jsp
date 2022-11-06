@@ -102,7 +102,8 @@
                                                 <i class="ecicon eci-star"></i>
                                             </c:if>
                                             <c:if test="${review_rating > 0 && review_rating < 1}">
-                                                <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                <i style="color: #ff6262;opacity: 0.7;"
+                                                   class="ecicon eci-star-half-o"></i>
                                                 <i class="ecicon eci-star-o"></i>
                                                 <i class="ecicon eci-star-o"></i>
                                                 <i class="ecicon eci-star-o"></i>
@@ -110,7 +111,8 @@
                                             </c:if>
                                             <c:if test="${review_rating > 1 && review_rating < 2}">
                                                 <i class="ecicon eci-star fill"></i>
-                                                <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                <i style="color: #ff6262;opacity: 0.7;"
+                                                   class="ecicon eci-star-half-o"></i>
                                                 <i class="ecicon eci-star-o"></i>
                                                 <i class="ecicon eci-star-o"></i>
                                                 <i class="ecicon eci-star-o"></i>
@@ -118,7 +120,8 @@
                                             <c:if test="${review_rating > 2 && review_rating < 3}">
                                                 <i class="ecicon eci-star fill"></i>
                                                 <i class="ecicon eci-star fill"></i>
-                                                <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                <i style="color: #ff6262;opacity: 0.7;"
+                                                   class="ecicon eci-star-half-o"></i>
                                                 <i class="ecicon eci-star-o"></i>
                                                 <i class="ecicon eci-star-o"></i>
                                             </c:if>
@@ -126,7 +129,8 @@
                                                 <i class="ecicon eci-star fill"></i>
                                                 <i class="ecicon eci-star fill"></i>
                                                 <i class="ecicon eci-star fill"></i>
-                                                <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                <i style="color: #ff6262;opacity: 0.7;"
+                                                   class="ecicon eci-star-half-o"></i>
                                                 <i class="ecicon eci-star-o"></i>
                                             </c:if>
                                             <c:if test="${review_rating > 4 && review_rating < 5}">
@@ -134,7 +138,8 @@
                                                 <i class="ecicon eci-star fill"></i>
                                                 <i class="ecicon eci-star fill"></i>
                                                 <i class="ecicon eci-star fill"></i>
-                                                <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                <i style="color: #ff6262;opacity: 0.7;"
+                                                   class="ecicon eci-star-half-o"></i>
                                             </c:if>
 
                                             <c:if test="${review_rating == 1}">
@@ -175,7 +180,8 @@
                                                 <i class="ecicon eci-star fill"></i>
                                             </c:if>
                                         </div>
-                                        (${review_rating} <i class="ecicon eci-star fill"></i>) (${countReviewProduct} review)
+                                        (${review_rating} <i class="ecicon eci-star fill"></i>) (${countReviewProduct}
+                                        review)
                                     </div>
                                     <div class="ec-single-desc">${productDto.details}</div>
                                     <div class="ec-single-price-stoke">
@@ -235,35 +241,104 @@
                                     </div>
                                     <div class="ec-single-qty">
                                         <div class="form-group">
-                                            <input id="item" class="form-control px-3 py-0" style="height: 40px!important;min-height: 40px!important; width: 75px;" type="number" min="1" max="${productDto.totalProduct}" value="1"/>
+                                            <input id="item" class="form-control px-3 py-0"
+                                                   style="height: 40px!important;min-height: 40px!important; width: 75px;"
+                                                   type="number" min="1" max="${productDto.totalProduct}" value="1"/>
                                         </div>
-                                        <c:if test="${productDto.totalProduct <= 0}">
-                                        <div class="ec-single-cart ">
-                                            <button type="button" class="btn btn-dark">Out of product</button>
-                                        </div>
-                                        </c:if>
-                                        <c:if test="${productDto.totalProduct > 0}">
-                                            <div class="ec-single-cart ">
-                                                <c:if test="${listCartProductIdAndUserId != []}">
-                                                <c:forEach items="${listCartUserId}" var="cartUser">
+                                        <sec:authorize access="hasAnyRole('ROLE_USER')">
+                                            <c:if test="${productDto.totalProduct <= 0}">
+                                                <div class="ec-single-cart ">
+                                                    <button type="button" class="btn btn-dark">Out of product</button>
+                                                </div>
+                                            </c:if>
+                                            <c:if test="${productDto.totalProduct > 0}">
+                                                <div class="ec-single-cart ">
+                                                    <c:if test="${listCartProductIdAndUserId != []}">
+                                                        <c:forEach items="${listCartUserId}" var="cartUser">
 
-                                                    <c:if test="${productDto.id == cartUser.product.id && UserId == cartUser.user.id}">
+                                                            <c:if test="${productDto.id == cartUser.product.id && UserId == cartUser.user.id}">
+                                                                <f:form method="post"
+                                                                        action="/ekka/cart/delete/${cartUser.id}"
+                                                                        modelAttribute="urlDto">
+                                                                    <f:input type="text" path="url"
+                                                                             value="${urlDto.url}"
+                                                                             cssClass="d-none"/>
+
+                                                                    <button type="submit" class="btn btn-dark">Remove to
+                                                                        Cart
+                                                                    </button>
+
+                                                                </f:form>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </c:if>
+
+
+                                                    <c:if test="${listCartProductIdAndUserId == []}">
                                                         <f:form method="post"
-                                                                action="/ekka/cart/delete/${cartUser.id}"
-                                                                modelAttribute="urlDto">
-                                                            <f:input type="text" path="url"
-                                                                     value="${urlDto.url}"
+                                                                action="/ekka/cart/create-cart-detail/${productDto.id}"
+                                                                modelAttribute="addCartDto">
+                                                            <f:input id="inputColor" type="text" path="color_product"
+                                                                     cssClass="d-none"/>
+                                                            <f:input id="inputSize" type="text" path="size_product"
+                                                                     cssClass="d-none"/>
+                                                            <f:input id="inputItem" type="number" path="item" value="1"
                                                                      cssClass="d-none"/>
 
-                                                            <button type="submit" class="btn btn-dark">Remove to Cart</button>
-
+                                                            <button type="submit" class="btn btn-primary">Add to Cart
+                                                            </button>
                                                         </f:form>
                                                     </c:if>
-                                                </c:forEach>
-                                                    </c:if>
+                                                </div>
+                                            </c:if>
+                                            <div class="ec-single-wishlist">
+                                                <c:if test="${listWishListProductIdAndUserId != []}">
+                                                    <c:forEach items="${listWishListUserId}" var="wishListUser">
+                                                        <c:if test="${productDto.id == wishListUser.product.id && UserId == wishListUser.user.id}">
+                                                            <f:form method="post"
+                                                                    action="/ekka/wish-list/delete/${wishListUser.id}"
+                                                                    modelAttribute="urlDto">
+                                                                <f:input type="text" path="url" value="${urlDto.url}"
+                                                                         cssClass="d-none"/>
 
+                                                                <button type="submit"
+                                                                        class="ec-btn-group wishlist"
+                                                                        style="color: #ffffff; background-color: #3474d4; border-color: #3474d4;"
+                                                                        title="Wishlist"><img
+                                                                        src="/user/assets/images/icons/wishlist.svg"
+                                                                        class="svg_img pro_svg" style="fill: #FFFFFF"
+                                                                        alt=""/></button>
+                                                            </f:form>
 
-                                                <c:if test="${listCartProductIdAndUserId == []}">
+                                                        </c:if>
+
+                                                    </c:forEach>
+                                                </c:if>
+                                                <c:if test="${listWishListProductIdAndUserId == []}">
+                                                    <f:form method="post"
+                                                            action="/ekka/wish-list/create/${productDto.id}"
+                                                            modelAttribute="urlDto">
+                                                        <f:input type="text" path="url" value="${urlDto.url}"
+                                                                 cssClass="d-none"/>
+
+                                                        <button type="submit"
+                                                                class="ec-btn-group wishlist"
+                                                                title="Wishlist"><img
+                                                                src="/user/assets/images/icons/wishlist.svg"
+                                                                class="svg_img pro_svg" alt=""/></button>
+                                                    </f:form>
+
+                                                </c:if>
+                                            </div>
+                                        </sec:authorize>
+                                        <sec:authorize access="hasAnyRole('ROLE_ANONYMOUS')">
+                                            <c:if test="${productDto.totalProduct <= 0}">
+                                                <div class="ec-single-cart ">
+                                                    <button type="button" class="btn btn-dark">Out of product</button>
+                                                </div>
+                                            </c:if>
+                                            <c:if test="${productDto.totalProduct > 0}">
+                                                <div class="ec-single-cart ">
                                                     <f:form method="post"
                                                             action="/ekka/cart/create-cart-detail/${productDto.id}"
                                                             modelAttribute="addCartDto">
@@ -274,35 +349,12 @@
                                                         <f:input id="inputItem" type="number" path="item" value="1"
                                                                  cssClass="d-none"/>
 
-                                                        <button type="submit" class="btn btn-primary">Add to Cart</button>
+                                                        <button type="submit" class="btn btn-primary">Add to Cart
+                                                        </button>
                                                     </f:form>
-                                                </c:if>
-                                            </div>
-                                        </c:if>
-                                        <div class="ec-single-wishlist">
-<c:if test="${listWishListProductIdAndUserId != []}">
-                                            <c:forEach items="${listWishListUserId}" var="wishListUser">
-                                                    <c:if test="${productDto.id == wishListUser.product.id && UserId == wishListUser.user.id}">
-                                                        <f:form method="post"
-                                                                action="/ekka/wish-list/delete/${wishListUser.id}"
-                                                                modelAttribute="urlDto">
-                                                            <f:input type="text" path="url" value="${urlDto.url}"
-                                                                     cssClass="d-none"/>
-
-                                                            <button type="submit"
-                                                                    class="ec-btn-group wishlist"
-                                                                    style="color: #ffffff; background-color: #3474d4; border-color: #3474d4;"
-                                                                    title="Wishlist"><img
-                                                                    src="/user/assets/images/icons/wishlist.svg"
-                                                                    class="svg_img pro_svg" style="fill: #FFFFFF"
-                                                                    alt=""/></button>
-                                                        </f:form>
-
-                                                    </c:if>
-
-                                            </c:forEach>
-</c:if>
-                                            <c:if test="${listWishListProductIdAndUserId == []}">
+                                                </div>
+                                            </c:if>
+                                            <div class="ec-single-wishlist">
                                                 <f:form method="post"
                                                         action="/ekka/wish-list/create/${productDto.id}"
                                                         modelAttribute="urlDto">
@@ -315,9 +367,9 @@
                                                             src="/user/assets/images/icons/wishlist.svg"
                                                             class="svg_img pro_svg" alt=""/></button>
                                                 </f:form>
+                                            </div>
+                                        </sec:authorize>
 
-                                            </c:if>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -362,77 +414,80 @@
                                     <div class="ec-t-review-wrapper">
                                         <c:if test="${listReview == []}">
                                             <div class="ec-t-review-item">
-                                            <h6>Be the first to review this product!</h6>
+                                                <h6>Be the first to review this product!</h6>
                                             </div>
                                         </c:if>
                                         <c:if test="${listReview != []}">
-                                        <c:forEach items="${listReview}" var="review">
-                                            <div class="ec-t-review-item">
-                                                <div class="ec-t-review-avtar">
-                                                    <img style="border-radius: 50%;" src="${review.user.avatar}" alt=""/>
-                                                </div>
-                                                <div class="ec-t-review-content">
-                                                    <div class="ec-t-review-top">
-                                                        <div class="ec-t-review-name">${review.user.fullName}</div>
-                                                        <div class="ec-t-review-rating">
-                                                            <c:if test="${review.rating == 1}">
-                                                                <i class="ecicon eci-star fill"></i>
-                                                                <i class="ecicon eci-star-o"></i>
-                                                                <i class="ecicon eci-star-o"></i>
-                                                                <i class="ecicon eci-star-o"></i>
-                                                                <i class="ecicon eci-star-o"></i>
-                                                            </c:if>
-                                                            <c:if test="${review.rating == 2}">
-                                                                <i class="ecicon eci-star fill"></i>
-                                                                <i class="ecicon eci-star fill"></i>
-                                                                <i class="ecicon eci-star-o"></i>
-                                                                <i class="ecicon eci-star-o"></i>
-                                                                <i class="ecicon eci-star-o"></i>
-                                                            </c:if>
-                                                            <c:if test="${review.rating == 3}">
-                                                                <i class="ecicon eci-star fill"></i>
-                                                                <i class="ecicon eci-star fill"></i>
-                                                                <i class="ecicon eci-star fill"></i>
-                                                                <i class="ecicon eci-star-o"></i>
-                                                                <i class="ecicon eci-star-o"></i>
-                                                            </c:if>
-                                                            <c:if test="${review.rating == 4}">
-                                                                <i class="ecicon eci-star fill"></i>
-                                                                <i class="ecicon eci-star fill"></i>
-                                                                <i class="ecicon eci-star fill"></i>
-                                                                <i class="ecicon eci-star fill"></i>
-                                                                <i class="ecicon eci-star-o"></i>
-                                                            </c:if>
-                                                            <c:if test="${review.rating == 5}">
-                                                                <i class="ecicon eci-star fill"></i>
-                                                                <i class="ecicon eci-star fill"></i>
-                                                                <i class="ecicon eci-star fill"></i>
-                                                                <i class="ecicon eci-star fill"></i>
-                                                                <i class="ecicon eci-star fill"></i>
-                                                            </c:if>
+                                            <c:forEach items="${listReview}" var="review">
+                                                <div class="ec-t-review-item">
+                                                    <div class="ec-t-review-avtar">
+                                                        <img style="border-radius: 50%;" src="${review.user.avatar}"
+                                                             alt=""/>
+                                                    </div>
+                                                    <div class="ec-t-review-content">
+                                                        <div class="ec-t-review-top">
+                                                            <div class="ec-t-review-name">${review.user.fullName}</div>
+                                                            <div class="ec-t-review-rating">
+                                                                <c:if test="${review.rating == 1}">
+                                                                    <i class="ecicon eci-star fill"></i>
+                                                                    <i class="ecicon eci-star-o"></i>
+                                                                    <i class="ecicon eci-star-o"></i>
+                                                                    <i class="ecicon eci-star-o"></i>
+                                                                    <i class="ecicon eci-star-o"></i>
+                                                                </c:if>
+                                                                <c:if test="${review.rating == 2}">
+                                                                    <i class="ecicon eci-star fill"></i>
+                                                                    <i class="ecicon eci-star fill"></i>
+                                                                    <i class="ecicon eci-star-o"></i>
+                                                                    <i class="ecicon eci-star-o"></i>
+                                                                    <i class="ecicon eci-star-o"></i>
+                                                                </c:if>
+                                                                <c:if test="${review.rating == 3}">
+                                                                    <i class="ecicon eci-star fill"></i>
+                                                                    <i class="ecicon eci-star fill"></i>
+                                                                    <i class="ecicon eci-star fill"></i>
+                                                                    <i class="ecicon eci-star-o"></i>
+                                                                    <i class="ecicon eci-star-o"></i>
+                                                                </c:if>
+                                                                <c:if test="${review.rating == 4}">
+                                                                    <i class="ecicon eci-star fill"></i>
+                                                                    <i class="ecicon eci-star fill"></i>
+                                                                    <i class="ecicon eci-star fill"></i>
+                                                                    <i class="ecicon eci-star fill"></i>
+                                                                    <i class="ecicon eci-star-o"></i>
+                                                                </c:if>
+                                                                <c:if test="${review.rating == 5}">
+                                                                    <i class="ecicon eci-star fill"></i>
+                                                                    <i class="ecicon eci-star fill"></i>
+                                                                    <i class="ecicon eci-star fill"></i>
+                                                                    <i class="ecicon eci-star fill"></i>
+                                                                    <i class="ecicon eci-star fill"></i>
+                                                                </c:if>
 
+                                                            </div>
+                                                        </div>
+                                                        <div class="ec-t-review-bottom">
+                                                            <p>
+                                                                    ${review.comment}
+                                                            </p>
                                                         </div>
                                                     </div>
-                                                    <div class="ec-t-review-bottom">
-                                                        <p>
-                                                            ${review.comment}
-                                                        </p>
-                                                    </div>
                                                 </div>
-                                            </div>
-                                        </c:forEach>
+                                            </c:forEach>
                                         </c:if>
                                     </div>
                                     <div class="ec-ratting-content">
                                         <h3>Add a Review</h3>
                                         <div class="ec-ratting-form">
+                                            <sec:authorize access="hasAnyRole('ROLE_USER')">
                                                 <c:if test="${listReviewProductAndUser != []}">
-                                                <div class="ec-ratting-star">
-                                                    <h6>You have reviewed this product!</h6>
-                                                </div>
+                                                    <div class="ec-ratting-star">
+                                                        <h6>You have reviewed this product!</h6>
+                                                    </div>
                                                 </c:if>
                                                 <c:if test="${listReviewProductAndUser == []}">
-                                                    <f:form action="/ekka/review/create/${productDto.id}" method="post" modelAttribute="reviewDto">
+                                                    <f:form action="/ekka/review/create/${productDto.id}" method="post"
+                                                            modelAttribute="reviewDto">
 
                                                         <div class="ec-ratting-star">
                                                             <span>Your rating:</span>
@@ -445,8 +500,11 @@
                                                             </div>
                                                         </div>
                                                         <div class="ec-ratting-input form-submit">
-                                                            <f:input cssClass="d-none" id="ratingInput" type="text" path="rating" value="5" required="required"></f:input>
-                                                            <f:textarea path="comment" placeholder="Enter Your Comment" required="required"></f:textarea>
+                                                            <f:input cssClass="d-none" id="ratingInput" type="text"
+                                                                     path="rating" value="5"
+                                                                     required="required"></f:input>
+                                                            <f:textarea path="comment" placeholder="Enter Your Comment"
+                                                                        required="required"></f:textarea>
                                                             <button class="btn btn-primary" type="submit"
                                                                     value="Submit">Submit
                                                             </button>
@@ -454,6 +512,32 @@
                                                     </f:form>
 
                                                 </c:if>
+                                            </sec:authorize>
+                                            <sec:authorize access="hasAnyRole('ROLE_ANONYMOUS')">
+                                                <f:form action="/ekka/review/create/${productDto.id}" method="post"
+                                                        modelAttribute="reviewDto">
+
+                                                    <div class="ec-ratting-star">
+                                                        <span>Your rating:</span>
+                                                        <div class="review">
+                                                            <i class="ecicon eci-star fill" id="st1"></i>
+                                                            <i class="ecicon eci-star fill" id="st2"></i>
+                                                            <i class="ecicon eci-star fill" id="st3"></i>
+                                                            <i class="ecicon eci-star fill" id="st4"></i>
+                                                            <i class="ecicon eci-star fill" id="st5"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ec-ratting-input form-submit">
+                                                        <f:input cssClass="d-none" id="ratingInput" type="text"
+                                                                 path="rating" value="5" required="required"></f:input>
+                                                        <f:textarea path="comment" placeholder="Enter Your Comment"
+                                                                    required="required"></f:textarea>
+                                                        <button class="btn btn-primary" type="submit"
+                                                                value="Submit">Submit
+                                                        </button>
+                                                    </div>
+                                                </f:form>
+                                            </sec:authorize>
                                         </div>
                                     </div>
                                 </div>
@@ -481,11 +565,11 @@
                 </div>
             </div>
         </div>
-        <div class="row margin-minus-b-30">
+        <div class="row margin-minus-b-30 owl-carousel">
 
             <!-- Related Product Content -->
             <c:forEach items="${listProductCategory}" var="productCategory">
-                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6 mb-6 pro-gl-content">
+                <div class="pro-gl-content">
                     <div class="ec-product-inner">
                         <div class="ec-pro-image-outer">
                             <div class="ec-pro-image">
@@ -500,93 +584,93 @@
                                 <c:if test="${productCategory.discount > 0}">
                                     <span class="percentage">${productCategory.discount}%</span>
                                 </c:if>
-                                <a href="/ekka/product-details/${productCategory.id}" class="quickview"
-                                   data-link-action="quickview"
-                                   title="Quick view"><img
-                                        src="/user/assets/images/icons/quickview.svg"
-                                        class="svg_img pro_svg"
-                                        alt=""/></a>
-                                <div class="ec-pro-actions">
-                                    <c:if test="${productCategory.totalProduct <= 0}">
-                                        <button style="background-color: #555555;" type="button"
-                                                title="Add To Cart" class="add-to-cart">
-                                            <img style="fill: #FFFFFF;"
-                                                 src="/user/assets/images/icons/cart.svg"
-                                                 class="svg_img pro_svg"
-                                                 alt=""/> Add To Cart
-                                        </button>
-                                    </c:if>
-                                    <c:if test="${productCategory.totalProduct > 0}">
-                                    <f:form method="post"
-                                            action="/ekka/cart/create/${productCategory.id}"
-                                            modelAttribute="urlDto">
-                                        <f:input type="text" path="url" value="${urlDto.url}"
-                                                 cssClass="d-none"/>
-                                        <button type="submit" title="Add To Cart"
-                                                class="add-to-cart"><img
-                                                src="/user/assets/images/icons/cart.svg"
-                                                class="svg_img pro_svg"
-                                                alt=""/> Add To Cart
-                                        </button>
-                                    </f:form>
-                                    <c:forEach items="${listCartUserId}" var="cartUser">
-                                        <c:if test="${productCategory.id == cartUser.product.id}">
-                                            <f:form method="post"
-                                                    action="/ekka/cart/delete/${cartUser.id}"
-                                                    modelAttribute="urlDto">
-                                                <f:input type="text" path="url"
-                                                         value="${urlDto.url}"
-                                                         cssClass="d-none"/>
-
-                                                <button type="submit"
-                                                        style="background-color: #3575d4;"
-                                                        class="add-to-cart active"
-                                                        title="Cart"><img style="fill: white;"
-                                                                          src="/user/assets/images/icons/cart.svg"
-                                                                          class="svg_img pro_svg"
-                                                                          alt=""/></button>
-                                            </f:form>
-                                        </c:if>
-                                    </c:forEach>
-                                    </c:if>
-                                    <f:form method="post" action="/ekka/wish-list/create/${productCategory.id}"
-                                            modelAttribute="urlDto">
-                                        <f:input type="text" path="url" value="${urlDto.url}"
-                                                 cssClass="d-none"/>
-                                        <button type="submit" class="ec-btn-group wishlist"
-                                                title="Wishlist"><img
-                                                src="/user/assets/images/icons/wishlist.svg"
-                                                class="svg_img pro_svg" alt=""/></button>
-                                    </f:form>
-                                    <c:forEach items="${listWishListUserId}" var="wishListUser">
-                                        <c:if test="${productCategory.id == wishListUser.product.id}">
-                                            <f:form method="post"
-                                                    action="/ekka/wish-list/delete/${wishListUser.id}"
-                                                    modelAttribute="urlDto">
-                                                <f:input type="text" path="url" value="${urlDto.url}"
-                                                         cssClass="d-none"/>
-
-                                                <button type="submit"
-                                                        class="ec-btn-group wishlist active"
-                                                        title="Wishlist"><img
-                                                        src="/user/assets/images/icons/wishlist.svg"
-                                                        class="svg_img pro_svg" alt=""/></button>
-                                            </f:form>
-
-                                        </c:if>
-                                    </c:forEach>
-                                </div>
                             </div>
                         </div>
                         <div class="ec-pro-content">
                             <h5 class="ec-pro-title"><a
-                                    href="/ekka/product-details/${product.id}">${productCategory.productName}</a></h5>
+                                    href="/ekka/product-details/${productCategory.id}">${productCategory.productName}</a>
+                            </h5>
                             <div class="ec-pro-rating">
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star fill"></i>
-                                <i class="ecicon eci-star"></i>
+                                <c:if test="${productCategory.rating <= 0}">
+                                    <i class="ecicon eci-star"></i>
+                                    <i class="ecicon eci-star"></i>
+                                    <i class="ecicon eci-star"></i>
+                                    <i class="ecicon eci-star"></i>
+                                    <i class="ecicon eci-star"></i>
+                                </c:if>
+                                <c:if test="${productCategory.rating > 0 && productCategory.rating < 1}">
+                                    <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                    <i class="ecicon eci-star-o"></i>
+                                    <i class="ecicon eci-star-o"></i>
+                                    <i class="ecicon eci-star-o"></i>
+                                    <i class="ecicon eci-star-o"></i>
+                                </c:if>
+                                <c:if test="${productCategory.rating > 1 && productCategory.rating < 2}">
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                    <i class="ecicon eci-star-o"></i>
+                                    <i class="ecicon eci-star-o"></i>
+                                    <i class="ecicon eci-star-o"></i>
+                                </c:if>
+                                <c:if test="${productCategory.rating > 2 && productCategory.rating < 3}">
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                    <i class="ecicon eci-star-o"></i>
+                                    <i class="ecicon eci-star-o"></i>
+                                </c:if>
+                                <c:if test="${productCategory.rating > 3 && productCategory.rating < 4}">
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                    <i class="ecicon eci-star-o"></i>
+                                </c:if>
+                                <c:if test="${productCategory.rating > 4 && productCategory.rating < 5}">
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                </c:if>
+
+                                <c:if test="${productCategory.rating == 1}">
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i class="ecicon eci-star-o"></i>
+                                    <i class="ecicon eci-star-o"></i>
+                                    <i class="ecicon eci-star-o"></i>
+                                    <i class="ecicon eci-star-o"></i>
+                                </c:if>
+
+                                <c:if test="${productCategory.rating == 2}">
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i class="ecicon eci-star-o"></i>
+                                    <i class="ecicon eci-star-o"></i>
+                                    <i class="ecicon eci-star-o"></i>
+                                </c:if>
+
+                                <c:if test="${productCategory.rating == 3}">
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i class="ecicon eci-star-o"></i>
+                                    <i class="ecicon eci-star-o"></i>
+                                </c:if>
+                                <c:if test="${productCategory.rating == 4}">
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i class="ecicon eci-star-o"></i>
+                                </c:if>
+                                <c:if test="${productCategory.rating == 5}">
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i class="ecicon eci-star fill"></i>
+                                    <i class="ecicon eci-star fill"></i>
+                                </c:if>
                             </div>
                             <div class="ec-pro-list-desc"
                                  style="margin-left: 0!important;">${productCategory.details}</div>
@@ -720,8 +804,8 @@
                                     </li>
                                 </ul>
                                 <div class="ec-subscribe-form">
-                                    <form id="ec-newsletter-form" name="ec-newsletter-form" method="post"
-                                          action="#">
+                                    <form id="ec-newsletter-form" name="ec-newsletter-form" method="get"
+                                          action="/ekka/contact-us">
                                         <div id="ec_news_signup" class="ec-form">
                                             <input class="ec-email" type="email" required=""
                                                    placeholder="Enter your email here..." name="ec-email" value=""/>
@@ -967,17 +1051,17 @@
 <%@include file="/WEB-INF/views/layout/user/scripts.jsp" %>
 
 <script>
-    $("#color ul li span").click(function(element) {
+    $("#color ul li span").click(function (element) {
         var el = element.currentTarget.style.backgroundColor;
         console.log(el);
         $('#inputColor').val(el);
     });
-    $("#size ul li span").click(function(element) {
+    $("#size ul li span").click(function (element) {
         var el = element.currentTarget.innerHTML;
         console.log(el);
         $('#inputSize').val(el);
     });
-    $("#item").change(function(element) {
+    $("#item").change(function (element) {
         var el = $(this).val();
         console.log(el);
         $('#inputItem').val(el);
@@ -985,28 +1069,28 @@
 
 </script>
 <script>
-    $(document).ready(function() {
-        $("#st1").hover(function() {
+    $(document).ready(function () {
+        $("#st1").hover(function () {
             $(".review .eci-star").removeClass("eci-star fill").addClass("eci-star-o");
             $("#st1").removeClass("eci-star-o").addClass("eci-star fill");
             $("#ratingInput").val(1);
         });
-        $("#st2").hover(function() {
+        $("#st2").hover(function () {
             $(".review .eci-star").removeClass("eci-star fill").addClass("eci-star-o");
             $("#st1, #st2").removeClass("eci-star-o").addClass("eci-star fill");
             $("#ratingInput").val(2);
         });
-        $("#st3").hover(function() {
+        $("#st3").hover(function () {
             $(".review .eci-star").removeClass("eci-star fill").addClass("eci-star-o");
             $("#st1, #st2, #st3").removeClass("eci-star-o").addClass("eci-star fill");
             $("#ratingInput").val(3);
         });
-        $("#st4").hover(function() {
+        $("#st4").hover(function () {
             $(".review .eci-star").removeClass("eci-star fill").addClass("eci-star-o");
             $("#st1, #st2, #st3, #st4").removeClass("eci-star-o").addClass("eci-star fill");
             $("#ratingInput").val(4);
         });
-        $("#st5").hover(function() {
+        $("#st5").hover(function () {
             $(".review .eci-star").removeClass("eci-star fill").addClass("eci-star-o");
             $("#st1, #st2, #st3, #st4, #st5").removeClass("eci-star-o").addClass("eci-star fill");
             $("#ratingInput").val(5);
@@ -1047,6 +1131,28 @@
         toastr.error('${message_err}');
         </c:if>
     }
+</script>
+<script>
+    $('.owl-carousel').owlCarousel({
+        loop: true,
+        margin: 10,
+        responsiveClass: true,
+        responsive: {
+            0: {
+                items: 1,
+                nav: true
+            },
+            600: {
+                items: 2,
+                nav: false
+            },
+            1000: {
+                items: 4,
+                nav: true,
+                loop: false
+            }
+        }
+    })
 </script>
 </body>
 </html>

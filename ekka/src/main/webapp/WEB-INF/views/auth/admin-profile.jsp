@@ -52,17 +52,17 @@
                             <div class="profile-content-left profile-left-spacing">
                                 <div class="text-center widget-profile px-0 border-0" style="height: 250px;">
                                     <div class="card-img mx-auto rounded-circle" style="width: 100%!important;">
-                                        <img src="<sec:authentication
+                                        <img id="fileImageBackGround" src="<sec:authentication
                                                             property="principal.background_profile"></sec:authentication>"
                                                                      alt="user image">
                                     </div>
-                                        <img style="height: 120px;width: 120px;border-radius: 50%;object-fit: cover;position: relative;top: -62px;" src="<sec:authentication
+                                        <img id="fileImageAvatar" style="height: 120px;width: 120px;border-radius: 50%;object-fit: cover;position: relative;top: -62px;" src="<sec:authentication
                                                             property="principal.avatar"></sec:authentication>"
                                              alt="user image">
 
                                     <div class="card-body" style="position: relative;top: -58px;">
                                         <p>( Admin )</p>
-                                        <h4 class="py-2 text-dark"><sec:authentication
+                                        <h4 class="py-2 text-dark showUserName"><sec:authentication
                                                 property="principal.fullName"></sec:authentication></h4>
                                         <p><sec:authentication
                                                 property="principal.email"></sec:authentication></p>
@@ -77,8 +77,11 @@
                                     <p><sec:authentication
                                             property="principal.email"></sec:authentication></p>
                                     <p class="text-dark font-weight-medium pt-24px mb-2">Phone Number</p>
-                                    <p><sec:authentication
+                                    <p class="showUserPhone"><sec:authentication
                                             property="principal.phone"></sec:authentication></p>
+                                    <p class="text-dark font-weight-medium pt-24px mb-2">Address</p>
+                                    <p class="showUserAddress"><sec:authentication
+                                            property="principal.address"></sec:authentication></p>
                                     <p class="text-dark font-weight-medium pt-24px mb-2">Social Profile</p>
                                     <p class="social-button">
                                         <a href="#" class="mb-1 btn btn-outline btn-twitter rounded-circle">
@@ -105,13 +108,7 @@
                             <div class="profile-content-right profile-right-spacing py-5">
                                 <ul class="nav nav-tabs px-3 px-xl-5 nav-style-border" id="myProfileTab" role="tablist">
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link active" id="profile-tab" data-bs-toggle="tab"
-                                                data-bs-target="#profile" type="button" role="tab"
-                                                aria-controls="profile" aria-selected="true">Profile
-                                        </button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="settings-tab" data-bs-toggle="tab"
+                                        <button class="nav-link active" id="settings-tab" data-bs-toggle="tab"
                                                 data-bs-target="#settings" type="button" role="tab"
                                                 aria-controls="settings" aria-selected="false">Settings
                                         </button>
@@ -119,174 +116,7 @@
                                 </ul>
                                 <div class="tab-content px-3 px-xl-5" id="myTabContent">
 
-                                    <div class="tab-pane fade show active" id="profile" role="tabpanel"
-                                         aria-labelledby="profile-tab">
-                                        <div class="tab-widget mt-5">
-
-                                            <div class="row">
-                                                <div class="col-xl-12">
-
-                                                    <!-- Notification Table -->
-                                                    <div class="card card-default">
-                                                        <div class="card-header justify-content-between mb-1">
-                                                            <h2>Latest Notifications</h2>
-                                                            <div>
-                                                                <button class="text-black-50 mr-2 font-size-20"><i
-                                                                        class="mdi mdi-cached"></i></button>
-                                                                <div
-                                                                        class="dropdown show d-inline-block widget-dropdown">
-                                                                    <a class="dropdown-toggle icon-burger-mini"
-                                                                       href="#" role="button"
-                                                                       id="dropdown-notification"
-                                                                       data-bs-toggle="dropdown"
-                                                                       aria-haspopup="true" aria-expanded="false"
-                                                                       data-display="static"></a>
-                                                                    <ul class="dropdown-menu dropdown-menu-right"
-                                                                        aria-labelledby="dropdown-notification">
-                                                                        <li class="dropdown-item"><a
-                                                                                href="#">Action</a></li>
-                                                                        <li class="dropdown-item"><a
-                                                                                href="#">Another action</a></li>
-                                                                        <li class="dropdown-item"><a
-                                                                                href="#">Something else here</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                        <div class="card-body compact-notifications" data-simplebar
-                                                             style="height: 434px;">
-                                                            <div
-                                                                    class="media pb-3 align-items-center justify-content-between">
-                                                                <div
-                                                                        class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-primary text-white">
-                                                                    <i
-                                                                            class="mdi mdi-cart-outline font-size-20"></i>
-                                                                </div>
-                                                                <div class="media-body pr-3 ">
-                                                                    <a class="mt-0 mb-1 font-size-15 text-dark"
-                                                                       href="#">New Order</a>
-                                                                    <p>Selena has placed an new order</p>
-                                                                </div>
-                                                                <span class=" font-size-12 d-inline-block"><i
-                                                                        class="mdi mdi-clock-outline"></i> 10
-																		AM</span>
-                                                            </div>
-
-                                                            <div
-                                                                    class="media py-3 align-items-center justify-content-between">
-                                                                <div
-                                                                        class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-success text-white">
-                                                                    <i
-                                                                            class="mdi mdi-email-outline font-size-20"></i>
-                                                                </div>
-                                                                <div class="media-body pr-3">
-                                                                    <a class="mt-0 mb-1 font-size-15 text-dark"
-                                                                       href="#">New Enquiry</a>
-                                                                    <p>Phileine has placed an new order</p>
-                                                                </div>
-                                                                <span class=" font-size-12 d-inline-block"><i
-                                                                        class="mdi mdi-clock-outline"></i> 9
-																		AM</span>
-                                                            </div>
-
-
-                                                            <div
-                                                                    class="media py-3 align-items-center justify-content-between">
-                                                                <div
-                                                                        class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-warning text-white">
-                                                                    <i
-                                                                            class="mdi mdi-stack-exchange font-size-20"></i>
-                                                                </div>
-                                                                <div class="media-body pr-3">
-                                                                    <a class="mt-0 mb-1 font-size-15 text-dark"
-                                                                       href="#">Support Ticket</a>
-                                                                    <p>Emma has placed an new order</p>
-                                                                </div>
-                                                                <span class=" font-size-12 d-inline-block"><i
-                                                                        class="mdi mdi-clock-outline"></i> 10
-																		AM</span>
-                                                            </div>
-
-                                                            <div
-                                                                    class="media py-3 align-items-center justify-content-between">
-                                                                <div
-                                                                        class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-primary text-white">
-                                                                    <i
-                                                                            class="mdi mdi-cart-outline font-size-20"></i>
-                                                                </div>
-                                                                <div class="media-body pr-3">
-                                                                    <a class="mt-0 mb-1 font-size-15 text-dark"
-                                                                       href="#">New order</a>
-                                                                    <p>Ryan has placed an new order</p>
-                                                                </div>
-                                                                <span class=" font-size-12 d-inline-block"><i
-                                                                        class="mdi mdi-clock-outline"></i> 10
-																		AM</span>
-                                                            </div>
-
-                                                            <div
-                                                                    class="media py-3 align-items-center justify-content-between">
-                                                                <div
-                                                                        class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-info text-white">
-                                                                    <i
-                                                                            class="mdi mdi-calendar-blank font-size-20"></i>
-                                                                </div>
-                                                                <div class="media-body pr-3">
-                                                                    <a class="mt-0 mb-1 font-size-15 text-dark"
-                                                                       href="#">Comapny Meetup</a>
-                                                                    <p>Phileine has placed an new order</p>
-                                                                </div>
-                                                                <span class=" font-size-12 d-inline-block"><i
-                                                                        class="mdi mdi-clock-outline"></i> 10
-																		AM</span>
-                                                            </div>
-
-                                                            <div
-                                                                    class="media py-3 align-items-center justify-content-between">
-                                                                <div
-                                                                        class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-warning text-white">
-                                                                    <i
-                                                                            class="mdi mdi-stack-exchange font-size-20"></i>
-                                                                </div>
-                                                                <div class="media-body pr-3">
-                                                                    <a class="mt-0 mb-1 font-size-15 text-dark"
-                                                                       href="#">Support Ticket</a>
-                                                                    <p>Emma has placed an new order</p>
-                                                                </div>
-                                                                <span class=" font-size-12 d-inline-block"><i
-                                                                        class="mdi mdi-clock-outline"></i> 10
-																		AM</span>
-                                                            </div>
-
-                                                            <div
-                                                                    class="media py-3 align-items-center justify-content-between">
-                                                                <div
-                                                                        class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-success text-white">
-                                                                    <i
-                                                                            class="mdi mdi-email-outline font-size-20"></i>
-                                                                </div>
-                                                                <div class="media-body pr-3">
-                                                                    <a class="mt-0 mb-1 font-size-15 text-dark"
-                                                                       href="#">New Enquiry</a>
-                                                                    <p>Phileine has placed an new order</p>
-                                                                </div>
-                                                                <span class=" font-size-12 d-inline-block"><i
-                                                                        class="mdi mdi-clock-outline"></i> 9
-																		AM</span>
-                                                            </div>
-
-                                                        </div>
-                                                        <div class="mt-3"></div>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="tab-pane fade" id="settings" role="tabpanel"
+                                    <div class="tab-pane fade show active" id="settings" role="tabpanel"
                                          aria-labelledby="settings-tab">
                                         <div class="tab-pane-content mt-5">
                                             <f:form method="post" action="/ekka/admin/update" cssClass="row g-3" modelAttribute="userDto" enctype="multipart/form-data">
@@ -294,7 +124,7 @@
                                                     <div class="ec-vendor-block-bg cover-upload">
                                                         <div class="thumb-upload">
                                                             <div class="thumb-edit">
-                                                                <f:input type="file" id="thumbUpload01" cssClass="ec-image-upload" path="fileImageBackground" placeholder="Chọn file" aria-label="Ảnh đại diện"/>
+                                                                <f:input type="file" onchange="readURLBackGround(this);" id="thumbUpload01" cssClass="ec-image-upload" path="fileImageBackground" placeholder="Chọn file" aria-label="Ảnh đại diện"/>
                                                                 <label><img src="/user/assets/images/icons/edit.svg"
                                                                             class="svg_img header_svg" alt="edit"/></label>
                                                             </div>
@@ -309,7 +139,7 @@
                                                     <div class="ec-vendor-block-detail">
                                                         <div class="thumb-upload">
                                                             <div class="thumb-edit">
-                                                                <f:input type="file" id="thumbUpload02" cssClass="ec-image-upload" path="fileImage" placeholder="Chọn file" aria-label="Ảnh đại diện"/>
+                                                                <f:input type="file" onchange="readURL(this);" id="thumbUpload02" cssClass="ec-image-upload" path="fileImage" placeholder="Chọn file" aria-label="Ảnh đại diện"/>
                                                                 <label><img src="/user/assets/images/icons/edit.svg"
                                                                             class="svg_img header_svg" alt="edit"/></label>
                                                             </div>
@@ -325,7 +155,7 @@
                                                     <div class="ec-vendor-upload-detail">
                                                         <div class="col-md-12 space-t-15 form-group">
                                                             <label class="form-label">User Name*</label>
-                                                            <f:input type="text" path="fullName" class="form-control"
+                                                            <f:input type="text" path="fullName" class="form-control userName"
                                                                      placeholder="Enter your full name" aria-label="Enter your full name"
                                                                      required="required"/>
                                                         </div>
@@ -337,13 +167,13 @@
                                                         </div>
                                                         <div class="col-md-12 space-t-15 form-group">
                                                             <label class="form-label">Phone</label>
-                                                            <f:input type="text" path="phone" class="form-control"
-                                                                     placeholder="Enter your phone" aria-label="Enter your phone"
+                                                            <f:input type="text" path="phone" class="form-control userPhone"
+                                                                     placeholder="Enter your phone" maxlength="15" pattern="(84|0[3|5|7|8|9])+([0-9]{8})\b" aria-label="Enter your phone"
                                                                      required="required"/>
                                                         </div>
                                                         <div class="col-md-12 space-t-15 form-group">
                                                             <label class="form-label">Address*</label>
-                                                            <f:input type="text" path="address" class="form-control"
+                                                            <f:input type="text" path="address" class="form-control userAddress"
                                                                      placeholder="Enter your address" aria-label="Enter your address"
                                                                      required="required"/>
                                                         </div>
@@ -379,6 +209,86 @@
 </div> <!-- End Wrapper -->
 
 <%@include file="/WEB-INF/views/layout/admin/scripts.jsp" %>
+<script>
+    function readURL(input) {
+        // for (let i = 0; i < input.files.length; i++) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                document.getElementById("fileImageAvatar").src = e.target.result;
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    function readURLBackGround(input) {
+        // for (let i = 0; i < input.files.length; i++) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                document.getElementById("fileImageBackGround").src = e.target.result;
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("input.userName").keyup(function (element) {
+        var el = $(this).val();
+        console.log(el)
+        $('h4.showUserName').text(el);
+    });
+
+    $("input.userPhone").keyup(function (element) {
+        var el = $(this).val();
+        console.log(el)
+        $('p.showUserPhone').text(el);
+    });
+
+    $("input.userAddress").keyup(function (element) {
+        var el = $(this).val();
+        console.log(el)
+        $('p.showUserAddress').text(el);
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        toastr.options = {
+            'closeButton': true,
+            'debug': false,
+            'newestOnTop': false,
+            'progressBar': false,
+            'positionClass': 'toast-bottom-right',
+            'preventDuplicates': false,
+            'showDuration': '1000',
+            'hideDuration': '1000',
+            'timeOut': '5000',
+            'extendedTimeOut': '1000',
+            'showEasing': 'swing',
+            'hideEasing': 'linear',
+            'showMethod': 'fadeIn',
+            'hideMethod': 'fadeOut',
+        }
+    });
+
+    const success = setTimeout(Success, 1000);
+    const error = setTimeout(Err, 1000);
+
+    function Success() {
+        <c:if test="${message_success != null}">
+        toastr.success('${message_success}');
+        </c:if>
+    }
+
+    function Err() {
+        <c:if test="${message_err != null}">
+        toastr.error('${message_err}');
+        </c:if>
+    }
+</script>
 
 </body>
 </html>

@@ -43,6 +43,10 @@ public class ContactEntity {
     private String comment;
 
     @Basic
+    @Column(name = "REPLY")
+    private String reply;
+
+    @Basic
     @Column(name = "CREATED_AT")
     private Timestamp created_at;
 

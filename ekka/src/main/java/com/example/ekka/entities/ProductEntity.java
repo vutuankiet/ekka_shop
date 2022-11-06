@@ -40,7 +40,7 @@ public class ProductEntity {
 
     @Basic
     @Column(name = "PRICE_PRODUCT")
-    private String priceProduct;
+    private Float priceProduct;
 
     @Basic
     @Column(name = "DISCOUNT")

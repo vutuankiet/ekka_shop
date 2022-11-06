@@ -10,6 +10,8 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import com.example.ekka.dto.ResponseDataTableDto;
 
+import java.util.Objects;
+
 public class PagingResolver implements HandlerMethodArgumentResolver {
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
@@ -30,8 +32,13 @@ public class PagingResolver implements HandlerMethodArgumentResolver {
         Integer perpage = StringUtils.isEmpty(perpageStr) ? 12 : Integer.valueOf(perpageStr);
         perpage = perpage <= 0 ? 12 : perpage;
         String key = webRequest.getParameter("key");
-
-        return new ResponseDataTableDto(path, page, perpage, key, mavContainer);
-
+        String sort = webRequest.getParameter("sort");
+        String category = webRequest.getParameter("category");
+        String genderCategory = webRequest.getParameter("genderCategory");
+        String firstPriceStr = webRequest.getParameter("firstPrice");
+        float firstPrice = StringUtils.isEmpty(firstPriceStr) ? 0 : Float.parseFloat(firstPriceStr);
+        String lastPriceStr = webRequest.getParameter("lastPrice");
+        float lastPrice = StringUtils.isEmpty(lastPriceStr) ? 250 : Float.parseFloat(lastPriceStr);
+        return new ResponseDataTableDto(path, page, perpage, key, category, genderCategory, sort, firstPrice, lastPrice, mavContainer);
     }
 }

@@ -42,7 +42,7 @@
             <div class="col-md-6">
                 <div class="under-maintenance">
                     <h1>Error 404</h1>
-                    <h4>The page was not found.</h4>
+                    <h4>The page was Not Found.</h4>
                     <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
                         been the industry's standard dummy.</p>
                     <sec:authorize access="hasAnyRole('ROLE_USER')">

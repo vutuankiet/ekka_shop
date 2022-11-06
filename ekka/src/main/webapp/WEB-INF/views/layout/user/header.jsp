@@ -101,10 +101,10 @@
                             </div>
                         </sec:authorize>
                         <!-- Header Cart End -->
-                        <a href="javascript:void(0)" class="ec-header-btn ec-sidebar-toggle">
-                            <img src="/user/assets/images/icons/category-icon.svg" class="svg_img header_svg"
-                                 alt="icon"/>
-                        </a>
+<%--                        <a href="javascript:void(0)" class="ec-header-btn ec-sidebar-toggle">--%>
+<%--                            <img src="/user/assets/images/icons/category-icon.svg" class="svg_img header_svg"--%>
+<%--                                 alt="icon"/>--%>
+<%--                        </a>--%>
                         <!-- Header menu Start -->
                         <a href="#ec-mobile-menu" class="ec-header-btn ec-side-toggle d-lg-none">
                             <img src="/user/assets/images/icons/menu.svg" class="svg_img header_svg" alt="icon"/>
@@ -134,11 +134,19 @@
 
                     <!-- Ec Header Search Start -->
                     <div class="align-self-center">
-                        <div class="header-search">
-                                <input class="form-control ec-search-bar" id="search1" value="${list.key}" placeholder="Search products..." type="text">
+                        <div class="header-search" id="myDropdown">
+                                <input class="form-control ec-search-bar" id="search1" value="${list.key}" placeholder="Search products..." onkeyup="filterFunction()" type="text">
                                 <button class="submit" onclick="search1()" type="submit"><img src="/user/assets/images/icons/search.svg"
-                                                                          class="svg_img header_svg" alt=""/></button>
-
+                                                                                              class="svg_img header_svg" alt=""/></button>
+                            <div class="ec-sidebar-block d-none" style="max-height: 300px;position: absolute;border: 1px solid;width: inherit;overflow: auto;background: #eaeaea;color: white;z-index: 99;">
+                                <div class="ec-sb-block-content">
+                                    <ul class="list-group">
+                                        <c:forEach items="${listProductByState}" var="product">
+                                            <a class="list-group-item d-flex" href="/ekka/product-details/${product.id}"><img style="width: 50px; height: 50px;" src="${product.productImage}"/><span>${product.productName}</span></a>
+                                        </c:forEach>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!-- Ec Header Search End -->
@@ -214,11 +222,24 @@
                 <!-- Ec Header Logo End -->
                 <!-- Ec Header Search Start -->
                 <div class="col">
-                    <div class="header-search">
-                            <input class="form-control ec-search-bar" id="search" value="${list.key}" placeholder="Search products..." type="text">
+                    <div id="the-basics" class="header-search">
+<%--                            <input class="typeahead" class="form-control ec-search-bar" id="search" value="${list.key}" placeholder="Search products..." type="text">--%>
+<%--                            <button class="submit" onclick="search()" type="submit"><img src="/user/assets/images/icons/search.svg"--%>
+<%--                                                                      class="svg_img header_svg" alt="icon"/></button>--%>
+                        <div class="header-search" id="myDropdown-mobi">
+                            <input class="typeahead form-control ec-search-bar" id="search" value="${list.key}" placeholder="Search products..." onkeyup="filterFunctionMobi()" type="text">
                             <button class="submit" onclick="search()" type="submit"><img src="/user/assets/images/icons/search.svg"
-                                                                      class="svg_img header_svg" alt="icon"/></button>
-
+                                                                                          class="svg_img header_svg" alt=""/></button>
+                            <div class="ec-sidebar-block d-none" style="max-height: 300px;position: absolute;border: 1px solid;width: inherit;overflow: auto;background: #eaeaea;color: white;z-index: 99;">
+                                <div class="ec-sb-block-content">
+                                    <ul class="list-group">
+                                        <c:forEach items="${listProductByState}" var="product">
+                                            <a class="list-group-item d-flex" href="/ekka/product-details/${product.id}"><img style="width: 50px; height: 50px;" src="${product.productImage}"/><span>${product.productName}</span></a>
+                                        </c:forEach>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- Ec Header Search End -->
@@ -330,10 +351,125 @@
 
 <script>
     var search = function() {
-        window.location.href = "/ekka/product?page=${list.page - 1}&perpage=${list.perpage}&key=" + document.getElementById("search").value;
+        window.location.href = "/ekka/product?page=${list.page - 1}&perpage=${list.perpage}&key=" + document.getElementById("search").value+"&category=${list.category}&genderCategory=${list.genderCategory}&firstPrice=${list.firstPrice}&lastPrice=${list.lastPrice}";
     }
     var search1 = function() {
-        window.location.href = "/ekka/product?page=${list.page - 1}&perpage=${list.perpage}&key=" + document.getElementById("search1").value;
+        window.location.href = "/ekka/product?page=${list.page - 1}&perpage=${list.perpage}&key=" + document.getElementById("search1").value+"&category=${list.category}&genderCategory=${list.genderCategory}&firstPrice=${list.firstPrice}&lastPrice=${list.lastPrice}";
     }
 
+    var substringMatcher = function(strs) {
+        return function findMatches(q, cb) {
+            var matches, substringRegex;
+
+            // an array that will be populated with substring matches
+            matches = [];
+
+            // regex used to determine if a string contains the substring `q`
+            substrRegex = new RegExp(q, 'i');
+
+            // iterate through the pool of strings and for any string that
+            // contains the substring `q`, add it to the `matches` array
+            $.each(strs, function(i, str) {
+                if (substrRegex.test(str)) {
+                    matches.push(str);
+                }
+            });
+
+            cb(matches);
+        };
+    };
+
+    var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
+        'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
+        'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
+        'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
+        'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
+        'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
+        'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
+        'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
+        'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+    ];
+
+    $('#the-basics .typeahead').typeahead({
+            hint: true,
+            highlight: true,
+            minLength: 1
+        },
+        {
+            name: 'states',
+            source: substringMatcher(states)
+        });
+
+</script>
+<script>
+    /* When the user clicks on the button,
+    toggle between hiding and showing the dropdown content */
+
+    function filterFunction() {
+        $("input.ec-search-bar").keyup(function (){
+            $("div.header-search div.ec-sidebar-block").removeClass("d-none");
+            var el = $(this).val();
+            console.log(el)
+        })
+        $(document).click(function (e)
+        {
+            // Đối tượng container chứa popup
+            var container = $("div.ec-sidebar-block");
+
+            // Nếu click bên ngoài đối tượng container thì ẩn nó đi
+            if (!container.is(e.target) && container.has(e.target).length === 0)
+            {
+                container.addClass("d-none");
+            }
+        });
+
+        var input, filter, a, i;
+        input = document.getElementById("search1");
+        filter = input.value.toUpperCase();
+        div = document.getElementById("myDropdown");
+        a = div.getElementsByTagName("span");
+        for (i = 0; i < a.length; i++) {
+            txtValue = a[i].textContent || a[i].innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                a[i].parentElement.className = "list-group-item d-flex";
+            } else {
+                console.log(a[i].parentElement)
+                a[i].parentElement.className = "d-none";
+            }
+        }
+    }
+
+    function filterFunctionMobi() {
+        $("input.typeahead").keyup(function (){
+            $("div.header-search div.ec-sidebar-block").removeClass("d-none");
+            var el = $(this).val();
+            console.log(el)
+        })
+        $(document).click(function (e)
+        {
+            // Đối tượng container chứa popup
+            var container = $("div.ec-sidebar-block");
+
+            // Nếu click bên ngoài đối tượng container thì ẩn nó đi
+            if (!container.is(e.target) && container.has(e.target).length === 0)
+            {
+                container.addClass("d-none");
+            }
+        });
+
+        var input, filter, a, i;
+        input = document.getElementById("search");
+        filter = input.value.toUpperCase();
+        div = document.getElementById("myDropdown-mobi");
+        a = div.getElementsByTagName("span");
+        for (i = 0; i < a.length; i++) {
+            txtValue = a[i].textContent || a[i].innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                a[i].parentElement.className = "list-group-item d-flex";
+            } else {
+                console.log(a[i].parentElement)
+                a[i].parentElement.className = "d-none";
+            }
+        }
+    }
 </script>

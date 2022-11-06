@@ -17,6 +17,7 @@ public class ContactDto {
     String email;
     String phone;
     String comment;
+    String reply;
     Timestamp created_at;
     Timestamp updated_at;
     int state;

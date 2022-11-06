@@ -499,24 +499,26 @@ function ecCheckCookie() {
             $(this).addClass("active").siblings().removeClass("active")
         })
     });
-    let a = document.getElementById("ec-sliderPrice");
-    if (a) {
-        let e = parseInt(a.dataset.min), f = parseInt(a.dataset.max), l = parseInt(a.dataset.step),
-            m = document.querySelectorAll("input.filter__input");
-        noUiSlider.create(a, {
-            start: [e, f],
-            connect: !0,
-            step: l,
-            range: {min: e, max: f},
-            format: {to: a => a, from: a => a}
-        }), a.noUiSlider.on("update", (b, a) => {
-            m[a].value = b[a]
-        }), m.forEach((b, c) => {
-            b.addEventListener("change", () => {
-                a.noUiSlider.setHandle(c, b.value)
-            })
-        })
-    }
+    // let a = document.getElementById("ec-sliderPrice");
+    // if (a) {
+    //     let firstPrice = document.getElementById("minVal").value;
+    //     let lastPrice = document.getElementById("maxVal").value;
+    //     let e = parseInt(a.dataset.min), f = parseInt(a.dataset.max), l = parseInt(a.dataset.step),
+    //         m = document.querySelectorAll("input.filter__input");
+    //     noUiSlider.create(a, {
+    //         start: [firstPrice, lastPrice],
+    //         connect: !0,
+    //         step: l,
+    //         range: {min: e, max: f},
+    //         format: {to: a => a, from: a => a}
+    //     }), a.noUiSlider.on("update", (b, a) => {
+    //         m[a].value = b[a]
+    //     }), m.forEach((b, c) => {
+    //         b.addEventListener("change", () => {
+    //             a.noUiSlider.setHandle(c, b.value)
+    //         })
+    //     })
+    // }
 
     function x(a, b) {
         $("body").removeClass("body-bg-1"), $("body").removeClass("body-bg-2"), $("body").removeClass("body-bg-3"), $("body").removeClass("body-bg-4"), $("body").addClass(b), $("#bg-switcher-css").attr("href", "assets/css/backgrounds/" + a + ".css"), ecCreateCookie("bgImageModeCookie", a + "||" + b, 1)

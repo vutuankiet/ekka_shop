@@ -76,9 +76,9 @@ public class AuthAdminController {
         }
         try {
             userService.update(userDto);
-            model.addFlashAttribute("message", "Tạo mới tài khoản thành công");
+            model.addFlashAttribute("message_success", "account update successful");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Tạo mới tài khoản không thành công");
+            model.addFlashAttribute("message_err", "account update failed");
         }
 
 

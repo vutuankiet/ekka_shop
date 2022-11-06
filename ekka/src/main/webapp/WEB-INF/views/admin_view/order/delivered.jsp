@@ -1,6 +1,7 @@
 <%@page pageEncoding="UTF-8" %>
 <%@taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -48,11 +49,9 @@
                                     <table id="responsive-data-table" class="table" style="width:100%">
                                         <thead>
                                         <tr>
-                                            <th>Image</th>
-                                            <th>Name Product</th>
+                                            <th>Product</th>
                                             <th>CODE</th>
                                             <th>Customer</th>
-                                            <th>Items</th>
                                             <th>Price</th>
                                             <th>Payment</th>
                                             <th>Status</th>
@@ -62,59 +61,66 @@
                                         </thead>
 
                                         <tbody>
-                                        <c:forEach items="${listOrder}" var="order">
+                                        <c:forEach items="${listBill}" var="bill">
 
                                             <tr>
-                                                <td><a href="/ekka/admin/product/details/${order.product.id}"><img class="tbl-thumb" src="${order.product.productImage}" alt="product image"/></a></td>
-                                                <td>${order.product.productName}</td>
-                                                <td>#${order.order_code}</td>
-                                                <td><strong>${order.user.fullName}</strong><br>
-                                                    <a href="/ekka/admin/user/details/${order.user.id}">${order.user.email}</a>
+                                                <td>
+                                                    <c:forEach items="${listOrder}" var="order">
+                                                        <c:if test="${bill.order_code == order.order_code}">
+                                                        <a href="/ekka/admin/product/details/${order.product.id}">
+                                                            <img class="tbl-thumb" src="${order.product.productImage}" alt="product image"/></a>
+                                                        </c:if>
+                                                    </c:forEach>
                                                 </td>
-                                                <td>${order.item}</td>
-                                                <td>$${order.price}</td>
-                                                <c:if test="${order.payment == 0}">
+                                                <td>#${bill.order_code}</td>
+                                                <td><strong>${bill.user.fullName}</strong><br>
+                                                    <a href="/ekka/admin/user/details/${bill.user.id}">${bill.user.email}</a>
+                                                </td>
+                                                <td>$<fmt:formatNumber
+                                                        maxFractionDigits="2"
+                                                        value="${bill.price}"></fmt:formatNumber></td>
+                                                <c:if test="${bill.payment == 0}">
                                                     <td>Cash</td>
                                                 </c:if>
-                                                <c:if test="${order.payment == 1}">
+                                                <c:if test="${bill.payment == 1}">
                                                     <td>Bank</td>
                                                 </c:if>
 
-                                                <c:if test="${order.state == 0}">
+                                                <c:if test="${bill.state == 0}">
                                                     <td><span class="mb-2 mr-2 badge badge-danger">
                                                         ORDER CANCELLATION
                                                     </span>
                                                     </td>
                                                 </c:if>
-                                                <c:if test="${order.state == 1}">
+                                                <c:if test="${bill.state == 1}">
                                                     <td><span class="mb-2 mr-2 badge badge-secondary">
                                                         PENDING
                                                     </span>
                                                     </td>
                                                 </c:if>
-                                                <c:if test="${order.state == 2}">
+                                                <c:if test="${bill.state == 2}">
                                                     <td><span class="mb-2 mr-2 badge badge-warning">
                                                         READY TO SHIP
                                                     </span>
                                                     </td>
                                                 </c:if>
-                                                <c:if test="${order.state == 3}">
+                                                <c:if test="${bill.state == 3}">
                                                     <td><span class="mb-2 mr-2 badge badge-info">
                                                         ON THE WAY
                                                     </span>
                                                     </td>
                                                 </c:if>
-                                                <c:if test="${order.state == 4}">
+                                                <c:if test="${bill.state == 4}">
                                                     <td><span class="mb-2 mr-2 badge badge-success">
                                                         DELIVERED
                                                     </span>
                                                     </td>
                                                 </c:if>
 
-                                                <td>${order.updated_at}</td>
+                                                <td>${bill.updated_at}</td>
                                                 <td>
                                                     <div class="btn-group mb-1">
-                                                        <a style="padding: 3px 10px;" class="btn btn-outline-success" href="/ekka/admin/order/details/${order.order_code}">Info</a>
+                                                        <a style="padding: 3px 10px;" class="btn btn-outline-success" href="/ekka/admin/order/details/${bill.order_code}">Info</a>
                                                         <button type="button"
                                                                 class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
                                                                 data-bs-toggle="dropdown" aria-haspopup="true"
@@ -123,9 +129,9 @@
                                                         </button>
 
                                                         <div class="dropdown-menu">
-                                                            <c:if test="${order.state == 0}">
+                                                            <c:if test="${bill.state == 0}">
                                                                 <f:form method="post"
-                                                                        action="/ekka/admin/order/changeState1/${order.order_code}"
+                                                                        action="/ekka/admin/order/changeState1/${bill.order_code}"
                                                                         modelAttribute="orderDto"
                                                                         enctype="multipart/form-data">
                                                                     <button class="dropdown-item pl-3"
@@ -133,7 +139,7 @@
                                                                     </button>
                                                                 </f:form>
                                                                 <f:form method="post"
-                                                                        action="/ekka/admin/order/changeState2/${order.order_code}"
+                                                                        action="/ekka/admin/order/changeState2/${bill.order_code}"
                                                                         modelAttribute="orderDto"
                                                                         enctype="multipart/form-data">
                                                                     <button class="dropdown-item pl-3"
@@ -141,7 +147,7 @@
                                                                     </button>
                                                                 </f:form>
                                                                 <f:form method="post"
-                                                                        action="/ekka/admin/order/changeState3/${order.order_code}"
+                                                                        action="/ekka/admin/order/changeState3/${bill.order_code}"
                                                                         modelAttribute="orderDto"
                                                                         enctype="multipart/form-data">
                                                                     <button class="dropdown-item pl-3"
@@ -149,7 +155,7 @@
                                                                     </button>
                                                                 </f:form>
                                                                 <f:form method="post"
-                                                                        action="/ekka/admin/order/changeState4/${order.order_code}"
+                                                                        action="/ekka/admin/order/changeState4/${bill.order_code}"
                                                                         modelAttribute="orderDto"
                                                                         enctype="multipart/form-data">
                                                                     <button class="dropdown-item pl-3"
@@ -157,9 +163,9 @@
                                                                     </button>
                                                                 </f:form>
                                                             </c:if>
-                                                            <c:if test="${order.state == 1}">
+                                                            <c:if test="${bill.state == 1}">
                                                                 <f:form method="post"
-                                                                        action="/ekka/admin/order/changeState0/${order.order_code}"
+                                                                        action="/ekka/admin/order/changeState0/${bill.order_code}"
                                                                         modelAttribute="orderDto"
                                                                         enctype="multipart/form-data">
                                                                     <button class="dropdown-item pl-3"
@@ -167,7 +173,7 @@
                                                                     </button>
                                                                 </f:form>
                                                                 <f:form method="post"
-                                                                        action="/ekka/admin/order/changeState2/${order.order_code}"
+                                                                        action="/ekka/admin/order/changeState2/${bill.order_code}"
                                                                         modelAttribute="orderDto"
                                                                         enctype="multipart/form-data">
                                                                     <button class="dropdown-item pl-3"
@@ -175,7 +181,7 @@
                                                                     </button>
                                                                 </f:form>
                                                                 <f:form method="post"
-                                                                        action="/ekka/admin/order/changeState3/${order.order_code}"
+                                                                        action="/ekka/admin/order/changeState3/${bill.order_code}"
                                                                         modelAttribute="orderDto"
                                                                         enctype="multipart/form-data">
                                                                     <button class="dropdown-item pl-3"
@@ -183,7 +189,7 @@
                                                                     </button>
                                                                 </f:form>
                                                                 <f:form method="post"
-                                                                        action="/ekka/admin/order/changeState4/${order.order_code}"
+                                                                        action="/ekka/admin/order/changeState4/${bill.order_code}"
                                                                         modelAttribute="orderDto"
                                                                         enctype="multipart/form-data">
                                                                     <button class="dropdown-item pl-3"
@@ -191,9 +197,9 @@
                                                                     </button>
                                                                 </f:form>
                                                             </c:if>
-                                                            <c:if test="${order.state == 2}">
+                                                            <c:if test="${bill.state == 2}">
                                                                 <f:form method="post"
-                                                                        action="/ekka/admin/order/changeState0/${order.order_code}"
+                                                                        action="/ekka/admin/order/changeState0/${bill.order_code}"
                                                                         modelAttribute="orderDto"
                                                                         enctype="multipart/form-data">
                                                                     <button class="dropdown-item pl-3"
@@ -201,7 +207,7 @@
                                                                     </button>
                                                                 </f:form>
                                                                 <f:form method="post"
-                                                                        action="/ekka/admin/order/changeState1/${order.order_code}"
+                                                                        action="/ekka/admin/order/changeState1/${bill.order_code}"
                                                                         modelAttribute="orderDto"
                                                                         enctype="multipart/form-data">
                                                                     <button class="dropdown-item pl-3"
@@ -209,7 +215,7 @@
                                                                     </button>
                                                                 </f:form>
                                                                 <f:form method="post"
-                                                                        action="/ekka/admin/order/changeState3/${order.order_code}"
+                                                                        action="/ekka/admin/order/changeState3/${bill.order_code}"
                                                                         modelAttribute="orderDto"
                                                                         enctype="multipart/form-data">
                                                                     <button class="dropdown-item pl-3"
@@ -217,7 +223,7 @@
                                                                     </button>
                                                                 </f:form>
                                                                 <f:form method="post"
-                                                                        action="/ekka/admin/order/changeState4/${order.order_code}"
+                                                                        action="/ekka/admin/order/changeState4/${bill.order_code}"
                                                                         modelAttribute="orderDto"
                                                                         enctype="multipart/form-data">
                                                                     <button class="dropdown-item pl-3"
@@ -225,9 +231,9 @@
                                                                     </button>
                                                                 </f:form>
                                                             </c:if>
-                                                            <c:if test="${order.state == 3}">
+                                                            <c:if test="${bill.state == 3}">
                                                                 <f:form method="post"
-                                                                        action="/ekka/admin/order/changeState0/${order.order_code}"
+                                                                        action="/ekka/admin/order/changeState0/${bill.order_code}"
                                                                         modelAttribute="orderDto"
                                                                         enctype="multipart/form-data">
                                                                     <button class="dropdown-item pl-3"
@@ -235,7 +241,7 @@
                                                                     </button>
                                                                 </f:form>
                                                                 <f:form method="post"
-                                                                        action="/ekka/admin/order/changeState1/${order.order_code}"
+                                                                        action="/ekka/admin/order/changeState1/${bill.order_code}"
                                                                         modelAttribute="orderDto"
                                                                         enctype="multipart/form-data">
                                                                     <button class="dropdown-item pl-3"
@@ -243,7 +249,7 @@
                                                                     </button>
                                                                 </f:form>
                                                                 <f:form method="post"
-                                                                        action="/ekka/admin/order/changeState2/${order.order_code}"
+                                                                        action="/ekka/admin/order/changeState2/${bill.order_code}"
                                                                         modelAttribute="orderDto"
                                                                         enctype="multipart/form-data">
                                                                     <button class="dropdown-item pl-3"
@@ -251,7 +257,7 @@
                                                                     </button>
                                                                 </f:form>
                                                                 <f:form method="post"
-                                                                        action="/ekka/admin/order/changeState4/${order.order_code}"
+                                                                        action="/ekka/admin/order/changeState4/${bill.order_code}"
                                                                         modelAttribute="orderDto"
                                                                         enctype="multipart/form-data">
                                                                     <button class="dropdown-item pl-3"
@@ -259,9 +265,9 @@
                                                                     </button>
                                                                 </f:form>
                                                             </c:if>
-                                                            <c:if test="${order.state == 4}">
+                                                            <c:if test="${bill.state == 4}">
                                                                 <f:form method="post"
-                                                                        action="/ekka/admin/order/changeState0/${order.order_code}"
+                                                                        action="/ekka/admin/order/changeState0/${bill.order_code}"
                                                                         modelAttribute="orderDto"
                                                                         enctype="multipart/form-data">
                                                                     <button class="dropdown-item pl-3"
@@ -269,7 +275,7 @@
                                                                     </button>
                                                                 </f:form>
                                                                 <f:form method="post"
-                                                                        action="/ekka/admin/order/changeState1/${order.order_code}"
+                                                                        action="/ekka/admin/order/changeState1/${bill.order_code}"
                                                                         modelAttribute="orderDto"
                                                                         enctype="multipart/form-data">
                                                                     <button class="dropdown-item pl-3"
@@ -277,7 +283,7 @@
                                                                     </button>
                                                                 </f:form>
                                                                 <f:form method="post"
-                                                                        action="/ekka/admin/order/changeState2/${order.order_code}"
+                                                                        action="/ekka/admin/order/changeState2/${bill.order_code}"
                                                                         modelAttribute="orderDto"
                                                                         enctype="multipart/form-data">
                                                                     <button class="dropdown-item pl-3"
@@ -285,7 +291,7 @@
                                                                     </button>
                                                                 </f:form>
                                                                 <f:form method="post"
-                                                                        action="/ekka/admin/order/changeState3/${order.order_code}"
+                                                                        action="/ekka/admin/order/changeState3/${bill.order_code}"
                                                                         modelAttribute="orderDto"
                                                                         enctype="multipart/form-data">
                                                                     <button class="dropdown-item pl-3"
@@ -324,5 +330,41 @@
         checkboxColor1.setAttribute("value", e.value);
     }
 </script>
+<script>
+    $(document).ready(function () {
+        toastr.options = {
+            'closeButton': true,
+            'debug': false,
+            'newestOnTop': false,
+            'progressBar': false,
+            'positionClass': 'toast-bottom-right',
+            'preventDuplicates': false,
+            'showDuration': '1000',
+            'hideDuration': '1000',
+            'timeOut': '5000',
+            'extendedTimeOut': '1000',
+            'showEasing': 'swing',
+            'hideEasing': 'linear',
+            'showMethod': 'fadeIn',
+            'hideMethod': 'fadeOut',
+        }
+    });
+
+    const success = setTimeout(Success, 1000);
+    const error = setTimeout(Err, 1000);
+
+    function Success() {
+        <c:if test="${message_success != null}">
+        toastr.success('${message_success}');
+        </c:if>
+    }
+
+    function Err() {
+        <c:if test="${message_err != null}">
+        toastr.error('${message_err}');
+        </c:if>
+    }
+</script>
+
 </body>
 </html>

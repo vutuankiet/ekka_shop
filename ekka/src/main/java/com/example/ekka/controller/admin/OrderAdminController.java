@@ -1,10 +1,8 @@
 package com.example.ekka.controller.admin;
 
-import com.example.ekka.dto.CategoryDto;
-import com.example.ekka.dto.OrderDto;
-import com.example.ekka.dto.ProductDto;
-import com.example.ekka.dto.UserDto;
+import com.example.ekka.dto.*;
 import com.example.ekka.entities.*;
+import com.example.ekka.service.BillService;
 import com.example.ekka.service.OrderService;
 import com.example.ekka.service.ProductService;
 import com.example.ekka.service.UserService;
@@ -14,12 +12,10 @@ import org.springframework.http.MediaType;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -36,19 +32,28 @@ public class OrderAdminController {
     @Autowired
     ProductService productService;
 
+    @Autowired
+    BillService billService;
+
     //quyền ADMIN được vào trang này
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping(value = {"list", "", "/"})
-    public String list(Model model) {
+    public String list(Model model, HttpServletRequest request) {
         try {
             List<OrderEntity> listOrder = orderService.findAllByUpdateDesc();
+            List<BillEntity> listBill = billService.findAllByUpdateDesc();
             List<UserEntity> listUser = userService.listAll();
             List<ProductEntity> listProduct = productService.listAllUpdatedDesc();
             model.addAttribute("listOrder",listOrder);
+            model.addAttribute("listBill",listBill);
             model.addAttribute("listUser",listUser);
             model.addAttribute("listProduct",listProduct);
 
             model.addAttribute("orderDto", new OrderDto());
+
+            UrlDto urlDto = new UrlDto();
+            urlDto.setUrl(request.getRequestURL().toString());
+            model.addAttribute("urlDto", urlDto);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,9 +66,11 @@ public class OrderAdminController {
     public String listDelivered(Model model) {
         try {
             List<OrderEntity> listOrder = orderService.listAllDelivered();
+            List<BillEntity> listBill = billService.listAllDelivered();
             List<UserEntity> listUser = userService.listAll();
             List<ProductEntity> listProduct = productService.listAllUpdatedDesc();
             model.addAttribute("listOrder",listOrder);
+            model.addAttribute("listBill",listBill);
             model.addAttribute("listUser",listUser);
             model.addAttribute("listProduct",listProduct);
 
@@ -75,7 +82,7 @@ public class OrderAdminController {
     }
 
     @PostMapping(value = "changeState0/{code}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String changeState0(@PathVariable(name = "code") String code, OrderDto orderDto, RedirectAttributes model, Model m) {
+    public String changeState0(@PathVariable(name = "code") String code, @ModelAttribute("urlDto") UrlDto urlDto, OrderDto orderDto, RedirectAttributes model, Model m) {
         List<OrderEntity> listOrder = orderService.findByUser(code);
         System.out.println("listOrder: "+listOrder);
 
@@ -96,16 +103,16 @@ public class OrderAdminController {
         try {
             orderDto.setOrder_code(code);
             orderService.changeState0(orderDto);
-            model.addFlashAttribute("message", "Doi trang thai thành công");
+            model.addFlashAttribute("message_success", "Successful status change");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Doi trang thai không thành công");
+            model.addFlashAttribute("message_err", "Status change failed");
         }
 
         return "redirect:/ekka/admin/order/list/";
     }
 
     @PostMapping(value = "changeState1/{code}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String changeState1(@PathVariable(name = "code") String code, OrderDto orderDto, RedirectAttributes model, Model m) {
+    public String changeState1(@PathVariable(name = "code") String code, OrderDto orderDto, @ModelAttribute("urlDto") UrlDto urlDto, RedirectAttributes model, Model m) {
         List<OrderEntity> listOrder = orderService.findByUser(code);
         System.out.println("listOrder: "+listOrder);
 
@@ -126,16 +133,16 @@ public class OrderAdminController {
         try {
             orderDto.setOrder_code(code);
             orderService.changeState1(orderDto);
-            model.addFlashAttribute("message", "Doi trang thai thành công");
+            model.addFlashAttribute("message_success", "Successful status change");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Doi trang thai không thành công");
+            model.addFlashAttribute("message_err", "Status change failed");
         }
 
         return "redirect:/ekka/admin/order/list/";
     }
 
     @PostMapping(value = "changeState2/{code}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String changeState2(@PathVariable(name = "code") String code, OrderDto orderDto, RedirectAttributes model, Model m) {
+    public String changeState2(@PathVariable(name = "code") String code, OrderDto orderDto, @ModelAttribute("urlDto") UrlDto urlDto, RedirectAttributes model, Model m) {
         List<OrderEntity> listOrder = orderService.findByUser(code);
         System.out.println("listOrder: "+listOrder);
 
@@ -156,16 +163,16 @@ public class OrderAdminController {
         try {
             orderDto.setOrder_code(code);
             orderService.changeState2(orderDto);
-            model.addFlashAttribute("message", "Doi trang thai thành công");
+            model.addFlashAttribute("message_success", "Successful status change");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Doi trang thai không thành công");
+            model.addFlashAttribute("message_err", "Status change failed");
         }
 
         return "redirect:/ekka/admin/order/list/";
     }
 
     @PostMapping(value = "changeState3/{code}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String changeState3(@PathVariable(name = "code") String code, OrderDto orderDto, RedirectAttributes model, Model m) {
+    public String changeState3(@PathVariable(name = "code") String code, OrderDto orderDto, @ModelAttribute("urlDto") UrlDto urlDto, RedirectAttributes model, Model m) {
         List<OrderEntity> listOrder = orderService.findByUser(code);
         System.out.println("listOrder: "+listOrder);
 
@@ -192,16 +199,16 @@ public class OrderAdminController {
         try {
             orderDto.setOrder_code(code);
             orderService.changeState3(orderDto);
-            model.addFlashAttribute("message", "Doi trang thai thành công");
+            model.addFlashAttribute("message_success", "Successful status change");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Doi trang thai không thành công");
+            model.addFlashAttribute("message_err", "Status change failed");
         }
 
         return "redirect:/ekka/admin/order/list/";
     }
 
     @PostMapping(value = "changeState4/{code}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String changeState4(@PathVariable(name = "code") String code, OrderDto orderDto, RedirectAttributes model, Model m) {
+    public String changeState4(@PathVariable(name = "code") String code, OrderDto orderDto, @ModelAttribute("urlDto") UrlDto urlDto, RedirectAttributes model, Model m) {
         List<OrderEntity> listOrder = orderService.findByUser(code);
         System.out.println("listOrder: "+listOrder);
 
@@ -222,9 +229,9 @@ public class OrderAdminController {
         try {
             orderDto.setOrder_code(code);
             orderService.changeState4(orderDto);
-            model.addFlashAttribute("message", "Doi trang thai thành công");
+            model.addFlashAttribute("message_success", "Successful status change");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Doi trang thai không thành công");
+            model.addFlashAttribute("message_err", "Status change failed");
         }
 
         return "redirect:/ekka/admin/order/list/";
@@ -284,7 +291,7 @@ public class OrderAdminController {
             double total = 0;
             for (OrderEntity order : listOrder) {
                 double priceDiscount = Double.parseDouble(order.getProduct().getDiscount());
-                double price = Double.parseDouble(order.getProduct().getPriceProduct());
+                double price = order.getProduct().getPriceProduct();
                 total = total + (price * ((100 - priceDiscount)/100)) * order.getItem();
             }
             System.out.println("Total_price: "+ total);

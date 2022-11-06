@@ -178,7 +178,7 @@
                                                 <div class="ec-vendor-main-img">
                                                     <div class="avatar-upload">
                                                         <div class="avatar-edit">
-                                                            <f:input type="file" id="imageUpload"
+                                                            <f:input type="file" accept="image/*" id="imageUpload"
                                                                      cssClass="ec-image-upload" path="fileImageEdit1"
                                                                      placeholder="Chọn file"
                                                                      aria-label="Ảnh đại diện"/>
@@ -197,7 +197,7 @@
                                                     <div class="thumb-upload-set colo-md-12">
                                                         <div class="thumb-upload">
                                                             <div class="thumb-edit">
-                                                                <f:input type="file" id="thumbUpload01"
+                                                                <f:input type="file" accept="image/*" id="thumbUpload01"
                                                                          cssClass="ec-image-upload" path="fileImageEdit2"
                                                                          placeholder="Chọn file"
                                                                          aria-label="Ảnh đại diện"/>
@@ -215,7 +215,7 @@
                                                         </div>
                                                         <div class="thumb-upload">
                                                             <div class="thumb-edit">
-                                                                <f:input type="file" id="thumbUpload01"
+                                                                <f:input type="file" accept="image/*" id="thumbUpload01"
                                                                          cssClass="ec-image-upload" path="fileImageEdit3"
                                                                          placeholder="Chọn file"
                                                                          aria-label="Ảnh đại diện"/>
@@ -233,7 +233,7 @@
                                                         </div>
                                                         <div class="thumb-upload">
                                                             <div class="thumb-edit">
-                                                                <f:input type="file" id="thumbUpload01"
+                                                                <f:input type="file" accept="image/*" id="thumbUpload01"
                                                                          cssClass="ec-image-upload" path="fileImageEdit4"
                                                                          placeholder="Chọn file"
                                                                          aria-label="Ảnh đại diện"/>
@@ -251,7 +251,7 @@
                                                         </div>
                                                         <div class="thumb-upload">
                                                             <div class="thumb-edit">
-                                                                <f:input type="file" id="thumbUpload01"
+                                                                <f:input type="file" accept="image/*" id="thumbUpload01"
                                                                          cssClass="ec-image-upload" path="fileImageEdit5"
                                                                          placeholder="Chọn file"
                                                                          aria-label="Ảnh đại diện"/>
@@ -269,7 +269,7 @@
                                                         </div>
                                                         <div class="thumb-upload">
                                                             <div class="thumb-edit">
-                                                                <f:input type="file" id="thumbUpload01"
+                                                                <f:input type="file" accept="image/*" id="thumbUpload01"
                                                                          cssClass="ec-image-upload" path="fileImageEdit6"
                                                                          placeholder="Chọn file"
                                                                          aria-label="Ảnh đại diện"/>
@@ -287,7 +287,7 @@
                                                         </div>
                                                         <div class="thumb-upload">
                                                             <div class="thumb-edit">
-                                                                <f:input type="file" id="thumbUpload01"
+                                                                <f:input type="file" accept="image/*" id="thumbUpload01"
                                                                          cssClass="ec-image-upload" path="fileImageEdit7"
                                                                          placeholder="Chọn file"
                                                                          aria-label="Ảnh đại diện"/>
@@ -440,5 +440,41 @@
         checkboxColor1.setAttribute("value", e.value);
     }
 </script>
+<script>
+    $(document).ready(function () {
+        toastr.options = {
+            'closeButton': true,
+            'debug': false,
+            'newestOnTop': false,
+            'progressBar': false,
+            'positionClass': 'toast-bottom-right',
+            'preventDuplicates': false,
+            'showDuration': '1000',
+            'hideDuration': '1000',
+            'timeOut': '5000',
+            'extendedTimeOut': '1000',
+            'showEasing': 'swing',
+            'hideEasing': 'linear',
+            'showMethod': 'fadeIn',
+            'hideMethod': 'fadeOut',
+        }
+    });
+
+    const success = setTimeout(Success, 1000);
+    const error = setTimeout(Err, 1000);
+
+    function Success() {
+        <c:if test="${message_success != null}">
+        toastr.success('${message_success}');
+        </c:if>
+    }
+
+    function Err() {
+        <c:if test="${message_err != null}">
+        toastr.error('${message_err}');
+        </c:if>
+    }
+</script>
+
 </body>
 </html>

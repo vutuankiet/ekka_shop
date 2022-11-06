@@ -61,21 +61,21 @@
                                             <div class="col-md-12 mb-25">
                                                 <label class="form-label">Colors</label>
                                                 <div class="d-flex align-items-start">
-                                                    <f:checkbox path="color" class="checkbox-color1" value=""/>
+                                                    <f:checkbox path="color" class="checkbox-color1" value="#000000" checked="checked"/>
                                                     <input type="color" class="color1 form-control form-control-color mr-2"
-                                                           id="exampleColorInput1" value="" oninput="ChangeValueColor(this,'.checkbox-color1')"
+                                                           id="exampleColorInput1" value="#000000" oninput="ChangeValueColor(this,'.checkbox-color1')"
                                                            title="Choose your color">
-                                                    <f:checkbox path="color" class="checkbox-color2" value=""/>
+                                                    <f:checkbox path="color" class="checkbox-color2" value="#000000" checked="checked"/>
                                                     <input type="color" class="color2 form-control form-control-color mx-2"
-                                                           id="exampleColorInput1" value="" oninput="ChangeValueColor(this,'.checkbox-color2')"
+                                                           id="exampleColorInput1" value="#000000" oninput="ChangeValueColor(this,'.checkbox-color2')"
                                                            title="Choose your color">
-                                                    <f:checkbox path="color" class="checkbox-color3" value=""/>
+                                                    <f:checkbox path="color" class="checkbox-color3" value="#000000" checked="checked"/>
                                                     <input type="color" class="color3 form-control form-control-color mx-2"
-                                                           id="exampleColorInput3" value="" oninput="ChangeValueColor(this,'.checkbox-color3')"
+                                                           id="exampleColorInput3" value="#000000" oninput="ChangeValueColor(this,'.checkbox-color3')"
                                                            title="Choose your color">
-                                                    <f:checkbox path="color" class="checkbox-color4" value=""/>
+                                                    <f:checkbox path="color" class="checkbox-color4" value="#000000" checked="checked"/>
                                                     <input type="color" class="color4 form-control form-control-color ml-2"
-                                                           id="exampleColorInput1" value="" oninput="ChangeValueColor(this,'.checkbox-color4')"
+                                                           id="exampleColorInput1" value="#000000" oninput="ChangeValueColor(this,'.checkbox-color4')"
                                                            title="Choose your color">
                                                 </div>
                                                 <f:errors path="color" cssClass="error"></f:errors>
@@ -84,23 +84,23 @@
                                                 <label class="form-label">Size</label>
                                                 <div class="form-checkbox-box">
                                                     <div class="form-check form-check-inline pl-0">
-                                                        <f:checkbox path="size" value="S"/>
+                                                        <f:checkbox path="size" value="S" checked="checked"/>
                                                         <label>S</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <f:checkbox path="size" value="M"/>
+                                                        <f:checkbox path="size" value="M" checked="checked"/>
                                                         <label>M</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <f:checkbox path="size" value="L"/>
+                                                        <f:checkbox path="size" value="L" checked="checked"/>
                                                         <label>L</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <f:checkbox path="size" value="XL"/>
+                                                        <f:checkbox path="size" value="XL" checked="checked"/>
                                                         <label>XL</label>
                                                     </div>
                                                     <div class="form-check form-check-inline">
-                                                        <f:checkbox path="size" value="XXL"/>
+                                                        <f:checkbox path="size" value="XXL" checked="checked"/>
                                                         <label>XXL</label>
                                                     </div>
                                                 </div>
@@ -110,7 +110,7 @@
                                                 <div class="ec-vendor-main-img">
                                                     <div class="avatar-upload">
                                                         <div class="avatar-edit">
-                                                            <f:input type="file" id="imageUpload"
+                                                            <f:input type="file" accept="image/*" id="imageUpload"
                                                                      cssClass="ec-image-upload" path="fileImage"
                                                                      placeholder="Chọn file"
                                                                      aria-label="Ảnh đại diện" required="required"/>
@@ -129,7 +129,7 @@
                                                     <div class="thumb-upload-set colo-md-12">
                                                         <div class="thumb-upload">
                                                             <div class="thumb-edit">
-                                                                <f:input type="file" id="thumbUpload01"
+                                                                <f:input type="file" accept="image/*" id="thumbUpload01"
                                                                          cssClass="ec-image-upload" path="fileImage"
                                                                          placeholder="Chọn file"
                                                                          aria-label="Ảnh đại diện" required="required"/>
@@ -147,7 +147,7 @@
                                                         </div>
                                                         <div class="thumb-upload">
                                                             <div class="thumb-edit">
-                                                                <f:input type="file" id="thumbUpload02"
+                                                                <f:input type="file" accept="image/*" id="thumbUpload02"
                                                                          cssClass="ec-image-upload" path="fileImage"
                                                                          placeholder="Chọn file"
                                                                          aria-label="Ảnh đại diện" required="required"/>
@@ -165,7 +165,7 @@
                                                         </div>
                                                         <div class="thumb-upload">
                                                             <div class="thumb-edit">
-                                                                <f:input type="file" id="thumbUpload03"
+                                                                <f:input type="file" accept="image/*" id="thumbUpload03"
                                                                          cssClass="ec-image-upload" path="fileImage"
                                                                          placeholder="Chọn file"
                                                                          aria-label="Ảnh đại diện" required="required"/>
@@ -183,7 +183,7 @@
                                                         </div>
                                                         <div class="thumb-upload">
                                                             <div class="thumb-edit">
-                                                                <f:input type="file" id="thumbUpload04"
+                                                                <f:input type="file" accept="image/*" id="thumbUpload04"
                                                                          cssClass="ec-image-upload" path="fileImage"
                                                                          placeholder="Chọn file"
                                                                          aria-label="Ảnh đại diện" required="required"/>
@@ -201,7 +201,7 @@
                                                         </div>
                                                         <div class="thumb-upload">
                                                             <div class="thumb-edit">
-                                                                <f:input type="file" id="thumbUpload05"
+                                                                <f:input type="file" accept="image/*" id="thumbUpload05"
                                                                          cssClass="ec-image-upload" path="fileImage"
                                                                          placeholder="Chọn file"
                                                                          aria-label="Ảnh đại diện" required="required"/>
@@ -219,7 +219,7 @@
                                                         </div>
                                                         <div class="thumb-upload">
                                                             <div class="thumb-edit">
-                                                                <f:input type="file" id="thumbUpload06"
+                                                                <f:input type="file" accept="image/*" id="thumbUpload06"
                                                                          cssClass="ec-image-upload" path="fileImage"
                                                                          placeholder="Chọn file"
                                                                          aria-label="Ảnh đại diện" required="required"/>
@@ -391,5 +391,6 @@
         </c:if>
     }
 </script>
+
 </body>
 </html>

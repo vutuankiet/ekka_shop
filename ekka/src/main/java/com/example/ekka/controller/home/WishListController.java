@@ -78,10 +78,12 @@ public class WishListController {
             List<CategoryEntity> listCategory = categoryService.listAll();
             int countWishList = wishListService.countWishListUser(id);
             int countCart = cartService.countCartUser(id);
+            List<ProductEntity> listProductByState = productService.listAllProductByState();
 
+            model.addAttribute("listProductByState", listProductByState);
             model.addAttribute("countWishList", countWishList);
             model.addAttribute("countCart", countCart);
-
+            
             model.addAttribute("listWishListUserId", listWishListUserId);
             model.addAttribute("listCartUserId", listCartUserId);
             model.addAttribute("listGenderCategory", listGenderCategory);
@@ -112,9 +114,9 @@ public class WishListController {
             wishListDto.setProductId(id);
             wishListDto.setState(1);
             wishListService.createWishList(wishListDto);
-            model.addFlashAttribute("message_success", "Them wish list thành công");
+            model.addFlashAttribute("message_success", "Create a new wish list successfully");
         } catch (Exception e) {
-            model.addFlashAttribute("message_err", "Them wish list không thành công");
+            model.addFlashAttribute("message_err", "New wish list creation failed");
         }
         System.out.println("id:"+id);
 
@@ -130,9 +132,9 @@ public class WishListController {
         try {
             wishListDto.setId(id);
             wishListService.deleteWishList(wishListDto);
-            model.addFlashAttribute("message_success", "Xoa wish list thành công");
+            model.addFlashAttribute("message_success", "Delete wish list successfully");
         } catch (Exception e) {
-            model.addFlashAttribute("message_err", "Xoa wish list không thành công");
+            model.addFlashAttribute("message_err", "Deleting wish list failed");
         }
         System.out.println("id:"+id);
 

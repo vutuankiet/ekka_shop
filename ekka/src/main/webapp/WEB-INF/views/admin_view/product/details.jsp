@@ -93,11 +93,93 @@
                                             <div class="col-12">
                                                 <h5 class="product-title">${productDto.productName}</h5>
                                                 <p class="product-rate">
-                                                    <i class="mdi mdi-star is-rated"></i>
-                                                    <i class="mdi mdi-star is-rated"></i>
-                                                    <i class="mdi mdi-star is-rated"></i>
-                                                    <i class="mdi mdi-star is-rated"></i>
-                                                    <i class="mdi mdi-star"></i>
+                                                    <c:if test="${review_rating <= 0}">
+                                                        <i class="mdi mdi-star"></i>
+                                                        <i class="mdi mdi-star"></i>
+                                                        <i class="mdi mdi-star"></i>
+                                                        <i class="mdi mdi-star"></i>
+                                                        <i class="mdi mdi-star"></i>
+                                                    </c:if>
+                                                    <c:if test="${review_rating > 0 && review_rating < 1}">
+                                                        <i style="color: #ff6262;opacity: 0.7;"
+                                                           class="mdi mdi-star-half is-rated"></i>
+                                                        <i class="mdi mdi-star"></i>
+                                                        <i class="mdi mdi-star"></i>
+                                                        <i class="mdi mdi-star"></i>
+                                                        <i class="mdi mdi-star"></i>
+                                                    </c:if>
+                                                    <c:if test="${review_rating > 1 && review_rating < 2}">
+                                                        <i class="mdi mdi-star is-rated"></i>
+                                                        <i style="color: #ff6262;opacity: 0.7;"
+                                                           class="mdi mdi-star-half is-rated"></i>
+                                                        <i class="mdi mdi-star"></i>
+                                                        <i class="mdi mdi-star"></i>
+                                                        <i class="mdi mdi-star"></i>
+                                                    </c:if>
+                                                    <c:if test="${review_rating > 2 && review_rating < 3}">
+                                                        <i class="mdi mdi-star is-rated"></i>
+                                                        <i class="mdi mdi-star is-rated"></i>
+                                                        <i style="color: #ff6262;opacity: 0.7;"
+                                                           class="mdi mdi-star-half is-rated"></i>
+                                                        <i class="mdi mdi-star"></i>
+                                                        <i class="mdi mdi-star"></i>
+                                                    </c:if>
+                                                    <c:if test="${review_rating > 3 && review_rating < 4}">
+                                                        <i class="mdi mdi-star is-rated"></i>
+                                                        <i class="mdi mdi-star is-rated"></i>
+                                                        <i class="mdi mdi-star is-rated"></i>
+                                                        <i style="color: #ff6262;opacity: 0.7;"
+                                                           class="mdi mdi-star-half is-rated"></i>
+                                                        <i class="mdi mdi-star"></i>
+                                                    </c:if>
+                                                    <c:if test="${review_rating > 4 && review_rating < 5}">
+                                                        <i class="mdi mdi-star is-rated"></i>
+                                                        <i class="mdi mdi-star is-rated"></i>
+                                                        <i class="mdi mdi-star is-rated"></i>
+                                                        <i class="mdi mdi-star is-rated"></i>
+                                                        <i style="color: #ff6262;opacity: 0.7;"
+                                                           class="mdi mdi-star-half is-rated"></i>
+                                                    </c:if>
+
+                                                    <c:if test="${review_rating == 1}">
+                                                        <i class="mdi mdi-star is-rated"></i>
+                                                        <i class="mdi mdi-star"></i>
+                                                        <i class="mdi mdi-star"></i>
+                                                        <i class="mdi mdi-star"></i>
+                                                        <i class="mdi mdi-star"></i>
+                                                    </c:if>
+
+                                                    <c:if test="${review_rating == 2}">
+                                                        <i class="mdi mdi-star is-rated"></i>
+                                                        <i class="mdi mdi-star is-rated"></i>
+                                                        <i class="mdi mdi-star"></i>
+                                                        <i class="mdi mdi-star"></i>
+                                                        <i class="mdi mdi-star"></i>
+                                                    </c:if>
+
+                                                    <c:if test="${review_rating == 3}">
+                                                        <i class="mdi mdi-star is-rated"></i>
+                                                        <i class="mdi mdi-star is-rated"></i>
+                                                        <i class="mdi mdi-star is-rated"></i>
+                                                        <i class="mdi mdi-star"></i>
+                                                        <i class="mdi mdi-star"></i>
+                                                    </c:if>
+                                                    <c:if test="${review_rating == 4}">
+                                                        <i class="mdi mdi-star is-rated"></i>
+                                                        <i class="mdi mdi-star is-rated"></i>
+                                                        <i class="mdi mdi-star is-rated"></i>
+                                                        <i class="mdi mdi-star is-rated"></i>
+                                                        <i class="mdi mdi-star"></i>
+                                                    </c:if>
+                                                    <c:if test="${review_rating == 5}">
+                                                        <i class="mdi mdi-star is-rated"></i>
+                                                        <i class="mdi mdi-star is-rated"></i>
+                                                        <i class="mdi mdi-star is-rated"></i>
+                                                        <i class="mdi mdi-star is-rated"></i>
+                                                        <i class="mdi mdi-star is-rated"></i>
+                                                    </c:if>
+                                                    (${review_rating} <i class="mdi mdi-star is-rated"></i>) (${countReviewProduct}
+                                                    review)
                                                 </p>
                                                 <p><b>Category</b></p>
                                                 <ul class="product-size">
@@ -234,53 +316,70 @@
 
                                             <div class="tab-pane pt-3 fade" id="productreviews" role="tabpanel">
                                                 <div class="ec-t-review-wrapper">
-                                                    <div class="ec-t-review-item">
-                                                        <div class="ec-t-review-avtar">
-                                                            <img src="assets/img/review-image/1.jpg" alt="">
+                                                    <c:if test="${listReview == []}">
+                                                        <div class="ec-t-review-item">
+                                                            <h6>This product has no reviews yet!</h6>
                                                         </div>
-                                                        <div class="ec-t-review-content">
-                                                            <div class="ec-t-review-top">
-                                                                <p class="ec-t-review-name">Jeny Doe</p>
-                                                                <div class="ec-t-rate">
-                                                                    <i class="mdi mdi-star is-rated"></i>
-                                                                    <i class="mdi mdi-star is-rated"></i>
-                                                                    <i class="mdi mdi-star is-rated"></i>
-                                                                    <i class="mdi mdi-star is-rated"></i>
-                                                                    <i class="mdi mdi-star"></i>
+                                                    </c:if>
+                                                    <c:if test="${listReview != []}">
+                                                        <c:forEach items="${listReview}" var="review">
+                                                            <div class="ec-t-review-item">
+                                                                <div class="ec-t-review-avtar">
+                                                                    <img style="border-radius: 50%;width: 100px;height: 100px;object-fit: cover;" src="${review.user.avatar}"
+                                                                         alt=""/>
                                                                 </div>
-                                                            </div>
-                                                            <div class="ec-t-review-bottom">
-                                                                <p>Lorem Ipsum is simply dummy text of the printing
-                                                                    and
-                                                                    typesetting industry.
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="ec-t-review-item">
-                                                        <div class="ec-t-review-avtar">
-                                                            <img src="assets/img/review-image/2.jpg" alt="">
-                                                        </div>
-                                                        <div class="ec-t-review-content">
-                                                            <div class="ec-t-review-top">
-                                                                <p class="ec-t-review-name">Linda Morgus</p>
-                                                                <div class="ec-t-rate">
-                                                                    <i class="mdi mdi-star is-rated"></i>
-                                                                    <i class="mdi mdi-star is-rated"></i>
-                                                                    <i class="mdi mdi-star is-rated"></i>
-                                                                    <i class="mdi mdi-star is-rated"></i>
-                                                                    <i class="mdi mdi-star"></i>
-                                                                </div>
-                                                            </div>
-                                                            <div class="ec-t-review-bottom">
-                                                                <p>Lorem Ipsum is simply dummy text of the printing
-                                                                    and
-                                                                    typesetting industry.
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                                <div class="ec-t-review-content">
+                                                                    <div class="ec-t-review-top">
+                                                                        <div class="ec-t-review-name">${review.user.fullName}</div>
+                                                                        <div class="ec-t-rate">
 
+                                                                            <c:if test="${review_rating == 1}">
+                                                                                <i class="mdi mdi-star is-rated"></i>
+                                                                                <i class="mdi mdi-star"></i>
+                                                                                <i class="mdi mdi-star"></i>
+                                                                                <i class="mdi mdi-star"></i>
+                                                                                <i class="mdi mdi-star"></i>
+                                                                            </c:if>
+                                                                            <c:if test="${review_rating == 2}">
+                                                                                <i class="mdi mdi-star is-rated"></i>
+                                                                                <i class="mdi mdi-star is-rated"></i>
+                                                                                <i class="mdi mdi-star"></i>
+                                                                                <i class="mdi mdi-star"></i>
+                                                                                <i class="mdi mdi-star"></i>
+                                                                            </c:if>
+                                                                            <c:if test="${review_rating == 3}">
+                                                                                <i class="mdi mdi-star is-rated"></i>
+                                                                                <i class="mdi mdi-star is-rated"></i>
+                                                                                <i class="mdi mdi-star is-rated"></i>
+                                                                                <i class="mdi mdi-star"></i>
+                                                                                <i class="mdi mdi-star"></i>
+                                                                            </c:if>
+                                                                            <c:if test="${review_rating == 4}">
+                                                                                <i class="mdi mdi-star is-rated"></i>
+                                                                                <i class="mdi mdi-star is-rated"></i>
+                                                                                <i class="mdi mdi-star is-rated"></i>
+                                                                                <i class="mdi mdi-star is-rated"></i>
+                                                                                <i class="mdi mdi-star"></i>
+                                                                            </c:if>
+                                                                            <c:if test="${review_rating == 5}">
+                                                                                <i class="mdi mdi-star is-rated"></i>
+                                                                                <i class="mdi mdi-star is-rated"></i>
+                                                                                <i class="mdi mdi-star is-rated"></i>
+                                                                                <i class="mdi mdi-star is-rated"></i>
+                                                                                <i class="mdi mdi-star is-rated"></i>
+                                                                            </c:if>
+
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="ec-t-review-bottom">
+                                                                        <p>
+                                                                                ${review.comment}
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </c:forEach>
+                                                    </c:if>
                                                 </div>
                                             </div>
                                         </div>
@@ -309,5 +408,41 @@
         checkboxColor1.setAttribute("value", e.value);
     }
 </script>
+<script>
+    $(document).ready(function () {
+        toastr.options = {
+            'closeButton': true,
+            'debug': false,
+            'newestOnTop': false,
+            'progressBar': false,
+            'positionClass': 'toast-bottom-right',
+            'preventDuplicates': false,
+            'showDuration': '1000',
+            'hideDuration': '1000',
+            'timeOut': '5000',
+            'extendedTimeOut': '1000',
+            'showEasing': 'swing',
+            'hideEasing': 'linear',
+            'showMethod': 'fadeIn',
+            'hideMethod': 'fadeOut',
+        }
+    });
+
+    const success = setTimeout(Success, 1000);
+    const error = setTimeout(Err, 1000);
+
+    function Success() {
+        <c:if test="${message_success != null}">
+        toastr.success('${message_success}');
+        </c:if>
+    }
+
+    function Err() {
+        <c:if test="${message_err != null}">
+        toastr.error('${message_err}');
+        </c:if>
+    }
+</script>
+
 </body>
 </html>

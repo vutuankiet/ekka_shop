@@ -85,33 +85,37 @@
                                 <thead>
                                 <tr>
                                     <th scope="col">ID</th>
-                                    <th scope="col">Image</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Date</th>
+                                    <th scope="col">Product</th>
+                                    <th scope="col">Order Date</th>
                                     <th scope="col">Price</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Actions</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach items="${listOrder}" var="order">
+                                <c:forEach items="${listBill}" var="bill">
                                     <tr>
-                                        <th scope="row"><span>#${order.order_code}</span></th>
-                                        <td><img class="prod-img" src="${order.product.productImage}"
-                                                 alt="product image"></td>
-                                        <td><span>${order.product.productName}</span></td>
-                                        <td><span><fmt:formatDate pattern = "dd/MM/yyyy kk:mm:ss"
-                                                                                     value = "${order.created_at}"/></span></td>
-                                        <td><span>${order.price}</span></td>
+                                        <th scope="row"><span>#${bill.order_code}</span></th>
                                         <td>
-                                            <c:if test="${order.state == 0}"><span style="color: #fe5461!important">Order Cancellation</span></c:if>
-                                    <c:if test="${order.state == 1}"><span style="color: #8a909d!important">PENDING</span></c:if>
-                                    <c:if test="${order.state == 2}"><span style="color: #fec400!important">READY TO SHIP</span></c:if>
-                                    <c:if test="${order.state == 3}"><span style="color: #13cae1!important">ON THE WAY</span></c:if>
-                                    <c:if test="${order.state == 4}"><span style="color: #29cc97!important">DELIVERED</span></c:if>
+                                            <c:forEach items="${listOrder}" var="order">
+                                                <c:if test="${bill.order_code == order.order_code}">
+                                                <a href="/ekka/product-details/${order.product.id}"><img class="prod-img" src="${order.product.productImage}"
+                                                     alt="product image"></a>
+                                                </c:if>
+                                            </c:forEach>
+                                            </td>
+                                        <td><span><fmt:formatDate pattern = "dd/MM/yyyy kk:mm:ss"
+                                                                                     value = "${bill.created_at}"/></span></td>
+                                        <td><span>${bill.price}</span></td>
+                                        <td>
+                                            <c:if test="${bill.state == 0}"><span style="color: #fe5461!important">Order Cancellation</span></c:if>
+                                            <c:if test="${bill.state == 1}"><span style="color: #8a909d!important">PENDING</span></c:if>
+                                            <c:if test="${bill.state == 2}"><span style="color: #fec400!important">READY TO SHIP</span></c:if>
+                                            <c:if test="${bill.state == 3}"><span style="color: #13cae1!important">ON THE WAY</span></c:if>
+                                            <c:if test="${bill.state == 4}"><span style="color: #29cc97!important">DELIVERED</span></c:if>
                                         </td>
                                         <td><span class="tbl-btn"><a class="btn btn-lg btn-primary"
-                                                                     href="/ekka/history/${order.order_code}">View</a></span></td>
+                                                                     href="/ekka/history/${bill.order_code}">View</a></span></td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
@@ -209,8 +213,8 @@
                                     </li>
                                 </ul>
                                 <div class="ec-subscribe-form">
-                                    <form id="ec-newsletter-form" name="ec-newsletter-form" method="post"
-                                          action="#">
+                                    <form id="ec-newsletter-form" name="ec-newsletter-form" method="get"
+                                          action="/ekka/contact-us">
                                         <div id="ec_news_signup" class="ec-form">
                                             <input class="ec-email" type="email" required=""
                                                    placeholder="Enter your email here..." name="ec-email" value=""/>

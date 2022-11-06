@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import com.example.ekka.entities.UserEntity;
 import com.example.ekka.repository.SearchingRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -32,4 +33,9 @@ public interface UserRepository extends JpaRepository<UserEntity, Long>, UserRep
 
     @Query(value = "SELECT count(u.id) FROM UserEntity u WHERE u.state = 1 ")
     int countAll();
+
+    @Transactional //try to add this annotation
+    @Modifying      // to mark delete or update query
+    @Query(value = "UPDATE UserEntity u SET u.state = 1, u.updated_at = current_timestamp WHERE u.email = :email")       // it will delete all the record with specific name
+    int active(@Param("email") String email);
 }

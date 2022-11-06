@@ -4,6 +4,7 @@ import com.example.ekka.entities.ProductEntity;
 import com.example.ekka.repository.SearchingRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,6 +20,11 @@ public interface ProductRepository extends SearchingRepository<ProductEntity, Lo
     @Modifying      // to mark delete or update query
     @Query(value = "SELECT p FROM ProductEntity p ORDER BY p.updated_at DESC")       // it will delete all the record with specific name
     List<ProductEntity> findAllByUpdate_at();
+
+    @Transactional //try to add this annotation
+    @Modifying      // to mark delete or update query
+    @Query(value = "SELECT p FROM ProductEntity p where p.state = 1 ORDER BY p.updated_at DESC")       // it will delete all the record with specific name
+    List<ProductEntity> findAllByState();
 
     @Transactional //try to add this annotation
     @Modifying      // to mark delete or update query
@@ -44,6 +50,6 @@ public interface ProductRepository extends SearchingRepository<ProductEntity, Lo
     @Query(value = "UPDATE ProductEntity p SET p.totalProduct = :total, p.updated_at = current_timestamp WHERE p.id = :id")       // it will delete all the record with specific name
     int changeTotal(@Param("total") String total, @Param("id") long id);
 
-    @Query(value = "select p from ProductEntity p where p.productName like %:key%")
-    Page<ProductEntity> findAllProduct(@Param("key") String key, Pageable pageable);
+    @Query(value = "select p from ProductEntity p where p.state= 1 and p.productName like %:key% and p.category.categoryName like %:category% and p.category.genderCategory.genderCategoryName like %:genderCategory% and p.priceProduct > :firstPrice and p.priceProduct < :lastPrice")
+    Page<ProductEntity> findAllProduct(@Param("key") String key, @Param("category") String category, @Param("genderCategory") String genderCategory, @Param("firstPrice") float firstPrice, @Param("lastPrice") float lastPrice, Pageable pageable);
 }

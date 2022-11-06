@@ -166,7 +166,7 @@
                                                                    style="height: 40px!important;min-height: 40px!important; width: 75px;"
                                                                    type="number" min="1"
                                                                    max="${cartUserId.product.totalProduct}"
-                                                                   value="${cartUserId.item}"/>
+                                                                   value="${cartUserId.product.totalProduct == 0 ? 0 : cartUserId.item}"/>
 
                                                         </div>
                                                         <f:input cssClass="itemProduct d-none" path="itemProduct" value="${cartUserId.item}"></f:input>
@@ -175,7 +175,7 @@
                                                     </td>
                                                     <td class="total text-right" data-label="Total">$<fmt:formatNumber
                                                             maxFractionDigits="2"
-                                                            value="${cartUserId.price}"></fmt:formatNumber></td>
+                                                            value="${cartUserId.product.totalProduct == 0 ? 0 : cartUserId.price}"></fmt:formatNumber></td>
 
                                                     <td data-label="Remove">
                                                         <f:form method="post" action="/ekka/cart/delete/${cartUserId.id}"
@@ -233,7 +233,7 @@
                                     <span class="ec-cart-wrap">
                                             <label>Delivery phone number (<span class="text-danger">*</span>)</label>
                                         <f:input cssClass="DeliveryPhone mb-0" type="tel" path="delivery_phone"
-                                                 placeholder="Delivery phone number"
+                                                 placeholder="Delivery phone number" pattern="(84|0[3|5|7|8|9])+([0-9]{8})\b"
                                                  aria-label="Delivery phone number"/>
                                         <p class="show-delivery-phone text-danger">Can't be left blank!</p>
                                         </span>
@@ -358,8 +358,8 @@
                                     </li>
                                 </ul>
                                 <div class="ec-subscribe-form">
-                                    <form id="ec-newsletter-form" name="ec-newsletter-form" method="post"
-                                          action="#">
+                                    <form id="ec-newsletter-form" name="ec-newsletter-form" method="get"
+                                          action="/ekka/contact-us">
                                         <div id="ec_news_signup" class="ec-form">
                                             <input class="ec-email" type="email" required=""
                                                    placeholder="Enter your email here..." name="ec-email" value=""/>
@@ -479,21 +479,20 @@
         $(this).parent().parent().children('input.size').val(el);
     });
 
-    var allTotal = 0;
+
     $("input.item").change(function (element) {
-        var el = $(this).val();
-        console.log(el);
-        $(this).parent().parent().children('input.itemProduct').val(el)
-        var price = $(this).parent().parent().parent().children('td.price').text();
-        var discount = $(this).parent().parent().parent().children('td.discount').text();
-        console.log(discount)
-        var total = 0;
-        total = (price * ((100 - discount) / 100)) * el;
-        $(this).parent().parent().parent().children('td.total').text('$' + (+total.toFixed(2)));
-        $(this).parent().parent().children('input.totalPrice').val((+total.toFixed(2)))
+        var allTotal = 0;
+        $("input.item").each(function (){
+            var el = $(this).val();
+            $(this).parent().parent().children('input.itemProduct').val(el)
+            var price = $(this).parents("tr").children('td.price').text();
+            var discount = $(this).parents("tr").children('td.discount').text();
+            var total = (price * ((100 - discount) / 100)) * el;
+            $(this).parent().parent().parent().children('td.total').text('$' + (+total.toFixed(2)));
+            $(this).parent().children('input.totalPrice').val((+total.toFixed(2)))
+            allTotal += total;
+        })
 
-
-        allTotal = allTotal + total;
         console.log(+allTotal.toFixed(2))
         $('.ec-cart-summary-total .all-total').text('$'+(+allTotal.toFixed(2)));
         $('.show-sub-total .sub-total').text('$'+(+allTotal.toFixed(2)));

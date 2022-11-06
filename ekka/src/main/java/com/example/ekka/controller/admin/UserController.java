@@ -1,10 +1,15 @@
 package com.example.ekka.controller.admin;
 
 import com.example.ekka.dto.ResponseDataTableDto;
+import com.example.ekka.dto.UrlDto;
 import com.example.ekka.dto.UserDto;
+import com.example.ekka.entities.BillEntity;
+import com.example.ekka.entities.OrderEntity;
 import com.example.ekka.entities.UserEntity;
 import com.example.ekka.paging.PagingParam;
 import com.example.ekka.repository.user.UserRepository;
+import com.example.ekka.service.BillService;
+import com.example.ekka.service.OrderService;
 import com.example.ekka.service.UserService;
 import com.example.ekka.storage.IImageService;
 import org.springframework.beans.BeanUtils;
@@ -19,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
@@ -34,6 +40,12 @@ public class UserController {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    OrderService orderService;
+
+    @Autowired
+    BillService billService;
+
     //quyền ADMIN được vào trang này
 //    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 //    @GetMapping("create")
@@ -44,11 +56,15 @@ public class UserController {
     //quyền ADMIN được vào trang này
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @GetMapping(value = {"list","","/"})
-    public String list(Model model) {
+    public String list(Model model, HttpServletRequest request) {
         try {
             List<UserEntity> listCustomer = userService.listAllUpdatedUser();
             model.addAttribute("list",listCustomer);
             model.addAttribute("userDto", new UserDto());
+
+            UrlDto urlDto = new UrlDto();
+            urlDto.setUrl(request.getRequestURL().toString());
+            model.addAttribute("urlDto", urlDto);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -94,9 +110,9 @@ public class UserController {
             String random_bg = (background_profile[index_bg]);
             userDto.setBackground_profile(random_bg);
             userService.save(userDto);
-            model.addFlashAttribute("message", "Tạo mới tài khoản thành công");
+            model.addFlashAttribute("message_success", "New user created successfully");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Tạo mới tài khoản không thành công");
+            model.addFlashAttribute("message_err", "New user creation failed");
             model.addFlashAttribute("messageEmail", e.getMessage());
             return "redirect:/ekka/admin/user/list";
         }
@@ -113,7 +129,13 @@ public class UserController {
         model.addAttribute("userDto", userDto);
 
         List<UserEntity> listCustomer = userService.listAll();
+        List<BillEntity> listBill = billService.findByUserId(id);
+        List<OrderEntity> listOrder = orderService.findByUserId(id);
+
+
         model.addAttribute("list",listCustomer);
+        model.addAttribute("listBill",listBill);
+        model.addAttribute("listOrder",listOrder);
         return "admin_view/user/details";
     }
 
@@ -139,9 +161,9 @@ public class UserController {
         System.out.println("id:"+id);
         try {
             userService.editUser(userDto);
-            model.addFlashAttribute("messageSuccsess", "Tạo mới tài khoản thành công");
+            model.addFlashAttribute("message_success", "User update successful");
         } catch (Exception e) {
-            model.addFlashAttribute("messageError", "Tạo mới tài khoản không thành công");
+            model.addFlashAttribute("message_err", "User update failed");
         }
         System.out.println("id:"+id);
 
@@ -172,9 +194,9 @@ public class UserController {
         try {
             userDto.setState(0);
             userService.deleteUser(userDto);
-            model.addFlashAttribute("messageDeleteSuccess", "Xoa tài khoản thành công");
+            model.addFlashAttribute("message_success", "Delete user successfully");
         } catch (Exception e) {
-            model.addFlashAttribute("messageDeleteError", "Xoa tài khoản không thành công");
+            model.addFlashAttribute("message_err", "User deletion failed");
         }
         System.out.println("id:"+id);
 
@@ -205,9 +227,9 @@ public class UserController {
         try {
             userDto.setState(1);
             userService.restoreUser(userDto);
-            model.addFlashAttribute("messageRestoreSuccess", "Khoi phuc tài khoản thành công");
+            model.addFlashAttribute("message_success", "User recovery successful");
         } catch (Exception e) {
-            model.addFlashAttribute("messageRestoreError", "Khoi phuc tài khoản không thành công");
+            model.addFlashAttribute("message_err", "User recovery failed");
         }
         System.out.println("id:"+id);
 
@@ -216,7 +238,7 @@ public class UserController {
     }
 
     @PostMapping(value = "delete/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String deleteUser(@PathVariable(name = "id") int id, UserDto userDto, RedirectAttributes model, Model m) {
+    public String deleteUser(@PathVariable(name = "id") int id, UserDto userDto, @ModelAttribute("urlDto") UrlDto urlDto, RedirectAttributes model, Model m) {
         UserEntity user = userService.get(id);
         BeanUtils.copyProperties(user, userDto);
         try {
@@ -239,9 +261,9 @@ public class UserController {
         try {
             userDto.setState(0);
             userService.deleteUser(userDto);
-            model.addFlashAttribute("messageDeleteSuccess", "Xoa tài khoản thành công");
+            model.addFlashAttribute("message_success", "Delete user successfully");
         } catch (Exception e) {
-            model.addFlashAttribute("messageDeleteError", "Xoa tài khoản không thành công");
+            model.addFlashAttribute("message_err", "User deletion failed");
         }
         System.out.println("id:"+id);
 
@@ -250,7 +272,7 @@ public class UserController {
     }
 
     @PostMapping(value = "restore/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public String restoreUser(@PathVariable(name = "id") int id, UserDto userDto, RedirectAttributes model, Model m) {
+    public String restoreUser(@PathVariable(name = "id") int id, UserDto userDto, @ModelAttribute("urlDto") UrlDto urlDto, RedirectAttributes model, Model m) {
         UserEntity user = userService.get(id);
         BeanUtils.copyProperties(user, userDto);
         try {
@@ -273,9 +295,9 @@ public class UserController {
         try {
             userDto.setState(1);
             userService.deleteUser(userDto);
-            model.addFlashAttribute("messageRestoreSuccess", "Khoi phuc tài khoản thành công");
+            model.addFlashAttribute("message_success", "User recovery successful");
         } catch (Exception e) {
-            model.addFlashAttribute("messageRestoreError", "Khoi phuc tài khoản không thành công");
+            model.addFlashAttribute("message_err", "User recovery failed");
         }
         System.out.println("id:"+id);
 

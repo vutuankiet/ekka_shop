@@ -56,9 +56,9 @@ public class ReviewController {
             reviewDto.setState(1);
             System.out.println(reviewDto.getRating());
             reviewService.save(reviewDto);
-            model.addFlashAttribute("message_success", "Tao review thành công");
+            model.addFlashAttribute("message_success", "Create new review successfully");
         } catch (Exception e) {
-            model.addFlashAttribute("message_err", "Tao review không thành công");
+            model.addFlashAttribute("message_err", "Create new review failed");
         }
         System.out.println("id:"+id);
 

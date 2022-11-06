@@ -50,10 +50,11 @@
                                         <thead>
                                         <tr>
                                             <th>Product</th>
-                                            <th>Name</th>
+                                            <th>Comment</th>
                                             <th>Email</th>
                                             <th>Ratings</th>
                                             <th>Date</th>
+                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                         </thead>
@@ -114,10 +115,23 @@
                                                     </c:if>
                                                 </td>
                                                 <td>${review.created_at}</td>
+                                                <c:if test="${review.state == 1}">
+                                                    <td style="color: #34c997!important;">
+                                                        ACTIVE
+                                                    </td>
+                                                </c:if>
+                                                <c:if test="${review.state == 0}">
+                                                    <td style="color: #ec4a58!important;">
+                                                        BLOCK
+                                                    </td>
+                                                </c:if>
                                                 <td>
                                                     <div class="btn-group mb-1">
                                                         <button type="button"
-                                                                class="btn btn-outline-success">Info</button>
+                                                                class="btn btn-outline-success"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#infoUser-${review.id}">Info
+                                                        </button>
                                                         <button type="button"
                                                                 class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
                                                                 data-bs-toggle="dropdown" aria-haspopup="true"
@@ -126,12 +140,149 @@
                                                         </button>
 
                                                         <div class="dropdown-menu">
-                                                            <a class="dropdown-item" href="#">Edit</a>
-                                                            <a class="dropdown-item" href="#">Delete</a>
+                                                            <c:if test="${review.state == 1}">
+                                                                <f:form method="post"
+                                                                        action="/ekka/admin/review/delete/${review.id}"
+                                                                        modelAttribute="reviewDto"
+                                                                        enctype="multipart/form-data">
+                                                                    <button class="dropdown-item pl-3"
+                                                                            type="submit">Delete
+                                                                    </button>
+                                                                </f:form>
+                                                            </c:if>
+                                                            <c:if test="${review.state == 0}">
+                                                                <f:form method="post"
+                                                                        action="/ekka/admin/review/restore/${review.id}"
+                                                                        modelAttribute="reviewDto"
+                                                                        enctype="multipart/form-data">
+                                                                    <button class="dropdown-item pl-3"
+                                                                            type="submit">Restore
+                                                                    </button>
+                                                                </f:form>
+                                                            </c:if>
                                                         </div>
                                                     </div>
                                                 </td>
                                             </tr>
+
+                                            <!-- Info User Modal -->
+                                            <div class="modal fade modal-add-contact" id="infoUser-${review.id}"
+                                                 tabindex="-1"
+                                                 role="dialog"
+                                                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered modal-lg"
+                                                     role="document" style="width: fit-content; margin: auto;">
+                                                    <div class="modal-content">
+                                                        <div class="card bg-white profile-content">
+                                                            <div class="row">
+                                                                <div class="col-md-12 col-lg-12">
+                                                                    <div class="card card-default">
+                                                                        <div class="card-body text-center p-24px">
+                                                                            <div class="ec-t-review-item d-flex">
+                                                                                <div class="ec-t-review-avtar">
+                                                                                    <img style="border-radius: 50%;width: 100px;height: 100px;object-fit: cover;" src="${review.user.avatar}"
+                                                                                         alt=""/>
+                                                                                </div>
+                                                                                <div class="ec-t-review-content" style="padding: 10px;">
+                                                                                    <div class="ec-t-review-top">
+                                                                                        <div class="ec-t-review-name" style="text-align: left;">${review.user.fullName}</div>
+                                                                                        <div class="ec-t-rate" style="text-align: left;">
+
+                                                                                            <c:if test="${review.rating == 1}">
+                                                                                                <div class="ec-t-rate">
+                                                                                                    <i class="mdi mdi-star is-rated"></i>
+                                                                                                    <i class="mdi mdi-star"></i>
+                                                                                                    <i class="mdi mdi-star"></i>
+                                                                                                    <i class="mdi mdi-star"></i>
+                                                                                                    <i class="mdi mdi-star"></i>
+                                                                                                </div>
+                                                                                            </c:if>
+                                                                                            <c:if test="${review.rating == 2}">
+                                                                                                <div class="ec-t-rate">
+                                                                                                    <i class="mdi mdi-star is-rated"></i>
+                                                                                                    <i class="mdi mdi-star is-rated"></i>
+                                                                                                    <i class="mdi mdi-star"></i>
+                                                                                                    <i class="mdi mdi-star"></i>
+                                                                                                    <i class="mdi mdi-star"></i>
+                                                                                                </div>
+                                                                                            </c:if>
+                                                                                            <c:if test="${review.rating == 3}">
+                                                                                                <div class="ec-t-rate">
+                                                                                                    <i class="mdi mdi-star is-rated"></i>
+                                                                                                    <i class="mdi mdi-star is-rated"></i>
+                                                                                                    <i class="mdi mdi-star is-rated"></i>
+                                                                                                    <i class="mdi mdi-star"></i>
+                                                                                                    <i class="mdi mdi-star"></i>
+                                                                                                </div>
+                                                                                            </c:if>
+                                                                                            <c:if test="${review.rating == 4}">
+                                                                                                <div class="ec-t-rate">
+                                                                                                    <i class="mdi mdi-star is-rated"></i>
+                                                                                                    <i class="mdi mdi-star is-rated"></i>
+                                                                                                    <i class="mdi mdi-star is-rated"></i>
+                                                                                                    <i class="mdi mdi-star is-rated"></i>
+                                                                                                    <i class="mdi mdi-star"></i>
+                                                                                                </div>
+                                                                                            </c:if>
+                                                                                            <c:if test="${review.rating == 5}">
+                                                                                                <div class="ec-t-rate">
+                                                                                                    <i class="mdi mdi-star is-rated"></i>
+                                                                                                    <i class="mdi mdi-star is-rated"></i>
+                                                                                                    <i class="mdi mdi-star is-rated"></i>
+                                                                                                    <i class="mdi mdi-star is-rated"></i>
+                                                                                                    <i class="mdi mdi-star is-rated"></i>
+                                                                                                </div>
+                                                                                            </c:if>
+
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="ec-t-review-bottom">
+                                                                                        <p style="text-align: left;">
+                                                                                                ${review.comment}
+                                                                                        </p>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="d-flex justify-content-center align-items-center">
+                                                                                    ${review.state == 1 ? '<a class="btn btn-success my-3 mr-2" href="#">ACTIVE</a>' : '<a class="btn btn-danger my-3 mr-2" href="#">BLOCK</a>'}
+
+                                                                                <c:if test="${review.state == 1}">
+                                                                                    <f:form method="post"
+                                                                                            action="/ekka/admin/review/delete/${review.id}"
+                                                                                            modelAttribute="contactDto"
+                                                                                            enctype="multipart/form-data">
+                                                                                        <button class="btn btn-outline-danger ml-2"
+                                                                                                type="submit"><span
+                                                                                                class="brand-delete mdi mdi-delete-outline"></span>
+                                                                                        </button>
+                                                                                    </f:form>
+                                                                                </c:if>
+                                                                                <c:if test="${review.state == 0}">
+                                                                                    <f:form method="post"
+                                                                                            action="/ekka/admin/review/restore/${review.id}"
+                                                                                            modelAttribute="contactDto"
+                                                                                            enctype="multipart/form-data">
+                                                                                        <button class="btn btn-outline-success ml-2"
+                                                                                                type="submit"><span
+                                                                                                class="brand-delete mdi mdi-backup-restore"></span>
+                                                                                        </button>
+                                                                                    </f:form>
+                                                                                </c:if>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer px-4 m-auto">
+                                                            <button type="button" class="btn btn-secondary btn-pill"
+                                                                    data-bs-dismiss="modal">Cancel
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </c:forEach>
                                         </tbody>
                                     </table>
@@ -159,5 +310,41 @@
         checkboxColor1.setAttribute("value", e.value);
     }
 </script>
+<script>
+    $(document).ready(function () {
+        toastr.options = {
+            'closeButton': true,
+            'debug': false,
+            'newestOnTop': false,
+            'progressBar': false,
+            'positionClass': 'toast-bottom-right',
+            'preventDuplicates': false,
+            'showDuration': '1000',
+            'hideDuration': '1000',
+            'timeOut': '5000',
+            'extendedTimeOut': '1000',
+            'showEasing': 'swing',
+            'hideEasing': 'linear',
+            'showMethod': 'fadeIn',
+            'hideMethod': 'fadeOut',
+        }
+    });
+
+    const success = setTimeout(Success, 1000);
+    const error = setTimeout(Err, 1000);
+
+    function Success() {
+        <c:if test="${message_success != null}">
+        toastr.success('${message_success}');
+        </c:if>
+    }
+
+    function Err() {
+        <c:if test="${message_err != null}">
+        toastr.error('${message_err}');
+        </c:if>
+    }
+</script>
+
 </body>
 </html>

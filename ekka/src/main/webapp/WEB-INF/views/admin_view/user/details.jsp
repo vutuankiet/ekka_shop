@@ -2,6 +2,7 @@
 <%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
@@ -132,7 +133,7 @@
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link active" id="profile-tab" data-bs-toggle="tab"
                                                 data-bs-target="#profile" type="button" role="tab"
-                                                aria-controls="profile" aria-selected="true">Profile
+                                                aria-controls="profile" aria-selected="true">History Order
                                         </button>
                                     </li>
                                     <li class="nav-item" role="presentation">
@@ -160,152 +161,296 @@
                                                     <!-- Notification Table -->
                                                     <div class="card card-default">
                                                         <div class="card-header justify-content-between mb-1">
-                                                            <h2>Latest Notifications</h2>
+                                                            <h2>History Order</h2>
                                                             <div>
                                                                 <button class="text-black-50 mr-2 font-size-20"><i
                                                                         class="mdi mdi-cached"></i></button>
-                                                                <div
-                                                                        class="dropdown show d-inline-block widget-dropdown">
-                                                                    <a class="dropdown-toggle icon-burger-mini"
-                                                                       href="#" role="button"
-                                                                       id="dropdown-notification"
-                                                                       data-bs-toggle="dropdown"
-                                                                       aria-haspopup="true" aria-expanded="false"
-                                                                       data-display="static"></a>
-                                                                    <ul class="dropdown-menu dropdown-menu-right"
-                                                                        aria-labelledby="dropdown-notification">
-                                                                        <li class="dropdown-item"><a
-                                                                                href="#">Action</a></li>
-                                                                        <li class="dropdown-item"><a
-                                                                                href="#">Another action</a></li>
-                                                                        <li class="dropdown-item"><a
-                                                                                href="#">Something else here</a>
-                                                                        </li>
-                                                                    </ul>
-                                                                </div>
                                                             </div>
 
                                                         </div>
                                                         <div class="card-body compact-notifications" data-simplebar
                                                              style="height: 434px;">
-                                                            <div
-                                                                    class="media pb-3 align-items-center justify-content-between">
-                                                                <div
-                                                                        class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-primary text-white">
-                                                                    <i
-                                                                            class="mdi mdi-cart-outline font-size-20"></i>
-                                                                </div>
-                                                                <div class="media-body pr-3 ">
-                                                                    <a class="mt-0 mb-1 font-size-15 text-dark"
-                                                                       href="#">New Order</a>
-                                                                    <p>Selena has placed an new order</p>
-                                                                </div>
-                                                                <span class=" font-size-12 d-inline-block"><i
-                                                                        class="mdi mdi-clock-outline"></i> 10
-																		AM</span>
-                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="card card-default">
+                                                                        <div class="card-body">
+                                                                            <div class="table-responsive">
+                                                                                <table id="responsive-data-table" class="table" style="width:100%">
+                                                                                    <thead>
+                                                                                    <tr>
+                                                                                        <th>CODE</th>
+                                                                                        <th>Customer</th>
+                                                                                        <th>Price</th>
+                                                                                        <th>Payment</th>
+                                                                                        <th>Status</th>
+                                                                                        <th>Date</th>
+                                                                                        <th>Action</th>
+                                                                                    </tr>
+                                                                                    </thead>
 
-                                                            <div
-                                                                    class="media py-3 align-items-center justify-content-between">
-                                                                <div
-                                                                        class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-success text-white">
-                                                                    <i
-                                                                            class="mdi mdi-email-outline font-size-20"></i>
-                                                                </div>
-                                                                <div class="media-body pr-3">
-                                                                    <a class="mt-0 mb-1 font-size-15 text-dark"
-                                                                       href="#">New Enquiry</a>
-                                                                    <p>Phileine has placed an new order</p>
-                                                                </div>
-                                                                <span class=" font-size-12 d-inline-block"><i
-                                                                        class="mdi mdi-clock-outline"></i> 9
-																		AM</span>
-                                                            </div>
+                                                                                    <tbody>
+                                                                                    <c:forEach items="${listBill}" var="bill">
+                                                                                            <tr>
+                                                                                                <td>#${bill.order_code}</td>
+                                                                                                <td><strong>${bill.user.fullName}</strong><br>
+                                                                                                    <a href="/ekka/admin/user/details/${bill.user.id}">${bill.user.email}</a>
+                                                                                                </td>
+                                                                                                <td>$<fmt:formatNumber
+                                                                                                        maxFractionDigits="2"
+                                                                                                        value="${bill.price}"></fmt:formatNumber></td>
+                                                                                                <c:if test="${bill.payment == 0}">
+                                                                                                    <td>Cash</td>
+                                                                                                </c:if>
+                                                                                                <c:if test="${bill.payment == 1}">
+                                                                                                    <td>Bank</td>
+                                                                                                </c:if>
 
+                                                                                                <c:if test="${bill.state == 0}">
+                                                                                                    <td><span class="mb-2 mr-2 badge badge-danger">
+                                                        Order Cancellation
+                                                    </span>
+                                                                                                    </td>
+                                                                                                </c:if>
+                                                                                                <c:if test="${bill.state == 1}">
+                                                                                                    <td><span class="mb-2 mr-2 badge badge-secondary">
+                                                        PENDING
+                                                    </span>
+                                                                                                    </td>
+                                                                                                </c:if>
+                                                                                                <c:if test="${bill.state == 2}">
+                                                                                                    <td><span class="mb-2 mr-2 badge badge-warning">
+                                                        READY TO SHIP
+                                                    </span>
+                                                                                                    </td>
+                                                                                                </c:if>
+                                                                                                <c:if test="${bill.state == 3}">
+                                                                                                    <td><span class="mb-2 mr-2 badge badge-info">
+                                                        ON THE WAY
+                                                    </span>
+                                                                                                    </td>
+                                                                                                </c:if>
+                                                                                                <c:if test="${bill.state == 4}">
+                                                                                                    <td><span class="mb-2 mr-2 badge badge-success">
+                                                        DELIVERED
+                                                    </span>
+                                                                                                    </td>
+                                                                                                </c:if>
 
-                                                            <div
-                                                                    class="media py-3 align-items-center justify-content-between">
-                                                                <div
-                                                                        class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-warning text-white">
-                                                                    <i
-                                                                            class="mdi mdi-stack-exchange font-size-20"></i>
-                                                                </div>
-                                                                <div class="media-body pr-3">
-                                                                    <a class="mt-0 mb-1 font-size-15 text-dark"
-                                                                       href="#">Support Ticket</a>
-                                                                    <p>Emma has placed an new order</p>
-                                                                </div>
-                                                                <span class=" font-size-12 d-inline-block"><i
-                                                                        class="mdi mdi-clock-outline"></i> 10
-																		AM</span>
-                                                            </div>
+                                                                                                <td>${bill.updated_at}</td>
+                                                                                                <td>
+                                                                                                    <div class="btn-group mb-1">
+                                                                                                        <a style="padding: 3px 10px;"
+                                                                                                           class="btn btn-outline-success"
+                                                                                                           href="/ekka/admin/order/details/${bill.order_code}">Info</a>
+                                                                                                        <button type="button"
+                                                                                                                class="btn btn-outline-success dropdown-toggle dropdown-toggle-split"
+                                                                                                                data-bs-toggle="dropdown" aria-haspopup="true"
+                                                                                                                aria-expanded="false" data-display="static">
+                                                                                                            <span class="sr-only">Info</span>
+                                                                                                        </button>
 
-                                                            <div
-                                                                    class="media py-3 align-items-center justify-content-between">
-                                                                <div
-                                                                        class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-primary text-white">
-                                                                    <i
-                                                                            class="mdi mdi-cart-outline font-size-20"></i>
+                                                                                                        <div class="dropdown-menu">
+                                                                                                            <c:if test="${bill.state == 0}">
+                                                                                                                <f:form method="post"
+                                                                                                                        action="/ekka/admin/order/changeState1/${bill.order_code}"
+                                                                                                                        modelAttribute="orderDto"
+                                                                                                                        enctype="multipart/form-data">
+                                                                                                                    <button class="dropdown-item pl-3"
+                                                                                                                            style="color: #8a909d!important"
+                                                                                                                            type="submit">PENDING
+                                                                                                                    </button>
+                                                                                                                </f:form>
+                                                                                                                <f:form method="post"
+                                                                                                                        action="/ekka/admin/order/changeState2/${bill.order_code}"
+                                                                                                                        modelAttribute="orderDto"
+                                                                                                                        enctype="multipart/form-data">
+                                                                                                                    <button class="dropdown-item pl-3"
+                                                                                                                            style="color: #fec400!important"
+                                                                                                                            type="submit">READY TO SHIP
+                                                                                                                    </button>
+                                                                                                                </f:form>
+                                                                                                                <f:form method="post"
+                                                                                                                        action="/ekka/admin/order/changeState3/${bill.order_code}"
+                                                                                                                        modelAttribute="orderDto"
+                                                                                                                        enctype="multipart/form-data">
+                                                                                                                    <button class="dropdown-item pl-3"
+                                                                                                                            style="color: #13cae1!important"
+                                                                                                                            type="submit">ON THE WAY
+                                                                                                                    </button>
+                                                                                                                </f:form>
+                                                                                                                <f:form method="post"
+                                                                                                                        action="/ekka/admin/order/changeState4/${bill.order_code}"
+                                                                                                                        modelAttribute="orderDto"
+                                                                                                                        enctype="multipart/form-data">
+                                                                                                                    <button class="dropdown-item pl-3"
+                                                                                                                            style="color: #29cc97!important"
+                                                                                                                            type="submit">DELIVERED
+                                                                                                                    </button>
+                                                                                                                </f:form>
+                                                                                                            </c:if>
+                                                                                                            <c:if test="${bill.state == 1}">
+                                                                                                                <f:form method="post"
+                                                                                                                        action="/ekka/admin/order/changeState0/${bill.order_code}"
+                                                                                                                        modelAttribute="orderDto"
+                                                                                                                        enctype="multipart/form-data">
+                                                                                                                    <button class="dropdown-item pl-3"
+                                                                                                                            style="color: #fe5461!important"
+                                                                                                                            type="submit">Order Cancellation
+                                                                                                                    </button>
+                                                                                                                </f:form>
+                                                                                                                <f:form method="post"
+                                                                                                                        action="/ekka/admin/order/changeState2/${bill.order_code}"
+                                                                                                                        modelAttribute="orderDto"
+                                                                                                                        enctype="multipart/form-data">
+                                                                                                                    <button class="dropdown-item pl-3"
+                                                                                                                            style="color: #fec400!important"
+                                                                                                                            type="submit">READY TO SHIP
+                                                                                                                    </button>
+                                                                                                                </f:form>
+                                                                                                                <f:form method="post"
+                                                                                                                        action="/ekka/admin/order/changeState3/${bill.order_code}"
+                                                                                                                        modelAttribute="orderDto"
+                                                                                                                        enctype="multipart/form-data">
+                                                                                                                    <button class="dropdown-item pl-3"
+                                                                                                                            style="color: #13cae1!important"
+                                                                                                                            type="submit">ON THE WAY
+                                                                                                                    </button>
+                                                                                                                </f:form>
+                                                                                                                <f:form method="post"
+                                                                                                                        action="/ekka/admin/order/changeState4/${bill.order_code}"
+                                                                                                                        modelAttribute="orderDto"
+                                                                                                                        enctype="multipart/form-data">
+                                                                                                                    <button class="dropdown-item pl-3"
+                                                                                                                            style="color: #29cc97!important"
+                                                                                                                            type="submit">DELIVERED
+                                                                                                                    </button>
+                                                                                                                </f:form>
+                                                                                                            </c:if>
+                                                                                                            <c:if test="${bill.state == 2}">
+                                                                                                                <f:form method="post"
+                                                                                                                        action="/ekka/admin/order/changeState0/${bill.order_code}"
+                                                                                                                        modelAttribute="orderDto"
+                                                                                                                        enctype="multipart/form-data">
+                                                                                                                    <button class="dropdown-item pl-3"
+                                                                                                                            style="color: #fe5461!important"
+                                                                                                                            type="submit">Order Cancellation
+                                                                                                                    </button>
+                                                                                                                </f:form>
+                                                                                                                <f:form method="post"
+                                                                                                                        action="/ekka/admin/order/changeState1/${bill.order_code}"
+                                                                                                                        modelAttribute="orderDto"
+                                                                                                                        enctype="multipart/form-data">
+                                                                                                                    <button class="dropdown-item pl-3"
+                                                                                                                            style="color: #8a909d!important"
+                                                                                                                            type="submit">PENDING
+                                                                                                                    </button>
+                                                                                                                </f:form>
+                                                                                                                <f:form method="post"
+                                                                                                                        action="/ekka/admin/order/changeState3/${bill.order_code}"
+                                                                                                                        modelAttribute="orderDto"
+                                                                                                                        enctype="multipart/form-data">
+                                                                                                                    <button class="dropdown-item pl-3"
+                                                                                                                            style="color: #13cae1!important"
+                                                                                                                            type="submit">ON THE WAY
+                                                                                                                    </button>
+                                                                                                                </f:form>
+                                                                                                                <f:form method="post"
+                                                                                                                        action="/ekka/admin/order/changeState4/${bill.order_code}"
+                                                                                                                        modelAttribute="orderDto"
+                                                                                                                        enctype="multipart/form-data">
+                                                                                                                    <button class="dropdown-item pl-3"
+                                                                                                                            style="color: #29cc97!important"
+                                                                                                                            type="submit">DELIVERED
+                                                                                                                    </button>
+                                                                                                                </f:form>
+                                                                                                            </c:if>
+                                                                                                            <c:if test="${bill.state == 3}">
+                                                                                                                <f:form method="post"
+                                                                                                                        action="/ekka/admin/order/changeState0/${bill.order_code}"
+                                                                                                                        modelAttribute="orderDto"
+                                                                                                                        enctype="multipart/form-data">
+                                                                                                                    <button class="dropdown-item pl-3"
+                                                                                                                            style="color: #fe5461!important"
+                                                                                                                            type="submit">Order Cancellation
+                                                                                                                    </button>
+                                                                                                                </f:form>
+                                                                                                                <f:form method="post"
+                                                                                                                        action="/ekka/admin/order/changeState1/${bill.order_code}"
+                                                                                                                        modelAttribute="orderDto"
+                                                                                                                        enctype="multipart/form-data">
+                                                                                                                    <button class="dropdown-item pl-3"
+                                                                                                                            style="color: #8a909d!important"
+                                                                                                                            type="submit">PENDING
+                                                                                                                    </button>
+                                                                                                                </f:form>
+                                                                                                                <f:form method="post"
+                                                                                                                        action="/ekka/admin/order/changeState2/${bill.order_code}"
+                                                                                                                        modelAttribute="orderDto"
+                                                                                                                        enctype="multipart/form-data">
+                                                                                                                    <button class="dropdown-item pl-3"
+                                                                                                                            style="color: #fec400!important"
+                                                                                                                            type="submit">READY TO SHIP
+                                                                                                                    </button>
+                                                                                                                </f:form>
+                                                                                                                <f:form method="post"
+                                                                                                                        action="/ekka/admin/order/changeState4/${bill.order_code}"
+                                                                                                                        modelAttribute="orderDto"
+                                                                                                                        enctype="multipart/form-data">
+                                                                                                                    <button class="dropdown-item pl-3"
+                                                                                                                            style="color: #29cc97!important"
+                                                                                                                            type="submit">DELIVERED
+                                                                                                                    </button>
+                                                                                                                </f:form>
+                                                                                                            </c:if>
+                                                                                                            <c:if test="${bill.state == 4}">
+                                                                                                                <f:form method="post"
+                                                                                                                        action="/ekka/admin/order/changeState0/${bill.order_code}"
+                                                                                                                        modelAttribute="orderDto"
+                                                                                                                        enctype="multipart/form-data">
+                                                                                                                    <button class="dropdown-item pl-3"
+                                                                                                                            style="color: #fe5461!important"
+                                                                                                                            type="submit">Order Cancellation
+                                                                                                                    </button>
+                                                                                                                </f:form>
+                                                                                                                <f:form method="post"
+                                                                                                                        action="/ekka/admin/order/changeState1/${bill.order_code}"
+                                                                                                                        modelAttribute="orderDto"
+                                                                                                                        enctype="multipart/form-data">
+                                                                                                                    <button class="dropdown-item pl-3"
+                                                                                                                            style="color: #8a909d!important"
+                                                                                                                            type="submit">PENDING
+                                                                                                                    </button>
+                                                                                                                </f:form>
+                                                                                                                <f:form method="post"
+                                                                                                                        action="/ekka/admin/order/changeState2/${bill.order_code}"
+                                                                                                                        modelAttribute="orderDto"
+                                                                                                                        enctype="multipart/form-data">
+                                                                                                                    <button class="dropdown-item pl-3"
+                                                                                                                            style="color: #fec400!important"
+                                                                                                                            type="submit">READY TO SHIP
+                                                                                                                    </button>
+                                                                                                                </f:form>
+                                                                                                                <f:form method="post"
+                                                                                                                        action="/ekka/admin/order/changeState3/${bill.order_code}"
+                                                                                                                        modelAttribute="orderDto"
+                                                                                                                        enctype="multipart/form-data">
+                                                                                                                    <button class="dropdown-item pl-3"
+                                                                                                                            style="color: #13cae1!important"
+                                                                                                                            type="submit">ON THE WAY
+                                                                                                                    </button>
+                                                                                                                </f:form>
+                                                                                                            </c:if>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                    </c:forEach>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
-                                                                <div class="media-body pr-3">
-                                                                    <a class="mt-0 mb-1 font-size-15 text-dark"
-                                                                       href="#">New order</a>
-                                                                    <p>Ryan has placed an new order</p>
-                                                                </div>
-                                                                <span class=" font-size-12 d-inline-block"><i
-                                                                        class="mdi mdi-clock-outline"></i> 10
-																		AM</span>
-                                                            </div>
-
-                                                            <div
-                                                                    class="media py-3 align-items-center justify-content-between">
-                                                                <div
-                                                                        class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-info text-white">
-                                                                    <i
-                                                                            class="mdi mdi-calendar-blank font-size-20"></i>
-                                                                </div>
-                                                                <div class="media-body pr-3">
-                                                                    <a class="mt-0 mb-1 font-size-15 text-dark"
-                                                                       href="#">Comapny Meetup</a>
-                                                                    <p>Phileine has placed an new order</p>
-                                                                </div>
-                                                                <span class=" font-size-12 d-inline-block"><i
-                                                                        class="mdi mdi-clock-outline"></i> 10
-																		AM</span>
-                                                            </div>
-
-                                                            <div
-                                                                    class="media py-3 align-items-center justify-content-between">
-                                                                <div
-                                                                        class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-warning text-white">
-                                                                    <i
-                                                                            class="mdi mdi-stack-exchange font-size-20"></i>
-                                                                </div>
-                                                                <div class="media-body pr-3">
-                                                                    <a class="mt-0 mb-1 font-size-15 text-dark"
-                                                                       href="#">Support Ticket</a>
-                                                                    <p>Emma has placed an new order</p>
-                                                                </div>
-                                                                <span class=" font-size-12 d-inline-block"><i
-                                                                        class="mdi mdi-clock-outline"></i> 10
-																		AM</span>
-                                                            </div>
-
-                                                            <div
-                                                                    class="media py-3 align-items-center justify-content-between">
-                                                                <div
-                                                                        class="d-flex rounded-circle align-items-center justify-content-center mr-3 media-icon iconbox-45 bg-success text-white">
-                                                                    <i
-                                                                            class="mdi mdi-email-outline font-size-20"></i>
-                                                                </div>
-                                                                <div class="media-body pr-3">
-                                                                    <a class="mt-0 mb-1 font-size-15 text-dark"
-                                                                       href="#">New Enquiry</a>
-                                                                    <p>Phileine has placed an new order</p>
-                                                                </div>
-                                                                <span class=" font-size-12 d-inline-block"><i
-                                                                        class="mdi mdi-clock-outline"></i> 9
-																		AM</span>
                                                             </div>
 
                                                         </div>
@@ -384,7 +529,7 @@
                                                         <div class="col-md-12 space-t-15 form-group">
                                                             <label class="form-label">Phone</label>
                                                             <f:input type="text" path="phone" class="form-control userPhone"
-                                                                     placeholder="Enter your phone" maxlength="15"
+                                                                     placeholder="Enter your phone" maxlength="15" pattern="(84|0[3|5|7|8|9])+([0-9]{8})\b"
                                                                      aria-label="Enter your phone"
                                                                      required="required"/>
                                                         </div>
@@ -511,5 +656,41 @@
         $('p.showUserAddress').text(el);
     });
 </script>
+<script>
+    $(document).ready(function () {
+        toastr.options = {
+            'closeButton': true,
+            'debug': false,
+            'newestOnTop': false,
+            'progressBar': false,
+            'positionClass': 'toast-bottom-right',
+            'preventDuplicates': false,
+            'showDuration': '1000',
+            'hideDuration': '1000',
+            'timeOut': '5000',
+            'extendedTimeOut': '1000',
+            'showEasing': 'swing',
+            'hideEasing': 'linear',
+            'showMethod': 'fadeIn',
+            'hideMethod': 'fadeOut',
+        }
+    });
+
+    const success = setTimeout(Success, 1000);
+    const error = setTimeout(Err, 1000);
+
+    function Success() {
+        <c:if test="${message_success != null}">
+        toastr.success('${message_success}');
+        </c:if>
+    }
+
+    function Err() {
+        <c:if test="${message_err != null}">
+        toastr.error('${message_err}');
+        </c:if>
+    }
+</script>
+
 </body>
 </html>

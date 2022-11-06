@@ -10,6 +10,7 @@
 
 <!--Plugins JS-->
 <script src="/user/assets/js/plugins/swiper-bundle.min.js"></script>
+<script src="/user/assets/js/plugins/nouislider.js"></script>
 <script src="/user/assets/js/plugins/countdownTimer.min.js"></script>
 <script src="/user/assets/js/plugins/scrollup.js"></script>
 <script src="/user/assets/js/plugins/jquery.zoom.min.js"></script>
@@ -22,6 +23,7 @@
 <script src='/user/assets/js/plugins/data-tables/jquery.datatables.min.js'></script>
 <script src='/user/assets/js/plugins/data-tables/datatables.bootstrap5.min.js'></script>
 <script src='/user/assets/js/plugins/data-tables/datatables.responsive.min.js'></script>
+<script src="/user/assets/js/plugins/owl.carousel.min.js"></script>
 
 <script src='/user/assets/js/plugins/toastr.js'></script>
 

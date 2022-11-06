@@ -24,12 +24,14 @@ public class ResponseDataTableProductDto {
     String key;
     ModelAndViewContainer model;
 
-    public ResponseDataTableProductDto(String path, Integer page, Integer perpage, String key, ModelAndViewContainer model) {
+    public ResponseDataTableProductDto(String path, Integer page, Integer perpage, String key, String category, String genderCategory, ModelAndViewContainer model) {
         this.path = path;
         this.page = page;
         this.perpage = perpage;
         this.model = model;
         this.key = key;
+        this.category = category;
+        this.genderCategory = genderCategory;
     }
 
 //    public void list1(PagingDAO dao) throws Exception {

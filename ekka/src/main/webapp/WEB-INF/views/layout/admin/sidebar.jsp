@@ -4,7 +4,7 @@
 
         <div class="ec-brand">
             <a href="/ekka/admin" title="Ekka">
-                <img class="ec-brand-icon" src="assets/img/logo/ec-site-logo.png" alt="" />
+                <img class="ec-brand-icon" src="/admin/assets/img/logo/ec-site-logo.png" alt="" />
                 <span class="ec-brand-name text-truncate">Ekka</span>
             </a>
         </div>
@@ -90,6 +90,14 @@
                     <a class="sidenav-item-link" href="/ekka/admin/review">
                         <i class="mdi mdi-star-half"></i>
                         <span class="nav-text">Reviews</span>
+                    </a>
+                </li>
+
+                <!-- Contact -->
+                <li>
+                    <a class="sidenav-item-link" href="/ekka/admin/contact">
+                        <i class="mdi mdi-contact-mail"></i>
+                        <span class="nav-text">Contacts</span>
                     </a>
                 </li>
 

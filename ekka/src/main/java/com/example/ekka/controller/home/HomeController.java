@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/ekka")
@@ -55,45 +56,74 @@ public class HomeController {
     @Autowired
     ReviewService reviewService;
 
-    //quyền USER được vào trang này
-    @PreAuthorize("hasAnyRole('ROLE_USER')")
+    //quyền USER va an danh được vào trang này
+    @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ANONYMOUS')")
     @GetMapping(value = {"home", "", "/"})
-    public String home(@PagingParam(path = "home") ResponseDataTableDto responseDataTableDto, Model model, HttpServletRequest request) {
+    public String homeUser(@PagingParam(path = "home") ResponseDataTableDto responseDataTableDto, Model model, HttpServletRequest request) {
         try {
-            // Lấy ID của tài khoản  đa đăng nhập
-            long id = ((UserEntity) SecurityContextHolder.getContext()
-                    .getAuthentication().getPrincipal()).getId();
-            List<WishListEntity> listWishListUserId = wishListService.listAllUserId(id);
-            List<CartEntity> listCartUserId = cartService.listAllUserId(id);
+            System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString());
+            if(Objects.equals(SecurityContextHolder.getContext()
+                    .getAuthentication().getAuthorities().toString(), "[ROLE_ANONYMOUS]")){
+                List<GenderCategoryEntity> listGenderCategory = genderCategoryService.listAll();
+                List<ProductColorEntity> listProductColor = productColorService.listAll();
+                List<ProductSizeEntity> listProductSize = productSizeService.listAll();
+                List<CategoryEntity> listCategory = categoryService.listAll();
+                List<ProductEntity> listProductByState = productService.listAllProductByState();
 
-            List<GenderCategoryEntity> listGenderCategory = genderCategoryService.listAll();
-            List<ProductColorEntity> listProductColor = productColorService.listAll();
-            List<ProductSizeEntity> listProductSize = productSizeService.listAll();
-            List<CategoryEntity> listCategory = categoryService.listAll();
-            int countWishList = wishListService.countWishListUser(id);
-            int countCart = cartService.countCartUser(id);
+                model.addAttribute("listGenderCategory", listGenderCategory);
+                model.addAttribute("listProductColor", listProductColor);
+                model.addAttribute("listProductSize", listProductSize);
+                model.addAttribute("listCategory", listCategory);
+                model.addAttribute("listProductByState", listProductByState);
 
-            model.addAttribute("countWishList", countWishList);
-            model.addAttribute("countCart", countCart);
-
-            model.addAttribute("listWishListUserId", listWishListUserId);
-            model.addAttribute("listCartUserId", listCartUserId);
-            model.addAttribute("listGenderCategory", listGenderCategory);
-            model.addAttribute("listProductColor", listProductColor);
-            model.addAttribute("listProductSize", listProductSize);
-            model.addAttribute("listCategory", listCategory);
-
-            System.out.println("listWishListUserId: "+listWishListUserId);
-            UrlDto urlDto = new UrlDto();
-            urlDto.setUrl(request.getRequestURL().toString());
-            model.addAttribute("urlDto", urlDto);
+                UrlDto urlDto = new UrlDto();
+                urlDto.setUrl(request.getRequestURL().toString());
+                model.addAttribute("urlDto", urlDto);
 
 
-            productService.list(responseDataTableDto);
+                productService.list(responseDataTableDto);
+            }else if(Objects.equals(SecurityContextHolder.getContext()
+                    .getAuthentication().getAuthorities().toString(), "[ROLE_USER]")){
+                // Lấy ID của tài khoản  đa đăng nhập
+                long id = ((UserEntity) SecurityContextHolder.getContext()
+                        .getAuthentication().getPrincipal()).getId();
+                List<WishListEntity> listWishListUserId = wishListService.listAllUserId(id);
+                List<CartEntity> listCartUserId = cartService.listAllUserId(id);
+
+                List<GenderCategoryEntity> listGenderCategory = genderCategoryService.listAll();
+                List<ProductColorEntity> listProductColor = productColorService.listAll();
+                List<ProductSizeEntity> listProductSize = productSizeService.listAll();
+                List<CategoryEntity> listCategory = categoryService.listAll();
+                List<ProductEntity> listProductByState = productService.listAllProductByState();
+                int countWishList = wishListService.countWishListUser(id);
+                int countCart = cartService.countCartUser(id);
+
+                model.addAttribute("countWishList", countWishList);
+                model.addAttribute("countCart", countCart);
+
+                model.addAttribute("listWishListUserId", listWishListUserId);
+                model.addAttribute("listCartUserId", listCartUserId);
+                model.addAttribute("listGenderCategory", listGenderCategory);
+                model.addAttribute("listProductColor", listProductColor);
+                model.addAttribute("listProductSize", listProductSize);
+                model.addAttribute("listCategory", listCategory);
+                model.addAttribute("listProductByState", listProductByState);
+
+                System.out.println("listWishListUserId: " + listWishListUserId);
+                UrlDto urlDto = new UrlDto();
+                urlDto.setUrl(request.getRequestURL().toString());
+                model.addAttribute("urlDto", urlDto);
+
+
+                productService.list(responseDataTableDto);
+            } else {
+                throw new Exception();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return "user_view/home";
     }
+
 
 }

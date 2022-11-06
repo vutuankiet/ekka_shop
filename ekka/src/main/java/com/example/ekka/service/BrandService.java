@@ -99,7 +99,7 @@ public class BrandService {
 
             brandRepository.save(brandEntity);
         }else {
-            throw new Exception("Brand da ton tai!");
+            throw new Exception("Brands already exist!");
         }
 
     }

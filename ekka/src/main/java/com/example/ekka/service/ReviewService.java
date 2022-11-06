@@ -9,6 +9,7 @@ import com.example.ekka.entities.ReviewEntity;
 import com.example.ekka.repository.Review.ReviewRepository;
 import com.example.ekka.repository.product.ProductRepository;
 import com.example.ekka.repository.user.UserRepository;
+import com.example.ekka.service.email.EmailDetails;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,6 +51,11 @@ public class ReviewService {
     }
 
     public void save(ReviewDto reviewDto) throws Exception {
+        if(reviewDto.getComment().contains("fuck")){
+            String reComment =  reviewDto.getComment().replace("fuck", "f*ck");
+            reviewDto.setComment(reComment);
+        }
+
         ReviewEntity reviewEntity = new ReviewEntity();
         BeanUtils.copyProperties(reviewDto, reviewEntity);
 
@@ -81,6 +87,22 @@ public class ReviewService {
         reviewEntity.setUser(userRepository.findById((long) reviewDto.getUserId()).orElse(null));
 
         reviewRepository.save(reviewEntity);
+    }
+
+    public void deleteReview(ReviewDto reviewDto) throws Exception{
+        try {
+            reviewRepository.deleteById(reviewDto.getId());
+        }catch (Exception ex){
+            throw  ex;
+        }
+    }
+
+    public void restoreReview(ReviewDto reviewDto) throws Exception{
+        try {
+            reviewRepository.restoreById(reviewDto.getId());
+        }catch (Exception ex){
+            throw  ex;
+        }
     }
 
 }

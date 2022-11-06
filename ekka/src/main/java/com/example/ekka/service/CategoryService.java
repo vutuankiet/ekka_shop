@@ -44,7 +44,7 @@ public class CategoryService {
 
             categoryRepository.save(categoryEntity);
         } else {
-            throw new Exception("Category da ton tai!");
+            throw new Exception("Category already exist!");
         }
     }
 
@@ -115,10 +115,10 @@ public class CategoryService {
 
                 categoryRepository.save(categoryEntity);
             }else {
-                throw new Exception("Category da ton tai!");
+                throw new Exception("Category already exist!!");
             }
         } else {
-            throw new Exception("Gender category da ton tai!");
+            throw new Exception("Gender category already exist!!");
         }
 
     }

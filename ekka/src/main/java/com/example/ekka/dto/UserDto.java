@@ -14,8 +14,8 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class UserDto {
     Long id;
-    @NotEmpty(message = "Không được để trống trường email")
-    @Email(message = "Định dạng email")
+    @NotEmpty(message = "Email field cannot be left blank")
+    @Email(message = "Email Format")
     String email;
     String fullName;
     String phone;
@@ -23,9 +23,9 @@ public class UserDto {
     String role;
     Timestamp created_at;
     Timestamp updated_at;
-    @NotEmpty(message = "Không được để trống trường mật khẩu")
+    @NotEmpty(message = "The password field cannot be left blank")
     String password;
-    @NotEmpty(message = "Không được để trống trường Nhập lại mạt khẩu")
+    @NotEmpty(message = "Please do not leave the Re-enter password field blank")
     String rePassword;
 
     String avatar;

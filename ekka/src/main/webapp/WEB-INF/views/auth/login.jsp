@@ -106,7 +106,7 @@
                     <div class="col-md-6 col-sm-12">
                         <!-- ec-breadcrumb-list start -->
                         <ul class="ec-breadcrumb-list">
-                            <li class="ec-breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="ec-breadcrumb-item"><a href="/ekka">Home</a></li>
                             <li class="ec-breadcrumb-item active">Login</li>
                         </ul>
                         <!-- ec-breadcrumb-list end -->
@@ -315,6 +315,41 @@
 <!-- Cart Floating Button end -->
 
 <%@include file="/WEB-INF/views/layout/user/scripts.jsp" %>
+<script>
+    $(document).ready(function () {
+        toastr.options = {
+            'closeButton': true,
+            'debug': false,
+            'newestOnTop': false,
+            'progressBar': false,
+            'positionClass': 'toast-bottom-right',
+            'preventDuplicates': false,
+            'showDuration': '1000',
+            'hideDuration': '1000',
+            'timeOut': '5000',
+            'extendedTimeOut': '1000',
+            'showEasing': 'swing',
+            'hideEasing': 'linear',
+            'showMethod': 'fadeIn',
+            'hideMethod': 'fadeOut',
+        }
+    });
+
+    const success = setTimeout(Success, 1000);
+    const error = setTimeout(Err, 1000);
+
+    function Success() {
+        <c:if test="${message_success != null}">
+        toastr.success('${message_success}');
+        </c:if>
+    }
+
+    function Err() {
+        <c:if test="${message_err != null}">
+        toastr.error('${message_err}');
+        </c:if>
+    }
+</script>
 
 </body>
 

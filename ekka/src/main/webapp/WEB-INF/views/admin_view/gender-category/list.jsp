@@ -47,7 +47,7 @@
                         <div class="ec-cat-list card card-default mb-24px">
                             <div class="card-body">
                                 <div class="ec-cat-form">
-                                    <h4>Add Brand</h4>
+                                    <h4>Add Gender Category</h4>
                                     <span style="color: red">${message}</span>
 
                                     <f:form method="post" action="/ekka/admin/gender-category/save" modelAttribute="genderCategoryDto"
@@ -55,7 +55,7 @@
                                         <div class="ec-vendor-block-detail" style="margin-top: 75px;">
                                             <div class="thumb-upload">
                                                 <div class="thumb-edit">
-                                                    <f:input type="file" id="thumbUpload02"
+                                                    <f:input type="file" accept="image/*" id="thumbUpload02"
                                                              cssClass="ec-image-upload" path="fileGenderCategory"
                                                              placeholder="Chọn file"
                                                              aria-label="Ảnh đại diện" required="required"/>
@@ -77,14 +77,14 @@
 
                                         <div class="col-lg-12">
                                             <div class="form-group">
-                                                <label>Name Brand*</label>
+                                                <label>Name Gender Category*</label>
                                                 <f:input type="text" path="genderCategoryName" class="form-control"
                                                          placeholder="Enter your user name"
                                                          aria-label="Enter your user name"
                                                          required="required"/>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-pill">Create Brand</button>
+                                        <button type="submit" class="btn btn-primary btn-pill">Create Gender Category</button>
 
                                     </f:form>
 
@@ -403,6 +403,41 @@
 </div> <!-- End Wrapper -->
 
 <%@include file="/WEB-INF/views/layout/admin/scripts.jsp" %>
+<script>
+    $(document).ready(function () {
+        toastr.options = {
+            'closeButton': true,
+            'debug': false,
+            'newestOnTop': false,
+            'progressBar': false,
+            'positionClass': 'toast-bottom-right',
+            'preventDuplicates': false,
+            'showDuration': '1000',
+            'hideDuration': '1000',
+            'timeOut': '5000',
+            'extendedTimeOut': '1000',
+            'showEasing': 'swing',
+            'hideEasing': 'linear',
+            'showMethod': 'fadeIn',
+            'hideMethod': 'fadeOut',
+        }
+    });
+
+    const success = setTimeout(Success, 1000);
+    const error = setTimeout(Err, 1000);
+
+    function Success() {
+        <c:if test="${message_success != null}">
+        toastr.success('${message_success}');
+        </c:if>
+    }
+
+    function Err() {
+        <c:if test="${message_err != null}">
+        toastr.error('${message_err}');
+        </c:if>
+    }
+</script>
 
 </body>
 </html>

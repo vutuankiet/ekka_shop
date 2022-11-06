@@ -37,6 +37,7 @@ public class OrderDto {
     Timestamp created_at;
     Timestamp updated_at;
     int state;
+    String url;
 
 
     List<String> product;

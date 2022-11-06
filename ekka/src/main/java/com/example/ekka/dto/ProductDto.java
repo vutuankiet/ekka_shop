@@ -23,7 +23,7 @@ public class ProductDto {
     long categoryId;
     long brandId;
     String totalProduct;
-    String priceProduct;
+    Float priceProduct;
     String discount;
     Float rating;
     Timestamp created_at;

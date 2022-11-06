@@ -3,15 +3,9 @@ package com.example.ekka.controller.home;
 import com.example.ekka.dto.CartDto;
 import com.example.ekka.dto.OrderDto;
 import com.example.ekka.dto.UrlDto;
-import com.example.ekka.entities.OrderEntity;
-import com.example.ekka.entities.ProductColorEntity;
-import com.example.ekka.entities.ProductEntity;
-import com.example.ekka.entities.UserEntity;
+import com.example.ekka.entities.*;
 import com.example.ekka.helper.GenKey;
-import com.example.ekka.service.CartService;
-import com.example.ekka.service.OrderService;
-import com.example.ekka.service.ProductService;
-import com.example.ekka.service.WishListService;
+import com.example.ekka.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,6 +37,9 @@ public class OrderController {
     @Autowired
     CartService cartService;
 
+    @Autowired
+    BillService billService;
+
     //quyền USER được vào trang này
     @PreAuthorize("hasAnyRole('ROLE_USER')")
     @PostMapping(value = "order/save")
@@ -63,10 +60,10 @@ public class OrderController {
             System.out.println("OrderDto: "+orderDto);
 
             orderService.save(orderDto);
-            model.addFlashAttribute("message_success", "Tạo mới order thành công");
+            model.addFlashAttribute("message_success", "Create new order successfully");
         } catch (Exception e) {
-            model.addFlashAttribute("message_err", "Tạo mới order không thành công");
-            System.out.println("Tạo mới order không thành công");
+            model.addFlashAttribute("message_err", "New order creation failed");
+            System.out.println("New order creation failed");
             return "redirect:/ekka/cart";
         }
 
@@ -82,14 +79,18 @@ public class OrderController {
         try {
 
 
+            List<BillEntity> listBill = billService.findByUserId(UserId);
             List<OrderEntity> listOrder = orderService.findByUserId(UserId);
             List<ProductEntity> listProduct = productService.listAllUpdatedDesc();
+            model.addAttribute("listBill",listBill);
             model.addAttribute("listOrder",listOrder);
             model.addAttribute("listProduct",listProduct);
 
             int countWishList = wishListService.countWishListUser(UserId);
             int countCart = cartService.countCartUser(UserId);
+            List<ProductEntity> listProductByState = productService.listAllProductByState();
 
+            model.addAttribute("listProductByState", listProductByState);
             model.addAttribute("countWishList", countWishList);
             model.addAttribute("countCart", countCart);
 
@@ -155,7 +156,9 @@ public class OrderController {
 
             int countWishList = wishListService.countWishListUser(UserId);
             int countCart = cartService.countCartUser(UserId);
+            List<ProductEntity> listProductByState = productService.listAllProductByState();
 
+            model.addAttribute("listProductByState", listProductByState);
             model.addAttribute("countWishList", countWishList);
             model.addAttribute("countCart", countCart);
 
@@ -167,7 +170,7 @@ public class OrderController {
             double total = 0;
             for (OrderEntity order : listOrder) {
                 double priceDiscount = Double.parseDouble(order.getProduct().getDiscount());
-                double price = Double.parseDouble(order.getProduct().getPriceProduct());
+                double price = order.getProduct().getPriceProduct();
                 total = total + (price * ((100 - priceDiscount)/100)) * order.getItem();
             }
             System.out.println("Total_price: "+ total);

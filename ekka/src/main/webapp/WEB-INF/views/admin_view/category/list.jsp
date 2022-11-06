@@ -56,7 +56,7 @@
                                         <div class="ec-vendor-block-detail" style="margin-top: 75px;">
                                             <div class="thumb-upload">
                                                 <div class="thumb-edit">
-                                                    <f:input type="file" id="thumbUpload02"
+                                                    <f:input type="file" accept="image/*" id="thumbUpload02"
                                                              cssClass="ec-image-upload" path="fileCategory"
                                                              placeholder="Chọn file"
                                                              aria-label="Ảnh đại diện" required="required"/>
@@ -98,7 +98,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-pill">Create Brand</button>
+                                        <button type="submit" class="btn btn-primary btn-pill">Create Category</button>
                                     </f:form>
                                 </div>
                             </div>
@@ -417,6 +417,41 @@
 </div> <!-- End Wrapper -->
 
 <%@include file="/WEB-INF/views/layout/admin/scripts.jsp" %>
+<script>
+    $(document).ready(function () {
+        toastr.options = {
+            'closeButton': true,
+            'debug': false,
+            'newestOnTop': false,
+            'progressBar': false,
+            'positionClass': 'toast-bottom-right',
+            'preventDuplicates': false,
+            'showDuration': '1000',
+            'hideDuration': '1000',
+            'timeOut': '5000',
+            'extendedTimeOut': '1000',
+            'showEasing': 'swing',
+            'hideEasing': 'linear',
+            'showMethod': 'fadeIn',
+            'hideMethod': 'fadeOut',
+        }
+    });
+
+    const success = setTimeout(Success, 1000);
+    const error = setTimeout(Err, 1000);
+
+    function Success() {
+        <c:if test="${message_success != null}">
+        toastr.success('${message_success}');
+        </c:if>
+    }
+
+    function Err() {
+        <c:if test="${message_err != null}">
+        toastr.error('${message_err}');
+        </c:if>
+    }
+</script>
 
 </body>
 </html>

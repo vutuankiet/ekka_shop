@@ -29,3 +29,5 @@
 <link href='/user/assets/js/plugins/data-tables/datatables.bootstrap5.min.css' rel='stylesheet'>
 <link href='/user/assets/js/plugins/data-tables/responsive.datatables.min.css' rel='stylesheet'>
 <link href='/user/assets/css/plugins/toastr.css' rel='stylesheet'>
+<link href='/user/assets/css/plugins/owl.carousel.min.css' rel='stylesheet'>
+<link href='/user/assets/css/plugins/owl.theme.default.min.css' rel='stylesheet'>

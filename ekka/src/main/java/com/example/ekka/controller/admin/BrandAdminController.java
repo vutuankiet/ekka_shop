@@ -49,9 +49,9 @@ public class BrandAdminController {
         try {
             brandDto.setLogo(saveFile(brandDto.getFileLogo()));
             brandService.save(brandDto);
-            model.addFlashAttribute("message", "Tạo mới tài khoản thành công");
+            model.addFlashAttribute("message_success", "create new successful brand");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Tạo mới tài khoản không thành công");
+            model.addFlashAttribute("message_err", "new brand creation failed");
             return "redirect:/ekka/admin/brand/list";
         }
 
@@ -77,9 +77,9 @@ public class BrandAdminController {
         try {
             brandDto.setState(0);
             brandService.deleteBrand(brandDto);
-            model.addFlashAttribute("message", "Xoa tài khoản thành công");
+            model.addFlashAttribute("message_success", "Successfully removed the brand");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Xoa tài khoản không thành công");
+            model.addFlashAttribute("message_err", "failed brand deletion");
         }
         System.out.println("id:"+id);
 
@@ -106,9 +106,9 @@ public class BrandAdminController {
         try {
             brandDto.setState(1);
             brandService.restoreBrand(brandDto);
-            model.addFlashAttribute("message", "Khoi phuc tài khoản thành công");
+            model.addFlashAttribute("message_success", "Successful brand recovery");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Khoi phuc tài khoản không thành công");
+            model.addFlashAttribute("message_err", "Brand recovery failed");
         }
         System.out.println("id:"+id);
 
@@ -146,9 +146,9 @@ public class BrandAdminController {
         System.out.println("id:"+id);
         try {
             brandService.editBrand(brandDto);
-            model.addFlashAttribute("message", "Update tài khoản thành công");
+            model.addFlashAttribute("message_success", "Brand update successful");
         } catch (Exception e) {
-            model.addFlashAttribute("message", "Update tài khoản không thành công");
+            model.addFlashAttribute("message_err", "Brand update failed");
         }
 
 

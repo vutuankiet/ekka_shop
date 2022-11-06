@@ -147,7 +147,7 @@
                                                         <tbody>
                                                         <c:forEach items="${listOrder}" var="order">
                                                             <tr>
-                                                                <th><span>${order.order_code}</span></th>
+                                                                <td><span>${order.order_code}</span></td>
                                                                 <td><span><a href="/ekka/product/${order.product.id}">${order.product.productName}</a></span></td>
                                                                 <td><span>${order.item}</span></td>
                                                                 <td><span>$${order.product.priceProduct}</span></td>
@@ -408,8 +408,8 @@
                                     </li>
                                 </ul>
                                 <div class="ec-subscribe-form">
-                                    <form id="ec-newsletter-form" name="ec-newsletter-form" method="post"
-                                          action="#">
+                                    <form id="ec-newsletter-form" name="ec-newsletter-form" method="get"
+                                          action="/ekka/contact-us">
                                         <div id="ec_news_signup" class="ec-form">
                                             <input class="ec-email" type="email" required=""
                                                    placeholder="Enter your email here..." name="ec-email" value=""/>

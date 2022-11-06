@@ -46,6 +46,10 @@ public class ProductService {
         ProductEntity productEntity = new ProductEntity();
         BeanUtils.copyProperties(productDto, productEntity);
 
+        if(productDto.getColor() == null || productDto.getSize() == null){
+            throw new Exception();
+        }
+
         ProductEntity name = productRepository.findFirstByProductName(productEntity.getProductName());
         System.out.println("Name: " + name);
         if (name == null || name.getCategory().getId() != productDto.getCategoryId()) {
@@ -68,7 +72,7 @@ public class ProductService {
 
             productRepository.save(productEntity);
         } else {
-            throw new Exception("Product da ton tai!");
+            throw new Exception("Product already exist!!");
         }
     }
 
@@ -80,6 +84,10 @@ public class ProductService {
     }
     public List<ProductEntity> listAllUpdatedDesc() {
         return (List<ProductEntity>) productRepository.findAllByUpdate_at();
+    }
+
+    public List<ProductEntity> listAllProductByState() {
+        return (List<ProductEntity>) productRepository.findAllByState();
     }
     public List<ProductEntity> listAllCategory(long id) {
         return (List<ProductEntity>) productRepository.findAllByCategoryId(id);
@@ -193,7 +201,7 @@ public class ProductService {
 
             productRepository.save(productEntity);
         } else {
-            throw new Exception("Product da ton tai!");
+            throw new Exception("Product already exist!!");
         }
 
     }

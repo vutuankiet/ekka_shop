@@ -17,8 +17,13 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         UserEntity userEntity = userRepository.findFirstByEmail(email);
-        if (userEntity == null)
+        if (userEntity == null) {
             throw new ProviderNotFoundException("error.authen.account.notfound");
+        }else{
+            if (userEntity.getState() == 2) {
+                throw new ProviderNotFoundException("error.authen.account.notActive");
+            }
+        }
         return userEntity;
     }
 }
