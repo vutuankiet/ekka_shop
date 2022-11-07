@@ -26,7 +26,7 @@
                 <!-- Header Top Message Start -->
                 <div class="col text-center header-top-center">
                     <div class="header-top-message text-upper">
-                        <span>Free Shipping</span>This Week Order Over - $75
+                        <span>Free Shipping</span>On Orders This Month
                     </div>
                 </div>
                 <!-- Header Top Message End -->

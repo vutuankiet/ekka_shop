@@ -489,7 +489,7 @@
             var discount = $(this).parents("tr").children('td.discount').text();
             var total = (price * ((100 - discount) / 100)) * el;
             $(this).parent().parent().parent().children('td.total').text('$' + (+total.toFixed(2)));
-            $(this).parent().children('input.totalPrice').val((+total.toFixed(2)))
+            $(this).parent().parent().children('input.totalPrice').val((+total.toFixed(2)))
             allTotal += total;
         })
 
