@@ -190,7 +190,7 @@
                                                                             </div>
 
                                                                             <h5 class="card-title text-dark">${brand.nameBrand}</h5>
-                                                                            <p class="item-count">535<span> items</span>
+                                                                            <p class="item-count">${brand.item == null ? 0 : brand.item}<span> items</span>
                                                                             </p>
                                                                                 <div class="d-flex justify-content-center align-items-center">
                                                                                         ${brand.state == 1 ? '<a class="btn btn-success my-3 mr-2" href="#">ACTIVE</a>' : '<a class="btn btn-danger my-3 mr-2" href="#">BLOCK</a>'}

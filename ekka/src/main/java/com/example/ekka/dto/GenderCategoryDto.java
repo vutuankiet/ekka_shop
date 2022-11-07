@@ -17,6 +17,7 @@ public class GenderCategoryDto {
     Timestamp created_at;
     Timestamp updated_at;
     int state;
+    int item;
     @NotEmpty(message = "Không được để trống trường logo")
     String genderCategoryLogo;
     MultipartFile fileGenderCategory;

@@ -16,6 +16,7 @@ public class BrandDto {
     Timestamp created_at;
     Timestamp updated_at;
     int state;
+    int item;
 
     @NotEmpty(message = "Không được để trống trường logo")
     String logo;

@@ -40,6 +40,15 @@ public interface ProductRepository extends SearchingRepository<ProductEntity, Lo
     @Query(value = "SELECT count(p.id) FROM ProductEntity p WHERE p.state = 1")
     int countAll();
 
+    @Query(value = "SELECT count(p.id) FROM ProductEntity p WHERE p.category.id = :id and p.state = 1")
+    int countCategory(@Param("id") long id);
+
+    @Query(value = "SELECT count(p.id) FROM ProductEntity p WHERE p.category.genderCategory.id = :id and p.state = 1")
+    int countGenderCategory(@Param("id") long id);
+
+    @Query(value = "SELECT count(p.id) FROM ProductEntity p WHERE p.brand.id = :id and p.state = 1")
+    int countBrand(@Param("id") long id);
+
     @Transactional //try to add this annotation
     @Modifying      // to mark delete or update query
     @Query(value = "UPDATE ProductEntity p SET p.rating = :rating, p.updated_at = current_timestamp WHERE p.id = :id")       // it will delete all the record with specific name

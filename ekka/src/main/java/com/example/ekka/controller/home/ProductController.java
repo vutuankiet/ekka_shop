@@ -73,12 +73,14 @@ public class ProductController {
                 List<ProductSizeEntity> listProductSize = productSizeService.listAll();
                 List<CategoryEntity> listCategory = categoryService.listAll();
                 List<ProductEntity> listProductByState = productService.listAllProductByState();
+                int countProduct = productService.countProduct();
 
                 model.addAttribute("listProductByState", listProductByState);
                 model.addAttribute("listGenderCategory", listGenderCategory);
                 model.addAttribute("listProductColor", listProductColor);
                 model.addAttribute("listProductSize", listProductSize);
                 model.addAttribute("listCategory", listCategory);
+                model.addAttribute("countProduct", countProduct);
 
                 System.out.println("listCategory: "+listCategory);
                 UrlDto urlDto = new UrlDto();

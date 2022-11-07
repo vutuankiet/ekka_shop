@@ -426,6 +426,9 @@
                                                     </div>
                                                     <div class="ec-t-review-content">
                                                         <div class="ec-t-review-top">
+                                                            <div class="ec-t-review-name"><i class="ecicon eci-clock-o mr-1"></i><fmt:formatDate pattern = "kk:mm"
+                                                                                                                                                 value = "${review.created_at}"/><i class="ecicon eci-calendar ml-2 mr-1"></i><fmt:formatDate pattern = "dd/MM/yyyy"
+                                                                                                                                                                     value = "${review.created_at}"/></div>
                                                             <div class="ec-t-review-name">${review.user.fullName}</div>
                                                             <div class="ec-t-review-rating">
                                                                 <c:if test="${review.rating == 1}">

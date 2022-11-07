@@ -38,6 +38,10 @@ public class GenderCategoryEntity {
     @Column(name = "STATE")
     private int state;
 
+    @Basic
+    @Column(name = "ITEM")
+    private int item;
+
 //    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
 //    List<CategoryEntity> categoryEntityList;
 

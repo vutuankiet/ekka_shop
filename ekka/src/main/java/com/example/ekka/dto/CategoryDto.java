@@ -21,6 +21,7 @@ public class CategoryDto {
     Timestamp created_at;
     Timestamp updated_at;
     int state;
+    int item;
     @NotEmpty(message = "Không được để trống trường logo")
     String categoryLogo;
     MultipartFile fileCategory;

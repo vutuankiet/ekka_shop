@@ -37,6 +37,10 @@ public class BrandEntity {
     @Column(name = "STATE")
     private int state;
 
+    @Basic
+    @Column(name = "ITEM")
+    private int item;
+
     @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL) // Quan hệ 1-n với đối tượng ở dưới (Person) (1 địa điểm có nhiều người ở)
     // MapopedBy trỏ tới tên biến brand ở trong ProductEntity.
     @EqualsAndHashCode.Exclude // không sử dụng trường này trong equals và hashcode

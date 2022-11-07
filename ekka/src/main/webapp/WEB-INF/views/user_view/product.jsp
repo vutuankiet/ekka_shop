@@ -28,18 +28,23 @@
 <!-- ekka Cart End -->
 
 <!-- Ec breadcrumb start -->
-<div class="sticky-header-next-sec  ec-breadcrumb section-space-mb">
+<div class="sticky-header-next-sec ec-breadcrumb section-space-mb" style="margin-bottom: 20px!important;">
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="row ec_breadcrumb_inner">
                     <div class="col-md-6 col-sm-12">
-                        <h2 class="ec-breadcrumb-title">Shop</h2>
+                        <c:if test="${list.genderCategory == null || list.genderCategory == '' && list.category == null || list.category == ''}">
+                            <h2 class="ec-breadcrumb-title">Shop (${list.total})</h2>
+                        </c:if>
+                        <c:if test="${list.genderCategory != null && list.genderCategory != '' && list.category != null && list.category != ''}">
+                                <h2 class="ec-breadcrumb-title">Shop | ${list.genderCategory} | ${list.category} (${list.total})</h2>
+                            </c:if>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <!-- ec-breadcrumb-list start -->
                         <ul class="ec-breadcrumb-list">
-                            <li class="ec-breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="ec-breadcrumb-item"><a href="/ekka">Home</a></li>
                             <li class="ec-breadcrumb-item active">Shop</li>
                         </ul>
                         <!-- ec-breadcrumb-list end -->
@@ -55,6 +60,11 @@
 <section class="ec-page-content section-space-p" style="padding-top: 0!important;">
     <div class="container">
         <div class="row">
+            <c:if test="${list.key != '' && list.key != null}">
+                <div class="ec-shop-rightside col-lg-12 col-md-12 my-3">
+                    <h4>Search Results: <span class="text-info">${list.key}</span> (${list.total})</h4>
+                </div>
+            </c:if>
             <div class="ec-shop-rightside col-lg-12 col-md-12">
                 <!-- Shop Top Start -->
                 <div class="ec-pro-list-top d-flex">
@@ -372,11 +382,13 @@
                         <div class="ec-sb-block-content">
                             <ul>
                                 <li>
-                                    <div class="ec-sidebar-block-item d-flex"><a class="m-0" href="/ekka/product"><img
+                                    <div class="ec-sidebar-block-item d-flex justify-content-between"><a class="m-0" href="/ekka/product"><img
                                             src="https://firebasestorage.googleapis.com/v0/b/k34dl-8e937.appspot.com/o/1-all.png?alt=media&token=60e0d390-ad16-4500-879c-9b66ec7c331c"
                                             class="svg_img"
                                             style="width: 25px; border: 1px solid white; padding: 1px;"
-                                            alt="drink"/>ALL</a></div>
+                                            alt="drink"/>ALL</a>
+                                        <p>(${countProduct == null ? 0 : countProduct})</p>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
@@ -384,19 +396,24 @@
                             <div class="ec-sb-block-content">
                                 <ul>
                                     <li>
-                                        <div class="ec-sidebar-block-item"><img
-                                                src="${genderCategory.genderCategoryLogo}" class="svg_img"
+                                        <div class="ec-sidebar-block-item d-flex justify-content-between">
+                                            <div>
+                                            <img src="${genderCategory.genderCategoryLogo}" class="svg_img"
                                                 style="width: 25px; border: 1px solid white; padding: 1px;"
-                                                alt="drink">${genderCategory.genderCategoryName}</div>
+                                                 alt="drink">${genderCategory.genderCategoryName}</div>
+                                                <div>(${genderCategory.item == null ? 0 : genderCategory.item})</div>
+
+                                        </div>
                                         <ul style="display: none;" class="ec-cat-sub-dropdown">
                                             <c:forEach items="${listCategory}" var="category">
                                                 <c:if test="${category.genderCategory.id == genderCategory.id}">
-                                                    <li class="py-2">
+                                                    <li class="py-2 d-flex justify-content-between">
                                                         <div class="ec-sidebar-sub-item"><a
                                                                 href="/ekka/product?page=0&perpage=12&key=&category=${category.categoryName}&genderCategory=${genderCategory.genderCategoryName}&firstPrice=${list.firstPrice}&lastPrice=${list.lastPrice}">${category.categoryName}
                                                             <span
                                                                     title="Available Stock"></span></a>
                                                         </div>
+                                                        <div>(${category.item == null ? 0 : category.item})</div>
                                                     </li>
                                                 </c:if>
                                             </c:forEach>

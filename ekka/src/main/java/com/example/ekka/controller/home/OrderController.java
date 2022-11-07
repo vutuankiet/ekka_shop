@@ -169,9 +169,8 @@ public class OrderController {
 
             double total = 0;
             for (OrderEntity order : listOrder) {
-                double priceDiscount = Double.parseDouble(order.getProduct().getDiscount());
-                double price = order.getProduct().getPriceProduct();
-                total = total + (price * ((100 - priceDiscount)/100)) * order.getItem();
+                double price = Double.parseDouble(order.getPrice());
+                total = total + price;
             }
             System.out.println("Total_price: "+ total);
             OrderDto orderDto = new OrderDto();

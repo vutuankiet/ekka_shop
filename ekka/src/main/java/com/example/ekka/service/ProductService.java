@@ -31,6 +31,9 @@ public class ProductService {
     CategoryRepository categoryRepository;
 
     @Autowired
+    GenderCategoryRepository genderCategoryRepository;
+
+    @Autowired
     ProductImageRepository productImageRepository;
 
     @Autowired
@@ -71,6 +74,17 @@ public class ProductService {
             System.out.println("Image: "+productDto.getImage());
 
             productRepository.save(productEntity);
+
+            int countProductCategory = countProductCategory(productDto.getCategoryId());
+            categoryRepository.changeItem(countProductCategory, productDto.getCategoryId());
+
+            int countProductBrand = countBrand(productDto.getBrandId());
+            brandRepository.changeItem(countProductBrand, productDto.getBrandId());
+
+            ProductEntity nameproduct = productRepository.findFirstByProductName(productEntity.getProductName());
+            int countProductGenderCategory = countProductGenderCategory(nameproduct.getCategory().getGenderCategory().getId());
+            genderCategoryRepository.changeItem(countProductGenderCategory, nameproduct.getCategory().getGenderCategory().getId());
+
         } else {
             throw new Exception("Product already exist!!");
         }
@@ -81,6 +95,18 @@ public class ProductService {
     }
     public int countProduct() {
         return productRepository.countAll();
+    }
+
+    public int countProductCategory(long id) {
+        return productRepository.countCategory(id);
+    }
+
+    public int countProductGenderCategory(long id) {
+        return productRepository.countGenderCategory(id);
+    }
+
+    public int countBrand(long id) {
+        return productRepository.countBrand(id);
     }
     public List<ProductEntity> listAllUpdatedDesc() {
         return (List<ProductEntity>) productRepository.findAllByUpdate_at();
@@ -126,6 +152,16 @@ public class ProductService {
 
         productRepository.save(productEntity);
 
+        int countProductCategory = countProductCategory(productDto.getCategoryId());
+        categoryRepository.changeItem(countProductCategory, productDto.getCategoryId());
+
+        int countProductBrand = countBrand(productDto.getBrandId());
+        brandRepository.changeItem(countProductBrand, productDto.getBrandId());
+
+        ProductEntity nameproduct = productRepository.findFirstByProductName(productEntity.getProductName());
+        int countProductGenderCategory = countProductGenderCategory(nameproduct.getCategory().getGenderCategory().getId());
+        genderCategoryRepository.changeItem(countProductGenderCategory, nameproduct.getCategory().getGenderCategory().getId());
+
     }
 
     public void restoreProduct(ProductDto productDto) throws Exception {
@@ -151,6 +187,16 @@ public class ProductService {
         productEntity.setBrand(brandRepository.findById(productDto.getBrandId()).orElse(null));
 
         productRepository.save(productEntity);
+
+        int countProductCategory = countProductCategory(productDto.getCategoryId());
+        categoryRepository.changeItem(countProductCategory, productDto.getCategoryId());
+
+        int countProductBrand = countBrand(productDto.getBrandId());
+        brandRepository.changeItem(countProductBrand, productDto.getBrandId());
+
+        ProductEntity nameproduct = productRepository.findFirstByProductName(productEntity.getProductName());
+        int countProductGenderCategory = countProductGenderCategory(nameproduct.getCategory().getGenderCategory().getId());
+        genderCategoryRepository.changeItem(countProductGenderCategory, nameproduct.getCategory().getGenderCategory().getId());
 
     }
 

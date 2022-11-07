@@ -190,7 +190,7 @@
                                                                             </div>
 
                                                                             <h5 class="card-title text-dark">${genderCategory.genderCategoryName}</h5>
-                                                                            <p class="item-count">535<span> items</span>
+                                                                            <p class="item-count">${genderCategory.item == null ? 0 : genderCategory.item}<span> items</span>
                                                                             </p>
                                                                             <div class="d-flex justify-content-center align-items-center">
                                                                                     ${genderCategory.state == 1 ? '<a class="btn btn-success my-3 mr-2" href="#">ACTIVE</a>' : '<a class="btn btn-danger my-3 mr-2" href="#">BLOCK</a>'}

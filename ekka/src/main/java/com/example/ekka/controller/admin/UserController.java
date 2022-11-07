@@ -75,7 +75,7 @@ public class UserController {
     public String save(@Valid @ModelAttribute("userDto") UserDto userDto,
                        BindingResult bindingResult, RedirectAttributes model, Model m) {
         if (!Objects.equals(userDto.getPassword(), userDto.getRePassword())) {
-            bindingResult.rejectValue("rePassword","error.userDto", "Mật khẩu không trùng khớp");
+            bindingResult.rejectValue("rePassword","error.userDto", "password does not match");
         }
         if (bindingResult.hasErrors()) {
             return "auth/user/list";
