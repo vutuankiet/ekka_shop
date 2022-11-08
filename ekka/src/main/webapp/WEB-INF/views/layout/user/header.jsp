@@ -351,10 +351,10 @@
 
 <script>
     var search = function() {
-        window.location.href = "/ekka/product?page=${list.page - 1}&perpage=${list.perpage}&key=" + document.getElementById("search").value+"&category=${list.category}&genderCategory=${list.genderCategory}&firstPrice=${list.firstPrice}&lastPrice=${list.lastPrice}";
+        window.location.href = "/ekka/product?page=${list.page - 1}&perpage=${list.perpage}&key=" + document.getElementById("search").value+"&category=${list.category}&genderCategory=${list.genderCategory}&brand=${list.brand}&firstPrice=${list.firstPrice}&lastPrice=${list.lastPrice}";
     }
     var search1 = function() {
-        window.location.href = "/ekka/product?page=${list.page - 1}&perpage=${list.perpage}&key=" + document.getElementById("search1").value+"&category=${list.category}&genderCategory=${list.genderCategory}&firstPrice=${list.firstPrice}&lastPrice=${list.lastPrice}";
+        window.location.href = "/ekka/product?page=${list.page - 1}&perpage=${list.perpage}&key=" + document.getElementById("search1").value+"&category=${list.category}&genderCategory=${list.genderCategory}&brand=${list.brand}&firstPrice=${list.firstPrice}&lastPrice=${list.lastPrice}";
     }
 
     var substringMatcher = function(strs) {

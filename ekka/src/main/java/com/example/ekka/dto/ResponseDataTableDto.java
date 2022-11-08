@@ -21,6 +21,7 @@ public class ResponseDataTableDto {
     Integer total;
     String category;
     String genderCategory;
+    String brand;
     Float firstPrice;
     Float lastPrice;
     List<?> data;
@@ -28,7 +29,7 @@ public class ResponseDataTableDto {
     String sort;
     ModelAndViewContainer model;
 
-    public ResponseDataTableDto(String path, Integer page, Integer perpage, String key, String category, String genderCategory,String sort,float firstPrice, float
+    public ResponseDataTableDto(String path, Integer page, Integer perpage, String key, String category, String genderCategory, String brand,String sort,float firstPrice, float
             lastPrice, ModelAndViewContainer model) {
         this.path = path;
         this.page = page;
@@ -40,6 +41,7 @@ public class ResponseDataTableDto {
         this.firstPrice = firstPrice;
         this.lastPrice = lastPrice;
         this.sort = sort;
+        this.brand = brand;
     }
 
     public void list1(PagingDAO dao) throws Exception {
@@ -63,7 +65,7 @@ public class ResponseDataTableDto {
     public void list(SearchingRepository searchingRepository) throws Exception {
         if(sort == null){
             Pageable pageable = PageRequest.of(page-1, perpage,Sort.by(Sort.Direction.DESC, "created_at"));
-            Page<?> pages = searchingRepository.findAllProduct(key == null?"":key,category == null?"":category,genderCategory == null?"":genderCategory, firstPrice, lastPrice, pageable);
+            Page<?> pages = searchingRepository.findAllProduct(key == null?"":key,category == null?"":category,genderCategory == null?"":genderCategory,brand == null?"":brand, firstPrice, lastPrice, pageable);
             this.setData(pages.getContent());
             long total = pages.getTotalElements();
             this.setTotal((int)total);
@@ -73,7 +75,7 @@ public class ResponseDataTableDto {
         }
         if(Objects.equals(sort, "AtoZ")){
             Pageable pageable = PageRequest.of(page-1, perpage,Sort.by(Sort.Direction.ASC, "productName"));
-            Page<?> pages = searchingRepository.findAllProduct(key == null?"":key,category == null?"":category,genderCategory == null?"":genderCategory, firstPrice, lastPrice, pageable);
+            Page<?> pages = searchingRepository.findAllProduct(key == null?"":key,category == null?"":category,genderCategory == null?"":genderCategory,brand == null?"":brand, firstPrice, lastPrice, pageable);
             this.setData(pages.getContent());
             long total = pages.getTotalElements();
             this.setTotal((int)total);
@@ -83,7 +85,7 @@ public class ResponseDataTableDto {
         }
         if(Objects.equals(sort, "ZtoA")){
             Pageable pageable = PageRequest.of(page-1, perpage,Sort.by(Sort.Direction.DESC, "productName"));
-            Page<?> pages = searchingRepository.findAllProduct(key == null?"":key,category == null?"":category,genderCategory == null?"":genderCategory, firstPrice, lastPrice, pageable);
+            Page<?> pages = searchingRepository.findAllProduct(key == null?"":key,category == null?"":category,genderCategory == null?"":genderCategory,brand == null?"":brand, firstPrice, lastPrice, pageable);
             this.setData(pages.getContent());
             long total = pages.getTotalElements();
             this.setTotal((int)total);
@@ -93,7 +95,7 @@ public class ResponseDataTableDto {
         }
         if(Objects.equals(sort, "LowToHigh")){
             Pageable pageable = PageRequest.of(page-1, perpage,Sort.by(Sort.Direction.ASC, "priceProduct"));
-            Page<?> pages = searchingRepository.findAllProduct(key == null?"":key,category == null?"":category,genderCategory == null?"":genderCategory, firstPrice, lastPrice, pageable);
+            Page<?> pages = searchingRepository.findAllProduct(key == null?"":key,category == null?"":category,genderCategory == null?"":genderCategory,brand == null?"":brand, firstPrice, lastPrice, pageable);
             this.setData(pages.getContent());
             long total = pages.getTotalElements();
             this.setTotal((int)total);
@@ -103,7 +105,7 @@ public class ResponseDataTableDto {
         }
         if(Objects.equals(sort, "HighToLow")){
             Pageable pageable = PageRequest.of(page-1, perpage,Sort.by(Sort.Direction.DESC, "priceProduct"));
-            Page<?> pages = searchingRepository.findAllProduct(key == null?"":key,category == null?"":category,genderCategory == null?"":genderCategory, firstPrice, lastPrice, pageable);
+            Page<?> pages = searchingRepository.findAllProduct(key == null?"":key,category == null?"":category,genderCategory == null?"":genderCategory,brand == null?"":brand, firstPrice, lastPrice, pageable);
             this.setData(pages.getContent());
             long total = pages.getTotalElements();
             this.setTotal((int)total);

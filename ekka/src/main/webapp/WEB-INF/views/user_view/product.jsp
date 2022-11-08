@@ -34,12 +34,17 @@
             <div class="col-12">
                 <div class="row ec_breadcrumb_inner">
                     <div class="col-md-6 col-sm-12">
-                        <c:if test="${list.genderCategory == null || list.genderCategory == '' && list.category == null || list.category == ''}">
-                            <h2 class="ec-breadcrumb-title">Shop (${list.total})</h2>
-                        </c:if>
-                        <c:if test="${list.genderCategory != null && list.genderCategory != '' && list.category != null && list.category != ''}">
+                        <c:if test="${list.brand == null || list.brand == ''}">
+                            <c:if test="${list.genderCategory == null || list.genderCategory == '' && list.category == null || list.category == ''}">
+                                <h2 class="ec-breadcrumb-title">Shop (${list.total})</h2>
+                            </c:if>
+                            <c:if test="${list.genderCategory != null && list.genderCategory != '' && list.category != null && list.category != ''}">
                                 <h2 class="ec-breadcrumb-title">Shop | ${list.genderCategory} | ${list.category} (${list.total})</h2>
                             </c:if>
+                        </c:if>
+                        <c:if test="${list.brand != null && list.brand != ''}">
+                            <h2 class="ec-breadcrumb-title">Shop | ${list.brand} (${list.total})</h2>
+                        </c:if>
                     </div>
                     <div class="col-md-6 col-sm-12">
                         <!-- ec-breadcrumb-list start -->
@@ -86,16 +91,16 @@
                         </button>
                         <div class="dropdown-menu">
                             <a class="dropdown-item"
-                               href="/ekka/product?page=1&perpage=12&key=${list.key}&category=${list.category}&genderCategory=${list.genderCategory}&firstPrice=${list.firstPrice}&lastPrice=${list.lastPrice}&sort=AtoZ">Name,
+                               href="/ekka/product?page=1&perpage=12&key=${list.key}&category=${list.category}&genderCategory=${list.genderCategory}&brand=${list.brand}&firstPrice=${list.firstPrice}&lastPrice=${list.lastPrice}&sort=AtoZ">Name,
                                 A To Z</a>
                             <a class="dropdown-item"
-                               href="/ekka/product?page=1&perpage=12&key=${list.key}&category=${list.category}&genderCategory=${list.genderCategory}&firstPrice=${list.firstPrice}&lastPrice=${list.lastPrice}&sort=ZtoA">Name
+                               href="/ekka/product?page=1&perpage=12&key=${list.key}&category=${list.category}&genderCategory=${list.genderCategory}&brand=${list.brand}&firstPrice=${list.firstPrice}&lastPrice=${list.lastPrice}&sort=ZtoA">Name
                                 Z To A</a>
                             <a class="dropdown-item"
-                               href="/ekka/product?page=1&perpage=12&key=${list.key}&category=${list.category}&genderCategory=${list.genderCategory}&firstPrice=${list.firstPrice}&lastPrice=${list.lastPrice}&sort=LowToHigh">Price,
+                               href="/ekka/product?page=1&perpage=12&key=${list.key}&category=${list.category}&genderCategory=${list.genderCategory}&brand=${list.brand}&firstPrice=${list.firstPrice}&lastPrice=${list.lastPrice}&sort=LowToHigh">Price,
                                 Low To High</a>
                             <a class="dropdown-item"
-                               href="/ekka/product?page=1&perpage=12&key=${list.key}&category=${list.category}&genderCategory=${list.genderCategory}&firstPrice=${list.firstPrice}&lastPrice=${list.lastPrice}&sort=HighToLow">Price,
+                               href="/ekka/product?page=1&perpage=12&key=${list.key}&category=${list.category}&genderCategory=${list.genderCategory}&brand=${list.brand}&firstPrice=${list.firstPrice}&lastPrice=${list.lastPrice}&sort=HighToLow">Price,
                                 High To Low</a>
                         </div>
                     </div>
@@ -382,7 +387,7 @@
                         <div class="ec-sb-block-content">
                             <ul>
                                 <li>
-                                    <div class="ec-sidebar-block-item d-flex justify-content-between"><a class="m-0" href="/ekka/product"><img
+                                    <div class="d-flex justify-content-between"><a class="m-0" href="/ekka/product"><img
                                             src="https://firebasestorage.googleapis.com/v0/b/k34dl-8e937.appspot.com/o/1-all.png?alt=media&token=60e0d390-ad16-4500-879c-9b66ec7c331c"
                                             class="svg_img"
                                             style="width: 25px; border: 1px solid white; padding: 1px;"
@@ -409,7 +414,7 @@
                                                 <c:if test="${category.genderCategory.id == genderCategory.id}">
                                                     <li class="py-2 d-flex justify-content-between">
                                                         <div class="ec-sidebar-sub-item"><a
-                                                                href="/ekka/product?page=0&perpage=12&key=&category=${category.categoryName}&genderCategory=${genderCategory.genderCategoryName}&firstPrice=${list.firstPrice}&lastPrice=${list.lastPrice}">${category.categoryName}
+                                                                href="/ekka/product?page=0&perpage=12&key=&category=${category.categoryName}&genderCategory=${genderCategory.genderCategoryName}&brand=&firstPrice=${list.firstPrice}&lastPrice=${list.lastPrice}">${category.categoryName}
                                                             <span
                                                                     title="Available Stock"></span></a>
                                                         </div>
@@ -422,6 +427,28 @@
                                 </ul>
                             </div>
                         </c:forEach>
+                    </div>
+                </div>
+                <div class="ec-sidebar-block">
+                    <div class="ec-sb-title">
+                        <h3 class="ec-sidebar-title">Brand</h3>
+                    </div>
+                    <div class="ec-sidebar-block">
+                        <div class="ec-sb-block-content">
+                            <ul>
+                                <c:forEach items="${listBrand}" var="brand">
+                                <li>
+                                    <div class="d-flex justify-content-between"><a class="m-0" href="/ekka/product?page=0&perpage=12&key=&category=&genderCategory=&brand=${brand.nameBrand}&firstPrice=${list.firstPrice}&lastPrice=${list.lastPrice}"><img
+                                            src="${brand.logo}"
+                                            class="svg_img"
+                                            style="width: 25px; border: 1px solid white; padding: 1px;"
+                                            alt="drink"/>${brand.nameBrand}</a>
+                                        <p>(${brand.item == null ? 0 : brand.item})</p>
+                                    </div>
+                                </li>
+                                </c:forEach>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <!-- Sidebar Price Block -->
@@ -438,6 +465,7 @@
                                     <input class="d-none" name="key" value="${list.key}">
                                     <input class="d-none" name="category" value="${list.category}">
                                     <input class="d-none" name="genderCategory" value="${list.genderCategory}">
+                                    <input class="d-none" name="brand" value="${list.brand}">
                                     <label class="filter__label">$<input type="number" value="<fmt:formatNumber
                                                             maxFractionDigits="0"
                                                             value="${list.firstPrice}"></fmt:formatNumber>"
@@ -466,16 +494,6 @@
 <!-- Footer Start -->
 <footer class="ec-footer section-space-mt">
     <div class="footer-container">
-        <div class="footer-offer">
-            <div class="container">
-                <div class="row">
-                    <div class="text-center footer-off-msg">
-                        <span>Win a contest! Get this limited-editon</span><a href="#" target="_blank">View
-                        Detail</a>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="footer-top section-space-footer-p">
             <div class="container">
                 <div class="row">

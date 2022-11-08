@@ -59,6 +59,6 @@ public interface ProductRepository extends SearchingRepository<ProductEntity, Lo
     @Query(value = "UPDATE ProductEntity p SET p.totalProduct = :total, p.updated_at = current_timestamp WHERE p.id = :id")       // it will delete all the record with specific name
     int changeTotal(@Param("total") String total, @Param("id") long id);
 
-    @Query(value = "select p from ProductEntity p where p.state= 1 and p.productName like %:key% and p.category.categoryName like %:category% and p.category.genderCategory.genderCategoryName like %:genderCategory% and p.priceProduct > :firstPrice and p.priceProduct < :lastPrice")
-    Page<ProductEntity> findAllProduct(@Param("key") String key, @Param("category") String category, @Param("genderCategory") String genderCategory, @Param("firstPrice") float firstPrice, @Param("lastPrice") float lastPrice, Pageable pageable);
+    @Query(value = "select p from ProductEntity p where p.state= 1 and p.productName like %:key% and p.category.categoryName like %:category% and p.category.genderCategory.genderCategoryName like %:genderCategory% and p.brand.nameBrand like %:brand% and p.priceProduct > :firstPrice and p.priceProduct < :lastPrice")
+    Page<ProductEntity> findAllProduct(@Param("key") String key, @Param("category") String category, @Param("genderCategory") String genderCategory, @Param("brand") String brand, @Param("firstPrice") float firstPrice, @Param("lastPrice") float lastPrice, Pageable pageable);
 }

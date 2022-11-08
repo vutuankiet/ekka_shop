@@ -162,12 +162,21 @@
                                                     <td data-label="Quantity"
                                                         style="text-align: center;">
                                                         <div class="form-group">
+                                                            <c:if test="${cartUserId.product.totalProduct > 0}">
                                                             <input class="form-control px-3 py-0 item"
                                                                    style="height: 40px!important;min-height: 40px!important; width: 75px;"
                                                                    type="number" min="1"
                                                                    max="${cartUserId.product.totalProduct}"
                                                                    value="${cartUserId.product.totalProduct == 0 ? 0 : cartUserId.item}"/>
-
+                                                            </c:if>
+                                                            <c:if test="${cartUserId.product.totalProduct <= 0}">
+                                                                <input class="form-control px-3 py-0 item d-none"
+                                                                       style="height: 40px!important;min-height: 40px!important; width: 75px;"
+                                                                       type="number" min="0"
+                                                                       max="${cartUserId.product.totalProduct}"
+                                                                       value="${cartUserId.product.totalProduct == 0 ? 0 : cartUserId.item}"/>
+                                                                <span class="text-danger">(Empty)</span>
+                                                            </c:if>
                                                         </div>
                                                         <f:input cssClass="itemProduct d-none" path="itemProduct" value="${cartUserId.item}"></f:input>
                                                         <f:input cssClass="totalPrice d-none" path="totalPrice" value="${cartUserId.price}"></f:input>
@@ -277,16 +286,6 @@
 <!-- Footer Start -->
 <footer class="ec-footer section-space-mt">
     <div class="footer-container">
-        <div class="footer-offer">
-            <div class="container">
-                <div class="row">
-                    <div class="text-center footer-off-msg">
-                        <span>Win a contest! Get this limited-editon</span><a href="#" target="_blank">View
-                        Detail</a>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="footer-top section-space-footer-p">
             <div class="container">
                 <div class="row">
@@ -559,6 +558,9 @@
     function Err() {
         <c:if test="${message_err != null}">
         toastr.error('${message_err}');
+        </c:if>
+        <c:if test="${message_err_empty != null}">
+        toastr.error('${message_err_empty}');
         </c:if>
     }
 </script>

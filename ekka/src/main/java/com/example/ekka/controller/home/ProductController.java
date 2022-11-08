@@ -73,6 +73,7 @@ public class ProductController {
                 List<ProductSizeEntity> listProductSize = productSizeService.listAll();
                 List<CategoryEntity> listCategory = categoryService.listAll();
                 List<ProductEntity> listProductByState = productService.listAllProductByState();
+                List<BrandEntity> listBrand = brandService.listAll();
                 int countProduct = productService.countProduct();
 
                 model.addAttribute("listProductByState", listProductByState);
@@ -80,6 +81,7 @@ public class ProductController {
                 model.addAttribute("listProductColor", listProductColor);
                 model.addAttribute("listProductSize", listProductSize);
                 model.addAttribute("listCategory", listCategory);
+                model.addAttribute("listBrand", listBrand);
                 model.addAttribute("countProduct", countProduct);
 
                 System.out.println("listCategory: "+listCategory);
@@ -100,7 +102,9 @@ public class ProductController {
                 List<ProductColorEntity> listProductColor = productColorService.listAll();
                 List<ProductSizeEntity> listProductSize = productSizeService.listAll();
                 List<CategoryEntity> listCategory = categoryService.listAll();
+                List<BrandEntity> listBrand = brandService.listAll();
                 List<ProductEntity> listProductByState = productService.listAllProductByState();
+                int countProduct = productService.countProduct();
 
                 model.addAttribute("listProductByState", listProductByState);
                 int countWishList = wishListService.countWishListUser(id);
@@ -114,7 +118,9 @@ public class ProductController {
                 model.addAttribute("listGenderCategory", listGenderCategory);
                 model.addAttribute("listProductColor", listProductColor);
                 model.addAttribute("listProductSize", listProductSize);
+                model.addAttribute("listBrand", listBrand);
                 model.addAttribute("listCategory", listCategory);
+                model.addAttribute("countProduct", countProduct);
 
                 System.out.println("listCategory: "+listCategory);
                 UrlDto urlDto = new UrlDto();

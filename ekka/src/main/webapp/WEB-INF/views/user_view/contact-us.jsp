@@ -125,16 +125,6 @@
 <!-- Footer Start -->
 <footer class="ec-footer section-space-mt">
     <div class="footer-container">
-        <div class="footer-offer">
-            <div class="container">
-                <div class="row">
-                    <div class="text-center footer-off-msg">
-                        <span>Win a contest! Get this limited-editon</span><a href="#" target="_blank">View
-                        Detail</a>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="footer-top section-space-footer-p">
             <div class="container">
                 <div class="row">

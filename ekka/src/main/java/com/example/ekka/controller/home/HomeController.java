@@ -56,6 +56,9 @@ public class HomeController {
     @Autowired
     ReviewService reviewService;
 
+    @Autowired
+    BrandService brandService;
+
     //quyền USER va an danh được vào trang này
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ANONYMOUS')")
     @GetMapping(value = {"home", "", "/"})
@@ -68,12 +71,14 @@ public class HomeController {
                 List<ProductColorEntity> listProductColor = productColorService.listAll();
                 List<ProductSizeEntity> listProductSize = productSizeService.listAll();
                 List<CategoryEntity> listCategory = categoryService.listAll();
+                List<BrandEntity> listBrand = brandService.listAll();
                 List<ProductEntity> listProductByState = productService.listAllProductByState();
 
                 model.addAttribute("listGenderCategory", listGenderCategory);
                 model.addAttribute("listProductColor", listProductColor);
                 model.addAttribute("listProductSize", listProductSize);
                 model.addAttribute("listCategory", listCategory);
+                model.addAttribute("listBrand", listBrand);
                 model.addAttribute("listProductByState", listProductByState);
 
                 UrlDto urlDto = new UrlDto();
@@ -94,6 +99,7 @@ public class HomeController {
                 List<ProductColorEntity> listProductColor = productColorService.listAll();
                 List<ProductSizeEntity> listProductSize = productSizeService.listAll();
                 List<CategoryEntity> listCategory = categoryService.listAll();
+                List<BrandEntity> listBrand = brandService.listAll();
                 List<ProductEntity> listProductByState = productService.listAllProductByState();
                 int countWishList = wishListService.countWishListUser(id);
                 int countCart = cartService.countCartUser(id);
@@ -107,6 +113,7 @@ public class HomeController {
                 model.addAttribute("listProductColor", listProductColor);
                 model.addAttribute("listProductSize", listProductSize);
                 model.addAttribute("listCategory", listCategory);
+                model.addAttribute("listBrand", listBrand);
                 model.addAttribute("listProductByState", listProductByState);
 
                 System.out.println("listWishListUserId: " + listWishListUserId);

@@ -1044,7 +1044,7 @@ public class OrderService {
                                         String totalStr = String.valueOf(total);
                                         productRepository.changeTotal(totalStr, productIdLong);
                                     }else {
-                                        throw new Exception();
+                                        throw new Exception("Please remove an empty product from the cart!");
                                     }
 
                                     double price = Double.parseDouble(orderDto.getTotalPrice().get(g));

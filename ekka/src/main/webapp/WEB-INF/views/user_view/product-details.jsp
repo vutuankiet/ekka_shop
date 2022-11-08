@@ -204,10 +204,19 @@
                                                 </p>
                                             </c:if>
                                         </div>
-                                        <div class="ec-single-stoke">
-                                            <p class="product-sku pb-1">Total: ${productDto.totalProduct}</p>
+                                        <c:if test="${productDto.totalProduct <= 0}">
+                                            <div class="ec-single-stoke">
+                                                <p class="product-sku pb-1">( Out of products )</p>
 
-                                        </div>
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${productDto.totalProduct > 0}">
+                                            <div class="ec-single-stoke">
+                                                <p class="product-sku pb-1">Total: ${productDto.totalProduct}</p>
+
+                                            </div>
+                                        </c:if>
+
                                     </div>
 
 
@@ -726,16 +735,6 @@
 <!-- Footer Start -->
 <footer class="ec-footer section-space-mt">
     <div class="footer-container">
-        <div class="footer-offer">
-            <div class="container">
-                <div class="row">
-                    <div class="text-center footer-off-msg">
-                        <span>Win a contest! Get this limited-editon</span><a href="#" target="_blank">View
-                        Detail</a>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="footer-top section-space-footer-p">
             <div class="container">
                 <div class="row">

@@ -63,6 +63,7 @@ public class OrderController {
             model.addFlashAttribute("message_success", "Create new order successfully");
         } catch (Exception e) {
             model.addFlashAttribute("message_err", "New order creation failed");
+            model.addFlashAttribute("message_err_empty", e.getMessage());
             System.out.println("New order creation failed");
             return "redirect:/ekka/cart";
         }

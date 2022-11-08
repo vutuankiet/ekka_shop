@@ -35,10 +35,11 @@ public class PagingResolver implements HandlerMethodArgumentResolver {
         String sort = webRequest.getParameter("sort");
         String category = webRequest.getParameter("category");
         String genderCategory = webRequest.getParameter("genderCategory");
+        String brand = webRequest.getParameter("brand");
         String firstPriceStr = webRequest.getParameter("firstPrice");
         float firstPrice = StringUtils.isEmpty(firstPriceStr) ? 0 : Float.parseFloat(firstPriceStr);
         String lastPriceStr = webRequest.getParameter("lastPrice");
         float lastPrice = StringUtils.isEmpty(lastPriceStr) ? 250 : Float.parseFloat(lastPriceStr);
-        return new ResponseDataTableDto(path, page, perpage, key, category, genderCategory, sort, firstPrice, lastPrice, mavContainer);
+        return new ResponseDataTableDto(path, page, perpage, key, category, genderCategory, brand, sort, firstPrice, lastPrice, mavContainer);
     }
 }
