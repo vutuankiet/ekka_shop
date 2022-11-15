@@ -105,7 +105,7 @@ public class WishListController {
     //quyền USER được vào trang này
     @PreAuthorize("hasAnyRole('ROLE_USER')")
     @PostMapping(value = "wish-list/create/{id}")
-    public String createWishList(@PathVariable(name = "id") int id, WishListDto wishListDto, @ModelAttribute("urlDto") UrlDto urlDto, RedirectAttributes model, Model m, HttpServletRequest request) {
+    public String createWishList(@PathVariable(name = "id") int id,@RequestParam String url, WishListDto wishListDto, @ModelAttribute("urlDto") UrlDto urlDto, RedirectAttributes model, Model m, HttpServletRequest request) {
         // Lấy ID của tài khoản  đa đăng nhập
         long UserId = ((UserEntity) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal()).getId();
@@ -120,15 +120,15 @@ public class WishListController {
         }
         System.out.println("id:"+id);
 
-        System.out.println("Url:" + urlDto.getUrl());
+        System.out.println("Url:" + url);
 
-        return "redirect:"+urlDto.getUrl();
+        return "redirect:"+url;
     }
 
     //quyền USER được vào trang này
     @PreAuthorize("hasAnyRole('ROLE_USER')")
     @PostMapping(value = "wish-list/delete/{id}")
-    public String deleteWishList(@PathVariable(name = "id") int id, WishListDto wishListDto, @ModelAttribute("urlDto") UrlDto urlDto, RedirectAttributes model, Model m) {
+    public String deleteWishList(@PathVariable(name = "id") int id,@RequestParam String url, WishListDto wishListDto, @ModelAttribute("urlDto") UrlDto urlDto, RedirectAttributes model, Model m) {
         try {
             wishListDto.setId(id);
             wishListService.deleteWishList(wishListDto);
@@ -139,6 +139,6 @@ public class WishListController {
         System.out.println("id:"+id);
 
 
-        return "redirect:"+urlDto.getUrl();
+        return "redirect:"+url;
     }
 }

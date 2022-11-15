@@ -2,7 +2,9 @@ package com.example.ekka.service;
 
 import com.example.ekka.dto.GenderCategoryDto;
 import com.example.ekka.entities.GenderCategoryEntity;
+import com.example.ekka.repository.category.CategoryRepository;
 import com.example.ekka.repository.genderCategory.GenderCategoryRepository;
+import com.example.ekka.repository.product.ProductRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,12 @@ import java.util.List;
 public class GenderCategoryService {
     @Autowired
     GenderCategoryRepository genderCategoryRepository;
+
+    @Autowired
+    CategoryRepository categoryRepository;
+
+    @Autowired
+    ProductRepository productRepository;
 
     public void save(GenderCategoryDto genderCategoryDto) throws Exception {
         GenderCategoryEntity genderCategoryEntity = new GenderCategoryEntity();
@@ -41,6 +49,10 @@ public class GenderCategoryService {
         return (List<GenderCategoryEntity>) genderCategoryRepository.findAllByUpdate_at();
     }
 
+    public List<GenderCategoryEntity> listAllByState() {
+        return (List<GenderCategoryEntity>) genderCategoryRepository.findAllByState();
+    }
+
     public GenderCategoryEntity get(long id) {
         return genderCategoryRepository.findById(id).get();
     }
@@ -58,7 +70,8 @@ public class GenderCategoryService {
         genderCategoryEntity.setUpdated_at(timestamp);
 
         genderCategoryRepository.save(genderCategoryEntity);
-
+        categoryRepository.deleteByGenderCategory(genderCategoryDto.getId());
+//        productRepository.deleteByGenderCategory(genderCategoryDto.getId());
     }
 
     public void restoreGenderCategory(GenderCategoryDto genderCategoryDto) throws Exception {
@@ -74,7 +87,8 @@ public class GenderCategoryService {
         genderCategoryEntity.setUpdated_at(timestamp);
 
         genderCategoryRepository.save(genderCategoryEntity);
-
+        categoryRepository.restoreByGenderCategory(genderCategoryDto.getId());
+//        productRepository.restoreByGenderCategory(genderCategoryDto.getId());
     }
 
     public void editGenderCategory(GenderCategoryDto genderCategoryDto) throws Exception {

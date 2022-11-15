@@ -35,7 +35,7 @@ public class CategoryEntity {
 //    private GenderCategoryEntity genderCategory;
 
     @ManyToOne
-    @JoinColumn(name = "GENDER_CATEGORY_ID") // thông qua khóa ngoại address_id
+    @JoinColumn(name = "GENDER_CATEGORY_ID") // thông qua khóa ngoại gender_category_id
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
     private GenderCategoryEntity genderCategory;

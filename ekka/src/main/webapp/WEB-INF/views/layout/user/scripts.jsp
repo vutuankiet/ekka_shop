@@ -1,5 +1,5 @@
 <!-- Vendor JS -->
-<script src="/user/assets/js/vendor/jquery-3.5.1.min.js"></script>
+
 <script src="/user/assets/js/vendor/jquery.notify.min.js"></script>
 <script src="/user/assets/js/vendor/jquery.bundle.notify.min.js"></script>
 

@@ -1039,13 +1039,19 @@ public class OrderService {
                                     long productIdLong = Long.parseLong(orderDto.getProduct().get(i));
                                     ProductEntity productEntity = productService.get(productIdLong);
                                     int item = Integer.parseInt(productEntity.getTotalProduct());
+                                    if(productEntity.getState() == 0){
+                                        cartRepository.deleteById(Long.parseLong(orderDto.getCart().get(c)));
+                                        throw new Exception("Product does not exist, automatically removed from cart!");
+                                    }
                                     if(item >= orderEntity.getItem()){
                                         int total = item - orderEntity.getItem();
                                         String totalStr = String.valueOf(total);
                                         productRepository.changeTotal(totalStr, productIdLong);
                                     }else {
-                                        throw new Exception("Please remove an empty product from the cart!");
+                                        cartRepository.deleteById(Long.parseLong(orderDto.getCart().get(c)));
+                                        throw new Exception("Detect products out of stock, and automatically remove from the cart!");
                                     }
+
 
                                     double price = Double.parseDouble(orderDto.getTotalPrice().get(g));
                                     totalPrice = totalPrice + price;

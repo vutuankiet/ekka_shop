@@ -138,9 +138,10 @@
                                                             src="/user/assets/images/icons/quickview.svg"
                                                             class="svg_img pro_svg"
                                                             alt=""/></a>
+                                                    <sec:authorize access="hasAnyRole('ROLE_USER')">
                                                     <div class="ec-pro-actions">
                                                         <c:if test="${product.totalProduct <= 0}">
-                                                            <button style="background-color: #555555;" type="button" title="Add To Cart" class="add-to-cart">
+                                                            <button disabled="disabled" style="background-color: #555555;" type="button" title="Add To Cart" class="add-to-cart">
                                                                 <img style="fill: #FFFFFF;"
                                                                      src="/user/assets/images/icons/cart.svg"
                                                                      class="svg_img pro_svg"
@@ -148,65 +149,135 @@
                                                             </button>
                                                         </c:if>
                                                         <c:if test="${product.totalProduct > 0}">
-                                                            <f:form method="post"
-                                                                    action="/ekka/cart/create/${product.id}"
-                                                                    modelAttribute="urlDto">
-                                                                <f:input type="text" path="url" value="${urlDto.url}"
-                                                                         cssClass="d-none"/>
-                                                                <button type="submit" title="Add To Cart" class="add-to-cart">
-                                                                    <img
-                                                                            src="/user/assets/images/icons/cart.svg"
-                                                                            class="svg_img pro_svg"
-                                                                            alt=""/> Add To Cart
-                                                                </button>
-                                                            </f:form>
+
+                                                            <button title="Add To Cart"
+                                                                    class="btn-active-cart-${product.id} add-to-cart btn-save-${product.id}"><img
+                                                                    src="/user/assets/images/icons/cart.svg"
+                                                                    class="svg_img pro_svg" id="cart-active-${product.id}"
+                                                                    alt=""/> Add To Cart
+                                                            </button>
                                                             <c:forEach items="${listCartUserId}" var="cartUser">
                                                                 <c:if test="${product.id == cartUser.product.id}">
-                                                                    <f:form method="post"
-                                                                            action="/ekka/cart/delete/${cartUser.id}"
-                                                                            modelAttribute="urlDto">
-                                                                        <f:input type="text" path="url" value="${urlDto.url}"
-                                                                                 cssClass="d-none"/>
-
-                                                                        <button type="submit" style="background-color: #3575d4;"
-                                                                                class="add-to-cart active"
-                                                                                title="Cart"><img style="fill: white;"
-                                                                                                  src="/user/assets/images/icons/cart.svg"
-                                                                                                  class="svg_img pro_svg"
-                                                                                                  alt=""/></button>
-                                                                    </f:form>
+                                                                    <button disabled="disabled" title="Cart"
+                                                                            style="background-color: #3575d4;"
+                                                                            class="out-to-cart btn-remove-${cartUser.id}">
+                                                                        <img style="fill: #FFFFFF;"
+                                                                             src="/user/assets/images/icons/cart.svg"
+                                                                             id="cart-active-${cartUser.id}"
+                                                                             class="svg_img pro_svg"
+                                                                             alt=""/> Remove To Cart
+                                                                    </button>
                                                                 </c:if>
                                                             </c:forEach>
+                                                            <script>
+                                                                $(document).ready(function () {
+
+                                                                    $("button.btn-save-${product.id}").click(function (event) {
+
+                                                                        var url = "${urlDto.url}";
+
+                                                                        $.post("/ekka/cart/create/${product.id}", {
+                                                                            url: url,
+                                                                        }, function (data) {
+                                                                        }).done(function () {
+                                                                        }).fail(function (xhr, textStatus, errorThrown) {
+                                                                            toastr.error('New cart creation failed');
+
+                                                                        }).complete(function () {
+                                                                            $("button.btn-active-cart-${product.id}").css("background-color", "#3575d4");
+                                                                            $("#cart-active-${product.id}").css("fill", "#ffffff");
+                                                                            $("#cart-gender-active-${product.id}").css("fill", "#ffffff");
+
+                                                                            $("button.add-to-cart.btn-save-${product.id}").removeClass("add-to-cart btn-save-${product.id}").addClass("out-to-cart");
+                                                                            $("button.add-to-cart.btn-save-gender-${product.id}").removeClass("add-to-cart btn-save-gender-${product.id}").addClass("out-to-cart");
+
+                                                                            $("button.out-to-cart").prop("disabled", true);
+
+                                                                            toastr.success('Create new cart successfully');
+
+
+                                                                        });
+
+                                                                    });
+                                                                });
+                                                            </script>
+
                                                         </c:if>
-                                                        <f:form method="post" action="/ekka/wish-list/create/${product.id}"
-                                                                modelAttribute="urlDto">
-                                                            <f:input type="text" path="url" value="${urlDto.url}"
-                                                                     cssClass="d-none"/>
-                                                            <button type="submit"
-                                                                    class="ec-btn-group wishlist"
-                                                                    title="Wishlist"><img
+
+
+                                                            <button class="ec-btn-group wishlist btn-active-${product.id} add-to-wish-list btn-wish-list-${product.id}"
+                                                                    title="Wishlist"><img id="wish-list-active-${product.id}"
                                                                     src="/user/assets/images/icons/wishlist.svg"
                                                                     class="svg_img pro_svg" alt=""/></button>
-                                                        </f:form>
-                                                        <c:forEach items="${listWishListUserId}" var="wishListUser">
-                                                            <c:if test="${product.id == wishListUser.product.id}">
-                                                                <f:form method="post"
-                                                                        action="/ekka/wish-list/delete/${wishListUser.id}"
-                                                                        modelAttribute="urlDto">
-                                                                    <f:input type="text" path="url" value="${urlDto.url}"
-                                                                             cssClass="d-none"/>
+                                                            <c:forEach items="${listWishListUserId}" var="wishListUser">
+                                                                <c:if test="${product.id == wishListUser.product.id}">
+                                                                    <button disabled="disabled" class="ec-btn-group wishlist" style="background-color: #3575d4;"
+                                                                            title="Wishlist"><img style="fill: #FFFFFF;"
+                                                                                                  src="/user/assets/images/icons/wishlist.svg"
+                                                                                                  class="svg_img pro_svg" alt=""/></button>
+                                                                </c:if>
+                                                            </c:forEach>
+                                                            <script>
+                                                                $(document).ready(function () {
 
-                                                                    <button type="submit"
-                                                                            class="ec-btn-group wishlist active"
-                                                                            title="Wishlist"><img
-                                                                            src="/user/assets/images/icons/wishlist.svg"
-                                                                            class="svg_img pro_svg" alt=""/></button>
-                                                                </f:form>
-                                                            </c:if>
-                                                        </c:forEach>
+                                                                    $("button.add-to-wish-list.btn-wish-list-${product.id}").click(function (event) {
+
+                                                                        var url = "${urlDto.url}";
+
+                                                                        $.post("/ekka/wish-list/create/${product.id}", {
+                                                                            url: url,
+                                                                        }, function (data) {
+                                                                        }).done(function () {
+                                                                        }).fail(function (xhr, textStatus, errorThrown) {
+                                                                            toastr.error('New wish list creation failed');
+
+                                                                        }).complete(function () {
+                                                                            $("button.btn-active-${product.id}").css("background-color", "#3575d4");
+                                                                            $("#wish-list-active-${product.id}").css("fill", "#ffffff");
+                                                                            $("#wish-list-gender-active-${product.id}").css("fill", "#ffffff");
+
+                                                                            $("button.btn-wish-list-${product.id}").removeClass("btn-wish-list-${product.id}").addClass("out-to-wish-list");
+                                                                            $("button.add-to-wish-list.btn-wish-list-gender-${product.id}").removeClass("add-to-wish-list btn-wish-list-gender-${product.id}").addClass("out-to-wish-list");
+                                                                            $("button.out-to-wish-list").prop("disabled", true);
+
+                                                                            toastr.success('Create a new wish list successfully');
+
+
+                                                                        });
+
+                                                                    });
+                                                                });
+                                                            </script>
 
 
                                                     </div>
+                                                    </sec:authorize>
+                                                    <sec:authorize access="!hasAnyRole('ROLE_USER')">
+                                                        <div class="ec-pro-actions">
+                                                            <f:form method="post" action="/ekka/cart/create/${product.id}" modelAttribute="urlDto">
+                                                                <f:input type="text" path="url"
+                                                                         value="${urlDto.url}"
+                                                                         cssClass="d-none" id="one"/>
+                                                                <button type="submit" title="Add To Cart"
+                                                                        class="btn-active-cart-${product.id} add-to-cart btn-save-${product.id}"><img
+                                                                        src="/user/assets/images/icons/cart.svg"
+                                                                        class="svg_img pro_svg" id="cart-active-${product.id}"
+                                                                        alt=""/> Add To Cart
+                                                                </button>
+                                                            </f:form>
+
+                                                            <f:form method="post" action="/ekka/wish-list/create/${product.id}" modelAttribute="urlDto">
+                                                            <f:input type="text" path="url"
+                                                                     value="${urlDto.url}"
+                                                                     cssClass="d-none" id="one"/>
+                                                            <button type="submit" class="ec-btn-group wishlist btn-active-${product.id} add-to-wish-list btn-wish-list-${product.id}"
+                                                                    title="Wishlist"><img id="wish-list-active-${product.id}"
+                                                                                          src="/user/assets/images/icons/wishlist.svg"
+                                                                                          class="svg_img pro_svg" alt=""/></button>
+                                                            </f:form>
+
+                                                        </div>
+                                                    </sec:authorize>
                                                 </div>
                                             </div>
                                             <div class="ec-pro-content">
@@ -372,14 +443,14 @@
                                                             </c:if>
                                                             <a href="/ekka/product-details/${product.id}" class="quickview"
                                                                data-link-action="quickview"
-                                                               title="Quick view" data-bs-toggle="modal"
-                                                               data-bs-target="#ec_quickview_modal"><img
+                                                               title="Quick view"><img
                                                                     src="/user/assets/images/icons/quickview.svg"
                                                                     class="svg_img pro_svg"
                                                                     alt=""/></a>
+                                                            <sec:authorize access="hasAnyRole('ROLE_USER')">
                                                             <div class="ec-pro-actions">
                                                                 <c:if test="${product.totalProduct <= 0}">
-                                                                    <button style="background-color: #555555;" type="button" title="Add To Cart" class="add-to-cart">
+                                                                    <button disabled="disabled" style="background-color: #555555;" type="button" title="Add To Cart" class="add-to-cart">
                                                                         <img style="fill: #FFFFFF;"
                                                                              src="/user/assets/images/icons/cart.svg"
                                                                              class="svg_img pro_svg"
@@ -387,85 +458,131 @@
                                                                     </button>
                                                                 </c:if>
                                                                 <c:if test="${product.totalProduct > 0}">
-                                                                    <f:form method="post"
-                                                                            action="/ekka/cart/create/${product.id}"
-                                                                            modelAttribute="urlDto">
-                                                                        <f:input type="text" path="url" value="${urlDto.url}"
-                                                                                 cssClass="d-none"/>
-                                                                        <button type="submit" title="Add To Cart" class="add-to-cart">
-                                                                            <img
-                                                                                    src="/user/assets/images/icons/cart.svg"
-                                                                                    class="svg_img pro_svg"
-                                                                                    alt=""/> Add To Cart
-                                                                        </button>
-                                                                    </f:form>
+
+                                                                    <button title="Add To Cart"
+                                                                            class="btn-active-cart-${product.id} add-to-cart btn-save-gender-${product.id}"><img
+                                                                            src="/user/assets/images/icons/cart.svg"
+                                                                            class="svg_img pro_svg" id="cart-gender-active-${product.id}"
+                                                                            alt=""/> Add To Cart
+                                                                    </button>
                                                                     <c:forEach items="${listCartUserId}" var="cartUser">
                                                                         <c:if test="${product.id == cartUser.product.id}">
-                                                                            <f:form method="post"
-                                                                                    action="/ekka/cart/delete/${cartUser.id}"
-                                                                                    modelAttribute="urlDto">
-                                                                                <f:input type="text" path="url" value="${urlDto.url}"
-                                                                                         cssClass="d-none"/>
-
-                                                                                <button type="submit" style="background-color: #3575d4;"
-                                                                                        class="add-to-cart active"
-                                                                                        title="Cart"><img style="fill: white;"
-                                                                                                          src="/user/assets/images/icons/cart.svg"
-                                                                                                          class="svg_img pro_svg"
-                                                                                                          alt=""/></button>
-                                                                            </f:form>
+                                                                            <button disabled="disabled" title="Cart"
+                                                                                    style="background-color: #3575d4;"
+                                                                                    class="out-to-cart btn-remove-${cartUser.id}">
+                                                                                <img src="/user/assets/images/icons/cart.svg"
+                                                                                     id="cart-active-${cartUser.id}"
+                                                                                     class="svg_img pro_svg" style="fill: #FFFFFF;"
+                                                                                     alt=""/> Remove To Cart
+                                                                            </button>
                                                                         </c:if>
                                                                     </c:forEach>
-                                                                </c:if>
-                                                                <c:forEach items="${listCartUserId}" var="cartUser">
-                                                                    <c:if test="${product.id == cartUser.product.id}">
-                                                                        <f:form method="post"
-                                                                                action="/ekka/cart/delete/${cartUser.id}"
-                                                                                modelAttribute="urlDto">
-                                                                            <f:input type="text" path="url"
-                                                                                     value="${urlDto.url}"
-                                                                                     cssClass="d-none"/>
+                                                                    <script>
+                                                                        $(document).ready(function () {
 
-                                                                            <button type="submit"
-                                                                                    style="background-color: #3575d4;"
-                                                                                    class="add-to-cart active"
-                                                                                    title="Cart"><img style="fill: white;"
-                                                                                                      src="/user/assets/images/icons/cart.svg"
-                                                                                                      class="svg_img pro_svg"
-                                                                                                      alt=""/></button>
-                                                                        </f:form>
-                                                                    </c:if>
-                                                                </c:forEach>
-                                                                <f:form method="post"
-                                                                        action="/ekka/wish-list/create/${product.id}"
-                                                                        modelAttribute="urlDto">
-                                                                    <f:input type="text" path="url" value="${urlDto.url}"
-                                                                             cssClass="d-none"/>
-                                                                    <button type="submit"
-                                                                            class="ec-btn-group wishlist"
-                                                                            title="Wishlist"><img
-                                                                            src="/user/assets/images/icons/wishlist.svg"
-                                                                            class="svg_img pro_svg" alt=""/></button>
-                                                                </f:form>
+                                                                            $("button.add-to-cart.btn-save-gender-${product.id}").click(function (event) {
+
+                                                                                var url = "${urlDto.url}";
+
+                                                                                $.post("/ekka/cart/create/${product.id}", {
+                                                                                    url: url,
+                                                                                }, function (data) {
+                                                                                }).done(function () {
+                                                                                }).fail(function (xhr, textStatus, errorThrown) {
+                                                                                    toastr.error('New cart creation failed');
+
+                                                                                }).complete(function () {
+                                                                                    $("button.btn-active-cart-${product.id}").css("background-color", "#3575d4");
+                                                                                    $("#cart-active-${product.id}").css("fill", "#ffffff");
+                                                                                    $("#cart-gender-active-${product.id}").css("fill", "#ffffff");
+
+                                                                                    $("button.add-to-cart.btn-save-gender-${product.id}").removeClass("add-to-cart btn-save-gender-${product.id}").addClass("out-to-cart");
+                                                                                    $("button.add-to-cart.btn-save-${product.id}").removeClass("add-to-cart btn-save-${product.id}").addClass("out-to-cart");
+
+                                                                                    $("button.out-to-cart").prop("disabled", true);
+
+                                                                                    toastr.success('Create new cart successfully');
+
+
+                                                                                });
+
+                                                                            });
+                                                                        });
+                                                                    </script>
+
+                                                                </c:if>
+
+                                                                <button class="ec-btn-group wishlist btn-active-${product.id} add-to-wish-list btn-wish-list-gender-${product.id}"
+                                                                        title="Wishlist"><img id="wish-list-gender-active-${product.id}"
+                                                                                              src="/user/assets/images/icons/wishlist.svg"
+                                                                                              class="svg_img pro_svg" alt=""/></button>
                                                                 <c:forEach items="${listWishListUserId}" var="wishListUser">
                                                                     <c:if test="${product.id == wishListUser.product.id}">
-                                                                        <f:form method="post"
-                                                                                action="/ekka/wish-list/delete/${wishListUser.id}"
-                                                                                modelAttribute="urlDto">
-                                                                            <f:input type="text" path="url"
-                                                                                     value="${urlDto.url}"
-                                                                                     cssClass="d-none"/>
-
-                                                                            <button type="submit"
-                                                                                    class="ec-btn-group wishlist active"
-                                                                                    title="Wishlist"><img
-                                                                                    src="/user/assets/images/icons/wishlist.svg"
-                                                                                    class="svg_img pro_svg" alt=""/>
-                                                                            </button>
-                                                                        </f:form>
+                                                                        <button disabled="disabled" class="ec-btn-group wishlist" style="background-color: #3575d4;"
+                                                                                title="Wishlist"><img src="/user/assets/images/icons/wishlist.svg"
+                                                                                                      class="svg_img pro_svg" style="fill: #FFFFFF;" alt=""/></button>
                                                                     </c:if>
                                                                 </c:forEach>
+                                                                <script>
+                                                                    $(document).ready(function () {
+
+                                                                        $("button.add-to-wish-list.btn-wish-list-gender-${product.id}").click(function (event) {
+
+                                                                            var url = "${urlDto.url}";
+
+                                                                            $.post("/ekka/wish-list/create/${product.id}", {
+                                                                                url: url,
+                                                                            }, function (data) {
+                                                                            }).done(function (response) {
+                                                                                console.log(response);
+                                                                            }).fail(function (xhr, textStatus, errorThrown) {
+                                                                                toastr.error('New wish list creation failed');
+
+                                                                            }).complete(function () {
+                                                                                $("button.btn-active-${product.id}").css("background-color", "#3575d4");
+                                                                                $("#wish-gender-list-active-${product.id}").css("fill", "#ffffff");
+                                                                                $("#wish-list-active-${product.id}").css("fill", "#ffffff");
+
+                                                                                $("button.btn-wish-list-${product.id}").removeClass("btn-wish-list-${product.id}").addClass("out-to-wish-list");
+                                                                                $("button.add-to-wish-list.btn-wish-list-gender-${product.id}").removeClass("add-to-wish-list btn-wish-list-gender-${product.id}").addClass("out-to-wish-list");
+                                                                                $("button.out-to-wish-list").prop("disabled", true);
+
+                                                                                toastr.success('Create a new wish list successfully');
+
+
+                                                                            });
+
+                                                                        });
+                                                                    });
+                                                                </script>
                                                             </div>
+                                                            </sec:authorize>
+                                                            <sec:authorize access="!hasAnyRole('ROLE_USER')">
+                                                                <div class="ec-pro-actions">
+                                                                    <f:form method="post" action="/ekka/cart/create/${product.id}" modelAttribute="urlDto">
+                                                                        <f:input type="text" path="url"
+                                                                                 value="${urlDto.url}"
+                                                                                 cssClass="d-none" id="one"/>
+                                                                        <button type="submit" title="Add To Cart"
+                                                                                class="btn-active-cart-${product.id} add-to-cart btn-save-${product.id}"><img
+                                                                                src="/user/assets/images/icons/cart.svg"
+                                                                                class="svg_img pro_svg" id="cart-active-${product.id}"
+                                                                                alt=""/> Add To Cart
+                                                                        </button>
+                                                                    </f:form>
+
+                                                                    <f:form method="post" action="/ekka/wish-list/create/${product.id}" modelAttribute="urlDto">
+                                                                        <f:input type="text" path="url"
+                                                                                 value="${urlDto.url}"
+                                                                                 cssClass="d-none" id="one"/>
+                                                                        <button type="submit" class="ec-btn-group wishlist btn-active-${product.id} add-to-wish-list btn-wish-list-${product.id}"
+                                                                                title="Wishlist"><img id="wish-list-active-${product.id}"
+                                                                                                      src="/user/assets/images/icons/wishlist.svg"
+                                                                                                      class="svg_img pro_svg" alt=""/></button>
+                                                                    </f:form>
+
+                                                                </div>
+                                                            </sec:authorize>
                                                         </div>
                                                     </div>
                                                     <div class="ec-pro-content">

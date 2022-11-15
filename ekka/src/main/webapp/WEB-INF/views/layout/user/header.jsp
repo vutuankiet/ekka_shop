@@ -79,7 +79,7 @@
                             <a href="/ekka/wish-list" class="ec-header-btn ec-header-wishlist">
                                 <div class="header-icon"><img src="/user/assets/images/icons/wishlist.svg"
                                                               class="svg_img header_svg" alt=""/></div>
-                                <span class="ec-header-count">${countWishList}</span>
+                                <span class="ec-header-count wish-list-count-lable">${countWishList}</span>
                             </a>
                             <!-- Header Cart End -->
                             <!-- Header Cart Start -->
@@ -173,7 +173,7 @@
                                 <a href="/ekka/wish-list" class="ec-header-btn ec-header-wishlist">
                                     <div class="header-icon"><img src="/user/assets/images/icons/wishlist.svg"
                                                                   class="svg_img header_svg" alt=""/></div>
-                                    <span class="ec-header-count">${countWishList}</span>
+                                    <span class="ec-header-count wish-list-count-lable">${countWishList}</span>
                                 </a>
                                 <!-- Header wishlist End -->
                                 <!-- Header Cart Start -->

@@ -13,7 +13,6 @@
     <title>Ekka | Wish List.</title>
 
     <%@include file="/WEB-INF/views/layout/user/assets.jsp" %>
-
 </head>
 <body>
 <div id="ec-overlay"><span class="loader_img"></span></div>
@@ -39,7 +38,7 @@
                     <div class="col-md-6 col-sm-12">
                         <!-- ec-breadcrumb-list start -->
                         <ul class="ec-breadcrumb-list">
-                            <li class="ec-breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="ec-breadcrumb-item"><a href="/ekka">Home</a></li>
                             <li class="ec-breadcrumb-item active">Wishlist</li>
                         </ul>
                         <!-- ec-breadcrumb-list end -->
@@ -56,16 +55,19 @@
     <div class="container">
         <div class="row">
             <c:if test="${listWishListUserId == []}">
-                <div class="ec-wish-rightside col-lg-12 col-md-12"><p class="emp-wishlist-msg">Your wishlist is empty!</p></div>
+                <div class="ec-wish-rightside col-lg-12 col-md-12"><p class="emp-wishlist-msg">Your wishlist is
+                    empty!</p></div>
             </c:if>
+            <div class="ec-wish-rightside col-lg-12 col-md-12 empty-wish-list d-none"><p class="emp-wishlist-msg">Your wishlist is
+                empty!</p></div>
             <!-- Compare Content Start -->
-            <div class="ec-wish-rightside col-lg-12 col-md-12">
+            <div class="ec-wish-rightside col-lg-12 col-md-12 ec-show-wish-list">
                 <!-- Compare content Start -->
                 <div class="ec-compare-content">
                     <div class="ec-compare-inner">
                         <div class="row margin-minus-b-30">
                             <c:forEach items="${listWishListUserId}" var="wishList">
-                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 mb-6 pro-gl-content">
+                                <div class="col-lg-3 col-md-4 col-sm-6 col-xs-6 mb-6 pro-gl-content wish-list wish-list-${wishList.product.id}">
                                     <div class="ec-product-inner">
                                         <div class="ec-pro-image-outer">
                                             <div class="ec-pro-image">
@@ -80,14 +82,39 @@
                                                 <span class="ec-com-remove">
                                                     <c:forEach items="${listWishListUserId}" var="wishListUser">
                                                         <c:if test="${wishList.product.id == wishListUser.product.id}">
-                                                            <f:form method="post" action="/ekka/wish-list/delete/${wishListUser.id}" modelAttribute="urlDto">
-                                                                <f:input type="text" path="url" value="${urlDto.url}" cssClass="d-none"/>
+                                                                <button class="text-white remove-to-wish-list x-wish-list-${wishListUser.id}"/>
+                                                                x</button>
 
-                                                                <button class="text-white" type="submit"/>x</button>
-                                                            </f:form>
+                                                                <script>
+                                                        $(document).ready(function () {
 
+                                                            $("button.remove-to-wish-list.x-wish-list-${wishListUser.id}").click(function (event) {
+
+                                                                var url = "${urlDto.url}";
+
+                                                                $.post("/ekka/wish-list/delete/${wishListUser.id}", {
+                                                                    url: url,
+                                                                }, function (data) {
+                                                                }).done(function () {
+                                                                }).fail(function (xhr, textStatus, errorThrown) {
+                                                                    toastr.error('Deleting wish list failed');
+                                                                }).complete(function () {
+                                                                    $("div.wish-list-${wishList.product.id}").remove();
+                                                                    var el = $("div.wish-list").length;
+                                                                    console.log(el);
+                                                                    if(el == 0){
+                                                                        console.log(el)
+                                                                        $("div.empty-wish-list").removeClass("d-none");
+                                                                        $("div.ec-show-wish-list").remove();
+                                                                    }
+                                                                    toastr.success('Delete wish list successfully');
+                                                                });
+                                                            });
+                                                        });
+                                                    </script>
                                                         </c:if>
                                                     </c:forEach>
+
                                                 </span>
                                                 <c:if test="${wishList.product.discount > 0}">
                                                     <span class="percentage">${wishList.product.discount}%</span>
@@ -100,8 +127,9 @@
                                                         alt=""/></a>
                                                 <div class="ec-pro-actions">
                                                     <c:if test="${wishList.product.totalProduct <= 0}">
-                                                        <button style="background-color: #555555;" type="button"
-                                                                title="Add To Cart" class="add-to-cart">
+                                                        <button disabled="disabled" style="background-color: #555555;"
+                                                                type="button"
+                                                                title="Add To Cart" class="out-to-cart">
                                                             <img style="fill: #FFFFFF;"
                                                                  src="/user/assets/images/icons/cart.svg"
                                                                  class="svg_img pro_svg"
@@ -109,60 +137,96 @@
                                                         </button>
                                                     </c:if>
                                                     <c:if test="${wishList.product.totalProduct > 0}">
-                                                    <f:form method="post"
-                                                            action="/ekka/cart/create/${wishList.product.id}"
-                                                            modelAttribute="urlDto">
-                                                        <f:input type="text" path="url" value="${urlDto.url}"
-                                                                 cssClass="d-none"/>
-                                                        <button type="submit" title="Add To Cart"
-                                                                class="add-to-cart"><img
+
+                                                        <button title="Add To Cart"
+                                                                class="add-to-cart btn-save-${wishList.product.id}"><img
                                                                 src="/user/assets/images/icons/cart.svg"
+                                                                id="cart-active-${wishList.product.id}"
                                                                 class="svg_img pro_svg"
                                                                 alt=""/> Add To Cart
                                                         </button>
-                                                    </f:form>
-                                                    <c:forEach items="${listCartUserId}" var="cartUser">
-                                                        <c:if test="${wishList.product.id == cartUser.product.id}">
-                                                            <f:form method="post"
-                                                                    action="/ekka/cart/delete/${cartUser.id}"
-                                                                    modelAttribute="urlDto">
-                                                                <f:input type="text" path="url"
-                                                                         value="${urlDto.url}"
-                                                                         cssClass="d-none"/>
-
-                                                                <button type="submit"
+                                                        <c:forEach items="${listCartUserId}" var="cartUser">
+                                                            <c:if test="${wishList.product.id == cartUser.product.id}">
+                                                                <button disabled="disabled" title="Cart"
                                                                         style="background-color: #3575d4;"
-                                                                        class="add-to-cart active"
-                                                                        title="Cart"><img style="fill: white;"
-                                                                                          src="/user/assets/images/icons/cart.svg"
-                                                                                          class="svg_img pro_svg"
-                                                                                          alt=""/></button>
-                                                            </f:form>
-                                                        </c:if>
-                                                    </c:forEach>
+                                                                        class="out-to-cart btn-remove-${cartUser.id}">
+                                                                    <img style="fill: #FFFFFF;"
+                                                                         src="/user/assets/images/icons/cart.svg"
+                                                                         id="cart-active-${cartUser.id}"
+                                                                         class="svg_img pro_svg"
+                                                                         alt=""/> Remove To Cart
+                                                                </button>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                        <script>
+                                                            $(document).ready(function () {
+
+                                                                $("button.btn-save-${wishList.product.id}").click(function (event) {
+
+                                                                    var url = "${urlDto.url}";
+
+                                                                    $.post("/ekka/cart/create/${wishList.product.id}", {
+                                                                        url: url,
+                                                                    }, function (data) {
+                                                                    }).done(function () {
+                                                                    }).fail(function (xhr, textStatus, errorThrown) {
+                                                                        toastr.error('New cart creation failed');
+
+                                                                    }).complete(function () {
+                                                                        $("button.btn-save-${wishList.product.id}").css("background-color", "#3575d4");
+                                                                        $("#cart-active-${wishList.product.id}").css("fill", "#ffffff");
+
+                                                                        $("button.add-to-cart.btn-save-${wishList.product.id}").removeClass("add-to-cart btn-save-${wishList.product.id}").addClass("out-to-cart");
+                                                                        $("button.out-to-cart").prop("disabled", true);
+
+                                                                        toastr.success('Create new cart successfully');
+
+
+                                                                    });
+
+                                                                });
+                                                            });
+                                                        </script>
+
                                                     </c:if>
-                                                    <f:form method="post" action="/ekka/wish-list/create/${wishList.product.id}" modelAttribute="urlDto">
-                                                    <f:input type="text" path="url" value="${urlDto.url}" cssClass="d-none"/>
-                                                        <button type="submit" class="ec-btn-group wishlist"
-                                                                title="Wishlist"><img
-                                                                src="/user/assets/images/icons/wishlist.svg"
-                                                                class="svg_img pro_svg" alt=""/></button>
-                                                    </f:form>
 
                                                     <c:forEach items="${listWishListUserId}" var="wishListUser">
                                                         <c:if test="${wishList.product.id == wishListUser.product.id}">
-                                                            <f:form method="post" action="/ekka/wish-list/delete/${wishListUser.id}" modelAttribute="urlDto">
-                                                                <f:input type="text" path="url" value="${urlDto.url}" cssClass="d-none"/>
+                                                            <button class="ec-btn-group wishlist active remove-to-wish-list remove-wish-list-${wishListUser.id}"
+                                                                    title="Wishlist" style="background-color: #3575d4;"><img
+                                                                    src="/user/assets/images/icons/wishlist.svg"
+                                                                    class="svg_img pro_svg" style="fill: #ffffff;" alt=""/></button>
+                                                            <script>
+                                                                $(document).ready(function () {
 
-                                                                <button type="submit"
-                                                                        class="ec-btn-group wishlist active"
-                                                                        title="Wishlist"><img
-                                                                        src="/user/assets/images/icons/wishlist.svg"
-                                                                        class="svg_img pro_svg" alt=""/></button>
-                                                            </f:form>
+                                                                    $("button.remove-to-wish-list.remove-wish-list-${wishListUser.id}").click(function (event) {
+
+                                                                        var url = "${urlDto.url}";
+
+                                                                        $.post("/ekka/wish-list/delete/${wishListUser.id}", {
+                                                                            url: url,
+                                                                        }, function (data) {
+                                                                        }).done(function () {
+                                                                        }).fail(function (xhr, textStatus, errorThrown) {
+                                                                            toastr.error('Deleting wish list failed');
+                                                                        }).complete(function () {
+                                                                            $("div.wish-list-${wishList.product.id}").remove();
+                                                                            var el = $("div.wish-list").length;
+                                                                            console.log(el);
+                                                                            if(el == 0){
+                                                                                console.log(el)
+                                                                                $("div.empty-wish-list").removeClass("d-none");
+                                                                                $("div.ec-show-wish-list").remove();
+                                                                            }
+                                                                            toastr.success('Delete wish list successfully');
+                                                                        });
+                                                                    });
+                                                                });
+                                                            </script>
 
                                                         </c:if>
                                                     </c:forEach>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -179,7 +243,8 @@
                                                     <i class="ecicon eci-star"></i>
                                                 </c:if>
                                                 <c:if test="${wishList.product.rating > 0 && wishList.product.rating < 1}">
-                                                    <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                    <i style="color: #ff6262;opacity: 0.7;"
+                                                       class="ecicon eci-star-half-o"></i>
                                                     <i class="ecicon eci-star-o"></i>
                                                     <i class="ecicon eci-star-o"></i>
                                                     <i class="ecicon eci-star-o"></i>
@@ -187,7 +252,8 @@
                                                 </c:if>
                                                 <c:if test="${wishList.product.rating > 1 && wishList.product.rating < 2}">
                                                     <i class="ecicon eci-star fill"></i>
-                                                    <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                    <i style="color: #ff6262;opacity: 0.7;"
+                                                       class="ecicon eci-star-half-o"></i>
                                                     <i class="ecicon eci-star-o"></i>
                                                     <i class="ecicon eci-star-o"></i>
                                                     <i class="ecicon eci-star-o"></i>
@@ -195,7 +261,8 @@
                                                 <c:if test="${wishList.product.rating > 2 && wishList.product.rating < 3}">
                                                     <i class="ecicon eci-star fill"></i>
                                                     <i class="ecicon eci-star fill"></i>
-                                                    <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                    <i style="color: #ff6262;opacity: 0.7;"
+                                                       class="ecicon eci-star-half-o"></i>
                                                     <i class="ecicon eci-star-o"></i>
                                                     <i class="ecicon eci-star-o"></i>
                                                 </c:if>
@@ -203,7 +270,8 @@
                                                     <i class="ecicon eci-star fill"></i>
                                                     <i class="ecicon eci-star fill"></i>
                                                     <i class="ecicon eci-star fill"></i>
-                                                    <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                    <i style="color: #ff6262;opacity: 0.7;"
+                                                       class="ecicon eci-star-half-o"></i>
                                                     <i class="ecicon eci-star-o"></i>
                                                 </c:if>
                                                 <c:if test="${wishList.product.rating > 4 && wishList.product.rating < 5}">
@@ -211,7 +279,8 @@
                                                     <i class="ecicon eci-star fill"></i>
                                                     <i class="ecicon eci-star fill"></i>
                                                     <i class="ecicon eci-star fill"></i>
-                                                    <i style="color: #ff6262;opacity: 0.7;" class="ecicon eci-star-half-o"></i>
+                                                    <i style="color: #ff6262;opacity: 0.7;"
+                                                       class="ecicon eci-star-half-o"></i>
                                                 </c:if>
 
                                                 <c:if test="${wishList.product.rating == 1}">
@@ -267,10 +336,11 @@
                                                     <ul class="ec-opt-swatch ec-change-img">
                                                         <c:forEach items="${listProductColor}" var="productColor">
                                                             <c:if test="${productColor.product.id == wishList.product.id}">
-                                                                <li style="border: 1px solid darkgray;"><a href="#" class="ec-opt-clr-img"
-                                                                       data-src="${wishList.product.productImage}"
-                                                                       data-src-hover="${wishList.product.productImage}"
-                                                                       data-tooltip="Gray"><span
+                                                                <li style="border: 1px solid darkgray;"><a href="#"
+                                                                                                           class="ec-opt-clr-img"
+                                                                                                           data-src="${wishList.product.productImage}"
+                                                                                                           data-src-hover="${wishList.product.productImage}"
+                                                                                                           data-tooltip="Gray"><span
                                                                         style="background-color:${productColor.colorName};"></span></a>
                                                                 </li>
                                                             </c:if>
@@ -294,6 +364,7 @@
                                     </div>
 
                                 </div>
+
                             </c:forEach>
                         </div>
                     </div>
@@ -515,5 +586,6 @@
         </c:if>
     }
 </script>
+
 </body>
 </html>

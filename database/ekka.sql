@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `bill` (
   PRIMARY KEY (`ID`),
   KEY `USER_ID` (`USER_ID`),
   CONSTRAINT `bill_ibfk_1` FOREIGN KEY (`USER_ID`) REFERENCES `user` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table ekka.bill: ~4 rows (approximately)
 DELETE FROM `bill`;
@@ -42,7 +42,8 @@ INSERT INTO `bill` (`ID`, `USER_ID`, `ORDER_CODE`, `DELIVERY_ADDRESS`, `NAME_CON
 	(1, 10, 'FpeghatZ9fA', 'Dai Dong, Thach That, Ha Noi', 'Vu Tuan Kiet', '0987654321', '126.56', 0, 4, '2022-11-05 09:39:58', '2022-11-06 11:42:09'),
 	(3, 23, 'fHEyQzaQihk', 'Dai Dong, Thach That, Ha Noi', 'Vu Tuan Kiet', '0987654321', '87.52', 0, 4, '2022-11-06 11:24:35', '2022-11-06 11:32:20'),
 	(4, 14, 'nGRMoqUiPrB', 'Dai Dong, Thach That, Ha Noi', 'Vu Tuan Kiet', '0987654321', '49.2', 0, 1, '2022-11-07 16:09:05', '2022-11-07 16:09:05'),
-	(5, 14, 'EgUGnu5yxEN', 'Dai Dong, Thach That, Ha Noi', 'Vu Tuan Kiet', '0987654321', '88.8', 0, 1, '2022-11-07 16:13:15', '2022-11-07 16:13:15');
+	(5, 14, 'EgUGnu5yxEN', 'Dai Dong, Thach That, Ha Noi', 'Vu Tuan Kiet', '0987654321', '88.8', 0, 1, '2022-11-07 16:13:15', '2022-11-07 16:13:15'),
+	(6, 23, 'QemyzuDAd6j', 'Dai Dong, Thach That, Ha Noi', 'Vu Tuan Kiet', '0987654321', '72.0', 0, 1, '2022-11-15 13:13:39', '2022-11-15 13:13:39');
 /*!40000 ALTER TABLE `bill` ENABLE KEYS */;
 
 -- Dumping structure for table ekka.brand
@@ -69,8 +70,8 @@ INSERT INTO `brand` (`ID`, `LOGO`, `NAME_BRAND`, `CREATED_AT`, `UPDATED_AT`, `ST
 	(14, 'https://storage.googleapis.com/k34dl-8e937.appspot.com/5ea0e329-1814-4c2c-bb2d-c33d7b3480a7jpg', 'DOLCE & GABBANA', '2022-10-31 18:33:05', '2022-10-31 18:33:05', 1, 0),
 	(15, 'https://storage.googleapis.com/k34dl-8e937.appspot.com/b405fca0-e485-44cc-9a9b-5b64a81e54ebpng', 'VERSACE', '2022-10-31 18:33:20', '2022-10-31 18:33:20', 1, 0),
 	(16, 'https://storage.googleapis.com/k34dl-8e937.appspot.com/c0e6f899-004f-436d-8ccd-f6d8a3c4aed4jpg', 'PRADA', '2022-10-31 18:33:36', '2022-10-31 18:33:36', 1, 0),
-	(17, 'https://storage.googleapis.com/k34dl-8e937.appspot.com/18ccd251-88f0-4857-bc45-2d24c79724d7jpg', 'ADIDAS', '2022-10-31 19:18:04', '2022-11-07 09:17:32', 1, 7),
-	(18, 'https://storage.googleapis.com/k34dl-8e937.appspot.com/af3850f4-ec16-4101-995d-ee6575a94173png', 'BandAll1', '2022-11-06 11:35:57', '2022-11-06 11:36:25', 1, 0);
+	(17, 'https://storage.googleapis.com/k34dl-8e937.appspot.com/18ccd251-88f0-4857-bc45-2d24c79724d7jpg', 'ADIDAS', '2022-10-31 19:18:04', '2022-11-08 13:42:59', 1, 6),
+	(18, 'https://storage.googleapis.com/k34dl-8e937.appspot.com/af3850f4-ec16-4101-995d-ee6575a94173png', 'BandAll1', '2022-11-06 11:35:57', '2022-11-08 11:10:29', 0, 0);
 /*!40000 ALTER TABLE `brand` ENABLE KEYS */;
 
 -- Dumping structure for table ekka.cart
@@ -90,13 +91,16 @@ CREATE TABLE IF NOT EXISTS `cart` (
   KEY `USER_ID` (`USER_ID`),
   CONSTRAINT `cart_ibfk_1` FOREIGN KEY (`PRODUCT_ID`) REFERENCES `product` (`ID`),
   CONSTRAINT `cart_ibfk_2` FOREIGN KEY (`USER_ID`) REFERENCES `user` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=371 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ekka.cart: ~1 rows (approximately)
+-- Dumping data for table ekka.cart: ~3 rows (approximately)
 DELETE FROM `cart`;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
 INSERT INTO `cart` (`ID`, `PRODUCT_ID`, `USER_ID`, `COLOR_PRODUCT`, `SIZE_PRODUCT`, `ITEM`, `PRICE`, `STATE`, `CREATED_AT`, `UPDATED_AT`) VALUES
-	(5, 24, 15, '#3b6b00', 'S', 24, '384.0', 1, '2022-11-02 20:43:45', '2022-11-02 20:43:45');
+	(366, 25, 23, '#e6e389', 'S', 1, '20.4', 1, '2022-11-15 13:16:25', '2022-11-15 13:16:25'),
+	(367, 23, 23, '#ffffff', 'S', 1, '24.0', 1, '2022-11-15 13:16:37', '2022-11-15 13:16:37'),
+	(369, 22, 23, '#000000', 'S', 1, '25.2', 1, '2022-11-15 13:52:13', '2022-11-15 13:52:13'),
+	(370, 21, 23, '#000000', 'S', 1, '21.12', 1, '2022-11-15 13:54:22', '2022-11-15 13:54:22');
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 
 -- Dumping structure for table ekka.category
@@ -118,15 +122,15 @@ CREATE TABLE IF NOT EXISTS `category` (
 DELETE FROM `category`;
 /*!40000 ALTER TABLE `category` DISABLE KEYS */;
 INSERT INTO `category` (`ID`, `CATEGORY_NAME`, `CATEGORY_LOGO`, `GENDER_CATEGORY_ID`, `CREATED_AT`, `UPDATED_AT`, `STATE`, `ITEM`) VALUES
-	(7, 'TOPS', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/8bd20564-b7d2-40c8-80da-718946164db0png', 7, '2022-10-31 18:35:17', '2022-10-31 18:35:17', 1, 0),
-	(8, 'BOTTOMS', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/fba8a787-e7b5-4d5b-bec1-5f52fcd30d06png', 7, '2022-10-31 18:36:04', '2022-10-31 18:36:04', 1, 0),
-	(9, 'HOODIE', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/b6086de4-c75b-4a2d-be25-2077e57b7d3cwebp', 7, '2022-10-31 18:36:51', '2022-10-31 18:36:51', 1, 0),
-	(10, 'OUTERWEAR', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/77535142-0d14-4b94-88ed-a0509eff5029png', 7, '2022-10-31 18:37:48', '2022-10-31 18:37:48', 1, 0),
-	(11, 'SHOES', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/ebf49956-32ab-4dc8-bf47-8515c8f3520epng', 7, '2022-10-31 18:38:17', '2022-11-07 09:17:32', 1, 2),
+	(7, 'TOPS', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/8bd20564-b7d2-40c8-80da-718946164db0png', 7, '2022-10-31 18:35:17', '2022-11-08 14:17:06', 1, 0),
+	(8, 'BOTTOMS', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/fba8a787-e7b5-4d5b-bec1-5f52fcd30d06png', 7, '2022-10-31 18:36:04', '2022-11-08 14:17:06', 1, 0),
+	(9, 'HOODIE', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/b6086de4-c75b-4a2d-be25-2077e57b7d3cwebp', 7, '2022-10-31 18:36:51', '2022-11-08 14:17:06', 1, 0),
+	(10, 'OUTERWEAR', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/77535142-0d14-4b94-88ed-a0509eff5029png', 7, '2022-10-31 18:37:48', '2022-11-08 14:17:06', 1, 0),
+	(11, 'SHOES', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/ebf49956-32ab-4dc8-bf47-8515c8f3520epng', 7, '2022-10-31 18:38:17', '2022-11-08 14:17:38', 1, 2),
 	(12, 'TOPS', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/75597500-abfe-4791-96c0-e8706ede9e89png', 8, '2022-10-31 18:38:57', '2022-10-31 18:38:57', 1, 0),
 	(13, 'BOTTOMS', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/c44331c8-0f68-4539-9e42-e1599db4baa1png', 8, '2022-10-31 18:39:14', '2022-10-31 18:39:14', 1, 0),
 	(14, 'DENIM', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/404332e8-b6a6-4570-a4ba-497d802a88aepng', 8, '2022-10-31 18:39:50', '2022-10-31 18:39:50', 1, 0),
-	(15, 'OUTERWEAR', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/9f0e7c9c-58c2-47a0-9d07-6718a754d150png', 8, '2022-10-31 18:40:16', '2022-11-07 09:17:20', 1, 3),
+	(15, 'OUTERWEAR', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/9f0e7c9c-58c2-47a0-9d07-6718a754d150png', 8, '2022-10-31 18:40:16', '2022-11-08 11:12:00', 1, 2),
 	(16, 'SWEATPANTS', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/33bd3741-03c4-4e55-bd51-ac9428d6c3ddpng', 8, '2022-10-31 18:40:43', '2022-10-31 18:40:43', 1, 0),
 	(17, 'DRESSES', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/9910fb6d-fc82-4963-af3a-72a414d46c72png', 8, '2022-10-31 18:41:12', '2022-10-31 18:41:12', 1, 0),
 	(18, 'TOPS', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/37148f80-cd72-4db3-8054-dfc8d58a3a94png', 9, '2022-10-31 18:42:47', '2022-10-31 18:42:47', 1, 0),
@@ -180,8 +184,8 @@ CREATE TABLE IF NOT EXISTS `gender_category` (
 DELETE FROM `gender_category`;
 /*!40000 ALTER TABLE `gender_category` DISABLE KEYS */;
 INSERT INTO `gender_category` (`ID`, `GENDER_CATEGORY_NAME`, `GENDER_CATEGORY_LOGO`, `CREATED_AT`, `UPDATED_AT`, `STATE`, `ITEM`) VALUES
-	(7, 'KIDS', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/92abb915-bcbc-46aa-8cd0-697910bb9a2bpng', '2022-10-31 18:30:23', '2022-11-07 09:17:32', 1, 2),
-	(8, 'WOMEN', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/9b57613b-6f7f-4e3d-b846-1fd2b4d6b053png', '2022-10-31 18:30:39', '2022-11-07 09:17:20', 1, 3),
+	(7, 'KIDS', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/92abb915-bcbc-46aa-8cd0-697910bb9a2bpng', '2022-10-31 18:30:23', '2022-11-08 14:17:07', 1, 2),
+	(8, 'WOMEN', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/9b57613b-6f7f-4e3d-b846-1fd2b4d6b053png', '2022-10-31 18:30:39', '2022-11-08 11:12:00', 1, 2),
 	(9, 'MEN', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/6695ecaf-b78b-48c3-8cd1-f23d674d62a5png', '2022-10-31 18:30:48', '2022-11-07 09:17:18', 1, 2);
 /*!40000 ALTER TABLE `gender_category` ENABLE KEYS */;
 
@@ -207,7 +211,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   KEY `USER_ID` (`USER_ID`),
   CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`PRODUCT_ID`) REFERENCES `product` (`ID`),
   CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`USER_ID`) REFERENCES `user` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table ekka.orders: ~14 rows (approximately)
 DELETE FROM `orders`;
@@ -227,7 +231,8 @@ INSERT INTO `orders` (`ID`, `PRODUCT_ID`, `USER_ID`, `ORDER_CODE`, `COLOR_PRODUC
 	(14, 22, 14, 'nGRMoqUiPrB', '#000000', 'S', 'Dai Dong, Thach That, Ha Noi', 'Vu Tuan Kiet', '0987654321', 3, '25.2', 0, 1, '2022-11-07 16:09:05', '2022-11-07 16:09:05'),
 	(15, 23, 14, 'nGRMoqUiPrB', '#ffffff', 'S', 'Dai Dong, Thach That, Ha Noi', 'Vu Tuan Kiet', '0987654321', 3, '24.0', 0, 1, '2022-11-07 16:09:05', '2022-11-07 16:09:05'),
 	(16, 24, 14, 'EgUGnu5yxEN', '#3b6b00', 'S', 'Dai Dong, Thach That, Ha Noi', 'Vu Tuan Kiet', '0987654321', 3, '48', 0, 1, '2022-11-07 16:13:15', '2022-11-07 16:13:15'),
-	(17, 25, 14, 'EgUGnu5yxEN', '#e6e389', 'S', 'Dai Dong, Thach That, Ha Noi', 'Vu Tuan Kiet', '0987654321', 2, '40.8', 0, 1, '2022-11-07 16:13:15', '2022-11-07 16:13:15');
+	(17, 25, 14, 'EgUGnu5yxEN', '#e6e389', 'S', 'Dai Dong, Thach That, Ha Noi', 'Vu Tuan Kiet', '0987654321', 2, '40.8', 0, 1, '2022-11-07 16:13:15', '2022-11-07 16:13:15'),
+	(18, 23, 23, 'QemyzuDAd6j', '#ffffff', 'S', 'Dai Dong, Thach That, Ha Noi', 'Vu Tuan Kiet', '0987654321', 3, '72', 0, 1, '2022-11-15 13:13:39', '2022-11-15 13:13:39');
 /*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 
 -- Dumping structure for table ekka.product
@@ -257,13 +262,13 @@ CREATE TABLE IF NOT EXISTS `product` (
 DELETE FROM `product`;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
 INSERT INTO `product` (`ID`, `PRODUCT_NAME`, `PRODUCT_IMAGE`, `DETAILS`, `MORE_INFORMATION`, `CATEGORY_ID`, `BRAND_ID`, `TOTAL_PRODUCT`, `PRICE_PRODUCT`, `DISCOUNT`, `RATING`, `CREATED_AT`, `UPDATED_AT`, `STATE`) VALUES
-	(19, 'Boys Chevron Pattern Hook-and-loop Fastener Sneakers', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/906eca07-f1d5-4faf-bac5-5a0d5ad27d83png', 'Color:	                Multicolor\r\nPattern Type:	Colorblock\r\nToe:	                Round Toe\r\nDetails:	                Lace Up\r\nInsole Material:	Mesh\r\nOutsole Material:	MD\r\nUpper Material:	Fabric\r\nLining Material:	Mesh\r\nGender:	                Boys\r\nType:	                Chunky Sneakers', 'Boys Chevron Pattern Hook-and-loop Fastener Sneakers\r\nColor:	                Multicolor\r\nPattern Type:	Colorblock\r\nToe:	                Round Toe\r\nDetails:	                Lace Up\r\nInsole Material:	Mesh\r\nOutsole Material:	MD\r\nUpper Material:	Fabric\r\nLining Material:	Mesh\r\nGender:	                Boys\r\nType:	                Chunky Sneakers', 11, 17, 0, 24, '10', 4, '2022-10-31 19:21:51', '2022-11-07 09:17:28', 1),
-	(20, 'Boys Color Block Hook-and-loop Fastener Running Shoes', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/73d58e36-f674-4a10-a245-7d53c7e6ef4dpng', 'Color:	                Multicolor\r\nPattern Type:	Colorblock\r\nToe:	                Round Toe\r\nDetails:	                Lace Up\r\nInsole Material:	Mesh\r\nOutsole Material:	MD\r\nUpper Material:	Fabric\r\nLining Material:	Mesh\r\nGender:	                Boys\r\nType:	                Running Shoes', 'Boys Color Block Hook-and-loop Fastener Running Shoes\r\nColor:	                Multicolor\r\nPattern Type:	Colorblock\r\nToe:	                Round Toe\r\nDetails:	                Lace Up\r\nInsole Material:	Mesh\r\nOutsole Material:	MD\r\nUpper Material:	Fabric\r\nLining Material:	Mesh\r\nGender:	                Boys\r\nType:	                Running Shoes', 11, 17, 0, 22, '0', 5, '2022-10-31 19:28:02', '2022-11-07 09:17:32', 1),
-	(21, 'Men Letter Graphic Color-block Drawstring Hoodie', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/d700ae26-bc88-488e-8819-94a79de0e787png', 'Color:	                  Khaki\r\nStyle:	                  Casual\r\nPattern Type:	  Letter, Colorblock\r\nDetails:	                  Drawstring, Pocket\r\nType:	                  Pullovers\r\nNeckline:	          Hooded\r\nSleeve Length:	  Long Sleeve\r\nSleeve Type:	          Regular Sleeve\r\nLength:	                  Regular\r\nFit Type:	                  Slim Fit\r\nFabric:	                  Slight Stretch\r\nMaterial:	          Fabric\r\nComposition:	  95% Polyester, 5% Elastane\r\nCare Instructions:  Machine wash or professional dry clean\r\nSheer:	                  No', 'Men Letter Graphic Color-block Drawstring Hoodie\r\nColor:	                  Khaki\r\nStyle:	                  Casual\r\nPattern Type:	  Letter, Colorblock\r\nDetails:	                  Drawstring, Pocket\r\nType:	                  Pullovers\r\nNeckline:	          Hooded\r\nSleeve Length:	  Long Sleeve\r\nSleeve Type:	          Regular Sleeve\r\nLength:	                  Regular\r\nFit Type:	                  Slim Fit\r\nFabric:	                  Slight Stretch\r\nMaterial:	          Fabric\r\nComposition:	  95% Polyester, 5% Elastane\r\nCare Instructions:  Machine wash or professional dry clean\r\nSheer:	                  No', 22, 17, 982, 24, '12', 0, '2022-10-31 19:34:24', '2022-11-07 09:17:18', 1),
-	(22, 'Men Plaid Print Pocket Patched Overcoat Without Hoodie', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/7c1847a9-bbf5-41b6-9ae1-ca938edd08c4png', 'Style:	                        Casual\r\nColor:	                        Black and White\r\nPattern Type:	        Plaid\r\nDetails:	                        Pocket, Button Front\r\nType:	                        Regular\r\nNeckline:	                Collar\r\nSleeve Length:	        Long Sleeve\r\nSleeve Type:	                Regular Sleeve\r\nLength:	                        Regular\r\nPlacket:	                        Single Breasted\r\nFit Type:	                        Regular Fit\r\nFabric:	                        Non-Stretch\r\nWaterproof:	                No\r\nMaterial:	                Wool-Like Fabric\r\nComposition:	        90% Polyester, 10% Wool\r\nCare Instructions:	Hand wash or professionally dry clean\r\nSheer:	                         No', 'Men Plaid Print Pocket Patched Overcoat Without Hoodie\r\nStyle:	                        Casual\r\nColor:	                        Black and White\r\nPattern Type:	        Plaid\r\nDetails:	                        Pocket, Button Front\r\nType:	                        Regular\r\nNeckline:	                Collar\r\nSleeve Length:	        Long Sleeve\r\nSleeve Type:	                Regular Sleeve\r\nLength:	                        Regular\r\nPlacket:	                        Single Breasted\r\nFit Type:	                        Regular Fit\r\nFabric:	                        Non-Stretch\r\nWaterproof:	                No\r\nMaterial:	                Wool-Like Fabric\r\nComposition:	        90% Polyester, 10% Wool\r\nCare Instructions:	Hand wash or professionally dry clean\r\nSheer:	                         No', 20, 17, 990, 28, '10', 5, '2022-10-31 19:41:25', '2022-11-07 16:09:05', 1),
-	(23, 'Plaid Print Teddy Lined Snap Button Drawstring Hooded Coat', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/cdc8fb01-349e-4da0-91c1-71c98aef6db0png', 'Color:	                        Dark Green\r\nStyle:	                        Casual\r\nPattern Type:	        Plaid\r\nType:	                        Other\r\nDetails:	                        Drawstring, Button Front\r\nNeckline:	                Hooded\r\nSleeve Length:	        Long Sleeve\r\nSleeve Type:	                Regular Sleeve\r\nLength:	                        Regular\r\nPlacket:	                        Single Breasted\r\nFit Type:	                        Regular Fit\r\nFabric:	                        Non-Stretch\r\nMaterial:	                Fabric\r\nComposition:	        100% Polyester\r\nCare Instructions:	Machine wash or professional dry clean\r\nSheer:	                        No', 'Plaid Print Teddy Lined Snap Button Drawstring Hooded Coat\r\nColor:	                        Dark Green\r\nStyle:	                        Casual\r\nPattern Type:	        Plaid\r\nType:	                        Other\r\nDetails:	                        Drawstring, Button Front\r\nNeckline:	                Hooded\r\nSleeve Length:	        Long Sleeve\r\nSleeve Type:	                Regular Sleeve\r\nLength:	                        Regular\r\nPlacket:	                        Single Breasted\r\nFit Type:	                        Regular Fit\r\nFabric:	                        Non-Stretch\r\nMaterial:	                Fabric\r\nComposition:	        100% Polyester\r\nCare Instructions:	Machine wash or professional dry clean\r\nSheer:	                        No', 15, 17, 994, 24, '0', 0, '2022-10-31 19:46:39', '2022-11-07 16:09:05', 1),
-	(24, 'Reflective Expression Print Zipper Hooded Jacket', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/9b282533-4209-44e0-a4e4-b5201a807ddbpng', 'Color:	                        Black\r\nStyle:	                        Casual\r\nPattern Type:	        Cartoon\r\nType:	                        Other\r\nNeckline:	                Hooded\r\nDetails:	                        Zipper\r\nSleeve Length:	        Long Sleeve\r\nSleeve Type:	                Regular Sleeve\r\nLength:	                        Regular\r\nPlacket:	                        Zipper\r\nFit Type:	                        Regular Fit\r\nFabric:	                        Non-Stretch\r\nMaterial:	                Fabric\r\nComposition:	        100% Polyester\r\nCare Instructions:	Machine wash or professional dry clean\r\nSheer:	                        No', 'Reflective Expression Print Zipper Hooded Jacket\r\nColor:	                        Black\r\nStyle:	                        Casual\r\nPattern Type:	        Cartoon\r\nType:	                        Other\r\nNeckline:	                Hooded\r\nDetails:	                        Zipper\r\nSleeve Length:	        Long Sleeve\r\nSleeve Type:	                Regular Sleeve\r\nLength:	                        Regular\r\nPlacket:	                        Zipper\r\nFit Type:	                        Regular Fit\r\nFabric:	                        Non-Stretch\r\nMaterial:	                Fabric\r\nComposition:	        100% Polyester\r\nCare Instructions:	Machine wash or professional dry clean\r\nSheer:	                        No', 15, 17, 993, 16, '0', 1, '2022-10-31 19:52:15', '2022-11-07 16:13:15', 1),
-	(25, 'Test product 1', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/df16baac-3e02-49e9-90b2-ddf0c2703e74png', 'Test Description 1', 'test detail 1', 15, 17, 997, 24, '15', 0, '2022-11-06 11:40:45', '2022-11-07 16:13:15', 1);
+	(19, 'Boys Chevron Pattern Hook-and-loop Fastener Sneakers', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/906eca07-f1d5-4faf-bac5-5a0d5ad27d83png', 'Color:	                Multicolor\r\nPattern Type:	Colorblock\r\nToe:	                Round Toe\r\nDetails:	                Lace Up\r\nInsole Material:	Mesh\r\nOutsole Material:	MD\r\nUpper Material:	Fabric\r\nLining Material:	Mesh\r\nGender:	                Boys\r\nType:	                Chunky Sneakers', 'Boys Chevron Pattern Hook-and-loop Fastener Sneakers\r\nColor:	                Multicolor\r\nPattern Type:	Colorblock\r\nToe:	                Round Toe\r\nDetails:	                Lace Up\r\nInsole Material:	Mesh\r\nOutsole Material:	MD\r\nUpper Material:	Fabric\r\nLining Material:	Mesh\r\nGender:	                Boys\r\nType:	                Chunky Sneakers', 11, 17, 0, 24, '10', 4, '2022-10-31 19:21:51', '2022-11-08 14:17:37', 1),
+	(20, 'Boys Color Block Hook-and-loop Fastener Running Shoes', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/73d58e36-f674-4a10-a245-7d53c7e6ef4dpng', 'Color:	                Multicolor\r\nPattern Type:	Colorblock\r\nToe:	                Round Toe\r\nDetails:	                Lace Up\r\nInsole Material:	Mesh\r\nOutsole Material:	MD\r\nUpper Material:	Fabric\r\nLining Material:	Mesh\r\nGender:	                Boys\r\nType:	                Running Shoes', 'Boys Color Block Hook-and-loop Fastener Running Shoes\r\nColor:	                Multicolor\r\nPattern Type:	Colorblock\r\nToe:	                Round Toe\r\nDetails:	                Lace Up\r\nInsole Material:	Mesh\r\nOutsole Material:	MD\r\nUpper Material:	Fabric\r\nLining Material:	Mesh\r\nGender:	                Boys\r\nType:	                Running Shoes', 11, 17, 0, 22, '0', 5, '2022-10-31 19:28:02', '2022-11-08 14:17:37', 1),
+	(21, 'Men Letter Graphic Color-block Drawstring Hoodie', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/d700ae26-bc88-488e-8819-94a79de0e787png', 'Color:	                  Khaki\r\nStyle:	                  Casual\r\nPattern Type:	  Letter, Colorblock\r\nDetails:	                  Drawstring, Pocket\r\nType:	                  Pullovers\r\nNeckline:	          Hooded\r\nSleeve Length:	  Long Sleeve\r\nSleeve Type:	          Regular Sleeve\r\nLength:	                  Regular\r\nFit Type:	                  Slim Fit\r\nFabric:	                  Slight Stretch\r\nMaterial:	          Fabric\r\nComposition:	  95% Polyester, 5% Elastane\r\nCare Instructions:  Machine wash or professional dry clean\r\nSheer:	                  No', 'Men Letter Graphic Color-block Drawstring Hoodie\r\nColor:	                  Khaki\r\nStyle:	                  Casual\r\nPattern Type:	  Letter, Colorblock\r\nDetails:	                  Drawstring, Pocket\r\nType:	                  Pullovers\r\nNeckline:	          Hooded\r\nSleeve Length:	  Long Sleeve\r\nSleeve Type:	          Regular Sleeve\r\nLength:	                  Regular\r\nFit Type:	                  Slim Fit\r\nFabric:	                  Slight Stretch\r\nMaterial:	          Fabric\r\nComposition:	  95% Polyester, 5% Elastane\r\nCare Instructions:  Machine wash or professional dry clean\r\nSheer:	                  No', 22, 17, 982, 24, '12', 0, '2022-10-31 19:34:24', '2022-11-08 13:42:58', 1),
+	(22, 'Men Plaid Print Pocket Patched Overcoat Without Hoodie', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/7c1847a9-bbf5-41b6-9ae1-ca938edd08c4png', 'Style:	                        Casual\r\nColor:	                        Black and White\r\nPattern Type:	        Plaid\r\nDetails:	                        Pocket, Button Front\r\nType:	                        Regular\r\nNeckline:	                Collar\r\nSleeve Length:	        Long Sleeve\r\nSleeve Type:	                Regular Sleeve\r\nLength:	                        Regular\r\nPlacket:	                        Single Breasted\r\nFit Type:	                        Regular Fit\r\nFabric:	                        Non-Stretch\r\nWaterproof:	                No\r\nMaterial:	                Wool-Like Fabric\r\nComposition:	        90% Polyester, 10% Wool\r\nCare Instructions:	Hand wash or professionally dry clean\r\nSheer:	                         No', 'Men Plaid Print Pocket Patched Overcoat Without Hoodie\r\nStyle:	                        Casual\r\nColor:	                        Black and White\r\nPattern Type:	        Plaid\r\nDetails:	                        Pocket, Button Front\r\nType:	                        Regular\r\nNeckline:	                Collar\r\nSleeve Length:	        Long Sleeve\r\nSleeve Type:	                Regular Sleeve\r\nLength:	                        Regular\r\nPlacket:	                        Single Breasted\r\nFit Type:	                        Regular Fit\r\nFabric:	                        Non-Stretch\r\nWaterproof:	                No\r\nMaterial:	                Wool-Like Fabric\r\nComposition:	        90% Polyester, 10% Wool\r\nCare Instructions:	Hand wash or professionally dry clean\r\nSheer:	                         No', 20, 17, 990, 28, '10', 5, '2022-10-31 19:41:25', '2022-11-08 13:42:58', 1),
+	(23, 'Plaid Print Teddy Lined Snap Button Drawstring Hooded Coat', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/cdc8fb01-349e-4da0-91c1-71c98aef6db0png', 'Color:	                        Dark Green\r\nStyle:	                        Casual\r\nPattern Type:	        Plaid\r\nType:	                        Other\r\nDetails:	                        Drawstring, Button Front\r\nNeckline:	                Hooded\r\nSleeve Length:	        Long Sleeve\r\nSleeve Type:	                Regular Sleeve\r\nLength:	                        Regular\r\nPlacket:	                        Single Breasted\r\nFit Type:	                        Regular Fit\r\nFabric:	                        Non-Stretch\r\nMaterial:	                Fabric\r\nComposition:	        100% Polyester\r\nCare Instructions:	Machine wash or professional dry clean\r\nSheer:	                        No', 'Plaid Print Teddy Lined Snap Button Drawstring Hooded Coat\r\nColor:	                        Dark Green\r\nStyle:	                        Casual\r\nPattern Type:	        Plaid\r\nType:	                        Other\r\nDetails:	                        Drawstring, Button Front\r\nNeckline:	                Hooded\r\nSleeve Length:	        Long Sleeve\r\nSleeve Type:	                Regular Sleeve\r\nLength:	                        Regular\r\nPlacket:	                        Single Breasted\r\nFit Type:	                        Regular Fit\r\nFabric:	                        Non-Stretch\r\nMaterial:	                Fabric\r\nComposition:	        100% Polyester\r\nCare Instructions:	Machine wash or professional dry clean\r\nSheer:	                        No', 15, 17, 991, 24, '0', 1, '2022-10-31 19:46:39', '2022-11-15 13:14:50', 1),
+	(24, 'Reflective Expression Print Zipper Hooded Jacket', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/9b282533-4209-44e0-a4e4-b5201a807ddbpng', 'Color:	                        Black\r\nStyle:	                        Casual\r\nPattern Type:	        Cartoon\r\nType:	                        Other\r\nNeckline:	                Hooded\r\nDetails:	                        Zipper\r\nSleeve Length:	        Long Sleeve\r\nSleeve Type:	                Regular Sleeve\r\nLength:	                        Regular\r\nPlacket:	                        Zipper\r\nFit Type:	                        Regular Fit\r\nFabric:	                        Non-Stretch\r\nMaterial:	                Fabric\r\nComposition:	        100% Polyester\r\nCare Instructions:	Machine wash or professional dry clean\r\nSheer:	                        No', 'Reflective Expression Print Zipper Hooded Jacket\r\nColor:	                        Black\r\nStyle:	                        Casual\r\nPattern Type:	        Cartoon\r\nType:	                        Other\r\nNeckline:	                Hooded\r\nDetails:	                        Zipper\r\nSleeve Length:	        Long Sleeve\r\nSleeve Type:	                Regular Sleeve\r\nLength:	                        Regular\r\nPlacket:	                        Zipper\r\nFit Type:	                        Regular Fit\r\nFabric:	                        Non-Stretch\r\nMaterial:	                Fabric\r\nComposition:	        100% Polyester\r\nCare Instructions:	Machine wash or professional dry clean\r\nSheer:	                        No', 15, 17, 993, 16, '0', 1, '2022-10-31 19:52:15', '2022-11-08 13:42:58', 1),
+	(25, 'Test product 1', 'https://storage.googleapis.com/k34dl-8e937.appspot.com/df16baac-3e02-49e9-90b2-ddf0c2703e74png', 'Test Description 1', 'test detail 1', 15, 17, 997, 24, '15', 0, '2022-11-06 11:40:45', '2022-11-08 13:42:58', 1);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 
 -- Dumping structure for table ekka.product_color
@@ -423,7 +428,7 @@ CREATE TABLE IF NOT EXISTS `review` (
   KEY `PRODUCT_ID` (`PRODUCT_ID`),
   CONSTRAINT `review_ibfk_1` FOREIGN KEY (`USER_ID`) REFERENCES `user` (`ID`),
   CONSTRAINT `review_ibfk_2` FOREIGN KEY (`PRODUCT_ID`) REFERENCES `product` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- Dumping data for table ekka.review: ~3 rows (approximately)
 DELETE FROM `review`;
@@ -431,7 +436,8 @@ DELETE FROM `review`;
 INSERT INTO `review` (`ID`, `PRODUCT_ID`, `USER_ID`, `COMMENT`, `RATING`, `STATE`, `CREATED_AT`, `UPDATED_AT`) VALUES
 	(2, 20, 15, 'oke', 5, 1, '2022-11-02 20:41:12', '2022-11-05 12:56:47'),
 	(3, 24, 14, 'f*ck!', 1, 1, '2022-11-05 16:31:38', '2022-11-05 16:31:38'),
-	(5, 19, 23, 'good!', 4, 1, '2022-11-06 11:22:57', '2022-11-06 11:22:57');
+	(5, 19, 23, 'good!', 4, 1, '2022-11-06 11:22:57', '2022-11-06 11:22:57'),
+	(6, 23, 23, 'f*ck', 1, 1, '2022-11-15 13:14:50', '2022-11-15 13:14:50');
 /*!40000 ALTER TABLE `review` ENABLE KEYS */;
 
 -- Dumping structure for table ekka.user
@@ -506,16 +512,20 @@ CREATE TABLE IF NOT EXISTS `wish_list` (
   KEY `PRODUCT_ID` (`PRODUCT_ID`),
   CONSTRAINT `wish_list_ibfk_1` FOREIGN KEY (`USER_ID`) REFERENCES `user` (`ID`),
   CONSTRAINT `wish_list_ibfk_2` FOREIGN KEY (`PRODUCT_ID`) REFERENCES `product` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Dumping data for table ekka.wish_list: ~4 rows (approximately)
+-- Dumping data for table ekka.wish_list: ~5 rows (approximately)
 DELETE FROM `wish_list`;
 /*!40000 ALTER TABLE `wish_list` DISABLE KEYS */;
 INSERT INTO `wish_list` (`ID`, `USER_ID`, `PRODUCT_ID`, `CREATED_AT`, `UPDATED_AT`, `STATE`) VALUES
 	(1, 15, 20, '2022-11-02 20:41:02', '2022-11-02 20:41:02', 1),
 	(2, 15, 24, '2022-11-02 20:43:38', '2022-11-02 20:43:38', 1),
-	(5, 23, 24, '2022-11-06 11:21:29', '2022-11-06 11:21:29', 1),
-	(7, 23, 19, '2022-11-06 11:23:13', '2022-11-06 11:23:13', 1);
+	(90, 23, 25, '2022-11-15 13:16:26', '2022-11-15 13:16:26', 1),
+	(91, 23, 23, '2022-11-15 13:16:38', '2022-11-15 13:16:38', 1),
+	(93, 23, 24, '2022-11-15 13:19:08', '2022-11-15 13:19:08', 1),
+	(94, 23, 22, '2022-11-15 13:19:10', '2022-11-15 13:19:10', 1),
+	(95, 23, 21, '2022-11-15 13:19:13', '2022-11-15 13:19:13', 1),
+	(97, 23, 19, '2022-11-15 13:19:16', '2022-11-15 13:19:16', 1);
 /*!40000 ALTER TABLE `wish_list` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

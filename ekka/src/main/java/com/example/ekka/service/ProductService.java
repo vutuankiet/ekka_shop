@@ -6,6 +6,7 @@ import com.example.ekka.entities.*;
 import com.example.ekka.entities.ProductEntity;
 import com.example.ekka.repository.SearchingRepository;
 import com.example.ekka.repository.brand.BrandRepository;
+import com.example.ekka.repository.cart.CartRepository;
 import com.example.ekka.repository.category.CategoryRepository;
 import com.example.ekka.repository.genderCategory.GenderCategoryRepository;
 import com.example.ekka.repository.product.ProductRepository;
@@ -44,6 +45,9 @@ public class ProductService {
     
     @Autowired
     BrandRepository brandRepository;
+
+    @Autowired
+    CartRepository cartRepository;
 
     public void save(ProductDto productDto) throws Exception {
         ProductEntity productEntity = new ProductEntity();
@@ -162,6 +166,7 @@ public class ProductService {
         int countProductGenderCategory = countProductGenderCategory(nameproduct.getCategory().getGenderCategory().getId());
         genderCategoryRepository.changeItem(countProductGenderCategory, nameproduct.getCategory().getGenderCategory().getId());
 
+        cartRepository.deleteByProduct(productDto.getId());
     }
 
     public void restoreProduct(ProductDto productDto) throws Exception {

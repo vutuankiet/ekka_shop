@@ -8,6 +8,7 @@ import com.example.ekka.entities.GenderCategoryEntity;
 import com.example.ekka.repository.brand.BrandRepository;
 import com.example.ekka.repository.category.CategoryRepository;
 import com.example.ekka.repository.genderCategory.GenderCategoryRepository;
+import com.example.ekka.repository.product.ProductRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,9 @@ public class CategoryService {
 
     @Autowired
     GenderCategoryRepository genderCategoryRepository;
+
+    @Autowired
+    ProductRepository productRepository;
 
     public void save(CategoryDto categoryDto) throws Exception {
         CategoryEntity categoryEntity = new CategoryEntity();
@@ -54,6 +58,9 @@ public class CategoryService {
     public List<CategoryEntity> listAllUpdatedDesc() {
         return (List<CategoryEntity>) categoryRepository.findAllByUpdate_at();
     }
+    public List<CategoryEntity> listAllByState() {
+        return (List<CategoryEntity>) categoryRepository.findAllByState();
+    }
 
     public CategoryEntity get(long id) {
         return categoryRepository.findById(id).get();
@@ -74,6 +81,7 @@ public class CategoryService {
         categoryEntity.setGenderCategory(genderCategoryRepository.findById(categoryDto.getGenderCategoryId()).orElse(null));
 
         categoryRepository.save(categoryEntity);
+        productRepository.deleteByCategory(categoryDto.getId());
 
     }
 
@@ -92,6 +100,7 @@ public class CategoryService {
 
 
         categoryRepository.save(categoryEntity);
+        productRepository.restoreByCategory(categoryDto.getId());
 
     }
 

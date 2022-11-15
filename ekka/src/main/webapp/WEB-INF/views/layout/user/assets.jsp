@@ -31,3 +31,5 @@
 <link href='/user/assets/css/plugins/toastr.css' rel='stylesheet'>
 <link href='/user/assets/css/plugins/owl.carousel.min.css' rel='stylesheet'>
 <link href='/user/assets/css/plugins/owl.theme.default.min.css' rel='stylesheet'>
+
+<script src="/user/assets/js/vendor/jquery-3.5.1.min.js"></script>

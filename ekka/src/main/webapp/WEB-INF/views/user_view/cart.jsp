@@ -57,23 +57,35 @@
     <div class="container">
         <div class="row">
             <c:if test="${listCartUserId == []}">
-                <div class="ec-wish-rightside col-lg-12 col-md-12">
-                    <p class="emp-wishlist-msg">Your cart is empty!</p>
-                </div>
-                <div class="ec-wish-rightside col-lg-12 col-md-12 pt-0">
-                    <p class="emp-wishlist-msg pt-0 text-decoration-underline"><a href="/ekka/product">Shoping now!</a></p>
+                <div class="row">
+                    <div class="ec-wish-rightside col-lg-12 col-md-12">
+                        <p class="emp-wishlist-msg">Your cart is empty!</p>
+                    </div>
+                    <div class="ec-wish-rightside col-lg-12 col-md-12 pt-0">
+                        <p class="emp-wishlist-msg pt-0 text-decoration-underline"><a href="/ekka/product">Shoping now!</a>
+                        </p>
+                    </div>
                 </div>
             </c:if>
             <c:if test="${listCartUserId != []}">
+                <div class="row empty-cart-list d-none">
+                    <div class="ec-wish-rightside col-lg-12 col-md-12">
+                        <p class="emp-wishlist-msg">Your cart is empty!</p>
+                    </div>
+                    <div class="ec-wish-rightside col-lg-12 col-md-12 pt-0">
+                        <p class="emp-wishlist-msg pt-0 text-decoration-underline"><a href="/ekka/product">Shoping now!</a>
+                        </p>
+                    </div>
+                </div>
 
-            <f:form cssClass="row" method="post" action="/ekka/order/save"
-                    modelAttribute="orderDto">
+                <f:form cssClass="row ec-show-cart-list" method="post" action="/ekka/order/save"
+                        modelAttribute="orderDto">
 
-                <div class="ec-cart-leftside col-md-12 col-lg-12 col-xl-8">
-                    <!-- cart content Start -->
-                    <div class="ec-cart-content">
-                        <div class="ec-cart-inner">
-                            <div class="row">
+                    <div class="ec-cart-leftside col-md-12 col-lg-12 col-xl-8">
+                        <!-- cart content Start -->
+                        <div class="ec-cart-content">
+                            <div class="ec-cart-inner">
+                                <div class="row">
                                     <div class="table-content cart-table-content">
                                         <table>
                                             <thead>
@@ -91,10 +103,12 @@
                                             <tbody>
 
                                             <c:forEach items="${listCartUserId}" var="cartUserId">
-                                                <f:input cssClass="d-none" path="product" value="${cartUserId.product.id}"></f:input>
-                                                <f:input cssClass="d-none" path="cart" value="${cartUserId.id}"></f:input>
+                                                <f:input cssClass="d-none" path="product"
+                                                         value="${cartUserId.product.id}"></f:input>
+                                                <f:input cssClass="d-none" path="cart"
+                                                         value="${cartUserId.id}"></f:input>
 
-                                                <tr>
+                                                <tr class="cart-list cart-list-${cartUserId.id}">
                                                     <td data-label="Product" class="ec-cart-pro-name"><a
                                                             class="cart-product-name"
                                                             title="${cartUserId.product.productName}"
@@ -110,12 +124,14 @@
 
                                                             <button type="button"
                                                                     class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split"
-                                                                    style="width: 40px;height: 40px;" data-toggle="dropdown"
+                                                                    style="width: 40px;height: 40px;"
+                                                                    data-toggle="dropdown"
                                                                     aria-expanded="false">
                                                                 <span class="sr-only">Toggle Dropdown</span>
                                                             </button>
                                                             <div class="dropdown-menu px-4" style="min-width: auto;">
-                                                                <c:forEach items="${listProductColor}" var="productColor">
+                                                                <c:forEach items="${listProductColor}"
+                                                                           var="productColor">
                                                                     <c:if test="${cartUserId.product.id == productColor.product.id}">
                                                                         <button class="changeColor" type="button"
                                                                                 style="background-color: ${productColor.colorName};border: 2px solid;width: 40px;height: 40px;"></button>
@@ -124,7 +140,8 @@
                                                                 </c:forEach>
 
                                                             </div>
-                                                            <f:input cssClass="color d-none" path="color" value="${cartUserId.color_product}"></f:input>
+                                                            <f:input cssClass="color d-none" path="color"
+                                                                     value="${cartUserId.color_product}"></f:input>
 
                                                         </div>
 
@@ -136,7 +153,8 @@
 
                                                             <button type="button"
                                                                     class="btn btn-sm btn-secondary dropdown-toggle dropdown-toggle-split"
-                                                                    style="width: 40px;height: 40px;" data-toggle="dropdown"
+                                                                    style="width: 40px;height: 40px;"
+                                                                    data-toggle="dropdown"
                                                                     aria-expanded="false">
                                                                 <span class="sr-only">Toggle Dropdown</span>
                                                             </button>
@@ -150,7 +168,8 @@
                                                                 </c:forEach>
 
                                                             </div>
-                                                            <f:input cssClass="size d-none" path="size" value="${cartUserId.size_product}"></f:input>
+                                                            <f:input cssClass="size d-none" path="size"
+                                                                     value="${cartUserId.size_product}"></f:input>
 
                                                         </div>
 
@@ -163,11 +182,11 @@
                                                         style="text-align: center;">
                                                         <div class="form-group">
                                                             <c:if test="${cartUserId.product.totalProduct > 0}">
-                                                            <input class="form-control px-3 py-0 item"
-                                                                   style="height: 40px!important;min-height: 40px!important; width: 75px;"
-                                                                   type="number" min="1"
-                                                                   max="${cartUserId.product.totalProduct}"
-                                                                   value="${cartUserId.product.totalProduct == 0 ? 0 : cartUserId.item}"/>
+                                                                <input class="form-control px-3 py-0 item"
+                                                                       style="height: 40px!important;min-height: 40px!important; width: 75px;"
+                                                                       type="number" min="1"
+                                                                       max="${cartUserId.product.totalProduct}"
+                                                                       value="${cartUserId.product.totalProduct == 0 ? 0 : cartUserId.item}"/>
                                                             </c:if>
                                                             <c:if test="${cartUserId.product.totalProduct <= 0}">
                                                                 <input class="form-control px-3 py-0 item d-none"
@@ -178,8 +197,10 @@
                                                                 <span class="text-danger">(Empty)</span>
                                                             </c:if>
                                                         </div>
-                                                        <f:input cssClass="itemProduct d-none" path="itemProduct" value="${cartUserId.item}"></f:input>
-                                                        <f:input cssClass="totalPrice d-none" path="totalPrice" value="${cartUserId.price}"></f:input>
+                                                        <f:input cssClass="itemProduct d-none" path="itemProduct"
+                                                                 value="${cartUserId.item}"></f:input>
+                                                        <f:input cssClass="totalPrice d-none" path="totalPrice"
+                                                                 value="${cartUserId.price}"></f:input>
 
                                                     </td>
                                                     <td class="total text-right" data-label="Total">$<fmt:formatNumber
@@ -187,17 +208,52 @@
                                                             value="${cartUserId.product.totalProduct == 0 ? 0 : cartUserId.price}"></fmt:formatNumber></td>
 
                                                     <td data-label="Remove">
-                                                        <f:form method="post" action="/ekka/cart/delete/${cartUserId.id}"
-                                                                modelAttribute="urlDto">
-                                                            <f:input type="text" path="url"
-                                                                     value="${urlDto.url}"
-                                                                     cssClass="d-none" id="one"/>
-                                                            <button formmethod="post" formaction="/ekka/cart/delete/${cartUserId.id}"><i class="ecicon eci-trash-o"></i>
-                                                            </button>
-                                                        </f:form>
+                                                            <%--                                                        <f:form method="post" action="/ekka/cart/delete/${cartUserId.id}"--%>
+                                                            <%--                                                                modelAttribute="urlDto">--%>
+                                                            <%--                                                            <f:input type="text" path="url"--%>
+                                                            <%--                                                                     value="${urlDto.url}"--%>
+                                                            <%--                                                                     cssClass="d-none" id="one"/>--%>
+                                                            <%--                                                            <button formmethod="post" formaction="/ekka/cart/delete/${cartUserId.id}"><i class="ecicon eci-trash-o"></i>--%>
+                                                            <%--                                                            </button>--%>
+                                                            <%--                                                        </f:form>--%>
+
+                                                                <button type="button" title="Remove To Cart"
+                                                                        class="ecicon eci-trash-o remove-to-cart btn-remove-${cartUserId.id}">
+                                                                </button>
+                                                                <script>
+                                                                    $(document).ready(function () {
+
+                                                                        $("button.remove-to-cart.btn-remove-${cartUserId.id}").click(function (event) {
+
+                                                                            var url = "${urlDto.url}";
+
+                                                                            $.post("/ekka/cart/delete/${cartUserId.id}", {
+                                                                                url: url,
+                                                                            }, function (data) {
+                                                                            }).done(function () {
+                                                                            }).fail(function (xhr, textStatus, errorThrown) {
+                                                                                toastr.error('Deleting cart failed');
+
+                                                                            }).complete(function () {
+                                                                                $("tr.cart-list-${cartUserId.id}").remove();
+                                                                                var el = $("tr.cart-list").length;
+                                                                                console.log(el);
+                                                                                if(el == 0){
+                                                                                    console.log(el)
+                                                                                    $("div.empty-cart-list").removeClass("d-none");
+                                                                                    $("form.ec-show-cart-list").remove();
+                                                                                }
+                                                                                toastr.success('Delete the cart successfully');
+
+
+                                                                            });
+
+                                                                        });
+                                                                    });
+                                                                </script>
+
                                                     </td>
                                                 </tr>
-
 
 
                                             </c:forEach>
@@ -207,31 +263,31 @@
                                     </div>
 
 
+                                </div>
                             </div>
                         </div>
+                        <!--cart content End -->
                     </div>
-                    <!--cart content End -->
-                </div>
-                <!-- Sidebar Area Start -->
-                <div class="ec-cart-rightside col-md-12 col-lg-12 col-xl-4">
-                    <div class="ec-sidebar-wrap">
-                        <!-- Sidebar Summary Block -->
-                        <div class="ec-sidebar-block">
-                            <div class="ec-sb-title">
-                                <h3 class="ec-sidebar-title">Summary</h3>
-                            </div>
-                            <div class="ec-sb-block-content">
-                                <h4 class="ec-ship-title">Estimate Shipping</h4>
-                                <div class="ec-cart-form">
-                                    <p>Enter your destination to get a shipping estimate</p>
-                                    <span class="ec-cart-wrap">
+                    <!-- Sidebar Area Start -->
+                    <div class="ec-cart-rightside col-md-12 col-lg-12 col-xl-4">
+                        <div class="ec-sidebar-wrap">
+                            <!-- Sidebar Summary Block -->
+                            <div class="ec-sidebar-block">
+                                <div class="ec-sb-title">
+                                    <h3 class="ec-sidebar-title">Summary</h3>
+                                </div>
+                                <div class="ec-sb-block-content">
+                                    <h4 class="ec-ship-title">Estimate Shipping</h4>
+                                    <div class="ec-cart-form">
+                                        <p>Enter your destination to get a shipping estimate</p>
+                                        <span class="ec-cart-wrap">
                                         <label>Delivery address (<span class="text-danger">*</span>)</label>
                                         <f:input type="text" cssClass="DeliveryAddress mb-0" path="delivery_address"
                                                  placeholder="Delivery address"
                                                  aria-label="Delivery address"/>
                                         <p class="show-delivery-address text-danger">Can't be left blank!</p>
                                         </span>
-                                    <span class="ec-cart-wrap">
+                                        <span class="ec-cart-wrap">
                                             <label>Name of consignee (<span class="text-danger">*</span>)</label>
                                         <f:input cssClass="NameConsignee mb-0" type="text" path="name_consignee"
                                                  placeholder="Name of consignee"
@@ -239,44 +295,45 @@
                                         <p class="show-name-consignee text-danger">Can't be left blank!</p>
 
                                         </span>
-                                    <span class="ec-cart-wrap">
+                                        <span class="ec-cart-wrap">
                                             <label>Delivery phone number (<span class="text-danger">*</span>)</label>
                                         <f:input cssClass="DeliveryPhone mb-0" type="tel" path="delivery_phone"
-                                                 placeholder="Delivery phone number" pattern="(84|0[3|5|7|8|9])+([0-9]{8})\b"
+                                                 placeholder="Delivery phone number"
+                                                 pattern="(84|0[3|5|7|8|9])+([0-9]{8})\b"
                                                  aria-label="Delivery phone number"/>
                                         <p class="show-delivery-phone text-danger">Can't be left blank!</p>
                                         </span>
-                                </div>
-                            </div>
-
-                            <div class="ec-sb-block-content">
-                                <div class="ec-cart-summary-bottom">
-                                    <div class="ec-cart-summary">
-                                        <div class="show-sub-total">
-                                            <span class="text-left">Sub-Total</span>
-                                            <span class="text-right sub-total">$${totaltotal}</span>
-                                        </div>
-                                        <div class="ec-cart-summary-total">
-                                            <span class="text-left">Total Amount</span>
-                                            <span class="text-right all-total">$${totaltotal}</span>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="ec-cart-update-bottom d-flex flex-column">
-                                        <a class="mb-2" href="/ekka/product">Continue Shopping</a>
-                                        <button type="submit" class="btn btn-primary">Order Now</button>
                                     </div>
                                 </div>
+
+                                <div class="ec-sb-block-content">
+                                    <div class="ec-cart-summary-bottom">
+                                        <div class="ec-cart-summary">
+                                            <div class="show-sub-total">
+                                                <span class="text-left">Sub-Total</span>
+                                                <span class="text-right sub-total">$${totaltotal}</span>
+                                            </div>
+                                            <div class="ec-cart-summary-total">
+                                                <span class="text-left">Total Amount</span>
+                                                <span class="text-right all-total">$${totaltotal}</span>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="ec-cart-update-bottom d-flex flex-column">
+                                            <a class="mb-2" href="/ekka/product">Continue Shopping</a>
+                                            <button type="submit" class="btn btn-primary">Order Now</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+                            <!-- Sidebar Summary Block -->
                         </div>
-                        <!-- Sidebar Summary Block -->
                     </div>
-                </div>
-            </f:form>
+                </f:form>
             </c:if>
 
         </div>
@@ -481,7 +538,7 @@
 
     $("input.item").change(function (element) {
         var allTotal = 0;
-        $("input.item").each(function (){
+        $("input.item").each(function () {
             var el = $(this).val();
             $(this).parent().parent().children('input.itemProduct').val(el)
             var price = $(this).parents("tr").children('td.price').text();
@@ -493,34 +550,34 @@
         })
 
         console.log(+allTotal.toFixed(2))
-        $('.ec-cart-summary-total .all-total').text('$'+(+allTotal.toFixed(2)));
-        $('.show-sub-total .sub-total').text('$'+(+allTotal.toFixed(2)));
+        $('.ec-cart-summary-total .all-total').text('$' + (+allTotal.toFixed(2)));
+        $('.show-sub-total .sub-total').text('$' + (+allTotal.toFixed(2)));
 
     });
 
     $("input.DeliveryAddress").change(function (element) {
         var el = $(this).val();
-        if (el == ""){
+        if (el == "") {
             $('p.show-delivery-address').text(`Can't be left blank!`);
-        }else {
+        } else {
             $('p.show-delivery-address').text('');
         }
     });
 
     $("input.NameConsignee").change(function (element) {
         var el = $(this).val();
-        if (el == ""){
+        if (el == "") {
             $('p.show-name-consignee').text(`Can't be left blank!`);
-        }else {
+        } else {
             $('p.show-name-consignee').text('');
         }
     });
 
     $("input.DeliveryPhone").change(function (element) {
         var el = $(this).val();
-        if (el == ""){
+        if (el == "") {
             $('p.show-delivery-phone').text(`Can't be left blank!`);
-        }else {
+        } else {
             $('p.show-delivery-phone').text('');
         }
     });

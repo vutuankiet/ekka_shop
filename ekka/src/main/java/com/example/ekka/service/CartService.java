@@ -69,4 +69,8 @@ public class CartService {
         cartRepository.deleteById(cartDto.getId());
 
     }
+
+    public void deleteCartByProduct(long id) throws Exception {
+        cartRepository.deleteByProduct(id);
+    }
 }

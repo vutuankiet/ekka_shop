@@ -21,6 +21,16 @@ public interface BrandRepository extends JpaRepository<BrandEntity, Long> {
 
     @Transactional //try to add this annotation
     @Modifying      // to mark delete or update query
+    @Query(value = "SELECT b FROM BrandEntity b where b.state = 1")       // it will delete all the record with specific name
+    List<BrandEntity> findAllByState();
+
+    @Transactional //try to add this annotation
+    @Modifying      // to mark delete or update query
     @Query(value = "UPDATE BrandEntity b SET b.item = :item ,b.updated_at = current_timestamp WHERE b.id = :id")       // it will delete all the record with specific name
     int changeItem(@Param("item") int item, @Param("id") long id);
+
+//    @Transactional //try to add this annotation
+//    @Modifying      // to mark delete or update query
+//    @Query(value = "UPDATE BrandEntity b SET b.item = :item ,b.updated_at = current_timestamp WHERE b.id = :id")       // it will delete all the record with specific name
+//    int changeItem(@Param("item") int item, @Param("id") long id);
 }

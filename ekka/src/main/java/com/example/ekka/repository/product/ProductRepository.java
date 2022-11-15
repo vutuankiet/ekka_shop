@@ -59,6 +59,36 @@ public interface ProductRepository extends SearchingRepository<ProductEntity, Lo
     @Query(value = "UPDATE ProductEntity p SET p.totalProduct = :total, p.updated_at = current_timestamp WHERE p.id = :id")       // it will delete all the record with specific name
     int changeTotal(@Param("total") String total, @Param("id") long id);
 
+    @Transactional //try to add this annotation
+    @Modifying      // to mark delete or update query
+    @Query(value = "UPDATE ProductEntity p SET p.state = 0, p.updated_at = current_timestamp WHERE p.brand.id = :id")       // it will delete all the record with specific name
+    int deleteByBrand(@Param("id") long id);
+
+    @Transactional //try to add this annotation
+    @Modifying      // to mark delete or update query
+    @Query(value = "UPDATE ProductEntity p SET p.state = 1, p.updated_at = current_timestamp WHERE p.brand.id = :id")       // it will delete all the record with specific name
+    int restoreByBrand(@Param("id") long id);
+
+    @Transactional //try to add this annotation
+    @Modifying      // to mark delete or update query
+    @Query(value = "UPDATE ProductEntity p SET p.state = 0, p.updated_at = current_timestamp WHERE p.category.id = :id")       // it will delete all the record with specific name
+    int deleteByCategory(@Param("id") long id);
+
+    @Transactional //try to add this annotation
+    @Modifying      // to mark delete or update query
+    @Query(value = "UPDATE ProductEntity p SET p.state = 1, p.updated_at = current_timestamp WHERE p.category.id = :id")       // it will delete all the record with specific name
+    int restoreByCategory(@Param("id") long id);
+
+    @Transactional //try to add this annotation
+    @Modifying      // to mark delete or update query
+    @Query(value = "UPDATE ProductEntity p SET p.state = 0, p.updated_at = current_timestamp WHERE p.category.genderCategory.id = :id")       // it will delete all the record with specific name
+    int deleteByGenderCategory(@Param("id") long id);
+
+    @Transactional //try to add this annotation
+    @Modifying      // to mark delete or update query
+    @Query(value = "UPDATE ProductEntity p SET p.state = 1, p.updated_at = current_timestamp WHERE p.category.genderCategory.id = :id")       // it will delete all the record with specific name
+    int restoreByGenderCategory(@Param("id") long id);
+
     @Query(value = "select p from ProductEntity p where p.state= 1 and p.productName like %:key% and p.category.categoryName like %:category% and p.category.genderCategory.genderCategoryName like %:genderCategory% and p.brand.nameBrand like %:brand% and p.priceProduct > :firstPrice and p.priceProduct < :lastPrice")
     Page<ProductEntity> findAllProduct(@Param("key") String key, @Param("category") String category, @Param("genderCategory") String genderCategory, @Param("brand") String brand, @Param("firstPrice") float firstPrice, @Param("lastPrice") float lastPrice, Pageable pageable);
 }

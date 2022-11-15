@@ -21,6 +21,21 @@ public interface CategoryRepository extends JpaRepository<CategoryEntity, Long> 
 
     @Transactional //try to add this annotation
     @Modifying      // to mark delete or update query
+    @Query(value = "SELECT c FROM CategoryEntity c where c.state = 1")       // it will delete all the record with specific name
+    List<CategoryEntity> findAllByState();
+
+    @Transactional //try to add this annotation
+    @Modifying      // to mark delete or update query
     @Query(value = "UPDATE CategoryEntity c SET c.item = :item ,c.updated_at = current_timestamp WHERE c.id = :id")       // it will delete all the record with specific name
     int changeItem(@Param("item") int item, @Param("id") long id);
+
+    @Transactional //try to add this annotation
+    @Modifying      // to mark delete or update query
+    @Query(value = "UPDATE CategoryEntity c SET c.state = 0, c.updated_at = current_timestamp WHERE c.genderCategory.id = :id")       // it will delete all the record with specific name
+    int deleteByGenderCategory(@Param("id") long id);
+
+    @Transactional //try to add this annotation
+    @Modifying      // to mark delete or update query
+    @Query(value = "UPDATE CategoryEntity c SET c.state = 1, c.updated_at = current_timestamp WHERE c.genderCategory.id = :id")       // it will delete all the record with specific name
+    int restoreByGenderCategory(@Param("id") long id);
 }

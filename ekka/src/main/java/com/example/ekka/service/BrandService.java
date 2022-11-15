@@ -5,6 +5,8 @@ import com.example.ekka.dto.UserDto;
 import com.example.ekka.entities.BrandEntity;
 import com.example.ekka.entities.UserEntity;
 import com.example.ekka.repository.brand.BrandRepository;
+import com.example.ekka.repository.cart.CartRepository;
+import com.example.ekka.repository.product.ProductRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,12 @@ import java.util.Objects;
 public class BrandService {
     @Autowired
     BrandRepository brandRepository;
+
+    @Autowired
+    ProductRepository productRepository;
+
+    @Autowired
+    CartRepository cartRepository;
 
     public void save(BrandDto brandDto) throws Exception {
         BrandEntity brandEntity = new BrandEntity();
@@ -46,6 +54,10 @@ public class BrandService {
         return (List<BrandEntity>) brandRepository.findAllByUpdate_at();
     }
 
+    public List<BrandEntity> listAllByState() {
+        return (List<BrandEntity>) brandRepository.findAllByState();
+    }
+
     public BrandEntity get(long id) {
         return brandRepository.findById(id).get();
     }
@@ -63,6 +75,7 @@ public class BrandService {
         brandEntity.setUpdated_at(timestamp);
 
         brandRepository.save(brandEntity);
+        productRepository.deleteByBrand(brandDto.getId());
 
     }
 
@@ -79,6 +92,7 @@ public class BrandService {
         brandEntity.setUpdated_at(timestamp);
 
         brandRepository.save(brandEntity);
+        productRepository.restoreByBrand(brandDto.getId());
 
     }
 

@@ -175,6 +175,28 @@ function ecCheckCookie() {
             c = $(this).parents().parents().parents().children(".ec-pro-content").children("h5").children("a").html(),
             d = $(this).parents().parents().parents().children(".ec-pro-content").children(".ec-price").children(".new-price").html();
         $(".eccart-pro-items").append('<li><a href="product-left-sidebar.html" class="sidekka_pro_img"><img src="' + b + '" alt="product"></a><div class="ec-pro-content"><a href="product-left-sidebar.html" class="cart_pro_title">' + c + '</a><span class="cart-price"><span>' + d + '</span> x 1</span><div class="qty-plus-minus"><div class="dec ec_qtybtn">-</div><input class="qty-input" type="text" name="ec_qtybtn" value="1"><div class="inc ec_qtybtn">+</div></div><a href="javascript:void(0)" class="remove">\xd7</a></div></li>')
+    }),$("body").on("click", ".remove-to-cart", function () {
+        $(".ec-cart-float").fadeIn();
+        var a = $(".cart-count-lable").html();
+        a--, $(".cart-count-lable").html(a), $(".emp-cart-msg").parent().remove(), setTimeout(function () {
+            $(".ec-cart-float").fadeOut()
+        }, 5e3);
+        var b = $(this).parents().parents().children(".image").find(".main-image").attr("src"),
+            c = $(this).parents().parents().parents().children(".ec-pro-content").children("h5").children("a").html(),
+            d = $(this).parents().parents().parents().children(".ec-pro-content").children(".ec-price").children(".new-price").html();
+        $(".eccart-pro-items").append('<li><a href="product-left-sidebar.html" class="sidekka_pro_img"><img src="' + b + '" alt="product"></a><div class="ec-pro-content"><a href="product-left-sidebar.html" class="cart_pro_title">' + c + '</a><span class="cart-price"><span>' + d + '</span> x 1</span><div class="qty-plus-minus"><div class="dec ec_qtybtn">-</div><input class="qty-input" type="text" name="ec_qtybtn" value="1"><div class="inc ec_qtybtn">+</div></div><a href="javascript:void(0)" class="remove">\xd7</a></div></li>')
+    }),$("body").on("click", ".add-to-wish-list", function () {
+        $(".ec-wish-list-float").fadeIn();
+        var a = $(".wish-list-count-lable").html();
+        a++, $(".wish-list-count-lable").html(a), $(".emp-wish-list-msg").parent().remove(), setTimeout(function () {
+            $(".ec-wish-list-float").fadeOut()
+        }, 5e3);
+    }),$("body").on("click", ".remove-to-wish-list", function () {
+        $(".ec-wish-list-float").fadeIn();
+        var a = $(".wish-list-count-lable").html();
+        a--, $(".wish-list-count-lable").html(a), $(".emp-wish-list-msg").parent().remove(), setTimeout(function () {
+            $(".ec-wish-list-float").fadeOut()
+        }, 5e3);
     }), c = $(".ec-side-toggle"), j = $(".ec-side-cart"), k = $(".mobile-menu-toggle"), c.on("click", function (b) {
         b.preventDefault();
         var a = $(this), c = a.attr("href");

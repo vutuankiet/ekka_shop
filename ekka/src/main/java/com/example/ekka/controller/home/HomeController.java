@@ -67,11 +67,11 @@ public class HomeController {
             System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString());
             if(Objects.equals(SecurityContextHolder.getContext()
                     .getAuthentication().getAuthorities().toString(), "[ROLE_ANONYMOUS]")){
-                List<GenderCategoryEntity> listGenderCategory = genderCategoryService.listAll();
+                List<GenderCategoryEntity> listGenderCategory = genderCategoryService.listAllByState();
                 List<ProductColorEntity> listProductColor = productColorService.listAll();
                 List<ProductSizeEntity> listProductSize = productSizeService.listAll();
-                List<CategoryEntity> listCategory = categoryService.listAll();
-                List<BrandEntity> listBrand = brandService.listAll();
+                List<CategoryEntity> listCategory = categoryService.listAllByState();
+                List<BrandEntity> listBrand = brandService.listAllByState();
                 List<ProductEntity> listProductByState = productService.listAllProductByState();
 
                 model.addAttribute("listGenderCategory", listGenderCategory);
@@ -95,11 +95,11 @@ public class HomeController {
                 List<WishListEntity> listWishListUserId = wishListService.listAllUserId(id);
                 List<CartEntity> listCartUserId = cartService.listAllUserId(id);
 
-                List<GenderCategoryEntity> listGenderCategory = genderCategoryService.listAll();
+                List<GenderCategoryEntity> listGenderCategory = genderCategoryService.listAllByState();
                 List<ProductColorEntity> listProductColor = productColorService.listAll();
                 List<ProductSizeEntity> listProductSize = productSizeService.listAll();
-                List<CategoryEntity> listCategory = categoryService.listAll();
-                List<BrandEntity> listBrand = brandService.listAll();
+                List<CategoryEntity> listCategory = categoryService.listAllByState();
+                List<BrandEntity> listBrand = brandService.listAllByState();
                 List<ProductEntity> listProductByState = productService.listAllProductByState();
                 int countWishList = wishListService.countWishListUser(id);
                 int countCart = cartService.countCartUser(id);

@@ -84,7 +84,7 @@ public class CartController {
     //quyền USER được vào trang này
     @PreAuthorize("hasAnyRole('ROLE_USER')")
     @PostMapping(value = "cart/create/{id}")
-    public String createCart(@PathVariable(name = "id") int id, CartDto cartDto, @ModelAttribute("urlDto") UrlDto urlDto, RedirectAttributes model, Model m, HttpServletRequest request) {
+    public String createCart(@PathVariable(name = "id") int id, CartDto cartDto,@RequestParam String url, @ModelAttribute("urlDto") UrlDto urlDto, RedirectAttributes model, Model m, HttpServletRequest request) {
         List<ProductColorEntity> listProductColor = productColorService.listAll();
         List<ProductSizeEntity> listProductSize = productSizeService.listAll();
         List<ProductEntity> listProduct = productService.listAllProductId(id);
@@ -146,15 +146,15 @@ public class CartController {
         }
         System.out.println("id:"+id);
 
-        System.out.println("Url:" + urlDto.getUrl());
+        System.out.println("Url:" + url);
 
-        return "redirect:"+urlDto.getUrl();
+        return "redirect:"+url;
     }
 
     //quyền USER được vào trang này
     @PreAuthorize("hasAnyRole('ROLE_USER')")
     @PostMapping(value = "cart/create-cart-detail/{id}")
-    public String createWishList(@PathVariable(name = "id") int id, CartDto cartDto, @ModelAttribute("addCartDto") AddCartDto addCartDto, RedirectAttributes model, Model m, HttpServletRequest request) {
+    public String createCartDetail(@PathVariable(name = "id") int id, CartDto cartDto, @ModelAttribute("addCartDto") AddCartDto addCartDto, RedirectAttributes model, Model m, HttpServletRequest request) {
         List<ProductColorEntity> listProductColor = productColorService.listAll();
         List<ProductSizeEntity> listProductSize = productSizeService.listAll();
         List<ProductEntity> listProduct = productService.listAllProductId(id);
@@ -231,7 +231,7 @@ public class CartController {
     //quyền USER được vào trang này
     @PreAuthorize("hasAnyRole('ROLE_USER')")
     @PostMapping(value = "cart/delete/{id}")
-    public String deleteWishList(@PathVariable(name = "id") int id, CartDto cartDto, @ModelAttribute("urlDto") UrlDto urlDto, RedirectAttributes model, Model m) {
+    public String deleteCart(@PathVariable(name = "id") int id, CartDto cartDto,@RequestParam String url, @ModelAttribute("urlDto") UrlDto urlDto, RedirectAttributes model, Model m) {
         try {
             cartDto.setId(id);
             cartService.deleteCart(cartDto);
@@ -242,6 +242,6 @@ public class CartController {
         System.out.println("id:"+id);
 
 
-        return "redirect:"+urlDto.getUrl();
+        return "redirect:"+url;
     }
 }

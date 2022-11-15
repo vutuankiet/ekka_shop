@@ -21,6 +21,11 @@ public interface GenderCategoryRepository extends JpaRepository<GenderCategoryEn
 
     @Transactional //try to add this annotation
     @Modifying      // to mark delete or update query
+    @Query(value = "SELECT g FROM GenderCategoryEntity g where  g.state = 1")       // it will delete all the record with specific name
+    List<GenderCategoryEntity> findAllByState();
+
+    @Transactional //try to add this annotation
+    @Modifying      // to mark delete or update query
     @Query(value = "UPDATE GenderCategoryEntity g SET g.item = :item ,g.updated_at = current_timestamp WHERE g.id = :id")       // it will delete all the record with specific name
     int changeItem(@Param("item") int item, @Param("id") long id);
 }

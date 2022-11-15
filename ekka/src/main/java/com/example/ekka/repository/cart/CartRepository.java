@@ -33,9 +33,22 @@ public interface CartRepository extends JpaRepository<CartEntity, Long> {
     @Query(value = "DELETE FROM CartEntity c WHERE c.id = :id")       // it will delete all the record with specific name
     int deleteById(@Param("id") long id);
 
+    @Transactional //try to add this annotation
+    @Modifying      // to mark delete or update query
+    @Query(value = "DELETE FROM CartEntity c WHERE c.product.id = :id")       // it will delete all the record with specific name
+    int deleteByProduct(@Param("id") long id);
+
+    @Transactional //try to add this annotation
+    @Modifying      // to mark delete or update query
+    @Query(value = "DELETE FROM CartEntity c WHERE c.product.brand.id = :id")       // it will delete all the record with specific name
+    int deleteByBrand(@Param("id") long id);
+
     @Query(value = "SELECT count(c.id) FROM CartEntity c WHERE c.state = 1")
     int countAll();
 
     @Query(value = "SELECT count(c.id) FROM CartEntity c WHERE c.user.id = :id and c.state = 1")
     int countAllByUser(@Param("id") long id);
+
+    @Query(value = "SELECT count(c.id) FROM CartEntity c WHERE c.product.brand.id = :id and c.state = 1")
+    int countAllByBrand(@Param("id") long id);
 }
